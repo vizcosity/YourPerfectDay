@@ -7,23 +7,43 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		212EEE992318685D00C01AD8 /* BensonButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212EEE982318685D00C01AD8 /* BensonButton.swift */; };
 		213436E423098A42006B1CA8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213436E323098A42006B1CA8 /* AppDelegate.swift */; };
-		213436E623098A42006B1CA8 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213436E523098A42006B1CA8 /* FirstViewController.swift */; };
-		213436E823098A42006B1CA8 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213436E723098A42006B1CA8 /* SecondViewController.swift */; };
+		213436E623098A42006B1CA8 /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213436E523098A42006B1CA8 /* RecordViewController.swift */; };
 		213436EB23098A42006B1CA8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 213436E923098A42006B1CA8 /* Main.storyboard */; };
 		213436ED23098A43006B1CA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 213436EC23098A43006B1CA8 /* Assets.xcassets */; };
 		213436F023098A43006B1CA8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 213436EE23098A43006B1CA8 /* LaunchScreen.storyboard */; };
+		213436F82309A764006B1CA8 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213436F72309A764006B1CA8 /* GradientView.swift */; };
+		213436FC2309AD9F006B1CA8 /* MetricPromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213436FB2309AD9F006B1CA8 /* MetricPromptView.swift */; };
+		216CAA70237A010E004D6B8E /* MetricLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CAA6F237A010E004D6B8E /* MetricLog.swift */; };
+		21880FBB23806ED000A02055 /* MetricCellValueComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21880FBA23806ED000A02055 /* MetricCellValueComponent.swift */; };
+		21880FC1238093B100A02055 /* MetricCellValueComponent.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21880FC0238093B100A02055 /* MetricCellValueComponent.xib */; };
+		21938DBE2315552C0066B90B /* LogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21938DBD2315552C0066B90B /* LogViewController.swift */; };
+		21938DC023155E690066B90B /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21938DBF23155E690066B90B /* TabBarViewController.swift */; };
+		21C58F372327BCBB007EE5F1 /* CheckinCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C58F362327BCBB007EE5F1 /* CheckinCollectionViewCell.swift */; };
+		584165F7B4E6807DDAD411D1 /* Pods_Benson.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2A92CD5493626DFC8B1C68C /* Pods_Benson.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		212EEE982318685D00C01AD8 /* BensonButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BensonButton.swift; sourceTree = "<group>"; };
 		213436E023098A42006B1CA8 /* Benson.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Benson.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		213436E323098A42006B1CA8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		213436E523098A42006B1CA8 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		213436E723098A42006B1CA8 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		213436E523098A42006B1CA8 /* RecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
 		213436EA23098A42006B1CA8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		213436EC23098A43006B1CA8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		213436EF23098A43006B1CA8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		213436F123098A43006B1CA8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		213436F72309A764006B1CA8 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		213436FB2309AD9F006B1CA8 /* MetricPromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricPromptView.swift; sourceTree = "<group>"; };
+		216CAA6F237A010E004D6B8E /* MetricLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricLog.swift; sourceTree = "<group>"; };
+		21880FBA23806ED000A02055 /* MetricCellValueComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricCellValueComponent.swift; sourceTree = "<group>"; };
+		21880FC0238093B100A02055 /* MetricCellValueComponent.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MetricCellValueComponent.xib; sourceTree = "<group>"; };
+		21938DBD2315552C0066B90B /* LogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewController.swift; sourceTree = "<group>"; };
+		21938DBF23155E690066B90B /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		21C58F362327BCBB007EE5F1 /* CheckinCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinCollectionViewCell.swift; sourceTree = "<group>"; };
+		592CF5E8A42FEBFB886C11D1 /* Pods-Benson.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Benson.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Benson/Pods-Benson.debug.xcconfig"; sourceTree = "<group>"; };
+		A22AB671DFEEBD14729F9ABD /* Pods-Benson.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Benson.release.xcconfig"; path = "Pods/Target Support Files/Pods-Benson/Pods-Benson.release.xcconfig"; sourceTree = "<group>"; };
+		F2A92CD5493626DFC8B1C68C /* Pods_Benson.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Benson.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +51,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				584165F7B4E6807DDAD411D1 /* Pods_Benson.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		19BF2C8C61A7A4147F48F60D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				592CF5E8A42FEBFB886C11D1 /* Pods-Benson.debug.xcconfig */,
+				A22AB671DFEEBD14729F9ABD /* Pods-Benson.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		213436D723098A42006B1CA8 = {
 			isa = PBXGroup;
 			children = (
 				213436E223098A42006B1CA8 /* Benson */,
 				213436E123098A42006B1CA8 /* Products */,
+				19BF2C8C61A7A4147F48F60D /* Pods */,
+				E1B3C5F3A2F32C62968879A2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -57,14 +89,30 @@
 			isa = PBXGroup;
 			children = (
 				213436E323098A42006B1CA8 /* AppDelegate.swift */,
-				213436E523098A42006B1CA8 /* FirstViewController.swift */,
-				213436E723098A42006B1CA8 /* SecondViewController.swift */,
+				213436E523098A42006B1CA8 /* RecordViewController.swift */,
 				213436E923098A42006B1CA8 /* Main.storyboard */,
 				213436EC23098A43006B1CA8 /* Assets.xcassets */,
 				213436EE23098A43006B1CA8 /* LaunchScreen.storyboard */,
 				213436F123098A43006B1CA8 /* Info.plist */,
+				213436F72309A764006B1CA8 /* GradientView.swift */,
+				213436FB2309AD9F006B1CA8 /* MetricPromptView.swift */,
+				21938DBD2315552C0066B90B /* LogViewController.swift */,
+				21938DBF23155E690066B90B /* TabBarViewController.swift */,
+				212EEE982318685D00C01AD8 /* BensonButton.swift */,
+				21C58F362327BCBB007EE5F1 /* CheckinCollectionViewCell.swift */,
+				216CAA6F237A010E004D6B8E /* MetricLog.swift */,
+				21880FBA23806ED000A02055 /* MetricCellValueComponent.swift */,
+				21880FC0238093B100A02055 /* MetricCellValueComponent.xib */,
 			);
 			path = Benson;
+			sourceTree = "<group>";
+		};
+		E1B3C5F3A2F32C62968879A2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F2A92CD5493626DFC8B1C68C /* Pods_Benson.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +122,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 213436F423098A43006B1CA8 /* Build configuration list for PBXNativeTarget "Benson" */;
 			buildPhases = (
+				E8A224C8B2F5B1205EA135EE /* [CP] Check Pods Manifest.lock */,
 				213436DC23098A42006B1CA8 /* Sources */,
 				213436DD23098A42006B1CA8 /* Frameworks */,
 				213436DE23098A42006B1CA8 /* Resources */,
+				9650C711C3AA566677D917C9 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -126,6 +176,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				213436F023098A43006B1CA8 /* LaunchScreen.storyboard in Resources */,
+				21880FC1238093B100A02055 /* MetricCellValueComponent.xib in Resources */,
 				213436ED23098A43006B1CA8 /* Assets.xcassets in Resources */,
 				213436EB23098A42006B1CA8 /* Main.storyboard in Resources */,
 			);
@@ -133,14 +184,68 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		9650C711C3AA566677D917C9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Benson/Pods-Benson-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Benson/Pods-Benson-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E8A224C8B2F5B1205EA135EE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Benson-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		213436DC23098A42006B1CA8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				213436E823098A42006B1CA8 /* SecondViewController.swift in Sources */,
 				213436E423098A42006B1CA8 /* AppDelegate.swift in Sources */,
-				213436E623098A42006B1CA8 /* FirstViewController.swift in Sources */,
+				212EEE992318685D00C01AD8 /* BensonButton.swift in Sources */,
+				216CAA70237A010E004D6B8E /* MetricLog.swift in Sources */,
+				21938DBE2315552C0066B90B /* LogViewController.swift in Sources */,
+				213436E623098A42006B1CA8 /* RecordViewController.swift in Sources */,
+				213436FC2309AD9F006B1CA8 /* MetricPromptView.swift in Sources */,
+				21938DC023155E690066B90B /* TabBarViewController.swift in Sources */,
+				21C58F372327BCBB007EE5F1 /* CheckinCollectionViewCell.swift in Sources */,
+				213436F82309A764006B1CA8 /* GradientView.swift in Sources */,
+				21880FBB23806ED000A02055 /* MetricCellValueComponent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,6 +389,7 @@
 		};
 		213436F523098A43006B1CA8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 592CF5E8A42FEBFB886C11D1 /* Pods-Benson.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -302,6 +408,7 @@
 		};
 		213436F623098A43006B1CA8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A22AB671DFEEBD14729F9ABD /* Pods-Benson.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

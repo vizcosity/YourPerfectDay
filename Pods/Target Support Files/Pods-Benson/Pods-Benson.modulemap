@@ -1,0 +1,6 @@
+framework module Pods_Benson {
+  umbrella header "Pods-Benson-umbrella.h"
+
+  export *
+  module * { export * }
+}

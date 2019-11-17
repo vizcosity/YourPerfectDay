@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MetricCellValueComponent" customModule="Benson" customModuleProvider="target">
+            <connections>
+                <outlet property="metricAverageValueLabel" destination="GQf-tO-D3y" id="BMI-yB-l1K"/>
+                <outlet property="metricValueLabel" destination="kk4-Ti-hdt" id="xl0-Ti-HiT"/>
+                <outlet property="progressBar" destination="62x-9w-jwa" id="cCL-2a-syQ"/>
+                <outlet property="view" destination="iN0-l3-epB" id="lUg-Ck-2yP"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="154"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="62x-9w-jwa">
+                    <rect key="frame" x="20" y="80" width="374" height="2"/>
+                    <color key="tintColor" red="0.94712716340000003" green="0.83542150260000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </progressView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mood 3/6" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kk4-Ti-hdt">
+                    <rect key="frame" x="20" y="52" width="75" height="20"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.94712716340000003" green="0.83542150260000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Average 3/6" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GQf-tO-D3y">
+                    <rect key="frame" x="20" y="90" width="69" height="15"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" red="0.94712716340000003" green="0.83542150260000003" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="kk4-Ti-hdt" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="19d-ER-e6J"/>
+                <constraint firstItem="kk4-Ti-hdt" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="8" id="1Xw-ni-moO"/>
+                <constraint firstItem="62x-9w-jwa" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="Cot-3o-Irq"/>
+                <constraint firstItem="GQf-tO-D3y" firstAttribute="top" secondItem="62x-9w-jwa" secondAttribute="bottom" constant="8" id="PZq-bn-q7O"/>
+                <constraint firstItem="62x-9w-jwa" firstAttribute="top" secondItem="kk4-Ti-hdt" secondAttribute="bottom" constant="8" id="QTk-Qa-oq1"/>
+                <constraint firstItem="GQf-tO-D3y" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="UQt-Tl-UyI"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="62x-9w-jwa" secondAttribute="trailing" constant="20" id="cVh-z4-gf4"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="192.75362318840581" y="67.633928571428569"/>
+        </view>
+    </objects>
+</document>

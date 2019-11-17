@@ -7,6 +7,21 @@
 //
 
 import UIKit
+import Alamofire
+
+struct Colour {
+    static var primary: UIColor = #colorLiteral(red: 0.9471271634, green: 0.8354215026, blue: 1, alpha: 1)
+    static var secondary: UIColor = #colorLiteral(red: 0.6681160927, green: 0.5804412365, blue: 0.7499276996, alpha: 1)
+    static var darkText: UIColor = #colorLiteral(red: 0.5621231198, green: 0.4875727296, blue: 0.60321486, alpha: 1)
+    static var gradientOne: UIColor = #colorLiteral(red: 0.2296182215, green: 0.0797938332, blue: 0.2422780991, alpha: 1)
+    static var gradientTwo: UIColor = #colorLiteral(red: 0.01777612977, green: 0.06035795063, blue: 0.151725024, alpha: 1)
+    static var selectedButtonText: UIColor = #colorLiteral(red: 0.1964504421, green: 0.171156913, blue: 0.233199805, alpha: 1)
+}
+
+struct Constants {
+    static var horizontalButtonMargin: CGFloat = 35
+    static var buttonEdgeInsets: CGFloat = 5
+}
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -31,6 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {

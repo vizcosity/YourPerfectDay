@@ -16,6 +16,7 @@
 		213436F82309A764006B1CA8 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213436F72309A764006B1CA8 /* GradientView.swift */; };
 		213436FC2309AD9F006B1CA8 /* MetricPromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213436FB2309AD9F006B1CA8 /* MetricPromptView.swift */; };
 		216CAA70237A010E004D6B8E /* MetricLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CAA6F237A010E004D6B8E /* MetricLog.swift */; };
+		2184B020238D11F900FE96EA /* Fetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2184B01F238D11F900FE96EA /* Fetcher.swift */; };
 		21880FBB23806ED000A02055 /* MetricCellValueComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21880FBA23806ED000A02055 /* MetricCellValueComponent.swift */; };
 		21880FC1238093B100A02055 /* MetricCellValueComponent.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21880FC0238093B100A02055 /* MetricCellValueComponent.xib */; };
 		21938DBE2315552C0066B90B /* LogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21938DBD2315552C0066B90B /* LogViewController.swift */; };
@@ -36,6 +37,7 @@
 		213436F72309A764006B1CA8 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		213436FB2309AD9F006B1CA8 /* MetricPromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricPromptView.swift; sourceTree = "<group>"; };
 		216CAA6F237A010E004D6B8E /* MetricLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricLog.swift; sourceTree = "<group>"; };
+		2184B01F238D11F900FE96EA /* Fetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fetcher.swift; sourceTree = "<group>"; };
 		21880FBA23806ED000A02055 /* MetricCellValueComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricCellValueComponent.swift; sourceTree = "<group>"; };
 		21880FC0238093B100A02055 /* MetricCellValueComponent.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MetricCellValueComponent.xib; sourceTree = "<group>"; };
 		21938DBD2315552C0066B90B /* LogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewController.swift; sourceTree = "<group>"; };
@@ -89,22 +91,63 @@
 			isa = PBXGroup;
 			children = (
 				213436E323098A42006B1CA8 /* AppDelegate.swift */,
-				213436E523098A42006B1CA8 /* RecordViewController.swift */,
 				213436E923098A42006B1CA8 /* Main.storyboard */,
 				213436EC23098A43006B1CA8 /* Assets.xcassets */,
 				213436EE23098A43006B1CA8 /* LaunchScreen.storyboard */,
 				213436F123098A43006B1CA8 /* Info.plist */,
-				213436F72309A764006B1CA8 /* GradientView.swift */,
-				213436FB2309AD9F006B1CA8 /* MetricPromptView.swift */,
+				217BEFC12395BC4B0076DF02 /* Views */,
+				217BEFC02395BC390076DF02 /* View Controllers */,
+				21B013F62381EE45008FF7BB /* Assets */,
+				216CAA6F237A010E004D6B8E /* MetricLog.swift */,
+				21FC4EA8238D185800578DE5 /* Utils */,
+			);
+			path = Benson;
+			sourceTree = "<group>";
+		};
+		217BEFC02395BC390076DF02 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				213436E523098A42006B1CA8 /* RecordViewController.swift */,
 				21938DBD2315552C0066B90B /* LogViewController.swift */,
 				21938DBF23155E690066B90B /* TabBarViewController.swift */,
-				212EEE982318685D00C01AD8 /* BensonButton.swift */,
-				21C58F362327BCBB007EE5F1 /* CheckinCollectionViewCell.swift */,
-				216CAA6F237A010E004D6B8E /* MetricLog.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		217BEFC12395BC4B0076DF02 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				213436FB2309AD9F006B1CA8 /* MetricPromptView.swift */,
+				213436F72309A764006B1CA8 /* GradientView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		21B013F52381EE21008FF7BB /* CellComponent */ = {
+			isa = PBXGroup;
+			children = (
 				21880FBA23806ED000A02055 /* MetricCellValueComponent.swift */,
 				21880FC0238093B100A02055 /* MetricCellValueComponent.xib */,
 			);
-			path = Benson;
+			path = CellComponent;
+			sourceTree = "<group>";
+		};
+		21B013F62381EE45008FF7BB /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				21C58F362327BCBB007EE5F1 /* CheckinCollectionViewCell.swift */,
+				212EEE982318685D00C01AD8 /* BensonButton.swift */,
+				21B013F52381EE21008FF7BB /* CellComponent */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		21FC4EA8238D185800578DE5 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				2184B01F238D11F900FE96EA /* Fetcher.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		E1B3C5F3A2F32C62968879A2 /* Frameworks */ = {
@@ -237,6 +280,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				213436E423098A42006B1CA8 /* AppDelegate.swift in Sources */,
+				2184B020238D11F900FE96EA /* Fetcher.swift in Sources */,
 				212EEE992318685D00C01AD8 /* BensonButton.swift in Sources */,
 				216CAA70237A010E004D6B8E /* MetricLog.swift in Sources */,
 				21938DBE2315552C0066B90B /* LogViewController.swift in Sources */,

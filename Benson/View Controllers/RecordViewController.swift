@@ -9,12 +9,6 @@
 import UIKit
 import Alamofire
 
-struct Webserver {
-    static var endpoint = Bundle.main.object(forInfoDictionaryKey: "Webserver Endpoint") as! String
-    static var getMetrics: String = "\(Webserver.endpoint)/metrics"
-    static var getLastCheckin: String = "\(Webserver.endpoint)/lastCheckin"
-    static var submitCheckin: String = "\(Webserver.endpoint)/checkin"
-}
 
 @IBDesignable
 class RecordViewController: UIViewController, MetricSelectionDelegate {
@@ -33,7 +27,11 @@ class RecordViewController: UIViewController, MetricSelectionDelegate {
     
     @IBOutlet weak var metricPromptStackView: UIStackView!
     
-    var metricPrompts : [[String: Any]] = [["title": "I'm feeling", "responses": ["Horrible", "Meh", "Okay", "Not Bad", "Great"]]] {
+    // Hold a copy of the Fetcher which will be used to store a cached version of all the metric prompts.
+    var fetcher = Fetcher()
+    
+    var metricPrompts : [MetricPrompt] = [MetricPrompt(metricId: "feeling", metricTitle: "I'm Feeling", responses: [MetricResponse(title: "Horrible", value: 0), MetricResponse(title: "Meh", value: 1), MetricResponse(title: "Okay", value: 1), MetricResponse(title: "Okay", value: 2), MetricResponse(title: "Not Bad", value: 3), MetricResponse(title: "Great", value: 4)])] {
+        
         didSet {
             
             // Stop animating the spinner if so.
@@ -47,51 +45,47 @@ class RecordViewController: UIViewController, MetricSelectionDelegate {
     
     var selectedMetrics : [(String, Int)] = []
     
-    func addOrUpdate(metricPrompt: [String: Any]) {
+    func addOrUpdate(metricPrompt: MetricPrompt) {
         let metricPromptView = MetricPromptView()
-        metricPromptView.metricTitle = metricPrompt["title"] as? String ?? ""
-        metricPromptView.metricId = metricPrompt["metricId"] as? String ?? "Unassigned Metric ID"
-        metricPromptView.responses = (metricPrompt["responses"] as? [[String: Any]])?.map({ (prompt) -> String in
-            return prompt["title"] as? String ?? ""
-        }) ?? []
-        metricPromptView.actionDelegate = self
-       
-        if (!metricPromptStackView.arrangedSubviews.contains(metricPromptView)){
             
-            print("Adding \(metricPromptView.metricId)")
-            metricPromptStackView.addArrangedSubview(metricPromptView)
-        }
+        print("Obtained metric title: \(metricPrompt.metricTitle) for metricId: \(metricPrompt.metricId)")
+            
+             metricPromptView.actionDelegate = self
+             metricPromptView.metricTitle = metricPrompt.metricTitle
+             metricPromptView.metricId = metricPrompt.metricId
+             metricPromptView.responses = metricPrompt.responses.map({ (metricResponse) -> String in
+                 return metricResponse.title
+             })
+            
+            if (!self.metricPromptStackView.arrangedSubviews.contains(metricPromptView)){
+                 
+                 print("Adding \(metricPromptView.metricId)")
+                self.metricPromptStackView.addArrangedSubview(metricPromptView)
+             }        
+
     }
     
-    func fetchAndInsertMetricPrompts(){
-        
-        print("Fetching metric prompts from \(Webserver.getMetrics)")
-        
+   func fetchAndInsertMetricPrompts(){
+          
         // Start spinner.
         retrieveMetricSpinner?.startAnimating()
-        
-        AF.request(Webserver.getMetrics).responseJSON(queue: DispatchQueue.global(qos: .userInitiated), options: .allowFragments) { (response) in
-            print("Recieved resposne: \(response)")
-                if let metricPrompts = try? response.result.get() as? [[String: Any]] {
-
-                    // Setting this variable will cause the UI to update, therefore we cannot perform this action on an 'off-global' view.
-                    DispatchQueue.main.async { [weak self] in
-                        // In case the asynchronous request takes too long, the VC which instantiated it, and would recieve the update, may not even be on the heap anymore. However, this closure would maintain a reference to the VC and keep it on the heap, unnecessarily. If we make it a weak reference, however, we prevent this from happening.
-                        self?.metricPrompts = metricPrompts
-                    }
-                }
+          
+        fetcher.fetchMetricPrompts { (metricPrompts) in
+            
+            // Setting this variable will cause the UI to update, therefore we cannot perform this action on an 'off-global' view.
+            DispatchQueue.main.async { [weak self] in
+                // In case the asynchronous request takes too long, the VC which instantiated it, and would recieve the update, may not even be on the heap anymore. However, this closure would maintain a reference to the VC and keep it on the heap, unnecessarily. If we make it a weak reference, however, we prevent this from happening.
+                self?.metricPrompts = metricPrompts
+            }
         }
+      
 
-    }
+      }
     
     
     @IBAction func submitCheckin(_ sender: Any) {
         
         print("Selected metrics [\(selectedMetrics.count)]: \(selectedMetrics)")
-        
-//        selectedMetrics.forEach { (metricId, responseValue) in
-//            checkin(forMetricId: metricId, withValue: responseValue)
-//        }
 
         checkin(metricResposnes: selectedMetrics.map({ (metricId, responseValue) -> [String: Any] in
             return [
@@ -124,12 +118,10 @@ class RecordViewController: UIViewController, MetricSelectionDelegate {
         }
     }
     
-    func getMetricPrompt(byId id: String) -> [String: Any]? {
-        let filteredPrompts = self.metricPrompts.filter { (prompt) -> Bool in
-            return prompt["metricId"] as? String == id
-        }
-        
-        return filteredPrompts.count == 1 ? filteredPrompts[0] : nil
+    func getMetricPrompt(byId id: String) -> MetricPrompt? {
+        return self.metricPrompts.filter { (prompt) -> Bool in
+            return prompt.metricId == id
+        }.first
     }
     
     func clearSelectedMetrics(){
@@ -188,21 +180,23 @@ class RecordViewController: UIViewController, MetricSelectionDelegate {
     func didSelectMetric(responseIndex: Int, withMetricId metricId: String) {
         print("Did select metric action recieved for responseIndex: \(responseIndex) and metricId \(metricId)")
         if let metric = getMetricPrompt(byId: metricId) {
-            if let responses = metric["responses"] as? [[String: Any]] {
-                if let responseValue = responses[responseIndex]["value"] as? Int {
-//                    checkin(forMetricId: metricId, withValue: responseValue)
-                    
-                    // Ensure we only add the selected metric if it has not already been added to the array.
-                    selectedMetrics = selectedMetrics.filter({ (tuple) -> Bool in
-                        let (selectedId, _) = tuple
-                        return metricId != selectedId
-                    })
-                    
-                    selectedMetrics.append((metricId, responseValue))
-                    
-                    print("Selected metrics after adding \(metricId): \(selectedMetrics)")
-                }
-            }
+            let responses = metric.responses
+            
+            // If the response index exceeds the total number of responses, return instead of producing an index out of bounds error.
+            guard responseIndex < responses.count else { return }
+            
+            let responseValue = responses[responseIndex].value
+          
+            // Ensure we only add the selected metric if it has not already been added to the array.
+            selectedMetrics = selectedMetrics.filter({ (tuple) -> Bool in
+                let (selectedId, _) = tuple
+                return metricId != selectedId
+            })
+           
+            selectedMetrics.append((metricId, responseValue))
+           
+            print("Selected metrics after adding \(metricId): \(selectedMetrics)")
+            
         }
     }
     

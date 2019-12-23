@@ -37,7 +37,7 @@ class MetricCellValueComponent: UIView {
     */
     
     func updateProgressBar(){
-        print("Updating progress to \((Float(self.currentValue) / Float(self.max)))")
+//        print("Updating progress to \((Float(self.currentValue) / Float(self.max)))")
         self.progressBar.progress = (Float(self.currentValue) / Float(self.max))
     }
     

@@ -7,5 +7,8 @@ target 'Benson' do
 
   # Pods for Benson
   pod 'Alamofire', '~> 5.0.0-beta.5'
-
+  pod 'Havrefras', :git => 'https://github.com/carechain/Havrefras.git'
+  pod 'SwiftyJSON', '~> 4.0'
+  pod 'Alamofire-SwiftyJSON'
+    
 end

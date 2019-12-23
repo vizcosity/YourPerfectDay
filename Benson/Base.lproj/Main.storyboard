@@ -132,29 +132,44 @@
                                         <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MetricLogCell" id="bMv-sL-YZM" customClass="CheckinCollectionViewCell" customModule="Benson" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="398" height="43.5"/>
+                                                <rect key="frame" x="0.0" y="28" width="398" height="60.5"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bMv-sL-YZM" id="MYa-QL-Kg9">
-                                                    <rect key="frame" x="0.0" y="0.0" width="398" height="43.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="398" height="60.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clock" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Ux5-L5-unu">
-                                                            <rect key="frame" x="358" y="20.5" width="20" height="19"/>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ClockIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Ux5-L5-unu">
+                                                            <rect key="frame" x="363" y="25" width="15" height="15"/>
                                                             <color key="tintColor" red="0.94712716340000003" green="0.83542150260000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="15" identifier="ClockIconWidth" id="6NU-F8-GOY"/>
+                                                                <constraint firstAttribute="height" constant="15" identifier="ClockIconHeight" id="8Dz-Yn-odB"/>
+                                                            </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yz0-lc-Pbq">
-                                                            <rect key="frame" x="312.5" y="21" width="37.5" height="18"/>
+                                                            <rect key="frame" x="317.5" y="23.5" width="37.5" height="18"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <color key="textColor" red="0.94712716340000003" green="0.83542150260000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstAttribute="trailing" secondItem="Ux5-L5-unu" secondAttribute="trailing" constant="20" id="2Dh-2S-cxv"/>
-                                                        <constraint firstItem="Yz0-lc-Pbq" firstAttribute="centerY" secondItem="Ux5-L5-unu" secondAttribute="centerY" id="3Z8-9F-bed"/>
-                                                        <constraint firstItem="Ux5-L5-unu" firstAttribute="leading" secondItem="Yz0-lc-Pbq" secondAttribute="trailing" constant="8" id="FWr-9N-BnC"/>
-                                                        <constraint firstItem="Ux5-L5-unu" firstAttribute="top" secondItem="MYa-QL-Kg9" secondAttribute="top" constant="20" id="phH-k4-D9R"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Ux5-L5-unu" secondAttribute="trailing" constant="20" identifier="LabelTrailingToClock" id="2Dh-2S-cxv"/>
+                                                        <constraint firstItem="Yz0-lc-Pbq" firstAttribute="centerY" secondItem="Ux5-L5-unu" secondAttribute="centerY" identifier="LabelVerticalCentering" id="3Z8-9F-bed"/>
+                                                        <constraint firstItem="Ux5-L5-unu" firstAttribute="leading" secondItem="Yz0-lc-Pbq" secondAttribute="trailing" constant="8" identifier="ClockLeadingToLabel" id="FWr-9N-BnC"/>
+                                                        <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Ux5-L5-unu" secondAttribute="bottom" constant="20" identifier="ClockBottomToContentView" id="bPJ-vf-b7d"/>
+                                                        <constraint firstItem="Yz0-lc-Pbq" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="MYa-QL-Kg9" secondAttribute="leading" constant="20" symbolic="YES" identifier="LabelLeadingConstraint" id="jxE-Gg-0Av"/>
+                                                        <constraint firstItem="Ux5-L5-unu" firstAttribute="top" secondItem="MYa-QL-Kg9" secondAttribute="top" constant="25" identifier="ClockTopToContentView" id="phH-k4-D9R"/>
                                                     </constraints>
+                                                </tableViewCellContentView>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </tableViewCell>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableViewCellSeparator" rowHeight="10" id="Myp-2V-AEq">
+                                                <rect key="frame" x="0.0" y="88.5" width="398" height="10"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Myp-2V-AEq" id="Y6E-vI-CXJ">
+                                                    <rect key="frame" x="0.0" y="0.0" width="398" height="10"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
                                                 </tableViewCellContentView>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </tableViewCell>
@@ -232,9 +247,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="ClockIcon" width="15" height="15"/>
         <image name="LogTabBarIcon" width="27" height="21"/>
         <image name="RecordTabBarIcon" width="21" height="21"/>
-        <image name="clock" catalog="system" width="64" height="60"/>
         <image name="second" width="30" height="30"/>
     </resources>
 </document>

@@ -13,6 +13,7 @@ class MetricPrompt {
     var metricId: String
     var metricTitle: String
     var responses: [MetricResponse]
+    
     init(metricId: String, metricTitle: String, responses: [MetricResponse]) {
         self.metricId = metricId
         self.responses = responses
@@ -54,37 +55,57 @@ class MetricResponse {
 }
 
 // Data model for a single attribute.
-class MetricAttribute {
+class MetricAttribute: CustomStringConvertible {
+    
+    var description: String {
+        get {
+            return "[MetricAttribute] \(name): (\(value)/\(average))"
+        }
+    }
+    
     static let maxValue = 5
     var name: String
     var value: Int
-    var average: Int?
-    init(name: String, value: Int) {
+    var average: Int
+    
+    init(name: String, value: Int, average: Int){
         self.name = name
         self.value = value
+        self.average = average
+    }
+    
+    convenience init(name: String, value: Int) {
+        self.init(name: name, value: value, average: value)
     }
 }
 
 // Data model for metric logs.
-class MetricLog {
-        
-    var metrics: [MetricAttribute]?
-    var timestamp: Date?
-    var timeSince: String?
+class MetricLog: CustomStringConvertible {
     
-    // TODO: Add convenience initialiser which can take in a JSON object.
-    init() {
-        self.timeSince = "Some time ago"
+    var description: String {
+        get {
+            return "\(self.metrics): \(self.timeSince)"
+        }
     }
     
-    init(metrics: [MetricAttribute], timeSince: String){
+    var id: String?
+    var metrics: [MetricAttribute] = []
+    var timestamp: Date?
+    var timeSince: String = "Some time ago"
+    
+    /// Summary data obtained from healthkit for the day when the log was recorded.
+    var enrichedData: BensonHealthDataObject?
+    
+    init(metrics: [MetricAttribute], timeSince: String, id: String? = nil){
         self.metrics = metrics
         self.timeSince = timeSince
+        self.id = id
     }
     
-    convenience init(metrics: [MetricAttribute], timeSince: String, timestamp: Int) {
+    convenience init(metrics: [MetricAttribute], timeSince: String, timestamp: Int, id: String? = nil) {
         self.init(metrics: metrics, timeSince: timeSince)
         self.timestamp = Date(timeIntervalSince1970: Double(timestamp))
+        self.id = id
     }
     
 }

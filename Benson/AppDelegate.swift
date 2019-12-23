@@ -23,14 +23,41 @@ struct Constants {
     static var buttonEdgeInsets: CGFloat = 5
 }
 
+import UserNotifications
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var notificationCenter: UNUserNotificationCenter?
+    var notifier: BensonNotifier?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        print("[Webserver] | Using API: \(Webserver.endpoint)")
+        
+        // Register notifications.
+        self.notifier = BensonNotifier(alertTimes: nil, message: "It's time to checkin.")
+        
+        // Fetch unenriched checkins.
+        Fetcher.sharedInstance.fetchUnenrichedCheckinDates { (dates) in
+            
+//            BensonHealthManager.sharedInstance?.fetchHealthData(forDay: dates.last!, completionHandler: { (healthDataObject) in
+//                self.log("Fetched \(String(describing: healthDataObject.toJSON()))")
+//            })
+            
+            BensonHealthManager.sharedInstance?.fetchHealthData(forDays: dates, completionHandler: { (healthDataObjects) in
+                self.log("Fetched \(healthDataObjects.count). Submitting these now.")
+
+                Fetcher.sharedInstance.submitHealthDataObjects(healthDataObjects: healthDataObjects) { (result, error) in
+                    self.log("Submitted all healthDataObjects. Result: \(String(describing: result)). Error: \(String(describing: error))")
+                }
+
+            })
+            
+        }
+                        
         return true
     }
 
@@ -46,7 +73,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-        
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
@@ -57,6 +83,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-
+    private func log(_ message: String){
+        print("[AppDelegate] \(message)")
+    }
 }
 

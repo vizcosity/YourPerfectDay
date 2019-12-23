@@ -30,7 +30,8 @@ class RecordViewController: UIViewController, MetricSelectionDelegate {
     // Hold a copy of the Fetcher which will be used to store a cached version of all the metric prompts.
     var fetcher = Fetcher()
     
-    var metricPrompts : [MetricPrompt] = [MetricPrompt(metricId: "feeling", metricTitle: "I'm Feeling", responses: [MetricResponse(title: "Horrible", value: 0), MetricResponse(title: "Meh", value: 1), MetricResponse(title: "Okay", value: 1), MetricResponse(title: "Okay", value: 2), MetricResponse(title: "Not Bad", value: 3), MetricResponse(title: "Great", value: 4)])] {
+//    var metricPrompts = MetricPrompt(metricId: "feeling", metricTitle: "I'm Feeling", responses: [MetricResponse(title: "Horrible", value: 0), MetricResponse(title: "Meh", value: 1), MetricResponse(title: "Okay", value: 1), MetricResponse(title: "Okay", value: 2), MetricResponse(title: "Not Bad", value: 3), MetricResponse(title: "Great", value: 4)])
+    var metricPrompts : [MetricPrompt] = [] {
         
         didSet {
             
@@ -48,7 +49,7 @@ class RecordViewController: UIViewController, MetricSelectionDelegate {
     func addOrUpdate(metricPrompt: MetricPrompt) {
         let metricPromptView = MetricPromptView()
             
-        print("Obtained metric title: \(metricPrompt.metricTitle) for metricId: \(metricPrompt.metricId)")
+//        print("Obtained metric title: \(metricPrompt.metricTitle) for metricId: \(metricPrompt.metricId)")
             
              metricPromptView.actionDelegate = self
              metricPromptView.metricTitle = metricPrompt.metricTitle
@@ -68,7 +69,9 @@ class RecordViewController: UIViewController, MetricSelectionDelegate {
    func fetchAndInsertMetricPrompts(){
           
         // Start spinner.
-        retrieveMetricSpinner?.startAnimating()
+        if self.metricPrompts.isEmpty {
+            retrieveMetricSpinner?.startAnimating()
+        }
           
         fetcher.fetchMetricPrompts { (metricPrompts) in
             
@@ -85,7 +88,7 @@ class RecordViewController: UIViewController, MetricSelectionDelegate {
     
     @IBAction func submitCheckin(_ sender: Any) {
         
-        print("Selected metrics [\(selectedMetrics.count)]: \(selectedMetrics)")
+//        print("Selected metrics [\(selectedMetrics.count)]: \(selectedMetrics)")
 
         checkin(metricResposnes: selectedMetrics.map({ (metricId, responseValue) -> [String: Any] in
             return [
@@ -100,7 +103,9 @@ class RecordViewController: UIViewController, MetricSelectionDelegate {
     
     func fetchAndInsertLastCheckin(){
        
-        retrieveLastCheckinSpinner.startAnimating()
+        if self.lastCheckinLabel.text == "" {
+                retrieveLastCheckinSpinner.startAnimating()
+        }
         
         AF.request(Webserver.getLastCheckin).responseString(queue: DispatchQueue.global(qos: .background)) {
                 response in
@@ -135,7 +140,7 @@ class RecordViewController: UIViewController, MetricSelectionDelegate {
     
     func checkin(forMetricId id: String, withValue value: Int){
         
-        print("Attempting to checkin for \(id) with value \(value)")
+//        print("Attempting to checkin for \(id) with value \(value)")
         
         AF.request(Webserver.submitCheckin, method: .post, parameters: [
             "metricId": id,
@@ -144,19 +149,19 @@ class RecordViewController: UIViewController, MetricSelectionDelegate {
                 do {
                     if let result = try response.result.get() as? [String:Any] {
                         if result["success"] as? Int == 1 {
-                            print("Successfully submitted checkin for \(id) with value \(value)")
+//                            print("Successfully submitted checkin for \(id) with value \(value)")
                         }
                     }
                     
                     self.fetchAndInsertLastCheckin()
                 } catch {
-                    print("Could not submit checkin: \(error)")
+//                    print("Could not submit checkin: \(error)")
                 }
         }
     }
     
     func checkin(metricResposnes: [[String: Any]]){
-        print("Attempting to checkin for metricResponses: \(metricResposnes)")
+//        print("Attempting to checkin for metricResponses: \(metricResposnes)")
         
         AF.request(Webserver.submitCheckin, method: .post, parameters: [
             "array": metricResposnes
@@ -165,20 +170,20 @@ class RecordViewController: UIViewController, MetricSelectionDelegate {
             do {
                 if let result = try response.result.get() as? [String:Any] {
                     if result["success"] as? Int == 1 {
-                        print("Successfully submitted checkin for \(metricResposnes.count) metricResponses")
+//                        print("Successfully submitted checkin for \(metricResposnes.count) metricResponses")
                     }
                 }
                 
                 self.fetchAndInsertLastCheckin()
             } catch {
-                print("Could not submit checkin: \(error)")
+//                print("Could not submit checkin: \(error)")
             }
         }
     }
     
     // Delegate implementations.
     func didSelectMetric(responseIndex: Int, withMetricId metricId: String) {
-        print("Did select metric action recieved for responseIndex: \(responseIndex) and metricId \(metricId)")
+//        print("Did select metric action recieved for responseIndex: \(responseIndex) and metricId \(metricId)")
         if let metric = getMetricPrompt(byId: metricId) {
             let responses = metric.responses
             
@@ -195,17 +200,24 @@ class RecordViewController: UIViewController, MetricSelectionDelegate {
            
             selectedMetrics.append((metricId, responseValue))
            
-            print("Selected metrics after adding \(metricId): \(selectedMetrics)")
+//            print("Selected metrics after adding \(metricId): \(selectedMetrics)")
             
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.fetchAndInsertMetricPrompts()
+        self.fetchAndInsertLastCheckin()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        fetchAndInsertMetricPrompts()
-        fetchAndInsertLastCheckin()
+        self.fetchAndInsertMetricPrompts()
+        self.fetchAndInsertLastCheckin()
         
     }
 

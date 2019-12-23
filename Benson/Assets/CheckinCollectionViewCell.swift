@@ -11,8 +11,11 @@ import UIKit
 //@IBDesignable
 class CheckinCollectionViewCell: UITableViewCell {
 
-    var metricLog: MetricLog? { didSet { draw(metricAttributes: self.metricLog!.metrics ?? []); setTimeSinceLabel(metricLog: self.metricLog!) } }
+    var metricLog: MetricLog? { didSet { draw(metricAttributes: self.metricLog!.metrics ); setTimeSinceLabel(metricLog: self.metricLog!)
         
+        } }
+        
+    
     // Set the background to the secondary background colour.
     
     // Why do we need this?
@@ -30,13 +33,14 @@ class CheckinCollectionViewCell: UITableViewCell {
     func setTimeSinceLabel(metricLog: MetricLog){
         // Display the time since the log took place.
         if let sinceLabel = self.viewWithTag(1) as? UILabel {
-            sinceLabel.text = metricLog.timeSince ?? "some time ago"
+            sinceLabel.text = metricLog.timeSince
+            print("[CheckinCollectionViewCell] | Updated label with \(String(describing: sinceLabel.text))")
         }
     }
     
     // Adds metric cell value component child views displaying each of the metric attributes contained in the parameter passed.
     func draw(metricAttributes: [MetricAttribute]){
-        
+                
         let verticalOffsetToSuperview: CGFloat  = 30
         let verticalOffsetToPreviousComponent: CGFloat = 10.0
         
@@ -44,6 +48,9 @@ class CheckinCollectionViewCell: UITableViewCell {
         var embeddedComponents : [MetricCellValueComponent] = []
         
         let cellSuperView = self.contentView
+        
+        // Clear all components that have previously been drawn.
+        cellSuperView.subviews.forEach { ($0 as? MetricCellValueComponent)?.removeFromSuperview() }
         
         metricAttributes.forEach {
             attribute in
@@ -85,7 +92,7 @@ class CheckinCollectionViewCell: UITableViewCell {
         if let lastComponent = embeddedComponents.last {
 //            print("Setting bottom anchor constraint for the last embedded metric attribute: \(lastComponent.type)")
             let constraintAnchor = cellSuperView.layoutMarginsGuide.bottomAnchor
-            lastComponent.bottomAnchor.constraint(equalTo: constraintAnchor, constant: 0).isActive = true
+            lastComponent.bottomAnchor.constraint(equalTo: constraintAnchor, constant: -20).isActive = true
         }
         
     }
@@ -118,7 +125,7 @@ class CheckinCollectionViewCell: UITableViewCell {
         cellValueComponent.currentValue = attribute.value
         cellValueComponent.type = attribute.name
         // TODO: Ensure that we add an average value everytime we create a metric attribute response.
-         cellValueComponent.averageValue = attribute.average ?? attribute.value
+        cellValueComponent.averageValue = attribute.average 
                 
         
         

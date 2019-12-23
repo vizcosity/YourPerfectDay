@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSHealthShareUsageDescription</key>
+	<string>Benson analyses sleep, workout and metabolic activity in order to find patterns and correlate this with how you feel.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -59,8 +61,8 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>Webserver Endpoint</key>
-	<string>http://localhost:3000/api/v1</string>
-	<key>Webserver Endpoint (Herkou)</key>
+	<string>$(API_ENDPOINT)</string>
+	<key>Webserver Endpoint (Heroku)</key>
 	<string>http://benson-backend.herokuapp.com/api/v1</string>
 	<key>Webserver Endpoint (Local)</key>
 	<string>http://localhost:3000/api/v1</string>

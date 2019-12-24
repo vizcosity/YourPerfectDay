@@ -147,7 +147,7 @@ class Fetcher {
     /// Submits a health data object to the backend.
     /// The completionHandler receives the ID for the submitted healthdata object, if submitted successfully.
     public func submitHealthDataObject(healthDataObject: BensonHealthDataObject, completionHandler: @escaping (_ id: String?, _ error: String?) -> Void){
-        self.sendPostRequest(toEndpoint: Webserver.submitHealthData, withStringBody: healthDataObject.toJSON() ?? "{}") { (json) in
+        self.sendPostRequest(toEndpoint: Webserver.submitHealthData, withStringBody: healthDataObject.toJSONString() ?? "{}") { (json) in
             if let success = Bool(json["success"].stringValue), success {
                 completionHandler(json["id"].stringValue, nil)
             } else {
@@ -161,9 +161,10 @@ class Fetcher {
     public func submitHealthDataObjects(healthDataObjects: [BensonHealthDataObject], completionHandler: @escaping (_ id: String?, _ error: String?) -> Void){
                 
         let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .iso8601
         
 //        let stringifiedHealthDataObjects = try? encoder.encode(healthDataObjects.map { (healthDataObject) -> String in
-//            return healthDataObject.toJSON() ?? "{}"
+//            return healthDataObject.toJSONString() ?? "{}"
 //        })
         
         let stringifiedHealthDataObjects = try? encoder.encode(healthDataObjects)

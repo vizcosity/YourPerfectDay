@@ -43,8 +43,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Fetch unenriched checkins.
         Fetcher.sharedInstance.fetchUnenrichedCheckinDates { (dates) in
             
-//            BensonHealthManager.sharedInstance?.fetchHealthData(forDay: dates.last!, completionHandler: { (healthDataObject) in
-//                self.log("Fetched \(String(describing: healthDataObject.toJSON()))")
+//            BensonHealthManager.sharedInstance?.fetchHealthData(forDay: Calendar.current.date(byAdding: .day, value: -2, to: Date())!, completionHandler: { (healthDataObject) in
+//                self.log("Fetched \(String(describing: healthDataObject.toJSONString()))")
 //            })
             
             BensonHealthManager.sharedInstance?.fetchHealthData(forDays: dates, completionHandler: { (healthDataObjects) in

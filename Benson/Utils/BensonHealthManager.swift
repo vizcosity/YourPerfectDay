@@ -21,8 +21,9 @@ struct BensonHealthUtil {
         HKObjectType.quantityType(forIdentifier: .dietaryFatTotal)!,
         HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!,
         HKObjectType.quantityType(forIdentifier: .basalEnergyBurned)!,
-        HKObjectType.activitySummaryType(),
         HKObjectType.quantityType(forIdentifier: .restingHeartRate)!,
+        HKObjectType.categoryType(forIdentifier: .lowHeartRateEvent)!,
+        HKObjectType.quantityType(forIdentifier: .bodyMass)!,
         HKObjectType.quantityType(forIdentifier: .heartRateVariabilitySDNN)!,
         HKObjectType.categoryType(forIdentifier: .sleepAnalysis)!,
     ])
@@ -63,12 +64,14 @@ class BensonHealthDataObject: Codable {
     var dietaryFats: Double?
     var activeEnergyBurned: Double?
     var basalEnergyBurned: Double?
+    var weight: Double?
     var workouts: [BensonWorkout]?
     var hrv: Double?
     var restingHeartRate: Double?
+    var lowHeartRateEvents: Int?
     
     init (date: Date){
-        // Checkpoint: Debugging why the dates are not being encoded as proper ISO86061 strings.
+        
         self.date = date
         // By default, all queries are run from the start of the day to the end of the day, with the exception of sleep which is performed
         // from 5pm on the current day to 5pm of the day previously.
@@ -77,12 +80,17 @@ class BensonHealthDataObject: Codable {
         
     }
     
-    public func toJSON() -> String? {
+    public func toJSONString() -> String? {
+        let encoded = self.toJSON()
+        return encoded != nil ? String(data: encoded!, encoding: String.Encoding.utf8) : nil
+        
+    }
+    
+    public func toJSON() -> Data? {
         let encoder = JSONEncoder()
         encoder.dateEncodingStrategy = .iso8601
         let encoded = try? encoder.encode(self)
-        return encoded != nil ? String(data: encoded!, encoding: String.Encoding.utf8) : nil
-        
+        return encoded
     }
 }
 
@@ -149,39 +157,38 @@ class BensonHealthManager {
             dataObject.sleepHours = sleepHours
         }
         
-        self.fetchAverageQuantity(forDay: day, andQuantityTypeIdentifier: .dietaryEnergyConsumed, withUnit: .kilocalorie()) { (caloricIntake) in
+        self.fetchQuantityAveragedAcrossSources(forDay: day, andQuantityTypeIdentifier: .dietaryEnergyConsumed, withUnit: .kilocalorie()) { (caloricIntake) in
 //            self.log("Consumed \(caloricIntake) kCal on \(day)")
             dataObject.caloricIntake = caloricIntake
         }
         
-        self.fetchAverageQuantity(forDay: day, andQuantityTypeIdentifier: .dietaryCarbohydrates, withUnit: .gram()) { (carbGrams) in
+        self.fetchQuantityAveragedAcrossSources(forDay: day, andQuantityTypeIdentifier: .dietaryCarbohydrates, withUnit: .gram()) { (carbGrams) in
 //            self.log("Consumed \(carbGrams)g of carbs on \(day)")
             dataObject.dietaryCarbohydrates = carbGrams
         }
         
-        self.fetchAverageQuantity(forDay: day, andQuantityTypeIdentifier: .dietaryProtein, withUnit: .gram()) { (proteinGrams) in
+        self.fetchQuantityAveragedAcrossSources(forDay: day, andQuantityTypeIdentifier: .dietaryProtein, withUnit: .gram()) { (proteinGrams) in
 //           self.log("Consumed \(proteinGrams)g of protein on \(day)")
             dataObject.dietaryProtein = proteinGrams
         }
         
-        self.fetchAverageQuantity(forDay: day, andQuantityTypeIdentifier: .dietaryFatTotal, withUnit: .gram()) { (fatGrams) in
+        self.fetchQuantityAveragedAcrossSources(forDay: day, andQuantityTypeIdentifier: .dietaryFatTotal, withUnit: .gram()) { (fatGrams) in
 //            self.log("Consumed \(fatGrams)g of fat on \(day)")
             dataObject.dietaryFats = fatGrams
         }
         
-        // TEMP: Testing fetching of active energy burned from the activity summary.
-//        self.fetchActiveEnergy(forDay: day) { (activeEnergy) in
-//            return
-//        }
-        
-        self.fetchAverageQuantity(forDay: day, andQuantityTypeIdentifier: .basalEnergyBurned, withUnit: .kilocalorie()) { (energyBurned) in
+        self.fetchQuantityAveragedAcrossSources(forDay: day, andQuantityTypeIdentifier: .basalEnergyBurned, withUnit: .kilocalorie()) { (energyBurned) in
 //            self.log("Resting energy \(energyBurned) kCal burned on \(day)")
             dataObject.basalEnergyBurned = energyBurned
         }
         
-        self.fetchAverageQuantity(forDay: day, andQuantityTypeIdentifier: .activeEnergyBurned, withUnit: .kilocalorie()) { (energyBurned) in
+        self.fetchQuantityAveragedAcrossSources(forDay: day, andQuantityTypeIdentifier: .activeEnergyBurned, withUnit: .kilocalorie()) { (energyBurned) in
 //            self.log("Active energy \(energyBurned) kCal burned on \(day)")
             dataObject.activeEnergyBurned = energyBurned
+        }
+        
+        self.fetchQuantityAveragedAcrossSources(forDay: day, andQuantityTypeIdentifier: .bodyMass, withUnit: .gramUnit(with: .kilo)) { (weightInKilos) in
+            dataObject.weight = weightInKilos
         }
         
         self.fetchWorkoutsPerformed(forDay: day) { (workouts) in
@@ -189,14 +196,19 @@ class BensonHealthManager {
             dataObject.workouts = workouts
         }
         
-        self.fetchAverageQuantity(forDay: day, andQuantityTypeIdentifier: .heartRateVariabilitySDNN, withUnit: .secondUnit(with: .milli)) { (hrv) in
+        self.fetchAverageQuantityAcrossSources(forDay: day, andQuantityTypeIdentifier: .heartRateVariabilitySDNN, withUnit: .secondUnit(with: .milli)) { (hrv) in
 //            self.log("HRV of \(hrv/10) ms on \(day)")
-            dataObject.hrv = hrv/10
+            dataObject.hrv = hrv
         }
         
-        self.fetchAverageQuantity(forDay: day, andQuantityTypeIdentifier: .restingHeartRate, withUnit: HKUnit(from: "count/min")) { (restingHeartRate) in
+        self.fetchQuantityAveragedAcrossSources(forDay: day, andQuantityTypeIdentifier: .restingHeartRate, withUnit: HKUnit(from: "count/min")) { (restingHeartRate) in
 //            self.log("Resting heart rate of \(restingHeartRate) bpm on \(day)")
             dataObject.restingHeartRate = restingHeartRate
+        }
+        
+        self.fetchLowHeartRateEvents(forDay: day) { (lowHeartRateEvents) in
+//            self.log("Obtained \(lowHeartRateEvents) low heart rate events.")
+            dataObject.lowHeartRateEvents = lowHeartRateEvents
         }
         
         // Executed once all of our async calls return.
@@ -237,8 +249,26 @@ class BensonHealthManager {
                 quantitiesByGroup[source]?.append(quantity.quantity.doubleValue(for: unit))
             }
         }
+        
         let summedQuantityBygroup = quantitiesByGroup.mapValues { $0.reduce(0) { $0 + $1 }}
         return summedQuantityBygroup.values.reduce(0) { $0 + ($1 / Double(summedQuantityBygroup.values.count)) }
+    }
+    
+    /// Given an array of samples providing a given quantity across varying sources, groups by the source and then averages across each group, dividing by the number of groups / sources.
+    func averageQuantityAcrossSources(forSamples samples: [HKSample], forUnit unit: HKUnit) -> Double {
+        var quantitiesByGroup: [HKSource: [Double]] = [:]
+        samples.forEach { (sample) in
+            let source = sample.sourceRevision.source
+            if !quantitiesByGroup.keys.contains(source) {
+                quantitiesByGroup[source] = []
+            }
+            if let quantity = sample as? HKQuantitySample {
+                quantitiesByGroup[source]?.append(quantity.quantity.doubleValue(for: unit))
+            }
+        }
+        
+        let averagedQuantityByGroup = quantitiesByGroup.mapValues { $0.reduce(0) { $0 + $1 } / Double($0.count) }
+        return averagedQuantityByGroup.values.reduce(0) { $0 + ($1 / Double(averagedQuantityByGroup.values.count)) }
     }
     
     /// Fetches all workouts performed within the day specified.
@@ -293,6 +323,62 @@ class BensonHealthManager {
         self.healthStore?.execute(query)
     }
     
+    /// Fetches the number of low heart rate events which occured on that day. This is a good indicator of fatigue.
+    func fetchLowHeartRateEvents(forDay day: Date, completionHandler: @escaping (Int) -> Void){
+        
+//        self.log("Fetching sleep data.")
+        
+        guard let objectType = HKObjectType.categoryType(forIdentifier: .lowHeartRateEvent) else {
+            self.log("Failed to unwrap lowHeartRate HKObjectType optional. Exiting early.")
+            return completionHandler(-1)
+        }
+        
+        // Start the query from 5pm on the current day (shouldn't matter if the time has not reached 5pm yet, as we are looking to cover the entire possible range for which the user could have been asleep.
+        let endDateComponents = DateComponents(calendar: Calendar.current, timeZone: Calendar.current.timeZone, era: nil, year: day.component(.year), month: day.component(.month), day: day.component(.day), hour: 17)
+        let endDate = Calendar.current.date(from: endDateComponents)!
+        let startDate = Calendar.current.date(byAdding: .day, value: -1, to: endDate)!
+        
+        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: [])
+        
+        let query = HKSampleQuery(sampleType: objectType, predicate: predicate, limit: 100000, sortDescriptors: nil) { (_, samples, error) in
+            if let error = error {
+                self.log("Could not fetch lowHeartRateEvents: \(error)")
+                return completionHandler(-1)
+            }
+            
+            if let samples = samples {
+//                self.log("Received lowHeartRateSamples: \(samples.count)")
+                return completionHandler(samples.count)
+            }
+        }
+        
+        self.healthStore?.execute(query)
+        
+    }
+    
+    /// Given a quantity type, and a date, fetches all samples for the given quantity within the day specified by the date, then groups these across all the various contributing sources and returns the average summed value across all source groups.
+    func fetchQuantityAveragedAcrossSources(forDay day: Date, andQuantityTypeIdentifier quantityTypeIdentifier: HKQuantityTypeIdentifier, withUnit unit: HKUnit, completionHandler: @escaping (Double) -> Void){
+        
+        let startDate = Calendar.current.startOfDay(for: day)
+        let endDate = Calendar.current.date(byAdding: DateComponents(day: 1, second: -1), to: startDate)!
+                
+        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: HKQueryOptions.strictEndDate)
+        
+        self.dispatchGroup.enter()
+        let query = HKSampleQuery(sampleType: HKObjectType.quantityType(forIdentifier: quantityTypeIdentifier)!, predicate: predicate, limit: 100000, sortDescriptors: nil) { (query, samples, error) in
+            if let error = error {
+                return self.log("Error retrieving \(quantityTypeIdentifier.rawValue): \(error)")
+            }
+            
+            if let samples = samples {
+                completionHandler(self.sumAndAverageQuantityAcrossSources(forSamples: samples, forUnit: unit))
+                return self.dispatchGroup.leave()
+            }
+        }
+        
+        self.healthStore?.execute(query)
+    }
+    
     /// Given a quantity type, and a date, fetches all samples for the given quantity within the day specified by the date, then groups these across all the various contributing sources and returns the sum.
     func fetchSummedQuantity(forDay day: Date, andQuantityTypeIdentifier quantityTypeIdentifier: HKQuantityTypeIdentifier, withUnit unit: HKUnit, completionHandler: @escaping (Double) -> Void){
         
@@ -318,8 +404,8 @@ class BensonHealthManager {
     }
     
     
-    /// Given a quantity type, and a date, fetches all samples for the given quantity within the day specified by the date, then groups these across all the various contributing sources and returns the average summed value across all source groups.
-    func fetchAverageQuantity(forDay day: Date, andQuantityTypeIdentifier quantityTypeIdentifier: HKQuantityTypeIdentifier, withUnit unit: HKUnit, completionHandler: @escaping (Double) -> Void){
+    /// Given a quantity type, and a date, fetches all samples for the given quantity within the day specified by the date, then groups these across all the various contributing sources and returns the average  value across all source groups.
+    func fetchAverageQuantityAcrossSources(forDay day: Date, andQuantityTypeIdentifier quantityTypeIdentifier: HKQuantityTypeIdentifier, withUnit unit: HKUnit, completionHandler: @escaping (Double) -> Void){
         
         let startDate = Calendar.current.startOfDay(for: day)
         let endDate = Calendar.current.date(byAdding: DateComponents(day: 1, second: -1), to: startDate)!
@@ -333,7 +419,8 @@ class BensonHealthManager {
             }
             
             if let samples = samples {
-                completionHandler(self.sumAndAverageQuantityAcrossSources(forSamples: samples, forUnit: unit))
+                
+                completionHandler(self.averageQuantityAcrossSources(forSamples: samples, forUnit: unit))
                 return self.dispatchGroup.leave()
             }
         }
@@ -345,7 +432,7 @@ class BensonHealthManager {
     // TODO: We will need to grab sleep data for the day in which the checkin was made, and attach this to the checkin object. This will then need to be relayed to the backend. I will need to architect a schema on the backend to account for sleep data.
     func fetchSleepHours(forDay day: Date, completionHandler: @escaping (Double) -> Void){
         
-        self.log("Fetching sleep data.")
+//        self.log("Fetching sleep data.")
         
         guard let objectType = HKObjectType.categoryType(forIdentifier: .sleepAnalysis) else {
             self.log("Failed to unwrap sleepAnalysis HKObjectType optional. Exiting early.")

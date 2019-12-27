@@ -19,6 +19,7 @@ struct Webserver {
     #else
         private static var infoAPIDictionaryKey = "Webserver Endpoint (Heroku)"
     #endif
+//    private static var infoAPIDictionaryKey = "Webserver Endpoint (Local Tunnel)"
 
     static var endpoint = Bundle.main.object(forInfoDictionaryKey: infoAPIDictionaryKey) as! String
     static var getMetrics: String = "\(Webserver.endpoint)/metrics"
@@ -29,7 +30,21 @@ struct Webserver {
     static var submitHealthData: String = "\(Webserver.endpoint)/healthData"
     static var fetchUnenrichedCheckinDates: String = "\(Webserver.endpoint)/unenrichedCheckinDates"
     static var aggregatedCheckinsByCriteria: String = "\(Webserver.endpoint)/aggregatedCheckinsByCriteria"
+    static func aggregatedHealthDataAndCheckins(byCriteria criteria: String) -> String { return "\(Webserver.endpoint)/healthDataAndCheckinsAggregatedBy/\(criteria)" }
     
+}
+
+/// Enum describing the different aggregation criterias that can be used to collected aggregated health and checkin data.
+enum AggregationCriteria: String, CustomStringConvertible {
+    case day
+    case week
+    case month
+    case quarter
+    case year
+    
+    var description: String {
+        return self.rawValue
+    }
 }
 
 class Fetcher {
@@ -127,9 +142,9 @@ class Fetcher {
                             // Parse the dates from ISO format.
                             let formatter = ISO8601DateFormatter()
                             formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-                            let parsedDate = formatter.date(from: unenrichedCheckinInfo["startOfDay"].stringValue)
-//                            self.log("Attempting to parse \(unenrichedCheckinInfo["startOfDay"].stringValue) as a date: \(String(describing: parsedDate))")
-                            return formatter.date(from: unenrichedCheckinInfo["startOfDay"].stringValue)
+                            let parsedDate = formatter.date(from: unenrichedCheckinInfo.stringValue)
+                            self.log("Attempting to parse \(unenrichedCheckinInfo.stringValue) as a date: \(String(describing: parsedDate))")
+                            return parsedDate
                         })
                         
                         let unwrappedDates = dates.filter { $0 != nil }.map { $0! }
@@ -142,6 +157,13 @@ class Fetcher {
             }
             
         }
+    }
+    
+    // MARK: Reporting & Visualisation.
+    
+    /// Fetches aggregated healthData objects, as well as aggregated checkin objects, merging each object for the same date and returning an array of results.
+    public func fetchAggregatedHealthAndCheckinData(byAggregationCriteria criteria: AggregationCriteria, completionHandler: @escaping(JSON) -> Void){
+        self.sendGetRequest(toEndpoint: Webserver.aggregatedHealthDataAndCheckins(byCriteria: "\(criteria)"), withQuery: nil, completionHandler: completionHandler)
     }
     
     /// Submits a health data object to the backend.
@@ -253,6 +275,20 @@ class Fetcher {
                 }
         }
         
+    }
+    
+    private func sendGetRequest(toEndpoint endpoint: String, withQuery query: String?, completionHandler: @escaping (JSON) -> Void){
+        AF.request(endpoint + (query != nil ? "?\(query!)" : "")).responseJSON(queue: DispatchQueue.global(qos: .background), options: .allowFragments) { (response) in
+            switch response.result {
+            case .success(let data):
+                // Ensure that we call the completionHandler on the main thread, as we will likely be updating the UI.
+                DispatchQueue.main.async {
+                    return completionHandler(JSON(data))
+                }
+            case .failure(let error):
+                return self.log("Error performing GET request for endpoint \(endpoint) with query: \(String(describing: query)). Error: \(error)")
+            }
+        }
     }
     
     private func log(_ message: String) {

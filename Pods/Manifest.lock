@@ -3,17 +3,20 @@ PODS:
   - Havrefras (0.4.3):
     - ObjectiveSugar (~> 1.1)
   - ObjectiveSugar (1.1.0)
+  - SwiftCharts (0.6.5)
   - SwiftyJSON (4.3.0)
 
 DEPENDENCIES:
   - Alamofire (~> 5.0.0-beta.5)
   - Havrefras (from `https://github.com/carechain/Havrefras.git`)
+  - SwiftCharts
   - SwiftyJSON (~> 4.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - ObjectiveSugar
+    - SwiftCharts
     - SwiftyJSON
 
 EXTERNAL SOURCES:
@@ -29,8 +32,9 @@ SPEC CHECKSUMS:
   Alamofire: ca8c0de6906873be89d6deec5c8de279e00bf872
   Havrefras: e06ad9c2b47b9a975e68dae56af075548bb647a0
   ObjectiveSugar: a6a25f23d657c19df0a0b972466d5b5ca9f5295c
+  SwiftCharts: 2e755ea292f0b87d3e4b2c1eb5afc080a20cdc15
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: 4f153bc422abd14fc6f80ff6103af9afbb994748
+PODFILE CHECKSUM: cea037bc56db68d05408c5ff9571968ad10af87b
 
 COCOAPODS: 1.5.3

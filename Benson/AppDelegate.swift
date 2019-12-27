@@ -40,12 +40,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Register notifications.
         self.notifier = BensonNotifier(alertTimes: nil, message: "It's time to checkin.")
         
-        // Fetch unenriched checkins.
+        // Fetch unenriched checkins and submit pending health data.
         Fetcher.sharedInstance.fetchUnenrichedCheckinDates { (dates) in
             
-//            BensonHealthManager.sharedInstance?.fetchHealthData(forDay: Calendar.current.date(byAdding: .day, value: -2, to: Date())!, completionHandler: { (healthDataObject) in
-//                self.log("Fetched \(String(describing: healthDataObject.toJSONString()))")
-//            })
+            self.log("Fetched unenriched checkin dates: \(dates)")
             
             BensonHealthManager.sharedInstance?.fetchHealthData(forDays: dates, completionHandler: { (healthDataObjects) in
                 self.log("Fetched \(healthDataObjects.count). Submitting these now.")
@@ -57,7 +55,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             })
             
         }
-                        
+        
+        self.log("Fetching aggregated health and checkin data.")
+        Fetcher.sharedInstance.fetchAggregatedHealthAndCheckinData(byAggregationCriteria: .day) { (response) in
+           
+//            self.log("Fetched aggregated health data: \(response)")
+            
+        }
         return true
     }
 

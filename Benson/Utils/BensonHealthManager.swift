@@ -29,6 +29,11 @@ struct BensonHealthUtil {
     ])
 }
 
+/// Combined version of a checkin and health data object.
+class BensonHealthAndCheckinObject {
+    
+}
+
 /// Simplified version of the HKWorkout class which provides details of the workout type, duration and number of calories burned.
 class BensonWorkout: Codable {
     
@@ -127,28 +132,42 @@ class BensonHealthManager {
     }
     
     /// Fetches all healthData for an array of dates.
-    func fetchHealthData(forDays days: [Date], completionHandler: @escaping ([BensonHealthDataObject]) -> Void) {
-        
-        let dispatchGroup = DispatchGroup()
-        
-        var healthDataObjects: [BensonHealthDataObject] = []
-        
-        days.forEach { day in
-            dispatchGroup.enter()
-            self.fetchHealthData(forDay: day) { (healthDataObject) in
-                healthDataObjects.append(healthDataObject)
-                dispatchGroup.leave()
-            }
+//    func fetchHealthData(forDays days: [Date], completionHandler: @escaping ([BensonHealthDataObject]) -> Void) {
+//
+//        let dispatchGroup = DispatchGroup()
+//
+//        var healthDataObjects: [BensonHealthDataObject] = []
+//
+//        days.forEach { day in
+//            dispatchGroup.enter()
+//            self.fetchHealthData(forDay: day) { (healthDataObject) in
+//                print("Fetching health data for \(day)")
+//                healthDataObjects.append(healthDataObject)
+//                dispatchGroup.leave()
+//            }
+//        }
+//
+//        dispatchGroup.notify(queue: .global(qos: .utility)) {
+//            completionHandler(healthDataObjects)
+//        }
+//
+//    }
+    
+    /// Iteratively fetches healthData for all days passed, returning an array of BensonHealthDataObjects.
+    public func fetchHealthData(forDays days: [Date], completionHandler: @escaping ([BensonHealthDataObject]) -> Void) {
+        return self.fetchHealthData(forDays: days, accumulatedHealthData: [], completionHandler: completionHandler)
+    }
+    
+    private func fetchHealthData(forDays days: [Date], accumulatedHealthData: [BensonHealthDataObject], completionHandler: @escaping ([BensonHealthDataObject]) -> Void) {
+        var days = days.map { $0 }
+        guard let day = days.popLast() else { return completionHandler(accumulatedHealthData) }
+        self.fetchHealthData(forDay: day) { (healthData) in
+            self.fetchHealthData(forDays: days, accumulatedHealthData: accumulatedHealthData + [healthData], completionHandler: completionHandler)
         }
-        
-        dispatchGroup.notify(queue: .global(qos: .utility)) {
-            completionHandler(healthDataObjects)
-        }
-        
     }
     
     /// Fetches all data for workouts, caloric consumption and output, heart rate, and sleep analysis asynchronously.
-    func fetchHealthData(forDay day: Date, completionHandler: @escaping (BensonHealthDataObject) -> Void) {
+    public func fetchHealthData(forDay day: Date, completionHandler: @escaping (BensonHealthDataObject) -> Void) {
         
         let dataObject = BensonHealthDataObject(date: day)
         
@@ -340,15 +359,18 @@ class BensonHealthManager {
         
         let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: [])
         
+        self.dispatchGroup.enter()
         let query = HKSampleQuery(sampleType: objectType, predicate: predicate, limit: 100000, sortDescriptors: nil) { (_, samples, error) in
             if let error = error {
                 self.log("Could not fetch lowHeartRateEvents: \(error)")
-                return completionHandler(-1)
+                completionHandler(-1)
+                self.dispatchGroup.leave()
             }
             
             if let samples = samples {
 //                self.log("Received lowHeartRateSamples: \(samples.count)")
-                return completionHandler(samples.count)
+                completionHandler(samples.count)
+                return self.dispatchGroup.leave()
             }
         }
         
@@ -415,7 +437,9 @@ class BensonHealthManager {
         self.dispatchGroup.enter()
         let query = HKSampleQuery(sampleType: HKObjectType.quantityType(forIdentifier: quantityTypeIdentifier)!, predicate: predicate, limit: 100000, sortDescriptors: nil) { (query, samples, error) in
             if let error = error {
-                return self.log("Error retrieving \(quantityTypeIdentifier.rawValue): \(error)")
+                self.log("Error retrieving \(quantityTypeIdentifier.rawValue): \(error)")
+                completionHandler(-1)
+                return self.dispatchGroup.leave()
             }
             
             if let samples = samples {

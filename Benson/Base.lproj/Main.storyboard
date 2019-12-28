@@ -118,16 +118,16 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="35" placeholderIntrinsicHeight="33" text="log" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e8X-ad-WjO">
-                                        <rect key="frame" x="8" y="404" width="398" height="33"/>
+                                        <rect key="frame" x="8" y="522" width="398" height="33"/>
                                         <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="24"/>
                                         <color key="textColor" red="0.94712716340000003" green="0.83542150260000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="U3S-pV-L3M">
-                                        <rect key="frame" x="8" y="445" width="398" height="368"/>
+                                        <rect key="frame" x="8" y="563" width="398" height="250"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="368" id="Rs2-dO-aHc"/>
+                                            <constraint firstAttribute="height" constant="250" id="Rs2-dO-aHc"/>
                                         </constraints>
                                         <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
@@ -180,7 +180,7 @@
                                         </connections>
                                     </tableView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8IA-uc-xWh">
-                                        <rect key="frame" x="8" y="93" width="398" height="303"/>
+                                        <rect key="frame" x="8" y="155" width="398" height="359"/>
                                         <color key="backgroundColor" white="1" alpha="0.099823416095890405" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -188,28 +188,52 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="35" placeholderIntrinsicHeight="33" text="overview" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kmS-0u-Dbl">
-                                        <rect key="frame" x="8" y="52" width="398" height="33"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="24"/>
-                                        <color key="textColor" red="0.94712716340000003" green="0.83542150260000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" placeholderIntrinsicWidth="35" placeholderIntrinsicHeight="33" text="by" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hce-mB-K0A">
+                                        <rect key="frame" x="74" y="114" width="35" height="33"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="18"/>
+                                        <color key="textColor" red="0.94712716340000003" green="0.83542150260000003" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UF7-nR-rnR" customClass="BensonButton" customModule="Benson" customModuleProvider="target">
+                                        <rect key="frame" x="117" y="114" width="81" height="33"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="33" id="EpE-fA-6Mu"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="20"/>
+                                        <state key="normal" title="time unit">
+                                            <color key="titleColor" red="0.94712716340000003" green="0.83542150260000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T2L-3u-Rs3" customClass="BensonButton" customModule="Benson" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="114" width="58" height="33"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="33" id="cyd-Us-c5b"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="20"/>
+                                        <state key="normal" title="metric">
+                                            <color key="titleColor" red="0.94712716340000003" green="0.83542150260000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="e8X-ad-WjO" firstAttribute="leading" secondItem="ge9-gM-Xwt" secondAttribute="leading" constant="8" id="0OM-xV-35W"/>
                                     <constraint firstItem="e8X-ad-WjO" firstAttribute="top" secondItem="8IA-uc-xWh" secondAttribute="bottom" constant="8" id="1IZ-9p-SQ5"/>
                                     <constraint firstItem="U3S-pV-L3M" firstAttribute="leading" secondItem="ge9-gM-Xwt" secondAttribute="leading" constant="8" id="Aia-q8-Eqq"/>
+                                    <constraint firstItem="Hce-mB-K0A" firstAttribute="top" secondItem="T2L-3u-Rs3" secondAttribute="top" id="C8r-Vh-avB"/>
+                                    <constraint firstItem="UF7-nR-rnR" firstAttribute="top" secondItem="Hce-mB-K0A" secondAttribute="top" id="Hg5-13-sr4"/>
                                     <constraint firstItem="U3S-pV-L3M" firstAttribute="top" secondItem="e8X-ad-WjO" secondAttribute="bottom" constant="8" id="KwN-SE-5HH"/>
                                     <constraint firstItem="ge9-gM-Xwt" firstAttribute="trailing" secondItem="e8X-ad-WjO" secondAttribute="trailing" constant="8" id="UFg-28-fbY"/>
-                                    <constraint firstItem="8IA-uc-xWh" firstAttribute="top" secondItem="kmS-0u-Dbl" secondAttribute="bottom" constant="8" id="cHc-7r-LUX"/>
+                                    <constraint firstItem="ge9-gM-Xwt" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="UF7-nR-rnR" secondAttribute="trailing" constant="8" id="ZIN-iY-P6f"/>
+                                    <constraint firstItem="Hce-mB-K0A" firstAttribute="leading" secondItem="T2L-3u-Rs3" secondAttribute="trailing" constant="8" id="Zeg-l8-Vpr"/>
+                                    <constraint firstItem="T2L-3u-Rs3" firstAttribute="leading" secondItem="ge9-gM-Xwt" secondAttribute="leading" constant="8" id="fIf-KB-BWg"/>
                                     <constraint firstItem="ge9-gM-Xwt" firstAttribute="trailing" secondItem="U3S-pV-L3M" secondAttribute="trailing" constant="8" id="gn5-Cr-k4P"/>
+                                    <constraint firstItem="8IA-uc-xWh" firstAttribute="top" secondItem="T2L-3u-Rs3" secondAttribute="bottom" constant="8" id="hL5-OV-Qc4"/>
                                     <constraint firstItem="ge9-gM-Xwt" firstAttribute="trailing" secondItem="8IA-uc-xWh" secondAttribute="trailing" constant="8" id="hTw-SW-KWg"/>
                                     <constraint firstItem="8IA-uc-xWh" firstAttribute="leading" secondItem="ge9-gM-Xwt" secondAttribute="leading" constant="8" id="jz6-dh-GCE"/>
-                                    <constraint firstItem="kmS-0u-Dbl" firstAttribute="top" secondItem="ge9-gM-Xwt" secondAttribute="top" constant="8" id="qsF-5l-y6m"/>
-                                    <constraint firstItem="kmS-0u-Dbl" firstAttribute="leading" secondItem="ge9-gM-Xwt" secondAttribute="leading" constant="8" id="v3f-JA-i01"/>
                                     <constraint firstItem="ge9-gM-Xwt" firstAttribute="bottom" secondItem="U3S-pV-L3M" secondAttribute="bottom" id="wS7-BT-gf1"/>
-                                    <constraint firstItem="ge9-gM-Xwt" firstAttribute="trailing" secondItem="kmS-0u-Dbl" secondAttribute="trailing" constant="8" id="yl6-Tm-e3v"/>
+                                    <constraint firstItem="T2L-3u-Rs3" firstAttribute="top" secondItem="ge9-gM-Xwt" secondAttribute="top" constant="70" id="x5z-NA-Bip"/>
+                                    <constraint firstItem="UF7-nR-rnR" firstAttribute="leading" secondItem="Hce-mB-K0A" secondAttribute="trailing" constant="8" id="zvT-gM-5N2"/>
                                 </constraints>
                                 <viewLayoutGuide key="safeArea" id="ge9-gM-Xwt"/>
                             </view>
@@ -225,6 +249,8 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Log" image="LogTabBarIcon" landscapeImage="second" id="RY8-sq-sFL"/>
                     <connections>
+                        <outlet property="chartMetricSelectionButton" destination="T2L-3u-Rs3" id="C2c-Xw-mdP"/>
+                        <outlet property="chartTimeUnitSelectionButton" destination="UF7-nR-rnR" id="EyQ-dB-voi"/>
                         <outlet property="chartViewContainer" destination="8IA-uc-xWh" id="sPi-4i-uSa"/>
                         <outlet property="tableView" destination="U3S-pV-L3M" id="fUD-vc-saL"/>
                     </connections>

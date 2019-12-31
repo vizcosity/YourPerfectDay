@@ -181,23 +181,36 @@
                                     </tableView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8IA-uc-xWh">
                                         <rect key="frame" x="8" y="155" width="398" height="359"/>
+                                        <subviews>
+                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="zAi-VQ-0Vf">
+                                                <rect key="frame" x="189" y="169.5" width="20" height="20"/>
+                                                <color key="color" red="0.94712716340000003" green="0.83542150260000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </activityIndicatorView>
+                                        </subviews>
                                         <color key="backgroundColor" white="1" alpha="0.099823416095890405" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="zAi-VQ-0Vf" firstAttribute="centerX" secondItem="8IA-uc-xWh" secondAttribute="centerX" id="FCE-tk-RK1"/>
+                                            <constraint firstItem="zAi-VQ-0Vf" firstAttribute="centerY" secondItem="8IA-uc-xWh" secondAttribute="centerY" id="Lzf-0u-tg1"/>
+                                        </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                 <integer key="value" value="8"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" placeholderIntrinsicWidth="35" placeholderIntrinsicHeight="33" text="by" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hce-mB-K0A">
-                                        <rect key="frame" x="74" y="114" width="35" height="33"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="252" verticalHuggingPriority="251" placeholderIntrinsicWidth="35" placeholderIntrinsicHeight="33" text="by" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hce-mB-K0A">
+                                        <rect key="frame" x="74" y="125" width="35" height="22"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="22" id="tEI-P5-OLa"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="18"/>
                                         <color key="textColor" red="0.94712716340000003" green="0.83542150260000003" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UF7-nR-rnR" customClass="BensonButton" customModule="Benson" customModuleProvider="target">
-                                        <rect key="frame" x="117" y="114" width="81" height="33"/>
+                                        <rect key="frame" x="117" y="125" width="81" height="22"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="33" id="EpE-fA-6Mu"/>
+                                            <constraint firstAttribute="height" constant="22" id="EpE-fA-6Mu"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="20"/>
                                         <state key="normal" title="time unit">
@@ -205,9 +218,9 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T2L-3u-Rs3" customClass="BensonButton" customModule="Benson" customModuleProvider="target">
-                                        <rect key="frame" x="8" y="114" width="58" height="33"/>
+                                        <rect key="frame" x="8" y="125" width="58" height="22"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="33" id="cyd-Us-c5b"/>
+                                            <constraint firstAttribute="height" constant="22" id="cyd-Us-c5b"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="20"/>
                                         <state key="normal" title="metric">
@@ -232,7 +245,7 @@
                                     <constraint firstItem="ge9-gM-Xwt" firstAttribute="trailing" secondItem="8IA-uc-xWh" secondAttribute="trailing" constant="8" id="hTw-SW-KWg"/>
                                     <constraint firstItem="8IA-uc-xWh" firstAttribute="leading" secondItem="ge9-gM-Xwt" secondAttribute="leading" constant="8" id="jz6-dh-GCE"/>
                                     <constraint firstItem="ge9-gM-Xwt" firstAttribute="bottom" secondItem="U3S-pV-L3M" secondAttribute="bottom" id="wS7-BT-gf1"/>
-                                    <constraint firstItem="T2L-3u-Rs3" firstAttribute="top" secondItem="ge9-gM-Xwt" secondAttribute="top" constant="70" id="x5z-NA-Bip"/>
+                                    <constraint firstItem="T2L-3u-Rs3" firstAttribute="top" secondItem="ge9-gM-Xwt" secondAttribute="top" constant="81" id="x5z-NA-Bip"/>
                                     <constraint firstItem="UF7-nR-rnR" firstAttribute="leading" secondItem="Hce-mB-K0A" secondAttribute="trailing" constant="8" id="zvT-gM-5N2"/>
                                 </constraints>
                                 <viewLayoutGuide key="safeArea" id="ge9-gM-Xwt"/>
@@ -249,6 +262,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Log" image="LogTabBarIcon" landscapeImage="second" id="RY8-sq-sFL"/>
                     <connections>
+                        <outlet property="chartActivityIndicator" destination="zAi-VQ-0Vf" id="jwW-Sz-vYg"/>
                         <outlet property="chartMetricSelectionButton" destination="T2L-3u-Rs3" id="C2c-Xw-mdP"/>
                         <outlet property="chartTimeUnitSelectionButton" destination="UF7-nR-rnR" id="EyQ-dB-voi"/>
                         <outlet property="chartViewContainer" destination="8IA-uc-xWh" id="sPi-4i-uSa"/>

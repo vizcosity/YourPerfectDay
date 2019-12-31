@@ -20,6 +20,12 @@ class LogViewController: UIViewController{
    
     @IBOutlet weak var chartViewContainer: UIView!
     
+    @IBOutlet weak var chartActivityIndicator: UIActivityIndicatorView! {
+        didSet {
+            self.chartActivityIndicator.hidesWhenStopped = true
+        }
+    }
+    
     @IBOutlet weak var tableView: UITableView!
     
     // Checkpoint: Implementing selection for the type of metric to be displayed as well as the aggregation criteria.
@@ -36,10 +42,45 @@ class LogViewController: UIViewController{
         }
         
     }
+// Checkpoint: Ensureing that the chartView is completely refreshed when we select a new metric to display.
+//    var availableChartMetrics: [MetricType] {
+//        let availableChartMetrics: [MetricType] = []
+//        for chartMetric in MetricType.allCases {
+//            availableChartMetrics.append(chartMetric)
+//        }
+//        return availableChartMetrics
+//    }
+    var selectedChartMetric: MetricType = .generalFeeling {
+        didSet {
+            self.updateChartAndButtons()
+        }
+    }
+    
+//    var availalbleTimeUnits: [AggregationCriteria] {
+//        var availableTimeUnits: [AggregationCriteria] = []
+//        for timeUnit in AggregationCriteria.allCases {
+//            availableTimeUnits.append(timeUnit)
+//        }
+//        return availableTimeUnits
+//    }
+    var selectedTimeUnit: AggregationCriteria = .day {
+        didSet {
+            self.updateChartAndButtons()
+        }
+    }
     
     // Hold a copy of the fetcher in order to cache any metric logs.
     var fetcher: Fetcher = Fetcher()
     
+    // Hold an instance of the picker view at the class level so that we hold a strong reference to it, and as such it will not be lost due to ARC.
+    var pickerView: UIPickerView {
+        let pickerView = UIPickerView()
+        pickerView.delegate = self
+        pickerView.dataSource = self
+        return pickerView
+    }
+    
+    var pickerViewController = UIViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,10 +100,38 @@ class LogViewController: UIViewController{
         tableView.separatorStyle = .none
         tableView.separatorColor = .clear
         
-        Fetcher.sharedInstance.fetchAggregatedHealthAndCheckinData(byAggregationCriteria: .month) { (data) in
-            self.configureChartOverview(forData: data["result"], andAttributes: ["energy", "generalFeeling", "mood", "focus"])
-        }
+        // Configure the chartMetricSelection and chartTimeUnitSelection buttons.
+        self.updateChartAndButtons()
         
+        self.chartMetricSelectionButton.addTarget(self, action: #selector(self.chartMetricSelectionHandler), for: .touchUpInside)
+        self.chartTimeUnitSelectionButton.addTarget(self, action: #selector(self.chartTimeUnitSelectionHandler), for: .touchUpInside)
+//        self.present(self.pickerViewController, animated: true, completion: nil)
+        
+        // Hold the pickerView inside the view controller.
+//        pickerViewController.view.addSubview(self.pickerView)
+//        self.pickerView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+//        self.pickerView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+//        self.pickerView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+    }
+    
+    @objc private func chartMetricSelectionHandler(){
+        self.log("All cases for MetricType: \(MetricType.allCases)")
+        self.selectedChartMetric = MetricType.allCases[(MetricType.allCases.firstIndex(of: self.selectedChartMetric)! + 1) % MetricType.allCases.count]
+    }
+    
+    @objc private func chartTimeUnitSelectionHandler(){
+        self.selectedTimeUnit = AggregationCriteria.allCases[(AggregationCriteria.allCases.firstIndex(of: self.selectedTimeUnit)! + 1) % AggregationCriteria.allCases.count]
+    }
+    
+    private func updateChartAndButtons(){
+        self.chartActivityIndicator.startAnimating()
+        chartMetricSelectionButton.setTitle("\(self.selectedChartMetric)", for: .normal)
+        chartTimeUnitSelectionButton.setTitle("\(self.selectedTimeUnit)", for: .normal)
+        Fetcher.sharedInstance.fetchAggregatedHealthAndCheckinData(byAggregationCriteria: self.selectedTimeUnit) { (data) in
+            self.configureChartOverview(forData: data["result"], andAttributes: ["\(self.selectedChartMetric)"])
+            self.chartActivityIndicator.stopAnimating()
+            
+        }
     }
     
     // Checkpoint: reloading metric logs is not synchronous, so the spinner continues indefinitely.
@@ -78,6 +147,24 @@ class LogViewController: UIViewController{
     private func log(_ message: String) {
          print("[LogViewController] | \(message)")
      }
+    
+}
+
+// Handle metric and time unit selection.
+extension LogViewController: UIPickerViewDataSource, UIPickerViewDelegate {
+   
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        4
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return "Item"
+    }
+    
     
 }
 

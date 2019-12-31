@@ -35,7 +35,7 @@ struct Webserver {
 }
 
 /// Enum describing the different aggregation criterias that can be used to collected aggregated health and checkin data.
-enum AggregationCriteria: String, CustomStringConvertible {
+enum AggregationCriteria: String, CustomStringConvertible, CaseIterable {
     case day
     case week
     case month

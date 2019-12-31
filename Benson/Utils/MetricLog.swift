@@ -109,3 +109,23 @@ class MetricLog: CustomStringConvertible {
     }
     
 }
+
+/// The measurement or metric type.
+// TODO: Refactor so that the metric types are inferred from the keys of the aggregated healthDataObject, from the backend.
+enum MetricType: String, CaseIterable {
+    case generalFeeling
+    case mood
+    case energy
+    case focus
+    case hrv
+    case caloricIntake
+    case basalEnergyBurned
+    case activeEnergyBurned
+    case dietaryCarbohydrates
+    case dietaryFats
+    case dietaryProtein
+    case lowHeartRateEvents
+    case restingHeartRate
+    case sleepHours
+    case weight
+}

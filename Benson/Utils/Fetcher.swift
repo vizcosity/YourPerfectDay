@@ -41,11 +41,22 @@ enum AggregationCriteria: String, CustomStringConvertible, CaseIterable {
     case month
     case quarter
     case year
-    
+
     var description: String {
         return self.rawValue
     }
+
+    var calendarComponent: Calendar.Component {
+        switch self {
+            case .day: return .day
+            case .week: return .weekOfMonth
+            case .month: return .month
+            case .quarter: return .quarter
+            case .year: return .year
+        }
+    }
 }
+
 
 class Fetcher {
     

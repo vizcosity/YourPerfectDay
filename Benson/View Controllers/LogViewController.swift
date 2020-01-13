@@ -10,6 +10,12 @@ import UIKit
 import SwiftCharts
 import SwiftyJSON
 
+/// Determines the values which should be displayed by the UIPickerView.
+enum SelectionMode {
+    case ChartMetric
+    case TimeUnit
+}
+
 // Questions:
 // - How to add pull to refresh with an action
 // - How to add spacing between cells
@@ -54,6 +60,8 @@ class LogViewController: UIViewController{
         }
     }
     
+    var selectionMode: SelectionMode = .ChartMetric
+    
     // Hold a copy of the fetcher in order to cache any metric logs.
     var fetcher: Fetcher = Fetcher()
     
@@ -71,6 +79,9 @@ class LogViewController: UIViewController{
     /// Available metricTypes which the user can select from and view.
     var metricTypes: [MetricType] = MetricType.allCases
     
+    /// Available time units which the user can select from and view.
+    var timeUnits: [AggregationCriteria] = AggregationCriteria.allCases
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -83,7 +94,7 @@ class LogViewController: UIViewController{
         let refreshControl = UIRefreshControl()
         tableView.refreshControl = refreshControl
         tableView.refreshControl?.tintColor = Colour.primary
-        refreshControl.addTarget(self, action: #selector(reloadMetricLogs), for: .valueChanged)
+        refreshControl.addTarget(self, action: #selector(reloadData), for: .valueChanged)
         
         // Remove styling on the separator.
         tableView.separatorStyle = .none
@@ -106,13 +117,15 @@ class LogViewController: UIViewController{
     }
     
     @objc private func chartMetricSelectionHandler(){
+        self.selectionMode = .ChartMetric
         self.log("All cases for MetricType: \(MetricType.allCases)")
 //        self.selectedChartMetric = MetricType.allCases[(MetricType.allCases.firstIndex(of: self.selectedChartMetric)! + 1) % MetricType.allCases.count]
-        self.displayMetricPickerView()
+        self.displayMetricPickerViewForChartMetrics()
     }
     
     @objc private func chartTimeUnitSelectionHandler(){
-        self.selectedTimeUnit = AggregationCriteria.allCases[(AggregationCriteria.allCases.firstIndex(of: self.selectedTimeUnit)! + 1) % AggregationCriteria.allCases.count]
+        self.selectionMode = .TimeUnit
+        self.displayMetricPickerViewForTimeUnits()
     }
     
     private func updateChartAndButtons(){
@@ -126,13 +139,14 @@ class LogViewController: UIViewController{
         }
     }
     
-    @objc private func reloadMetricLogs(){
-        self.log("Reloading metric logs.")
+    @objc private func reloadData(){
+        self.log("Reloading metric logs and chart.")
         fetcher.fetchMetricLogs(completionHandler: { metricLogs in
             self.logs = metricLogs
             self.log("Refreshed metric logs.")
             self.tableView.refreshControl?.endRefreshing()
         })
+        self.updateChartAndButtons()
     }
     
     private func log(_ message: String) {
@@ -157,7 +171,7 @@ extension LogViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         }
     }
     
-    private func displayMetricPickerView(){
+    private func displayMetricPickerViewForChartMetrics(){
 
         dummyTextField = UITextField(frame: CGRect.zero)
         self.view.addSubview(dummyTextField)
@@ -185,26 +199,52 @@ extension LogViewController: UIPickerViewDataSource, UIPickerViewDelegate {
         dummyTextField.becomeFirstResponder()
     }
     
+    private func displayMetricPickerViewForTimeUnits(){
+        dummyTextField = UITextField(frame: CGRect.zero)
+         self.view.addSubview(dummyTextField)
+        
+        let spacerButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+         
+         // Create a Toolbar with a 'done' button to resign the picker once completed.
+         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.pickerViewDoneHandler))
+         
+         let toolbar = UIToolbar()
+         toolbar.barStyle = .default
+         toolbar.sizeToFit()
+         toolbar.setItems([spacerButton, doneButton], animated: true)
+         toolbar.isUserInteractionEnabled = true
+        
+         dummyTextField.inputAccessoryView = toolbar
+         dummyTextField.inputView = self.pickerView
+         dummyTextField.becomeFirstResponder()
+    }
+    
     /// Called when the user taps on the 'done' button after selecting the apprpriate metric type.
     @objc private func pickerViewDoneHandler(){
         self.dummyTextField.resignFirstResponder()
     }
    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return self.selectedChartMetrics.count
+        return self.selectionMode == .ChartMetric ? self.selectedChartMetrics.count : 1
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return self.metricTypes.count
+        return self.selectionMode == .ChartMetric ? self.metricTypes.count : self.timeUnits.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return "\(self.metricTypes[row])"
+        return self.selectionMode == SelectionMode.ChartMetric ? "\(self.metricTypes[row])" : "\(self.timeUnits[row])"
     }
         
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         // When a row is selcted, ensure that we add to the list of selected metrics.
-        self.selectedChartMetrics[component] = self.metricTypes[row]
+        switch self.selectionMode {
+        case .ChartMetric:
+            self.selectedChartMetrics[component] = self.metricTypes[row]
+        case .TimeUnit:
+            self.selectedTimeUnit = self.timeUnits[row]
+        }
+        
     }
     
 }
@@ -255,19 +295,30 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource {
 
 // Checkpoint: Charting aggregated health and checkin data.
 extension LogViewController {
+    
+    /// Formatter to convert from the Date object to the string which will be represented on the axis labels. We will use a format of 'day/month', which should suffice for most of the different time units.
+    var dateToStringFormatter: DateFormatter {
+        let dateToStringFormatter = DateFormatter()
+        dateToStringFormatter.dateFormat = "dd/MM"
+        return dateToStringFormatter
+    }
 
     /// Generates a series of chart points for agiven attribute and array of aggregated health data & checkin objects.
     /// Parameters:
     /// - filterOutZeros: Filters out points which have a '0' value for the y axis. Useful for healthDataObjects where a '0' indicates the lack of a response.
     private func generateChartPoints(forAttribute attribute: String, andSelectedTimeUnit timeUnit: AggregationCriteria, ofAggregatedDataObjects data: [JSON], filterOutZeros: Bool = true) -> [ChartPoint] {
-        let chartPoints = data.map { (item) -> ChartPoint in
-            let formatter = ISO8601DateFormatter()
-                          formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-            let parsedDate = formatter.date(from: item["startOfDate"].stringValue)
-            let dateDay = parsedDate?.component(.day) ?? 0
-            self.log("Mapping \(attribute) (\(item[attribute].stringValue)) of item: \(item) to a chartpoint.")
-            return ChartPoint(x: ChartAxisValueInt(dateDay), y: ChartAxisValueDouble(Double(item[attribute].stringValue) ?? 0.0))
-        }.filter { $0.y.scalar != 0 && filterOutZeros }
+        let chartPoints = data.compactMap { (item) -> ChartPoint? in
+            let stringToDateFormatter = ISO8601DateFormatter()
+                          stringToDateFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+            let parsedDate = stringToDateFormatter.date(from: item["startOfDate"].stringValue)
+            // let dateDay = parsedDate?.component(.day) ?? 0
+            // self.log("Mapping \(attribute) (\(item[attribute].stringValue)) of item: \(item) to a chartpoint.")
+            // self.log("Creating chart point for date: \(self.dateToStringFormatter.string(from: parsedDate!)) and value: \(item[attribute].stringValue):\(Double(item[attribute].stringValue))")
+            
+            // return ChartPoint(x: ChartAxisValueInt(dateDay), y: ChartAxisValueDouble(Double(item[attribute].stringValue) ?? 0.0))
+            return parsedDate != nil && Double(item[attribute].stringValue) != nil ? ChartPoint(x: ChartAxisValueDate(date: parsedDate!, formatter: self.dateToStringFormatter), y: ChartAxisValueDouble(Double(item[attribute].stringValue)!)) : nil
+
+        }.filter { !filterOutZeros || $0.y.scalar != 0 }
         self.log("Generated chart points: \(chartPoints)")
         return chartPoints
     }
@@ -326,25 +377,29 @@ extension LogViewController {
             
             self.log("Determined minimum and maximum axis values: \(( (minX, minY), (maxX, maxY) ))")
             
-            let labelSettings = ChartLabelSettings(font: UIFont.preferredFont(forTextStyle: .footnote), fontColor: Colour.primary, rotation: 0, rotationKeep: .bottom, shiftXOnRotation: false, textAlignment: .default)
+            let yLabelSettings = ChartLabelSettings(font: UIFont.preferredFont(forTextStyle: .footnote), fontColor: Colour.primary, rotation: 0, rotationKeep: .bottom, shiftXOnRotation: false, textAlignment: .default)
+            
+            let xLabelSettings = ChartLabelSettings(font: UIFont.preferredFont(forTextStyle: .footnote), fontColor: Colour.primary, rotation: -45, rotationKeep: .bottom, shiftXOnRotation: false, textAlignment: .right)
                     
             // We want at most 5  yTicks to represent all the values.
             // Ensure that the yAxisMultiplier is at least one.
             self.log("MinY: ")
             let yAxisGeneratorMultiplier = max(1, ((maxY - minY) / 5 ))
             let yGenerator = ChartAxisGeneratorMultiplier(yAxisGeneratorMultiplier)
-            let labelsGenerator = ChartAxisLabelsGeneratorFunc {scalar in
-                return ChartAxisLabel(text: "\(Int(scalar))", settings: labelSettings)
+            let yLabelsGenerator = ChartAxisLabelsGeneratorFunc {scalar in
+                return ChartAxisLabel(text: "\(Int(scalar))", settings: yLabelSettings)
             }
             
             // We want at most 10 xTicks to represent all the values.
             let xAxisGeneratorMultiplier = round((maxX - minX) / 10 )
             let xGenerator = ChartAxisGeneratorMultiplier(xAxisGeneratorMultiplier)
+            let xLabelsGenerator = ChartAxisLabelsGeneratorDate(labelSettings: xLabelSettings, formatter: self.dateToStringFormatter)
+             
             self.log("X Axis Generator Multiplier: \(xAxisGeneratorMultiplier). Y Axis Generator Multipler: \(yAxisGeneratorMultiplier)")
             
-            let xModel = ChartAxisModel(lineColor: Colour.primary, firstModelValue: minX - 1, lastModelValue: maxX + 1, axisTitleLabels: [ChartAxisLabel(text: "\(timeUnit)", settings: labelSettings)], axisValuesGenerator: xGenerator, labelsGenerator: labelsGenerator)
+            let xModel = ChartAxisModel(lineColor: Colour.primary, firstModelValue: minX - 1, lastModelValue: maxX + 1, axisTitleLabels: [ChartAxisLabel(text: "\(timeUnit)", settings: xLabelSettings)], axisValuesGenerator: xGenerator, labelsGenerator: xLabelsGenerator)
                         
-            let yModel = ChartAxisModel(lineColor: Colour.primary, firstModelValue: max(minY / 1.1, 0), lastModelValue: maxY * 1.1, axisTitleLabels: [ChartAxisLabel(text: attributes.joined(separator: ", "), settings: labelSettings.defaultVertical())], axisValuesGenerator: yGenerator, labelsGenerator: labelsGenerator)
+            let yModel = ChartAxisModel(lineColor: Colour.primary, firstModelValue: max(minY / 1.1, 0), lastModelValue: maxY * 1.1, axisTitleLabels: [ChartAxisLabel(text: attributes.joined(separator: ", "), settings: yLabelSettings.defaultVertical())], axisValuesGenerator: yGenerator, labelsGenerator:yLabelsGenerator)
             
             DispatchQueue.main.async {
 

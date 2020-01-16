@@ -11,5 +11,13 @@ target 'Benson' do
   pod 'SwiftyJSON', '~> 4.0'
 #  pod 'Alamofire-SwiftyJSON'
   pod 'SwiftCharts'
+  
+target 'BensonWatchApp Extension'
+
+  # Pods for Benson
+  pod 'Alamofire', '~> 5.0.0-beta.5'
+
+  pod 'SwiftyJSON', '~> 4.0'
+
     
 end

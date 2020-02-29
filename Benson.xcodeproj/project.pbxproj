@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0FE5F5930F44F74A2ECA5A33 /* Pods_Benson.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61F6D3A6007EDAEFAA0A4449 /* Pods_Benson.framework */; };
 		212B86C7239D477600CE9C41 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 212B86C6239D477600CE9C41 /* HealthKit.framework */; };
 		212B86C9239D483500CE9C41 /* BensonHealthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212B86C8239D483500CE9C41 /* BensonHealthManager.swift */; };
 		212EEE992318685D00C01AD8 /* BensonButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212EEE982318685D00C01AD8 /* BensonButton.swift */; };
@@ -30,14 +31,13 @@
 		21743E7B23D0FE9600F49CC3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21743E7A23D0FE9600F49CC3 /* Assets.xcassets */; };
 		21743E7E23D0FE9600F49CC3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21743E7D23D0FE9600F49CC3 /* Preview Assets.xcassets */; };
 		21743E8323D0FE9600F49CC3 /* BensonWatchApp.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 21743E5F23D0FE8C00F49CC3 /* BensonWatchApp.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		21743E8C23D1014D00F49CC3 /* Fetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2184B01F238D11F900FE96EA /* Fetcher.swift */; };
 		2184B020238D11F900FE96EA /* Fetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2184B01F238D11F900FE96EA /* Fetcher.swift */; };
 		21880FBB23806ED000A02055 /* MetricCellValueComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21880FBA23806ED000A02055 /* MetricCellValueComponent.swift */; };
 		21880FC1238093B100A02055 /* MetricCellValueComponent.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21880FC0238093B100A02055 /* MetricCellValueComponent.xib */; };
 		21938DBE2315552C0066B90B /* LogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21938DBD2315552C0066B90B /* LogViewController.swift */; };
 		21938DC023155E690066B90B /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21938DBF23155E690066B90B /* TabBarViewController.swift */; };
 		21C58F372327BCBB007EE5F1 /* CheckinCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C58F362327BCBB007EE5F1 /* CheckinCollectionViewCell.swift */; };
-		584165F7B4E6807DDAD411D1 /* Pods_Benson.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2A92CD5493626DFC8B1C68C /* Pods_Benson.framework */; };
+		669BA7688B21773FADE58B5B /* Pods_BensonWatchApp_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D192581FA501CF94A4600EF1 /* Pods_BensonWatchApp_Extension.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +83,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0E295C82155AB8534DDC5057 /* Pods-BensonWatchApp Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BensonWatchApp Extension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BensonWatchApp Extension/Pods-BensonWatchApp Extension.debug.xcconfig"; sourceTree = "<group>"; };
 		212B86C5239D477600CE9C41 /* Benson.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Benson.entitlements; sourceTree = "<group>"; };
 		212B86C6239D477600CE9C41 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		212B86C8239D483500CE9C41 /* BensonHealthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BensonHealthManager.swift; sourceTree = "<group>"; };
@@ -119,10 +120,11 @@
 		21938DBF23155E690066B90B /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		21C58F362327BCBB007EE5F1 /* CheckinCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinCollectionViewCell.swift; sourceTree = "<group>"; };
 		21C82CCD239BE14A00948A5F /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		592CF5E8A42FEBFB886C11D1 /* Pods-Benson.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Benson.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Benson/Pods-Benson.debug.xcconfig"; sourceTree = "<group>"; };
-		A22AB671DFEEBD14729F9ABD /* Pods-Benson.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Benson.release.xcconfig"; path = "Pods/Target Support Files/Pods-Benson/Pods-Benson.release.xcconfig"; sourceTree = "<group>"; };
-		ECF36728209A62362ADB95EC /* Pods-Benson.simulator.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Benson.simulator.xcconfig"; path = "Pods/Target Support Files/Pods-Benson/Pods-Benson.simulator.xcconfig"; sourceTree = "<group>"; };
-		F2A92CD5493626DFC8B1C68C /* Pods_Benson.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Benson.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B2E9CA1158EA1BFA35587C8 /* Pods-Benson.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Benson.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Benson/Pods-Benson.debug.xcconfig"; sourceTree = "<group>"; };
+		61F6D3A6007EDAEFAA0A4449 /* Pods_Benson.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Benson.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8BBD203C63DEC4D7DFDC4233 /* Pods-Benson.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Benson.release.xcconfig"; path = "Pods/Target Support Files/Pods-Benson/Pods-Benson.release.xcconfig"; sourceTree = "<group>"; };
+		B5D061AD688228E6EC955332 /* Pods-BensonWatchApp Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BensonWatchApp Extension.release.xcconfig"; path = "Pods/Target Support Files/Pods-BensonWatchApp Extension/Pods-BensonWatchApp Extension.release.xcconfig"; sourceTree = "<group>"; };
+		D192581FA501CF94A4600EF1 /* Pods_BensonWatchApp_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BensonWatchApp_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,12 +132,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				584165F7B4E6807DDAD411D1 /* Pods_Benson.framework in Frameworks */,
 				212B86C7239D477600CE9C41 /* HealthKit.framework in Frameworks */,
+				0FE5F5930F44F74A2ECA5A33 /* Pods_Benson.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		21743E6823D0FE9400F49CC3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				669BA7688B21773FADE58B5B /* Pods_BensonWatchApp_Extension.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B01ACD61F91E277845F6960 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -145,16 +155,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		19BF2C8C61A7A4147F48F60D /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				592CF5E8A42FEBFB886C11D1 /* Pods-Benson.debug.xcconfig */,
-				A22AB671DFEEBD14729F9ABD /* Pods-Benson.release.xcconfig */,
-				ECF36728209A62362ADB95EC /* Pods-Benson.simulator.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		213436D723098A42006B1CA8 = {
 			isa = PBXGroup;
 			children = (
@@ -162,8 +162,8 @@
 				21743E6023D0FE8C00F49CC3 /* BensonWatchApp */,
 				21743E6F23D0FE9400F49CC3 /* BensonWatchApp Extension */,
 				213436E123098A42006B1CA8 /* Products */,
-				19BF2C8C61A7A4147F48F60D /* Pods */,
 				E1B3C5F3A2F32C62968879A2 /* Frameworks */,
+				595675D6A3CEA4B6C2D50FAA /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -277,12 +277,24 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		595675D6A3CEA4B6C2D50FAA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2B2E9CA1158EA1BFA35587C8 /* Pods-Benson.debug.xcconfig */,
+				8BBD203C63DEC4D7DFDC4233 /* Pods-Benson.release.xcconfig */,
+				0E295C82155AB8534DDC5057 /* Pods-BensonWatchApp Extension.debug.xcconfig */,
+				B5D061AD688228E6EC955332 /* Pods-BensonWatchApp Extension.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		E1B3C5F3A2F32C62968879A2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				212B86C6239D477600CE9C41 /* HealthKit.framework */,
 				21C82CCD239BE14A00948A5F /* Alamofire.framework */,
-				F2A92CD5493626DFC8B1C68C /* Pods_Benson.framework */,
+				61F6D3A6007EDAEFAA0A4449 /* Pods_Benson.framework */,
+				D192581FA501CF94A4600EF1 /* Pods_BensonWatchApp_Extension.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -294,12 +306,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 213436F423098A43006B1CA8 /* Build configuration list for PBXNativeTarget "Benson" */;
 			buildPhases = (
-				E8A224C8B2F5B1205EA135EE /* [CP] Check Pods Manifest.lock */,
+				A60DC5385EC460C3EA1C238D /* [CP] Check Pods Manifest.lock */,
 				213436DC23098A42006B1CA8 /* Sources */,
 				213436DD23098A42006B1CA8 /* Frameworks */,
 				213436DE23098A42006B1CA8 /* Resources */,
-				9650C711C3AA566677D917C9 /* [CP] Embed Pods Frameworks */,
 				21743E8423D0FE9600F49CC3 /* Embed Watch Content */,
+				6CD8F46E73C9EE96C4B777BB /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -317,6 +329,7 @@
 			buildPhases = (
 				21743E5D23D0FE8C00F49CC3 /* Resources */,
 				21743E8723D0FE9600F49CC3 /* Embed App Extensions */,
+				9B01ACD61F91E277845F6960 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -332,9 +345,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 21743E8A23D0FE9600F49CC3 /* Build configuration list for PBXNativeTarget "BensonWatchApp Extension" */;
 			buildPhases = (
+				8067CBEDCA58AEF894A9E1D2 /* [CP] Check Pods Manifest.lock */,
 				21743E6723D0FE9400F49CC3 /* Sources */,
 				21743E6823D0FE9400F49CC3 /* Frameworks */,
 				21743E6923D0FE9400F49CC3 /* Resources */,
+				BCF93D3E2C67303157056F63 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -419,7 +434,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		9650C711C3AA566677D917C9 /* [CP] Embed Pods Frameworks */ = {
+		6CD8F46E73C9EE96C4B777BB /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -428,19 +443,15 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Benson/Pods-Benson-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/Havrefras/Havrefras.framework",
-				"${BUILT_PRODUCTS_DIR}/ObjectiveSugar/ObjectiveSugar.framework",
+				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftCharts/SwiftCharts.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON-iOS/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Havrefras.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectiveSugar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftCharts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
@@ -449,7 +460,29 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Benson/Pods-Benson-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E8A224C8B2F5B1205EA135EE /* [CP] Check Pods Manifest.lock */ = {
+		8067CBEDCA58AEF894A9E1D2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BensonWatchApp Extension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A60DC5385EC460C3EA1C238D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -469,6 +502,30 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BCF93D3E2C67303157056F63 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-BensonWatchApp Extension/Pods-BensonWatchApp Extension-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire-watchOS/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON-watchOS/SwiftyJSON.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BensonWatchApp Extension/Pods-BensonWatchApp Extension-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -498,7 +555,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				21743E8C23D1014D00F49CC3 /* Fetcher.swift in Sources */,
 				21743E7323D0FE9400F49CC3 /* HostingController.swift in Sources */,
 				21743E7123D0FE9400F49CC3 /* ContentView.swift in Sources */,
 				21743E7723D0FE9400F49CC3 /* NotificationController.swift in Sources */,
@@ -670,7 +726,7 @@
 		};
 		213436F523098A43006B1CA8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 592CF5E8A42FEBFB886C11D1 /* Pods-Benson.debug.xcconfig */;
+			baseConfigurationReference = 2B2E9CA1158EA1BFA35587C8 /* Pods-Benson.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Benson/Benson.entitlements;
@@ -692,7 +748,7 @@
 		};
 		213436F623098A43006B1CA8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A22AB671DFEEBD14729F9ABD /* Pods-Benson.release.xcconfig */;
+			baseConfigurationReference = 8BBD203C63DEC4D7DFDC4233 /* Pods-Benson.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Benson/Benson.entitlements;
@@ -754,6 +810,7 @@
 		};
 		21743E8823D0FE9600F49CC3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0E295C82155AB8534DDC5057 /* Pods-BensonWatchApp Extension.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
@@ -778,6 +835,7 @@
 		};
 		21743E8923D0FE9600F49CC3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B5D061AD688228E6EC955332 /* Pods-BensonWatchApp Extension.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;

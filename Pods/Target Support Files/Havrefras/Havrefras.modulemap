@@ -1,6 +1,0 @@
-framework module Havrefras {
-  umbrella header "Havrefras-umbrella.h"
-
-  export *
-  module * { export * }
-}

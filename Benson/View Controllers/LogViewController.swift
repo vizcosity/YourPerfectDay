@@ -8,7 +8,7 @@
 
 import UIKit
 import CareKit
-import SwiftCharts
+//import SwiftCharts
 import SwiftyJSON
 
 /// Determines the values which should be displayed by the UIPickerView.
@@ -23,7 +23,7 @@ enum SelectionMode {
 
 class LogViewController: UIViewController{
     
-    private var chart: Chart?
+    //private var chart: Chart?
    
     @IBOutlet weak var chartViewContainer: UIView!
     
@@ -327,8 +327,14 @@ extension LogViewController {
         
         
         chartView.graphView.dataSeries = dataSeries
-        chartView.graphView.heightAnchor.constraint(equalToConstant: 250).isActive = true
+        //chartView.graphView.heightAnchor.constraint(equalToConstant: 250).isActive = true
         //chartView.graphView.frame = chartViewContainer.bounds
+        
+        chartView.headerView.removeFromSuperview()
+        self.log("Stack view items for OCKCartesianGraphView: \(chartView.contentStackView.arrangedSubviews)")
+        
+       // Remove unwanted header view from the ChartView's stack view.
+        chartView.contentStackView.arrangedSubviews.first?.removeFromSuperview()
         
         chartView.graphView.horizontalAxisMarkers = horizontalAxisLabels.sample(withAroundNumberOfPoints: 5)
         chartView.backgroundColor = Colour.secondary
@@ -340,6 +346,7 @@ extension LogViewController {
         
         // Re-instantiate the chart view as a subview of the container.
         self.chartViewContainer.subviews.forEach { $0.removeFromSuperview() }
+        
         self.chartViewContainer.addSubview(chartView)
         
     }

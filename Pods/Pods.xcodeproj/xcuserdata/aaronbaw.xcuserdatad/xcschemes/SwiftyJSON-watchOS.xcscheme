@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0930"
+   LastUpgradeVersion = "1100"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2CA73D1772CB459B320321CF04C1DBAA"
+               BlueprintIdentifier = "DE3710EBC596046C13E7C0D72520EB21"
                BuildableName = "SwiftyJSON.framework"
                BlueprintName = "SwiftyJSON-watchOS"
                ReferencedContainer = "container:Pods.xcodeproj">

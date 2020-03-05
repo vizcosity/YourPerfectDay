@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0930"
+   LastUpgradeVersion = "1100"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B2ADDACFEEDA211DF42D32BF6D675CDB"
+               BlueprintIdentifier = "BB1518BBBEDFF5C51484D7221370C735"
                BuildableName = "Pods_BensonWatchApp_Extension.framework"
                BlueprintName = "Pods-BensonWatchApp Extension"
                ReferencedContainer = "container:Pods.xcodeproj">

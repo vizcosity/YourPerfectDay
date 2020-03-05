@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kcT-El-Ktj">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -117,6 +116,10 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iJm-CR-ekI" customClass="GradientView" customModule="Benson" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="zAi-VQ-0Vf">
+                                        <rect key="frame" x="197" y="325" width="20" height="20"/>
+                                        <color key="color" red="0.94712716340000003" green="0.83542150260000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </activityIndicatorView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="35" placeholderIntrinsicHeight="33" text="log" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e8X-ad-WjO">
                                         <rect key="frame" x="8" y="522" width="398" height="33"/>
                                         <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="24"/>
@@ -181,17 +184,7 @@
                                     </tableView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8IA-uc-xWh">
                                         <rect key="frame" x="8" y="155" width="398" height="359"/>
-                                        <subviews>
-                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="zAi-VQ-0Vf">
-                                                <rect key="frame" x="189" y="169.5" width="20" height="20"/>
-                                                <color key="color" red="0.94712716340000003" green="0.83542150260000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </activityIndicatorView>
-                                        </subviews>
                                         <color key="backgroundColor" white="1" alpha="0.099823416095890405" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstItem="zAi-VQ-0Vf" firstAttribute="centerX" secondItem="8IA-uc-xWh" secondAttribute="centerX" id="FCE-tk-RK1"/>
-                                            <constraint firstItem="zAi-VQ-0Vf" firstAttribute="centerY" secondItem="8IA-uc-xWh" secondAttribute="centerY" id="Lzf-0u-tg1"/>
-                                        </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                 <integer key="value" value="8"/>
@@ -232,6 +225,8 @@
                                 <constraints>
                                     <constraint firstItem="e8X-ad-WjO" firstAttribute="leading" secondItem="ge9-gM-Xwt" secondAttribute="leading" constant="8" id="0OM-xV-35W"/>
                                     <constraint firstItem="e8X-ad-WjO" firstAttribute="top" secondItem="8IA-uc-xWh" secondAttribute="bottom" constant="8" id="1IZ-9p-SQ5"/>
+                                    <constraint firstItem="zAi-VQ-0Vf" firstAttribute="centerY" secondItem="8IA-uc-xWh" secondAttribute="centerY" id="7ck-sF-ef9"/>
+                                    <constraint firstItem="zAi-VQ-0Vf" firstAttribute="centerX" secondItem="8IA-uc-xWh" secondAttribute="centerX" id="Agj-DO-NZU"/>
                                     <constraint firstItem="U3S-pV-L3M" firstAttribute="leading" secondItem="ge9-gM-Xwt" secondAttribute="leading" constant="8" id="Aia-q8-Eqq"/>
                                     <constraint firstItem="Hce-mB-K0A" firstAttribute="top" secondItem="T2L-3u-Rs3" secondAttribute="top" id="C8r-Vh-avB"/>
                                     <constraint firstItem="UF7-nR-rnR" firstAttribute="top" secondItem="Hce-mB-K0A" secondAttribute="top" id="Hg5-13-sr4"/>

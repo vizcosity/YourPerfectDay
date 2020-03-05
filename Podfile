@@ -10,9 +10,9 @@ target 'Benson' do
 #  pod 'Havrefras', :git => 'https://github.com/carechain/Havrefras.git'
   pod 'SwiftyJSON', '~> 4.0'
 #  pod 'Alamofire-SwiftyJSON'
-  pod 'SwiftCharts'
+#  pod 'SwiftCharts'
   
-#  pod 'ResearchKit', :git => 'https://github.com/ResearchKit/ResearchKit'
+  pod 'ResearchKit', :git => 'https://github.com/ResearchKit/ResearchKit'
   
 end
 

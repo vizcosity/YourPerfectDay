@@ -21,9 +21,9 @@
 		21471735239C4E2300E4226F /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21471734239C4E2300E4226F /* Notifications.swift */; };
 		216CAA70237A010E004D6B8E /* MetricLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CAA6F237A010E004D6B8E /* MetricLog.swift */; };
 		21734668240AC7C100B22219 /* BensonChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21734667240AC7C100B22219 /* BensonChartView.swift */; };
-		2173466B240AC83600B22219 /* CareKitUI in Frameworks */ = {isa = PBXBuildFile; productRef = 2173466A240AC83600B22219 /* CareKitUI */; };
-		2173466D240AC83600B22219 /* CareKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2173466C240AC83600B22219 /* CareKit */; };
-		2173466F240AC83600B22219 /* CareKitStore in Frameworks */ = {isa = PBXBuildFile; productRef = 2173466E240AC83600B22219 /* CareKitStore */; };
+		2173466B240AC83600B22219 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 2173466A240AC83600B22219 /* SwiftPackageProductDependency */; };
+		2173466D240AC83600B22219 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 2173466C240AC83600B22219 /* SwiftPackageProductDependency */; };
+		2173466F240AC83600B22219 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 2173466E240AC83600B22219 /* SwiftPackageProductDependency */; };
 		21734671240AF9C700B22219 /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21734670240AF9C700B22219 /* Sample.swift */; };
 		21743E6323D0FE8C00F49CC3 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21743E6123D0FE8C00F49CC3 /* Interface.storyboard */; };
 		21743E6523D0FE9400F49CC3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21743E6423D0FE9400F49CC3 /* Assets.xcassets */; };
@@ -141,9 +141,9 @@
 			files = (
 				212B86C7239D477600CE9C41 /* HealthKit.framework in Frameworks */,
 				0FE5F5930F44F74A2ECA5A33 /* Pods_Benson.framework in Frameworks */,
-				2173466D240AC83600B22219 /* CareKit in Frameworks */,
-				2173466B240AC83600B22219 /* CareKitUI in Frameworks */,
-				2173466F240AC83600B22219 /* CareKitStore in Frameworks */,
+				2173466D240AC83600B22219 /* BuildFile in Frameworks */,
+				2173466B240AC83600B22219 /* BuildFile in Frameworks */,
+				2173466F240AC83600B22219 /* BuildFile in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,9 +332,9 @@
 			);
 			name = Benson;
 			packageProductDependencies = (
-				2173466A240AC83600B22219 /* CareKitUI */,
-				2173466C240AC83600B22219 /* CareKit */,
-				2173466E240AC83600B22219 /* CareKitStore */,
+				2173466A240AC83600B22219 /* SwiftPackageProductDependency */,
+				2173466C240AC83600B22219 /* SwiftPackageProductDependency */,
+				2173466E240AC83600B22219 /* SwiftPackageProductDependency */,
 			);
 			productName = Benson;
 			productReference = 213436E023098A42006B1CA8 /* Benson.app */;
@@ -399,7 +399,7 @@
 				};
 			};
 			buildConfigurationList = 213436DB23098A42006B1CA8 /* Build configuration list for PBXProject "Benson" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -408,7 +408,7 @@
 			);
 			mainGroup = 213436D723098A42006B1CA8;
 			packageReferences = (
-				21734669240AC83600B22219 /* XCRemoteSwiftPackageReference "CareKit" */,
+				21734669240AC83600B22219 /* RemoteSwiftPackageReference */,
 			);
 			productRefGroup = 213436E123098A42006B1CA8 /* Products */;
 			projectDirPath = "";
@@ -464,7 +464,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Benson/Pods-Benson-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftCharts/SwiftCharts.framework",
+				"${BUILT_PRODUCTS_DIR}/ResearchKit/ResearchKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON-iOS/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -472,7 +472,7 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftCharts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ResearchKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -922,7 +922,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		21734669240AC83600B22219 /* XCRemoteSwiftPackageReference "CareKit" */ = {
+		21734669240AC83600B22219 /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/carekit-apple/CareKit.git";
 			requirement = {
@@ -933,19 +933,19 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2173466A240AC83600B22219 /* CareKitUI */ = {
+		2173466A240AC83600B22219 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 21734669240AC83600B22219 /* XCRemoteSwiftPackageReference "CareKit" */;
+			package = 21734669240AC83600B22219 /* RemoteSwiftPackageReference */;
 			productName = CareKitUI;
 		};
-		2173466C240AC83600B22219 /* CareKit */ = {
+		2173466C240AC83600B22219 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 21734669240AC83600B22219 /* XCRemoteSwiftPackageReference "CareKit" */;
+			package = 21734669240AC83600B22219 /* RemoteSwiftPackageReference */;
 			productName = CareKit;
 		};
-		2173466E240AC83600B22219 /* CareKitStore */ = {
+		2173466E240AC83600B22219 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 21734669240AC83600B22219 /* XCRemoteSwiftPackageReference "CareKit" */;
+			package = 21734669240AC83600B22219 /* RemoteSwiftPackageReference */;
 			productName = CareKitStore;
 		};
 /* End XCSwiftPackageProductDependency section */

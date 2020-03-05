@@ -11,6 +11,9 @@ target 'Benson' do
   pod 'SwiftyJSON', '~> 4.0'
 #  pod 'Alamofire-SwiftyJSON'
   pod 'SwiftCharts'
+  
+#  pod 'ResearchKit', :git => 'https://github.com/ResearchKit/ResearchKit'
+  
 end
 
 target 'BensonWatchApp Extension' do

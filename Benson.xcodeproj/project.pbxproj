@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -20,6 +20,11 @@
 		213436FC2309AD9F006B1CA8 /* MetricPromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213436FB2309AD9F006B1CA8 /* MetricPromptView.swift */; };
 		21471735239C4E2300E4226F /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21471734239C4E2300E4226F /* Notifications.swift */; };
 		216CAA70237A010E004D6B8E /* MetricLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CAA6F237A010E004D6B8E /* MetricLog.swift */; };
+		21734668240AC7C100B22219 /* BensonChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21734667240AC7C100B22219 /* BensonChartView.swift */; };
+		2173466B240AC83600B22219 /* CareKitUI in Frameworks */ = {isa = PBXBuildFile; productRef = 2173466A240AC83600B22219 /* CareKitUI */; };
+		2173466D240AC83600B22219 /* CareKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2173466C240AC83600B22219 /* CareKit */; };
+		2173466F240AC83600B22219 /* CareKitStore in Frameworks */ = {isa = PBXBuildFile; productRef = 2173466E240AC83600B22219 /* CareKitStore */; };
+		21734671240AF9C700B22219 /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21734670240AF9C700B22219 /* Sample.swift */; };
 		21743E6323D0FE8C00F49CC3 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21743E6123D0FE8C00F49CC3 /* Interface.storyboard */; };
 		21743E6523D0FE9400F49CC3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21743E6423D0FE9400F49CC3 /* Assets.xcassets */; };
 		21743E6C23D0FE9400F49CC3 /* BensonWatchApp Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 21743E6B23D0FE9400F49CC3 /* BensonWatchApp Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -99,6 +104,8 @@
 		213436FB2309AD9F006B1CA8 /* MetricPromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricPromptView.swift; sourceTree = "<group>"; };
 		21471734239C4E2300E4226F /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		216CAA6F237A010E004D6B8E /* MetricLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricLog.swift; sourceTree = "<group>"; };
+		21734667240AC7C100B22219 /* BensonChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BensonChartView.swift; sourceTree = "<group>"; };
+		21734670240AF9C700B22219 /* Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sample.swift; sourceTree = "<group>"; };
 		21743E5F23D0FE8C00F49CC3 /* BensonWatchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BensonWatchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		21743E6223D0FE8C00F49CC3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		21743E6423D0FE9400F49CC3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -134,6 +141,9 @@
 			files = (
 				212B86C7239D477600CE9C41 /* HealthKit.framework in Frameworks */,
 				0FE5F5930F44F74A2ECA5A33 /* Pods_Benson.framework in Frameworks */,
+				2173466D240AC83600B22219 /* CareKit in Frameworks */,
+				2173466B240AC83600B22219 /* CareKitUI in Frameworks */,
+				2173466F240AC83600B22219 /* CareKitStore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,6 +252,7 @@
 			isa = PBXGroup;
 			children = (
 				213436FB2309AD9F006B1CA8 /* MetricPromptView.swift */,
+				21734667240AC7C100B22219 /* BensonChartView.swift */,
 				213436F72309A764006B1CA8 /* GradientView.swift */,
 			);
 			path = Views;
@@ -273,6 +284,7 @@
 				2184B01F238D11F900FE96EA /* Fetcher.swift */,
 				21471734239C4E2300E4226F /* Notifications.swift */,
 				212B86C8239D483500CE9C41 /* BensonHealthManager.swift */,
+				21734670240AF9C700B22219 /* Sample.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -319,6 +331,11 @@
 				21743E8223D0FE9600F49CC3 /* PBXTargetDependency */,
 			);
 			name = Benson;
+			packageProductDependencies = (
+				2173466A240AC83600B22219 /* CareKitUI */,
+				2173466C240AC83600B22219 /* CareKit */,
+				2173466E240AC83600B22219 /* CareKitStore */,
+			);
 			productName = Benson;
 			productReference = 213436E023098A42006B1CA8 /* Benson.app */;
 			productType = "com.apple.product-type.application";
@@ -390,6 +407,9 @@
 				Base,
 			);
 			mainGroup = 213436D723098A42006B1CA8;
+			packageReferences = (
+				21734669240AC83600B22219 /* XCRemoteSwiftPackageReference "CareKit" */,
+			);
 			productRefGroup = 213436E123098A42006B1CA8 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -545,8 +565,10 @@
 				213436FC2309AD9F006B1CA8 /* MetricPromptView.swift in Sources */,
 				21938DC023155E690066B90B /* TabBarViewController.swift in Sources */,
 				212B86C9239D483500CE9C41 /* BensonHealthManager.swift in Sources */,
+				21734671240AF9C700B22219 /* Sample.swift in Sources */,
 				21C58F372327BCBB007EE5F1 /* CheckinCollectionViewCell.swift in Sources */,
 				213436F82309A764006B1CA8 /* GradientView.swift in Sources */,
+				21734668240AC7C100B22219 /* BensonChartView.swift in Sources */,
 				21880FBB23806ED000A02055 /* MetricCellValueComponent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -658,7 +680,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -714,7 +736,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -898,6 +920,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		21734669240AC83600B22219 /* XCRemoteSwiftPackageReference "CareKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/carekit-apple/CareKit.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2173466A240AC83600B22219 /* CareKitUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 21734669240AC83600B22219 /* XCRemoteSwiftPackageReference "CareKit" */;
+			productName = CareKitUI;
+		};
+		2173466C240AC83600B22219 /* CareKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 21734669240AC83600B22219 /* XCRemoteSwiftPackageReference "CareKit" */;
+			productName = CareKit;
+		};
+		2173466E240AC83600B22219 /* CareKitStore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 21734669240AC83600B22219 /* XCRemoteSwiftPackageReference "CareKit" */;
+			productName = CareKitStore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 213436D823098A42006B1CA8 /* Project object */;
 }

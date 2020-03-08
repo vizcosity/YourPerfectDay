@@ -117,7 +117,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="zAi-VQ-0Vf">
-                                        <rect key="frame" x="197" y="325" width="20" height="20"/>
+                                        <rect key="frame" x="197" y="324.5" width="20" height="20"/>
                                         <color key="color" red="0.94712716340000003" green="0.83542150260000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </activityIndicatorView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="35" placeholderIntrinsicHeight="33" text="log" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e8X-ad-WjO">
@@ -266,7 +266,51 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uNZ-nt-9vc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1657.9710144927537" y="373.66071428571428"/>
+            <point key="canvasLocation" x="1659" y="504"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="KFl-hu-LPC">
+            <objects>
+                <viewController id="hyY-TJ-9WJ" customClass="YPDRecordViewController" customModule="Benson" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="o1y-ac-eCe">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="LKI-BU-6IN">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ecY-QC-h8W">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                        <attributedString key="attributedText">
+                                            <fragment content="How are you feeling?">
+                                                <attributes>
+                                                    <font key="NSFont" size="33" name="SFProDisplay-Semibold"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="LKI-BU-6IN" firstAttribute="leading" secondItem="VVW-ic-2NI" secondAttribute="leading" id="3ss-8F-N60"/>
+                            <constraint firstItem="VVW-ic-2NI" firstAttribute="trailing" secondItem="LKI-BU-6IN" secondAttribute="trailing" id="ZX9-sP-JP9"/>
+                            <constraint firstItem="VVW-ic-2NI" firstAttribute="top" secondItem="LKI-BU-6IN" secondAttribute="top" constant="44" id="tQe-Yp-ReC"/>
+                            <constraint firstItem="LKI-BU-6IN" firstAttribute="bottom" secondItem="VVW-ic-2NI" secondAttribute="bottom" constant="83" id="vQo-3x-6jv"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="VVW-ic-2NI"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="rGI-eY-uNG"/>
+                    <connections>
+                        <outlet property="stackView" destination="LKI-BU-6IN" id="Kzh-MZ-MNp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="di9-xH-bEk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2528.985507246377" y="91.741071428571431"/>
         </scene>
         <!--Tab Bar View Controller-->
         <scene sceneID="ffo-Zu-L06">
@@ -297,6 +341,7 @@
                         <outlet property="tabBar" destination="f6o-k5-lA3" id="98P-4r-Kas"/>
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="3mB-jz-21L"/>
                         <segue destination="Hby-ue-Ukr" kind="relationship" relationship="viewControllers" id="mnD-NU-g0N"/>
+                        <segue destination="hyY-TJ-9WJ" kind="relationship" relationship="viewControllers" id="OoK-Fb-Qzg"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="adS-cv-7Uv" userLabel="First Responder" sceneMemberID="firstResponder"/>

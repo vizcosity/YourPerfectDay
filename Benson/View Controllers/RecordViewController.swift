@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 
 
-@IBDesignable
+//@IBDesignable
 class RecordViewController: UIViewController, MetricSelectionDelegate {
     
     @IBOutlet weak var retrieveMetricSpinner: UIActivityIndicatorView!

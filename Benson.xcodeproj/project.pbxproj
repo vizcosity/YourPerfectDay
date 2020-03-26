@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0FE5F5930F44F74A2ECA5A33 /* Pods_Benson.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61F6D3A6007EDAEFAA0A4449 /* Pods_Benson.framework */; };
+		21010095242D4CBC0010ED8D /* YPDInsightSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21010094242D4CBC0010ED8D /* YPDInsightSummaryView.swift */; };
 		212B86C7239D477600CE9C41 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 212B86C6239D477600CE9C41 /* HealthKit.framework */; };
 		212B86C9239D483500CE9C41 /* BensonHealthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212B86C8239D483500CE9C41 /* BensonHealthManager.swift */; };
 		212EEE992318685D00C01AD8 /* BensonButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212EEE982318685D00C01AD8 /* BensonButton.swift */; };
@@ -90,6 +91,7 @@
 
 /* Begin PBXFileReference section */
 		0E295C82155AB8534DDC5057 /* Pods-BensonWatchApp Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BensonWatchApp Extension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BensonWatchApp Extension/Pods-BensonWatchApp Extension.debug.xcconfig"; sourceTree = "<group>"; };
+		21010094242D4CBC0010ED8D /* YPDInsightSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = YPDInsightSummaryView.swift; path = /Users/aaronbaw/Code/Benson/Benson/Views/YPDInsightSummaryView.swift; sourceTree = "<absolute>"; };
 		212B86C5239D477600CE9C41 /* Benson.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Benson.entitlements; sourceTree = "<group>"; };
 		212B86C6239D477600CE9C41 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		212B86C8239D483500CE9C41 /* BensonHealthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BensonHealthManager.swift; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 		217BEFC12395BC4B0076DF02 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				21010094242D4CBC0010ED8D /* YPDInsightSummaryView.swift */,
 				213436FB2309AD9F006B1CA8 /* MetricPromptView.swift */,
 				21734667240AC7C100B22219 /* BensonChartView.swift */,
 				213436F72309A764006B1CA8 /* GradientView.swift */,
@@ -561,6 +564,7 @@
 				21471735239C4E2300E4226F /* Notifications.swift in Sources */,
 				213436E423098A42006B1CA8 /* AppDelegate.swift in Sources */,
 				2184B020238D11F900FE96EA /* Fetcher.swift in Sources */,
+				21010095242D4CBC0010ED8D /* YPDInsightSummaryView.swift in Sources */,
 				215F316224119B520093409F /* YPDRecordViewController.swift in Sources */,
 				212EEE992318685D00C01AD8 /* BensonButton.swift in Sources */,
 				216CAA70237A010E004D6B8E /* MetricLog.swift in Sources */,

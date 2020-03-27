@@ -14,16 +14,63 @@ struct YPDInsightSummaryView: View {
     /// The percentage change for the metricOfInterest
     var percentageMOIChange: Double
     
+    var timePeriod: String = "this week"
+    
     var briefMOISummarySentence: String {
-        return self.provideBriefMOISummarySentence(metricOfInterest: metricOfInterest, percentageMOIChange: percentageMOIChange)
+        return self.provideBriefMOISummarySentence(metricOfInterest: self.metricOfInterest, percentageMOIChange: self.percentageMOIChange)
+    }
     
     var body: some View {
         VStack {
-            HStack {
-                Text(self.briefMOISummarySentence)
-                Spacer()
+            
+            // Card above-fold content.
+            VStack {
+                HStack {
+                    Text("\(self.percentageMOIChange > 0.0 ? "Improved": "Declining") \(metricOfInterest)")
+                        .font(.headline)
+                        .multilineTextAlignment(.leading)
+                    Spacer()
+                }
+                
+                // Text notifying the user of the time period.
+                HStack {
+                    Text("\(self.metricOfInterest) \(self.timePeriod):")
+                        .font(.caption)
+                    Spacer()
+                }
+                
+               YPDInsightProgressBarView(percentageMOIChangeValue: self.percentageMOIChange)
+                
+                HStack {
+                    Text(self.briefMOISummarySentence)
+                        .font(.caption)
+                    Spacer()
+                }
+            }
+            .padding(.all, 20.0)
+            
+            // Card below-fold content. (More Detail indicator)
+            VStack {
+                Rectangle()
+                    .fill(Color(red: 225/256, green: 229/256, blue: 233/256))
+                    .frame(width: nil, height: 1, alignment: .center)
+                HStack {
+                    Spacer()
+                    HStack {
+                            Text("More Detail")
+                                .font(.caption)
+                            Image(systemName: "chevron.right")
+                                .scaleEffect(0.7)
+                    }.foregroundColor(Color.gray)
+                }
+                .padding(.all, 5)
+                .padding(.bottom, 5)
             }
         }
+        .background(Color.white)
+        .cornerRadius(6.0)
+        .shadow(color: Color.init(red: 0.9, green: 0.9, blue: 0.9), radius: 10, x: 0, y: 10)
+        .padding(.all, 10)
     }
     
     /// Given the metric of interest and the percentage change, provides a short summary sentence.
@@ -36,15 +83,15 @@ struct YPDInsightSummaryView: View {
         formatter.maximumIntegerDigits = 2
         formatter.maximumFractionDigits = 0
         
-        let formattedPercentageMOIChange = formatter.formatter.string(from: NSNumber(percentageMOIChange))
+        let formattedPercentageMOIChange = formatter.string(from: NSNumber(value: percentageMOIChange))
         
-        return "Your \(metricOfInterest) has \(percentageMOIChange > 0 ? "improved" : "fallen") \(formattedPercentageMOIChange)"
+        return "Your \(metricOfInterest) has \(percentageMOIChange > 0 ? "improved" : "fallen") \(formattedPercentageMOIChange ?? "0%")"
         
     }
 }
 
 struct YPDInsightSummaryView_Previews: PreviewProvider {
     static var previews: some View {
-        YPDInsightSummaryView(metricOfInterest: "Vitality", percentageMOIChange: 0.33)
+        YPDInsightSummaryView(metricOfInterest: "Vitality", percentageMOIChange: -0.16)
     }
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 import Alamofire
 
 struct Colour {
@@ -16,6 +17,10 @@ struct Colour {
     static var gradientOne: UIColor = #colorLiteral(red: 0.2296182215, green: 0.0797938332, blue: 0.2422780991, alpha: 1)
     static var gradientTwo: UIColor = #colorLiteral(red: 0.01777612977, green: 0.06035795063, blue: 0.151725024, alpha: 1)
     static var selectedButtonText: UIColor = #colorLiteral(red: 0.1964504421, green: 0.171156913, blue: 0.233199805, alpha: 1)
+    
+    static var progressBarBlue: Color = .init(red: 90/256, green: 200/256, blue: 250/256)
+    static var progresssBarGreen: Color = .init(red: 50/256, green: 215/256, blue: 75/256)
+    static var progressBarRed: Color = .init(red: 255/256, green: 59/256, blue: 48/256)
     
     static var chartColours: [UIColor] = [
         #colorLiteral(red: 0.9471271634, green: 0.8354215026, blue: 1, alpha: 1), #colorLiteral(red: 1, green: 0.7778892305, blue: 0.7389295165, alpha: 1), #colorLiteral(red: 1, green: 0.9256604924, blue: 0.6751254523, alpha: 1), #colorLiteral(red: 0.786677938, green: 1, blue: 0.6851736921, alpha: 1), #colorLiteral(red: 0.7483130105, green: 1, blue: 0.9712234293, alpha: 1), #colorLiteral(red: 0.6818630375, green: 0.8092012222, blue: 1, alpha: 1), #colorLiteral(red: 0.7895013734, green: 0.7520797394, blue: 1, alpha: 1)

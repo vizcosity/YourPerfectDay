@@ -30,6 +30,7 @@ struct Webserver {
     static var submitHealthData: String = "\(Webserver.endpoint)/healthData"
     static var fetchUnenrichedCheckinDates: String = "\(Webserver.endpoint)/unenrichedCheckinDates"
     static var aggregatedCheckinsByCriteria: String = "\(Webserver.endpoint)/aggregatedCheckinsByCriteria"
+    static var fetchInsights: String = "\(Webserver.endpoint)/analyse"
     static func aggregatedHealthDataAndCheckins(byCriteria criteria: String) -> String { return "\(Webserver.endpoint)/healthDataAndCheckinsAggregatedBy/\(criteria)" }
     
 }
@@ -125,7 +126,7 @@ class Fetcher {
 
                     if let attributesFromResponse = metricLogJSON["attributes"] as? [[String : Any]] {
                         metricAttributes = attributesFromResponse.map({ (attribute) -> MetricAttribute in
-                            return MetricAttribute(name: attribute["title"] as? String ?? "Attribute", value: attribute["value"] as? Int ?? 0)
+                            return MetricAttribute(name: attribute["title"] as? String ?? "Attribute", value: attribute["value"] as? Double ?? 0)
                         })
                     }
 
@@ -307,3 +308,15 @@ class Fetcher {
     }
     
 }
+
+/// Fetching insights and other analysis-related data.
+//extension Fetcher {
+//    public func fetchInsights(forAggregationCriteria aggregationCriteria: AggregationCriteria, completionHandler: @escaping ([YPDInsight]) -> Void) {
+//        self.sendPostRequest(toEndpoint: Webserver.fetchInsights, withBody: [
+//            "aggregationCriteria": aggregationCriteria.description
+//        ]) { (json) in
+//            // TODO: Parse JSON response as YPD Insights.
+//            // TODO: Alter YPD Insights to conform to better support an entire insight with multiple important metrics.
+//        }
+//    }
+//}

@@ -20,11 +20,13 @@ struct YPDInsightSummaryView: View {
         return self.provideBriefMOISummarySentence(metricOfInterest: self.metricOfInterest, percentageMOIChange: self.percentageMOIChange)
     }
     
+    var insights: [YPDInsight]
+    
     var body: some View {
         VStack {
             
             // Card above-fold content.
-            VStack {
+            VStack(alignment: .leading) {
                 HStack {
                     Text("\(self.percentageMOIChange > 0.0 ? "Improved": "Declining") \(metricOfInterest)")
                         .font(.headline)
@@ -39,13 +41,22 @@ struct YPDInsightSummaryView: View {
                     Spacer()
                 }
                 
-               YPDInsightProgressBarView(percentageMOIChangeValue: self.percentageMOIChange)
+            YPDInsightProgressBarView(percentageMOIChangeValue: self.percentageMOIChange)
                 
                 HStack {
-                    Text(self.briefMOISummarySentence)
+                    Text("\(self.briefMOISummarySentence). Here are some other changes which have taken place:")
                         .font(.caption)
+                        .lineLimit(2)
                     Spacer()
                 }
+                
+                // Display each YPD insight.
+                ForEach(0..<self.insights.count) {
+                    YPDSummaryIndividualMetricInsightView(metricName: self.insights[$0].metricAttribute.humanReadable, percentageChangeValue: self.insights[$0].localChange, timePeriod: self.insights[$0].timePeriod)
+                    
+                }
+                .padding(.top, 5.0)
+                
             }
             .padding(.all, 20.0)
             
@@ -92,6 +103,6 @@ struct YPDInsightSummaryView: View {
 
 struct YPDInsightSummaryView_Previews: PreviewProvider {
     static var previews: some View {
-        YPDInsightSummaryView(metricOfInterest: "Vitality", percentageMOIChange: -0.16)
+        YPDInsightSummaryView(metricOfInterest: "Vitality", percentageMOIChange: -0.16, insights: [YPDInsight(metricAttribute: .energy, explainingMetricAttribute: .vitality, localChange: 0.34, globalChange: 0.11, timePeriod: "this week", history: [])])
     }
 }

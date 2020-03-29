@@ -8,24 +8,85 @@
 
 import SwiftUI
 
-struct YPDInsightProgressBarView: View {
+struct YPDBackgroundProgressBarView: View {
     
+    var geometry: GeometryProxy
+    var percentageMOIChangeValue: Double
     let _defaultProgressBarHeight: CGFloat = 10
     let _defaultCornerRadius: CGFloat = 4
     
-    var percentageMOIChangeValue: Double
-    
-    var percentageMOIChange: String {
-        let formatter = NumberFormatter()
-         formatter.numberStyle = .percent
-         formatter.minimumIntegerDigits = 2
-         formatter.maximumIntegerDigits = 2
-         formatter.maximumFractionDigits = 0
-         
-        let formattedPercentageMOIChange = formatter.string(from: NSNumber(value: self.percentageMOIChangeValue))
-        
-        return formattedPercentageMOIChange ?? "0%"
+    var body: some View {
+        // Background progress bar - the colour depends on whether the MOI has increased, or decreased.
+        Rectangle()
+            .fill(self.percentageMOIChangeValue >= 0.5 ? Colour.progresssBarGreen.opacity(0.8) : Colour.progressBarRed.opacity(0.8))
+            .frame(width: geometry.size.width, height: self._defaultProgressBarHeight, alignment: .center)
+            .cornerRadius(self._defaultCornerRadius)
+            .zIndex(0)
     }
+}
+
+struct YPDIntermediaryProgressBarView: View {
+    
+    var geometry: GeometryProxy
+    var percentageMOIChangeValue: Double
+
+    var body: some View {
+        // Intermediary progress bar - this shows the relative change in the MOI, using a neutral colour.
+        Rectangle()
+            .fill(Colour.progressBarBlue)
+            .frame(width: self.percentageMOIChangeValue >= 0 ? ((geometry.size.width * 0.5) + (geometry.size.width * 0.5)*CGFloat(self.percentageMOIChangeValue)) : 0.5*geometry.size.width, height: ProgressBarDefaults.defaultProgressBarHeight)
+            .cornerRadius(ProgressBarDefaults.defaultCornerRadius)
+            .zIndex(1)
+    }
+}
+
+struct YPDOverlayedProgressBarView: View {
+    
+    var geometry: GeometryProxy
+    var percentageMOIChangeValue: Double
+
+    var body: some View {
+        // Above-background progress bar - the colour once again depends on whether or not the MOI has increased or decreased. This is always positioned to fill half of the progress bar by default.
+        Rectangle()
+            .fill(self.percentageMOIChangeValue >= 0 ? Colour.progresssBarGreen : Colour.progressBarRed)
+            .frame(width: self.percentageMOIChangeValue >= 0 ? geometry.size.width * 0.5 : ((geometry.size.width * 0.5) + (geometry.size.width * 0.5)*CGFloat(self.percentageMOIChangeValue)), height: ProgressBarDefaults.defaultProgressBarHeight, alignment: .leading)
+            .cornerRadius(ProgressBarDefaults.defaultCornerRadius)
+            .zIndex(2)
+    }
+    
+}
+
+struct YPDProgressBarPercentage: View {
+    var percentageMOIChangeValue: Double
+    var geometry: GeometryProxy
+    
+    var halfWidth: CGFloat {
+         self.geometry.size.width * 0.5
+    }
+    
+    var textPositionX: CGFloat {
+        self.halfWidth + (0.5) * self.halfWidth * CGFloat(self.percentageMOIChangeValue)
+    }
+
+    var textPositionY: CGFloat {
+        ProgressBarDefaults.defaultProgressBarHeight * 0.5
+    }
+    
+    
+    
+    var body: some View {
+        Text(self.percentageMOIChangeValue.formattedAsPercentage)
+        .font(.caption)
+        .foregroundColor(Color.white.opacity(0.85))
+        .scaleEffect(0.6)
+            .position(x: self.textPositionX, y: self.textPositionY)
+        .zIndex(3)
+    }
+}
+
+struct YPDInsightProgressBarView: View {
+
+    var percentageMOIChangeValue: Double
     
     var body: some View {
         
@@ -34,49 +95,27 @@ struct YPDInsightProgressBarView: View {
             
             GeometryReader { geometry in
                 
+                YPDOverlayedProgressBarView(geometry: geometry, percentageMOIChangeValue: self.percentageMOIChangeValue)
                 
+                YPDIntermediaryProgressBarView(geometry: geometry, percentageMOIChangeValue: self.percentageMOIChangeValue)
             
-            // Above-background progress bar - the colour once again depends on whether or not the MOI has increased or decreased. This is always positioned to fill half of the progress bar by default.
-            Rectangle()
-                .fill(self.percentageMOIChangeValue >= 0 ? Color.green : Color.red)
-                .frame(width: self.percentageMOIChangeValue >= 0 ? geometry.size.width * 0.5 : ((geometry.size.width * 0.5) + (geometry.size.width * 0.5)*CGFloat(self.percentageMOIChangeValue)), height: self._defaultProgressBarHeight, alignment: .leading)
-                .cornerRadius(self._defaultCornerRadius)
-                .zIndex(2)
+                YPDProgressBarPercentage(percentageMOIChangeValue: self.percentageMOIChangeValue, geometry: geometry)
                 
-                
-            Text(self.percentageMOIChange)
-                .font(.caption)
-                .foregroundColor(Color.white.opacity(0.85))
-                .scaleEffect(0.6)
-                .position(x: (geometry.size.width * 0.5) + (0.5) * (geometry.size.width * 0.5)*CGFloat(self.percentageMOIChangeValue), y: self._defaultProgressBarHeight * 0.5)
-                .zIndex(3)
-                
+                YPDBackgroundProgressBarView(geometry: geometry, percentageMOIChangeValue: self.percentageMOIChangeValue)
             
-            // Intermediary progress bar - this shows the relative change in the MOI, using a neutral colour.
-            Rectangle()
-                .fill(Color.blue)
-                .frame(width: self.percentageMOIChangeValue >= 0 ? ((geometry.size.width * 0.5) + (geometry.size.width * 0.5)*CGFloat(self.percentageMOIChangeValue)) : 0.5*geometry.size.width, height: self._defaultProgressBarHeight)
-                .cornerRadius(self._defaultCornerRadius)
-                .zIndex(1)
-               
-
-                
-                
-            
-            // Background progress bar - the colour depends on whether the MOI has increased, or decreased.
-            Rectangle()
-                .fill(self.percentageMOIChangeValue >= 0.5 ? Color.green.opacity(0.8) : Color.red.opacity(0.8))
-                .frame(width: geometry.size.width, height: self._defaultProgressBarHeight, alignment: .center)
-                .cornerRadius(self._defaultCornerRadius)
-                .zIndex(0)
             }
-            .frame(height: self._defaultProgressBarHeight)
+            .frame(height: ProgressBarDefaults.defaultProgressBarHeight)
         }
 //    }
 }
 
+struct ProgressBarDefaults {
+    static let defaultProgressBarHeight: CGFloat = 10
+    static let defaultCornerRadius: CGFloat = 4
+}
+
 struct YPDInsightSummaryVIEWProgressBar_Previews: PreviewProvider {
     static var previews: some View {
-        YPDInsightProgressBarView(percentageMOIChangeValue: 0.64)
+        YPDInsightProgressBarView(percentageMOIChangeValue: -0.84)
     }
 }

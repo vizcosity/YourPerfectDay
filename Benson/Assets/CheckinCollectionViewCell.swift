@@ -121,7 +121,7 @@ class CheckinCollectionViewCell: UITableViewCell {
     
     func createCellValueComponent(fromMetricAttribute attribute: MetricAttribute) -> MetricCellValueComponent {
         let cellValueComponent = MetricCellValueComponent()
-        cellValueComponent.max = MetricAttribute.maxValue
+        cellValueComponent.max = attribute.maxValue
         cellValueComponent.currentValue = attribute.value
         cellValueComponent.type = attribute.name
         // TODO: Ensure that we add an average value everytime we create a metric attribute response.

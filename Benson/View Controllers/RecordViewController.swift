@@ -55,7 +55,7 @@ class RecordViewController: UIViewController, MetricSelectionDelegate {
              metricPromptView.metricTitle = metricPrompt.metricTitle
              metricPromptView.metricId = metricPrompt.metricId
              metricPromptView.responses = metricPrompt.responses.map({ (metricResponse) -> String in
-                 return metricResponse.title
+                return metricResponse.type.humanReadable
              })
             
             if (!self.metricPromptStackView.arrangedSubviews.contains(metricPromptView)){
@@ -198,7 +198,7 @@ class RecordViewController: UIViewController, MetricSelectionDelegate {
                 return metricId != selectedId
             })
            
-            selectedMetrics.append((metricId, responseValue))
+            selectedMetrics.append((metricId, Int(responseValue)))
            
 //            print("Selected metrics after adding \(metricId): \(selectedMetrics)")
             

@@ -12,18 +12,18 @@ target 'Benson' do
 #  pod 'Alamofire-SwiftyJSON'
 #  pod 'SwiftCharts'
   
-  pod 'ResearchKit', :git => 'https://github.com/ResearchKit/ResearchKit'
+#  pod 'ResearchKit', :git => 'https://github.com/ResearchKit/ResearchKit'
   
 end
-
-target 'BensonWatchApp Extension' do
-  platform :watchos, '6.1'
-  use_frameworks!
-
-  # Pods for Benson
-  pod 'Alamofire', '~> 5.0.0-beta.5'
-
-  pod 'SwiftyJSON', '~> 4.0'
-
-
-end
+#
+#target 'BensonWatchApp Extension' do
+#  platform :watchos, '6.1'
+#  use_frameworks!
+#
+#  # Pods for Benson
+#  pod 'Alamofire', '~> 5.0.0-beta.5'
+#
+#  pod 'SwiftyJSON', '~> 4.0'
+#
+#
+#end

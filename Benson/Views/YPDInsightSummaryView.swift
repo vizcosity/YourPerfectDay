@@ -9,8 +9,9 @@ import SwiftUI
 
 struct YPDInsightSummaryView: View {
     
-    /// The metric which we shall be attempting to explain through the use of the following insights.
+    /// The metric which the following insight pertains to.
     var metricOfInterest: String
+    
     /// The percentage change for the metricOfInterest
     var percentageMOIChange: Double
     
@@ -20,13 +21,14 @@ struct YPDInsightSummaryView: View {
         return self.provideBriefMOISummarySentence(metricOfInterest: self.metricOfInterest, percentageMOIChange: self.percentageMOIChange)
     }
     
-    var insights: [YPDInsight]
+    var insight: YPDInsight
     
     var body: some View {
         VStack {
             
             // Card above-fold content.
-            VStack(alignment: .leading) {
+            VStack {
+                
                 HStack {
                     Text("\(self.percentageMOIChange > 0.0 ? "Improved": "Declining") \(metricOfInterest)")
                         .font(.headline)
@@ -44,21 +46,24 @@ struct YPDInsightSummaryView: View {
             YPDInsightProgressBarView(percentageMOIChangeValue: self.percentageMOIChange)
                 
                 HStack {
-                    Text("\(self.briefMOISummarySentence). Here are some other changes which have taken place:")
+                    Text("\(self.briefMOISummarySentence). Here are some other changes:")
                         .font(.caption)
-                        .lineLimit(2)
-                    Spacer()
-                }
-                
-                // Display each YPD insight.
-                ForEach(0..<self.insights.count) {
-                    YPDSummaryIndividualMetricInsightView(metricName: self.insights[$0].metricAttribute.humanReadable, percentageChangeValue: self.insights[$0].localChange, timePeriod: self.insights[$0].timePeriod)
+                        .multilineTextAlignment(.leading)
                     
-                }
-                .padding(.top, 5.0)
+                    Spacer()
+                }.padding(.bottom, CGFloat(10.0))
                 
+                // Display each of the insights associated with the most important and correlated metrics.
+                ForEach(0..<self.insight.mostImportantAnomalyMetrics.count) {
+
+                    // Embed in a HStack so that the results are all left-aligned.
+                    YPDSummaryIndividualMetricInsightView(metricName: self.insight.mostImportantAnomalyMetrics[$0].metricAttribute.humanReadable, percentageChangeValue: self.insight.mostImportantAnomalyMetrics[$0].localChange, timePeriod: self.insight.mostImportantAnomalyMetrics[$0].timePeriod ?? self.timePeriod)
+                    
+
+                }
+                                
             }
-            .padding(.all, 20.0)
+            .padding(.all, CGFloat(20.0))
             
             // Card below-fold content. (More Detail indicator)
             VStack {
@@ -74,8 +79,8 @@ struct YPDInsightSummaryView: View {
                                 .scaleEffect(0.7)
                     }.foregroundColor(Color.gray)
                 }
-                .padding(.all, 5)
-                .padding(.bottom, 5)
+                .padding(.all, CGFloat(5))
+                .padding(.bottom, CGFloat(5))
             }
         }
         .background(Color.white)
@@ -103,6 +108,6 @@ struct YPDInsightSummaryView: View {
 
 struct YPDInsightSummaryView_Previews: PreviewProvider {
     static var previews: some View {
-        YPDInsightSummaryView(metricOfInterest: "Vitality", percentageMOIChange: -0.16, insights: [YPDInsight(metricAttribute: .energy, explainingMetricAttribute: .vitality, localChange: 0.34, globalChange: 0.11, timePeriod: "this week", history: [])])
+        YPDInsightSummaryView(metricOfInterest: "Vitality", percentageMOIChange: -0.16, insight: YPDInsight(metricOfInterestType: .vitality, metricOfInterestValue: 2.342, mostImportantAnomalyMetrics: [YPDAnomalyMetric(metricAttribute: .caloricIntake, localChange: -0.23, globalChange: -0.11, correlation: 0.45, importance: 0.8, timePeriod: "this week", precedingData: [])]))
     }
 }

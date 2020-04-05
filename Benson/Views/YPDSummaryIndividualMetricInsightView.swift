@@ -25,15 +25,19 @@ struct YPDSummaryIndividualMetricInsightView: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading) {
-            
-            Text("\(self.percentageChangeValue >= 0 ? "Increase" : "Decrease") in \(self.metricName)")
-                .font(.headline)
-                .multilineTextAlignment(.leading)
-            
-            Text("\(self.timePeriodCapitalised) your \(self.metricName) \(self.percentageChangeValue >= 0 ? "increased" : "fell") by \(self.percentageChangeValue.formattedAsPercentage).")
-                .font(.subheadline)
-                .multilineTextAlignment(.leading)
+        HStack {
+            VStack(alignment: .leading) {
+                
+                Text("\(self.percentageChangeValue >= 0 ? "Increase" : "Decrease") in \(self.metricName)")
+                    .font(.body)
+                    .fontWeight(.semibold)
+                    .multilineTextAlignment(.leading)
+                
+                Text("\(self.timePeriodCapitalised) your \(self.metricName) \(self.percentageChangeValue >= 0 ? "increased" : "fell") by \(self.percentageChangeValue.formattedAsPercentage).")
+                    .font(.footnote)
+                    .multilineTextAlignment(.leading)
+            }
+            Spacer()
         }
     }
 }

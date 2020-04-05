@@ -10,6 +10,7 @@
 		0FE5F5930F44F74A2ECA5A33 /* Pods_Benson.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61F6D3A6007EDAEFAA0A4449 /* Pods_Benson.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		21010095242D4CBC0010ED8D /* YPDInsightSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21010094242D4CBC0010ED8D /* YPDInsightSummaryView.swift */; };
 		2101009B242EA0D70010ED8D /* YPDInsightProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2101009A242EA0D70010ED8D /* YPDInsightProgressBarView.swift */; };
+		2110620C243A374E00348E78 /* YPDInsightsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2110620B243A374E00348E78 /* YPDInsightsViewController.swift */; };
 		2127B00F2430E5B900B8D0B1 /* YPDSummaryIndividualMetricInsightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2127B00E2430E5B900B8D0B1 /* YPDSummaryIndividualMetricInsightView.swift */; };
 		2127B0112430E67F00B8D0B1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2127B0102430E67F00B8D0B1 /* Extensions.swift */; };
 		212B86C7239D477600CE9C41 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 212B86C6239D477600CE9C41 /* HealthKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -30,42 +31,13 @@
 		2173466D240AC83600B22219 /* CareKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2173466C240AC83600B22219 /* CareKit */; settings = {ATTRIBUTES = (Weak, ); }; };
 		2173466F240AC83600B22219 /* CareKitStore in Frameworks */ = {isa = PBXBuildFile; productRef = 2173466E240AC83600B22219 /* CareKitStore */; settings = {ATTRIBUTES = (Weak, ); }; };
 		21734671240AF9C700B22219 /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21734670240AF9C700B22219 /* Sample.swift */; };
-		21743E6323D0FE8C00F49CC3 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21743E6123D0FE8C00F49CC3 /* Interface.storyboard */; };
-		21743E6523D0FE9400F49CC3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21743E6423D0FE9400F49CC3 /* Assets.xcassets */; };
-		21743E6C23D0FE9400F49CC3 /* BensonWatchApp Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 21743E6B23D0FE9400F49CC3 /* BensonWatchApp Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		21743E7123D0FE9400F49CC3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21743E7023D0FE9400F49CC3 /* ContentView.swift */; };
-		21743E7323D0FE9400F49CC3 /* HostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21743E7223D0FE9400F49CC3 /* HostingController.swift */; };
-		21743E7523D0FE9400F49CC3 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21743E7423D0FE9400F49CC3 /* ExtensionDelegate.swift */; };
-		21743E7723D0FE9400F49CC3 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21743E7623D0FE9400F49CC3 /* NotificationController.swift */; };
-		21743E7923D0FE9400F49CC3 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21743E7823D0FE9400F49CC3 /* NotificationView.swift */; };
-		21743E7B23D0FE9600F49CC3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21743E7A23D0FE9600F49CC3 /* Assets.xcassets */; };
-		21743E7E23D0FE9600F49CC3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21743E7D23D0FE9600F49CC3 /* Preview Assets.xcassets */; };
-		21743E8323D0FE9600F49CC3 /* BensonWatchApp.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 21743E5F23D0FE8C00F49CC3 /* BensonWatchApp.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		2184B020238D11F900FE96EA /* Fetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2184B01F238D11F900FE96EA /* Fetcher.swift */; };
 		21880FBB23806ED000A02055 /* MetricCellValueComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21880FBA23806ED000A02055 /* MetricCellValueComponent.swift */; };
 		21880FC1238093B100A02055 /* MetricCellValueComponent.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21880FC0238093B100A02055 /* MetricCellValueComponent.xib */; };
 		21938DBE2315552C0066B90B /* LogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21938DBD2315552C0066B90B /* LogViewController.swift */; };
 		21938DC023155E690066B90B /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21938DBF23155E690066B90B /* TabBarViewController.swift */; };
 		21C58F372327BCBB007EE5F1 /* CheckinCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C58F362327BCBB007EE5F1 /* CheckinCollectionViewCell.swift */; };
-		669BA7688B21773FADE58B5B /* Pods_BensonWatchApp_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D192581FA501CF94A4600EF1 /* Pods_BensonWatchApp_Extension.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		21010098242E963E0010ED8D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 213436D823098A42006B1CA8 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 21743E6A23D0FE9400F49CC3;
-			remoteInfo = "BensonWatchApp Extension";
-		};
-		21743E8123D0FE9600F49CC3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 213436D823098A42006B1CA8 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 21743E5E23D0FE8C00F49CC3;
-			remoteInfo = BensonWatchApp;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		21743E8423D0FE9600F49CC3 /* Embed Watch Content */ = {
@@ -74,20 +46,8 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				21743E8323D0FE9600F49CC3 /* BensonWatchApp.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		21743E8723D0FE9600F49CC3 /* Embed App Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				21743E6C23D0FE9400F49CC3 /* BensonWatchApp Extension.appex in Embed App Extensions */,
-			);
-			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -96,6 +56,7 @@
 		0E295C82155AB8534DDC5057 /* Pods-BensonWatchApp Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BensonWatchApp Extension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BensonWatchApp Extension/Pods-BensonWatchApp Extension.debug.xcconfig"; sourceTree = "<group>"; };
 		21010094242D4CBC0010ED8D /* YPDInsightSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = YPDInsightSummaryView.swift; path = /Users/aaronbaw/Code/Benson/Benson/Views/YPDInsightSummaryView.swift; sourceTree = "<absolute>"; };
 		2101009A242EA0D70010ED8D /* YPDInsightProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDInsightProgressBarView.swift; sourceTree = "<group>"; };
+		2110620B243A374E00348E78 /* YPDInsightsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDInsightsViewController.swift; sourceTree = "<group>"; };
 		2127B00E2430E5B900B8D0B1 /* YPDSummaryIndividualMetricInsightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDSummaryIndividualMetricInsightView.swift; sourceTree = "<group>"; };
 		2127B0102430E67F00B8D0B1 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		212B86C5239D477600CE9C41 /* Benson.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Benson.entitlements; sourceTree = "<group>"; };
@@ -116,11 +77,9 @@
 		216CAA6F237A010E004D6B8E /* MetricLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricLog.swift; sourceTree = "<group>"; };
 		21734667240AC7C100B22219 /* BensonChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BensonChartView.swift; sourceTree = "<group>"; };
 		21734670240AF9C700B22219 /* Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sample.swift; sourceTree = "<group>"; };
-		21743E5F23D0FE8C00F49CC3 /* BensonWatchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BensonWatchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		21743E6223D0FE8C00F49CC3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		21743E6423D0FE9400F49CC3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		21743E6623D0FE9400F49CC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		21743E6B23D0FE9400F49CC3 /* BensonWatchApp Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "BensonWatchApp Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		21743E7023D0FE9400F49CC3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		21743E7223D0FE9400F49CC3 /* HostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostingController.swift; sourceTree = "<group>"; };
 		21743E7423D0FE9400F49CC3 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
@@ -157,21 +116,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		21743E6823D0FE9400F49CC3 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				669BA7688B21773FADE58B5B /* Pods_BensonWatchApp_Extension.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9B01ACD61F91E277845F6960 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -191,8 +135,6 @@
 			isa = PBXGroup;
 			children = (
 				213436E023098A42006B1CA8 /* Benson.app */,
-				21743E5F23D0FE8C00F49CC3 /* BensonWatchApp.app */,
-				21743E6B23D0FE9400F49CC3 /* BensonWatchApp Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -253,6 +195,7 @@
 			children = (
 				213436E523098A42006B1CA8 /* RecordViewController.swift */,
 				21938DBD2315552C0066B90B /* LogViewController.swift */,
+				2110620B243A374E00348E78 /* YPDInsightsViewController.swift */,
 				21938DBF23155E690066B90B /* TabBarViewController.swift */,
 				215F316124119B520093409F /* YPDRecordViewController.swift */,
 			);
@@ -343,7 +286,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				21743E8223D0FE9600F49CC3 /* PBXTargetDependency */,
 			);
 			name = Benson;
 			packageProductDependencies = (
@@ -354,43 +296,6 @@
 			productName = Benson;
 			productReference = 213436E023098A42006B1CA8 /* Benson.app */;
 			productType = "com.apple.product-type.application";
-		};
-		21743E5E23D0FE8C00F49CC3 /* BensonWatchApp */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 21743E8B23D0FE9600F49CC3 /* Build configuration list for PBXNativeTarget "BensonWatchApp" */;
-			buildPhases = (
-				21743E5D23D0FE8C00F49CC3 /* Resources */,
-				21743E8723D0FE9600F49CC3 /* Embed App Extensions */,
-				9B01ACD61F91E277845F6960 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				21010099242E963E0010ED8D /* PBXTargetDependency */,
-			);
-			name = BensonWatchApp;
-			productName = BensonWatchApp;
-			productReference = 21743E5F23D0FE8C00F49CC3 /* BensonWatchApp.app */;
-			productType = "com.apple.product-type.application.watchapp2";
-		};
-		21743E6A23D0FE9400F49CC3 /* BensonWatchApp Extension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 21743E8A23D0FE9600F49CC3 /* Build configuration list for PBXNativeTarget "BensonWatchApp Extension" */;
-			buildPhases = (
-				8067CBEDCA58AEF894A9E1D2 /* [CP] Check Pods Manifest.lock */,
-				21743E6723D0FE9400F49CC3 /* Sources */,
-				21743E6823D0FE9400F49CC3 /* Frameworks */,
-				21743E6923D0FE9400F49CC3 /* Resources */,
-				BCF93D3E2C67303157056F63 /* [CP] Embed Pods Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "BensonWatchApp Extension";
-			productName = "BensonWatchApp Extension";
-			productReference = 21743E6B23D0FE9400F49CC3 /* BensonWatchApp Extension.appex */;
-			productType = "com.apple.product-type.watchkit2-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -404,12 +309,6 @@
 				TargetAttributes = {
 					213436DF23098A42006B1CA8 = {
 						CreatedOnToolsVersion = 10.2.1;
-					};
-					21743E5E23D0FE8C00F49CC3 = {
-						CreatedOnToolsVersion = 11.3;
-					};
-					21743E6A23D0FE9400F49CC3 = {
-						CreatedOnToolsVersion = 11.3;
 					};
 				};
 			};
@@ -430,8 +329,6 @@
 			projectRoot = "";
 			targets = (
 				213436DF23098A42006B1CA8 /* Benson */,
-				21743E5E23D0FE8C00F49CC3 /* BensonWatchApp */,
-				21743E6A23D0FE9400F49CC3 /* BensonWatchApp Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -445,24 +342,6 @@
 				21880FC1238093B100A02055 /* MetricCellValueComponent.xib in Resources */,
 				213436ED23098A43006B1CA8 /* Assets.xcassets in Resources */,
 				213436EB23098A42006B1CA8 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		21743E5D23D0FE8C00F49CC3 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				21743E6523D0FE9400F49CC3 /* Assets.xcassets in Resources */,
-				21743E6323D0FE8C00F49CC3 /* Interface.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		21743E6923D0FE9400F49CC3 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				21743E7E23D0FE9600F49CC3 /* Preview Assets.xcassets in Resources */,
-				21743E7B23D0FE9600F49CC3 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -495,28 +374,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Benson/Pods-Benson-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8067CBEDCA58AEF894A9E1D2 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-BensonWatchApp Extension-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		A60DC5385EC460C3EA1C238D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -537,30 +394,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BCF93D3E2C67303157056F63 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-BensonWatchApp Extension/Pods-BensonWatchApp Extension-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire-watchOS/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyJSON-watchOS/SwiftyJSON.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BensonWatchApp Extension/Pods-BensonWatchApp Extension-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -585,6 +418,7 @@
 				212B86C9239D483500CE9C41 /* BensonHealthManager.swift in Sources */,
 				21734671240AF9C700B22219 /* Sample.swift in Sources */,
 				21C58F372327BCBB007EE5F1 /* CheckinCollectionViewCell.swift in Sources */,
+				2110620C243A374E00348E78 /* YPDInsightsViewController.swift in Sources */,
 				2127B0112430E67F00B8D0B1 /* Extensions.swift in Sources */,
 				213436F82309A764006B1CA8 /* GradientView.swift in Sources */,
 				21734668240AC7C100B22219 /* BensonChartView.swift in Sources */,
@@ -593,32 +427,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		21743E6723D0FE9400F49CC3 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				21743E7323D0FE9400F49CC3 /* HostingController.swift in Sources */,
-				21743E7123D0FE9400F49CC3 /* ContentView.swift in Sources */,
-				21743E7723D0FE9400F49CC3 /* NotificationController.swift in Sources */,
-				21743E7523D0FE9400F49CC3 /* ExtensionDelegate.swift in Sources */,
-				21743E7923D0FE9400F49CC3 /* NotificationView.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		21010099242E963E0010ED8D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 21743E6A23D0FE9400F49CC3 /* BensonWatchApp Extension */;
-			targetProxy = 21010098242E963E0010ED8D /* PBXContainerItemProxy */;
-		};
-		21743E8223D0FE9600F49CC3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 21743E5E23D0FE8C00F49CC3 /* BensonWatchApp */;
-			targetProxy = 21743E8123D0FE9600F49CC3 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		213436E923098A42006B1CA8 /* Main.storyboard */ = {
@@ -810,96 +619,6 @@
 			};
 			name = Release;
 		};
-		21743E8523D0FE9600F49CC3 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = A5YJ22GHFR;
-				IBSC_MODULE = BensonWatchApp_Extension;
-				INFOPLIST_FILE = BensonWatchApp/Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ventr.Benson.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 6.1;
-			};
-			name = Debug;
-		};
-		21743E8623D0FE9600F49CC3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = A5YJ22GHFR;
-				IBSC_MODULE = BensonWatchApp_Extension;
-				INFOPLIST_FILE = BensonWatchApp/Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ventr.Benson.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 6.1;
-			};
-			name = Release;
-		};
-		21743E8823D0FE9600F49CC3 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0E295C82155AB8534DDC5057 /* Pods-BensonWatchApp Extension.debug.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"BensonWatchApp Extension/Preview Content\"";
-				DEVELOPMENT_TEAM = A5YJ22GHFR;
-				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "BensonWatchApp Extension/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ventr.Benson.watchkitapp.watchkitextension;
-				PRODUCT_NAME = "${TARGET_NAME}";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 6.1;
-			};
-			name = Debug;
-		};
-		21743E8923D0FE9600F49CC3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B5D061AD688228E6EC955332 /* Pods-BensonWatchApp Extension.release.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"BensonWatchApp Extension/Preview Content\"";
-				DEVELOPMENT_TEAM = A5YJ22GHFR;
-				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "BensonWatchApp Extension/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ventr.Benson.watchkitapp.watchkitextension;
-				PRODUCT_NAME = "${TARGET_NAME}";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 6.1;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -917,24 +636,6 @@
 			buildConfigurations = (
 				213436F523098A43006B1CA8 /* Debug */,
 				213436F623098A43006B1CA8 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		21743E8A23D0FE9600F49CC3 /* Build configuration list for PBXNativeTarget "BensonWatchApp Extension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				21743E8823D0FE9600F49CC3 /* Debug */,
-				21743E8923D0FE9600F49CC3 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		21743E8B23D0FE9600F49CC3 /* Build configuration list for PBXNativeTarget "BensonWatchApp" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				21743E8523D0FE9600F49CC3 /* Debug */,
-				21743E8623D0FE9600F49CC3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

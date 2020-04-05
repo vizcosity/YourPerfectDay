@@ -267,7 +267,7 @@ enum MetricType: String, CaseIterable {
 //}
 
 /// Represents an insight / anomaly for a given metric of interest.
-class YPDAnomaly {
+class YPDInsight {
     
     /// The MOI type.
     var metricOfInterestType: MetricType
@@ -276,7 +276,7 @@ class YPDAnomaly {
     var metricOfInterestValue: Double
     
     /// A list of the most important metrics associated with the insight / anomaly.
-    var mostImportantAnomalyMetrics: [YPDAnomalyMetric]
+    var mostImportantAnomalyMetrics: [YPDAnomalyMetric] = []
     
     init(metricOfInterestType: MetricType, metricOfInterestValue: Double, mostImportantAnomalyMetrics: [YPDAnomalyMetric] ) {
         self.metricOfInterestType = metricOfInterestType
@@ -284,39 +284,45 @@ class YPDAnomaly {
         self.mostImportantAnomalyMetrics = mostImportantAnomalyMetrics
     }
     
-    init(json: JSON){
+    convenience init(json: JSON){
         let metricOfInterestType = MetricType(rawValue: json["desired_metric"].stringValue) ?? .unknown
-        let metricOfInterestRawValue = json["anomaly_value"].doubleValue
-        let metricOfInterestValue = MetricResponse(type: metricOfInterestType, value: metricOfInterestRawValue)
-        
+        let metricOfInterestValue = json["anomaly_value"].doubleValue
+//        let metricOfInterestValue = MetricResponse(type: metricOfInterestType, value: metricOfInterestRawValue)
+                
         let mostImportantMetricJSONDict = json["most_important_metrics"].dictionaryValue
         
-        var mostImportantAnomalyMetricsDict: [String: Any]
+//        var mostImportantAnomalyMetricsDict: [String: Any]
         var mostImportantAnomalyMetrics: [YPDAnomalyMetric] = []
         
         // Fetch the most important metrics and their corresponding preceding data.
         let mostImportantPrecedingDataJSONDict = json["most_important_preceding_data"].dictionaryValue
-        mostImportantPrecedingDataJSONDict.keys.forEach({ metric in
+       
+        mostImportantPrecedingDataJSONDict.keys.forEach { metric in
             
             let metricType = MetricType(rawValue: metric) ?? .unknown
             let precedingDataDict = mostImportantPrecedingDataJSONDict[metric]?.dictionaryValue
             
             // Iterate over all of the values, and create an array.
-            let precedingDataAsDoubles = precedingDataDict?.values.map { $0.doubleValue }
+            let precedingDataAsDoubles = precedingDataDict?.values.map { $0.doubleValue } ?? []
             print("Preceding data as doubles: \(precedingDataAsDoubles) for metric \(metric)")
             
-            // Fetch the importance, correlation, local & global percentage changes.
-            let importance = mostImportantMetricJSONDict[metric]?.dictionaryValue["importance"]?.doubleValue
-            let correlation = mostImportantMetricJSONDict[metric]?.dictionaryValue["correlation"]?.doubleValue
-            let localPercentageChange = mostImportantMetricJSONDict[metric]?.dictionaryValue["local_percentage_change"]?.doubleValue
-//            let pogsadfghjlzfgljdk;l/.,mnbvcxz2p
+            // Fetch the importance, correlation, local & global percentage changes. If any of these are nil and not set for some reason, then we skip adding the metric - as we only want to display most important metrics / individual metric insights if there is a corresponding local, gobal percentage change, and an importance & correlation.
+            guard let importance = mostImportantMetricJSONDict[metric]?.dictionaryValue["importance"]?.doubleValue else { return }
+            guard let correlation = mostImportantMetricJSONDict[metric]?.dictionaryValue["correlation"]?.doubleValue else { return }
+            guard let localPercentageChange = mostImportantMetricJSONDict[metric]?.dictionaryValue["local_percentage_change"]?.doubleValue else { return }
+            guard let globalPercentageChange = mostImportantPrecedingDataJSONDict[metric]?.dictionaryValue["global_percentage_change"]?.doubleValue else { return }
+            
+            // TODO: Add a server-side property which calculates the time horizon for the data (e.g. this week, last week, this month, this quarter, etc). For now, we will assume that all insights have been deduced for the current week.
             
             
             // Convert preceding data double values into a MetricResponse.
-            let anomalyMetric = YPDAnomalyMetric(metricAttribute: metricType, localChange: <#T##Double#>, globalChange: <#T##Double#>, correlation: <#T##Double#>, timePeriod: <#T##String#>, precedingData: <#T##[Double]#>)
-        })
+            let anomalyMetric = YPDAnomalyMetric(metricAttribute: metricType, localChange: localPercentageChange, globalChange: globalPercentageChange, correlation: correlation,
+                                                 importance: importance, timePeriod: "this week", precedingData: precedingDataAsDoubles)
+            
+            mostImportantAnomalyMetrics.append(anomalyMetric)
+        }
         
-        
+        self.init(metricOfInterestType: metricOfInterestType, metricOfInterestValue: metricOfInterestValue, mostImportantAnomalyMetrics: mostImportantAnomalyMetrics)
 
     }
 }
@@ -330,17 +336,18 @@ class YPDAnomalyMetric {
     
     var localChange: Double
     var globalChange: Double
-    var timePeriod: String
-    var importance: Double?
+    var timePeriod: String?
+    var importance: Double
     var correlation: Double
     
     var precedingData: [Double]
     
-    init(metricAttribute: MetricType, localChange: Double, globalChange: Double, correlation: Double, timePeriod: String, precedingData: [Double]){
+    init(metricAttribute: MetricType, localChange: Double, globalChange: Double, correlation: Double, importance: Double, timePeriod: String, precedingData: [Double]){
         self.metricAttribute = metricAttribute
         self.localChange = localChange
         self.globalChange = globalChange
         self.correlation = correlation
+        self.importance = importance
         self.timePeriod = timePeriod
         self.precedingData = precedingData
     }

@@ -90,7 +90,7 @@ class MetricPromptView: UIView {
     
     @objc func onTapHandler(sender: Any){
         
-        print("On tap handler called.")
+        // print("On tap handler called.")
         
         // Set the button background colour to white, change the text colour to the faded text colour.
         if let button = sender as? UIButton {
@@ -100,7 +100,7 @@ class MetricPromptView: UIView {
               return clearSelection(forButton: button)
             }
             
-            print("Attempting to call action delegate.")
+            // print("Attempting to call action delegate.")
             // Send an action to the actionDelegate.
             actionDelegate?.didSelectMetric(responseIndex: button.tag, withMetricId: metricId)
          

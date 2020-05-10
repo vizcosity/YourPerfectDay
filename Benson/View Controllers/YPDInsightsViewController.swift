@@ -26,6 +26,8 @@ import SwiftyJSON
 class YPDInsightViewController: UIViewController{
        
 
+    @IBOutlet weak var verticalContentStack: UIStackView!
+    
     @IBOutlet weak var chartViewContainer: UIView!
 
     @IBOutlet weak var chartActivityIndicator: UIActivityIndicatorView! {
@@ -33,9 +35,7 @@ class YPDInsightViewController: UIViewController{
             self.chartActivityIndicator.hidesWhenStopped = true
         }
     }
-    
-    @IBOutlet weak var tableView: UITableView!
-    
+        
     @IBOutlet weak var chartMetricSelectionButton: BensonButton!
     
     @IBOutlet weak var chartTimeUnitSelectionButton: BensonButton!
@@ -45,7 +45,7 @@ class YPDInsightViewController: UIViewController{
         
         // This is run from whatever context actually set the variable. If we are updating the variable from a background thread, then the execution of this closure occur within that thread.
         didSet {
-            tableView.reloadData()
+            // tableView.reloadData()
         }
         
     }
@@ -87,20 +87,15 @@ class YPDInsightViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+            // Set the navigation title.
+        self.navigationItem.title = "Summary"
+        self.navigationItem.largeTitleDisplayMode = .always
         fetcher.fetchMetricLogs(completionHandler: { metricLogs in
             self.log("\(metricLogs)")
             self.logs = metricLogs
         })
         
-        // Configure pull to refresh.
-        let refreshControl = UIRefreshControl()
-        tableView.refreshControl = refreshControl
-        tableView.refreshControl?.tintColor = Colour.primary
-        refreshControl.addTarget(self, action: #selector(reloadData), for: .valueChanged)
-        
-        // Remove styling on the separator.
-        tableView.separatorStyle = .none
-        tableView.separatorColor = .clear
+        // self.configureTableView()
         
         // Configure the chartMetricSelection and chartTimeUnitSelection buttons.
         self.updateChartAndButtons()
@@ -109,7 +104,7 @@ class YPDInsightViewController: UIViewController{
         self.chartTimeUnitSelectionButton.addTarget(self, action: #selector(self.chartTimeUnitSelectionHandler), for: .touchUpInside)
         
         // Validate that we can add a SwiftUI view as a child of the current view.
-        let uiHostingController = UIHostingController(rootView: YPDInsightSummaryView(metricOfInterest: "Vitality", percentageMOIChange: 0.24, insight: YPDInsight(metricOfInterestType: .vitality, metricOfInterestValue: 0.342, mostImportantAnomalyMetrics: [YPDAnomalyMetric(metricAttribute: .activeEnergyBurned, localChange: -0.34, globalChange: -0.22, correlation: 0.58, importance: 1, timePeriod: "this week", precedingData: [])])))
+//        let uiHostingController = UIHostingController(rootView: YPDInsightSummaryView(metricOfInterest: "Vitality", percentageMOIChange: 0.24, insight: YPDInsight(metricOfInterestType: .vitality, metricOfInterestValue: 0.342, mostImportantAnomalyMetrics: [YPDAnomalyMetric(metricAttribute: .activeEnergyBurned, localChange: -0.34, globalChange: -0.22, correlation: 0.58, importance: 1, timePeriod: "this week", precedingData: [])])))
         
 //        self.view.addSubview(uiHostingController.view)
 //        
@@ -144,7 +139,7 @@ class YPDInsightViewController: UIViewController{
         fetcher.fetchMetricLogs(completionHandler: { metricLogs in
             self.logs = metricLogs
             self.log("Refreshed metric logs.")
-            self.tableView.refreshControl?.endRefreshing()
+            //self.tableView.refreshControl.endRefreshing()
         })
         self.updateChartAndButtons()
     }
@@ -249,49 +244,61 @@ extension YPDInsightViewController: UIPickerViewDataSource, UIPickerViewDelegate
     
 }
 
-extension YPDInsightViewController: UITableViewDelegate, UITableViewDataSource {
-    
-     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            // Use twice as many cells in order to account for the separators in between each cell.
-            return self.logs.count * 2
-        }
-        
-        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            
-            if indexPath.row % 2 != 0 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCellSeparator")!
-                cell.selectionStyle = .none
-                
-                return cell
-                
-            } else {
-            
-                let cell = tableView.dequeueReusableCell(withIdentifier: "MetricLogCell")! as! CheckinCollectionViewCell
-                cell.metricLog = self.logs[indexPath.row / 2]
-                
-                return cell
-                
-            }
-        }
-        
-        func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-            // Only allow editing of rows which are divisble by two (logs).
-            return indexPath.row % 2 == 0
-        }
-        
-        func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-            
-            if editingStyle == .delete {
-                fetcher.remove(metricLogId: self.logs[indexPath.row / 2].id ?? "") {
-    //                tableView.deleteRows(at: [indexPath, IndexPath(row: indexPath.row + 1, section: indexPath.section)], with: .automatic)
-                    // Checkpoint: Trying to understand why I can't add in the delete swipe animation.
-                    self.logs.remove(at: indexPath.row / 2)
-                    tableView.reloadData()
-                }
-            }
-        }
-    
-}
+//extension YPDInsightViewController: UITableViewDelegate, UITableViewDataSource {
+
+//    private func configureTableView() {
+//        // Configure pull to refresh.
+//        let refreshControl = UIRefreshControl()
+//        tableView.refreshControl = refreshControl
+//        tableView.refreshControl?.tintColor = Colour.primary
+//        refreshControl.addTarget(self, action: #selector(reloadData), for: .valueChanged)
+//
+//        // Remove styling on the separator.
+//        tableView.separatorStyle = .none
+//        tableView.separatorColor = .clear
+//    }
+//
+//     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//            // Use twice as many cells in order to account for the separators in between each cell.
+//            return self.logs.count * 2
+//        }
+//
+//        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//
+//            if indexPath.row % 2 != 0 {
+//                let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCellSeparator")!
+//                cell.selectionStyle = .none
+//
+//                return cell
+//
+//            } else {
+//
+//                let cell = tableView.dequeueReusableCell(withIdentifier: "MetricLogCell")! as! CheckinCollectionViewCell
+//                cell.metricLog = self.logs[indexPath.row / 2]
+//
+//                return cell
+//
+//            }
+//        }
+//
+//        func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+//            // Only allow editing of rows which are divisble by two (logs).
+//            return indexPath.row % 2 == 0
+//        }
+//
+//        func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//
+//            if editingStyle == .delete {
+//                fetcher.remove(metricLogId: self.logs[indexPath.row / 2].id ?? "") {
+//    //                tableView.deleteRows(at: [indexPath, IndexPath(row: indexPath.row + 1, section: indexPath.section)], with: .automatic)
+//                    // Checkpoint: Trying to understand why I can't add in the delete swipe animation.
+//                    self.logs.remove(at: indexPath.row / 2)
+//                    tableView.reloadData()
+//                }
+//            }
+//        }
+//
+//}
 
 /// Extend the LogViewController to support displaying the aggregated health and checkin data via CareKit charts.
 extension YPDInsightViewController {
@@ -354,6 +361,13 @@ extension YPDInsightViewController {
         self.chartViewContainer.subviews.forEach { $0.removeFromSuperview() }
         
         self.chartViewContainer.addSubview(chartView)
+        
+        // Recalculate height and width for the stack view.
+        chartView.setNeedsLayout()
+        chartView.setNeedsDisplay()
+        self.verticalContentStack.setNeedsLayout()
+        self.verticalContentStack.setNeedsDisplay()
+        
         
     }
     

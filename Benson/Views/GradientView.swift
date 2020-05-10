@@ -19,6 +19,8 @@ class GradientView: UIView {
     }
     */
     
+    @IBInspectable var enableGradient: Bool = true
+    
     func applyGradient(_ view: GradientView){
         let gradient: CAGradientLayer = CAGradientLayer()
         
@@ -32,7 +34,9 @@ class GradientView: UIView {
     }
     
     override func draw(_ rect: CGRect) {
-        applyGradient(self)
+        if (self.enableGradient) {
+            applyGradient(self)
+        }
     }
 
 }

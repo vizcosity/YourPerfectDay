@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -39,6 +39,8 @@
 		21E2F36B2468508D00EFB205 /* CareKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E2F36A2468508D00EFB205 /* CareKitUI.framework */; };
 		21E2F36E2468512200EFB205 /* ResearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E2F36D2468512200EFB205 /* ResearchKit.framework */; };
 		21E2F3722468518C00EFB205 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E2F3712468518C00EFB205 /* SwiftyJSON.framework */; };
+		21E2F376246878AF00EFB205 /* YPDRecentCheckinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E2F375246878AF00EFB205 /* YPDRecentCheckinView.swift */; };
+		21E2F37824687A3F00EFB205 /* YPDProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E2F37724687A3F00EFB205 /* YPDProgressBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -102,6 +104,8 @@
 		21E2F36A2468508D00EFB205 /* CareKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CareKitUI.framework; path = Carthage/Build/iOS/CareKitUI.framework; sourceTree = "<group>"; };
 		21E2F36D2468512200EFB205 /* ResearchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ResearchKit.framework; path = Carthage/Build/iOS/ResearchKit.framework; sourceTree = "<group>"; };
 		21E2F3712468518C00EFB205 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
+		21E2F375246878AF00EFB205 /* YPDRecentCheckinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDRecentCheckinView.swift; sourceTree = "<group>"; };
+		21E2F37724687A3F00EFB205 /* YPDProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDProgressBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,12 +211,14 @@
 		217BEFC12395BC4B0076DF02 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				21E2F375246878AF00EFB205 /* YPDRecentCheckinView.swift */,
 				2127B00E2430E5B900B8D0B1 /* YPDSummaryIndividualMetricInsightView.swift */,
 				21010094242D4CBC0010ED8D /* YPDInsightSummaryView.swift */,
 				2101009A242EA0D70010ED8D /* YPDInsightProgressBarView.swift */,
 				213436FB2309AD9F006B1CA8 /* MetricPromptView.swift */,
 				21734667240AC7C100B22219 /* BensonChartView.swift */,
 				213436F72309A764006B1CA8 /* GradientView.swift */,
+				21E2F37724687A3F00EFB205 /* YPDProgressBar.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -299,6 +305,7 @@
 				TargetAttributes = {
 					213436DF23098A42006B1CA8 = {
 						CreatedOnToolsVersion = 10.2.1;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -312,7 +319,6 @@
 			);
 			mainGroup = 213436D723098A42006B1CA8;
 			packageReferences = (
-				21734669240AC83600B22219 /* XCRemoteSwiftPackageReference "CareKit" */,
 			);
 			productRefGroup = 213436E123098A42006B1CA8 /* Products */;
 			projectDirPath = "";
@@ -371,6 +377,7 @@
 				21471735239C4E2300E4226F /* Notifications.swift in Sources */,
 				213436E423098A42006B1CA8 /* AppDelegate.swift in Sources */,
 				2184B020238D11F900FE96EA /* Fetcher.swift in Sources */,
+				21E2F37824687A3F00EFB205 /* YPDProgressBar.swift in Sources */,
 				2101009B242EA0D70010ED8D /* YPDInsightProgressBarView.swift in Sources */,
 				21010095242D4CBC0010ED8D /* YPDInsightSummaryView.swift in Sources */,
 				215F316224119B520093409F /* YPDRecordViewController.swift in Sources */,
@@ -389,6 +396,7 @@
 				21734668240AC7C100B22219 /* BensonChartView.swift in Sources */,
 				2127B00F2430E5B900B8D0B1 /* YPDSummaryIndividualMetricInsightView.swift in Sources */,
 				21880FBB23806ED000A02055 /* MetricCellValueComponent.swift in Sources */,
+				21E2F376246878AF00EFB205 /* YPDRecentCheckinView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -534,8 +542,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -553,10 +560,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = Benson/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ventr.Benson;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -578,10 +582,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = Benson/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ventr.Benson;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -612,17 +613,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		21734669240AC83600B22219 /* XCRemoteSwiftPackageReference "CareKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/carekit-apple/CareKit.git";
-			requirement = {
-				branch = stable;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = 213436D823098A42006B1CA8 /* Project object */;
 }

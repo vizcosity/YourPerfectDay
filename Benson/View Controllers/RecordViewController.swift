@@ -50,14 +50,16 @@ class RecordViewController: UIViewController, MetricSelectionDelegate {
         let metricPromptView = MetricPromptView()
             
 //        print("Obtained metric title: \(metricPrompt.metricTitle) for metricId: \(metricPrompt.metricId)")
+        
+        print("Metric prompt responses: \(metricPrompt.responses)")
             
              metricPromptView.actionDelegate = self
              metricPromptView.metricTitle = metricPrompt.metricTitle
              metricPromptView.metricId = metricPrompt.metricId
              metricPromptView.responses = metricPrompt.responses.map({ (metricResponse) -> String in
-                return metricResponse.type.humanReadable
+                return metricResponse.title
              })
-            
+                    
             if (!self.metricPromptStackView.arrangedSubviews.contains(metricPromptView)){
                  
                  print("Adding \(metricPromptView.metricId)")

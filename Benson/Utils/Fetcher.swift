@@ -100,13 +100,16 @@ class Fetcher {
                 self.log("Error: \(error)")
             }
             
-//            self.log("Recieved resposne: \(response)")
-                      if let metricPrompts = try? response.result.get() as? [[String: Any]] {
-                        completionHandler(metricPrompts.map({ (metricPromptJSON) -> MetricPrompt in
-                            return MetricPrompt.fromJSON(dict: metricPromptJSON)
-                        }))
-                      }
-              }
+            if let metricPrompts = try? JSON(response.result.get()).arrayValue {
+                        
+                // Convert the JSON array into the Metric Prompt objects.
+                completionHandler(metricPrompts.map({ (metricPromptJSON) -> MetricPrompt in
+                    return MetricPrompt.fromJSON(dict: metricPromptJSON)
+                }))
+                
+            }
+              
+        }
     }
     
     

@@ -22,24 +22,33 @@ class MetricPrompt {
     }
     
     /// Given a JSON response from the web api, returns a MetricPrompt object.
-    public static func fromJSON(dict: [String: Any]) -> MetricPrompt {
+    public static func fromJSON(dict: JSON) -> MetricPrompt {
         
         // Checkpoint: refactoring code to enable easy instantiation of MetricPrompt objects from dictionaries obtained through GET requests to the backend via AlamoFire.
-        var responses: [MetricResponse] = []
-        var metricId: String = ""
-        var metricTitle: String = ""
-        if let responsesJSON = dict["responses"] as? [[String: Any]], let metricIdJSON = dict["metricId"] as? String, let metricTitleJSON = dict["title"] as? String {
-            responses = responsesJSON.map({ (responseJSON) -> MetricResponse in
-                var metricResponse = MetricResponse(type: .unknown, value: 0)
-                if let title = responseJSON["title"] as? String, let value = responseJSON["value"] as? Double {
-                        metricResponse = MetricResponse(type: title, value: value)
-                    }
-                    return metricResponse
-            // Filter out metric responses where we fail to unwrap the title and value optionals.
-            }).filter { $0.type != .unknown }
-         metricId = metricIdJSON
-         metricTitle = metricTitleJSON
-        }
+        // NOTE: The metric Id in this instance actually corresponds to the metric type (e.g. generalFeeling, mood, and so on).
+        var metricId: String = dict["metricId"].stringValue
+        var metricTitle: String = dict["title"].stringValue
+        
+        let responsesJSON = dict["responses"].arrayValue
+        
+        print("Obtained responseJSON: \(responsesJSON)")
+        
+        var responses: [MetricResponse] = responsesJSON.map { (responseJSON) -> MetricResponse in
+            return MetricResponse(type: metricId, title: responseJSON["title"].stringValue, value: responseJSON["value"].doubleValue)
+        }.filter { $0.type != .unknown }
+                
+//        if let responsesJSON = dict["responses"] as? JSON, let metricIdJSON = dict["metricId"] as? String, let metricTitleJSON = dict["title"] as? String {
+//            responses = responsesJSON.map({ (responseJSON) -> MetricResponse in
+//                var metricResponse = MetricResponse(type: .unknown, value: 0)
+//                if let title = responseJSON["title"] as? String, let value = responseJSON["value"] as? Double {
+//                        metricResponse = MetricResponse(type: title, value: value)
+//                    }
+//                    return metricResponse
+//            // Filter out metric responses where we fail to unwrap the title and value optionals.
+//            }).filter { $0.type != .unknown }
+//         metricId = metricIdJSON
+//         metricTitle = metricTitleJSON
+//        }
         
         return MetricPrompt(metricId: metricId, metricTitle: metricTitle, responses: responses)
     }
@@ -48,14 +57,18 @@ class MetricPrompt {
 /// Describes the different options a user can select for a given metric prompt.
 class MetricResponse {
     var type: MetricType
+    var title: String
     var value: Double
-    init(type: MetricType, value: Double) {
+    init(type: MetricType, title: String, value: Double) {
         self.type = type
+        self.title = title
         self.value = value
     }
     
-    init(type: String, value: Double){
+    init(type: String, title: String, value: Double){
+        //print("Instantiating metric response with type \(type) and value \(value)")
         self.type = MetricType.init(rawValue: type) ?? .unknown
+        self.title = title
         self.value = value
     }
 }
@@ -73,6 +86,7 @@ class MetricAttribute: CustomStringConvertible {
     var name: String
     var value: Double
     var average: Double
+    var type: MetricType
     
     /// The maximum value which can be observed or recorded for the given metric.
     var maxValue: Double = 5
@@ -81,6 +95,7 @@ class MetricAttribute: CustomStringConvertible {
         self.name = name
         self.value = value
         self.average = average
+        self.type = MetricType(rawValue: self.name) ?? .unknown
     }
     
     convenience init(name: String, value: Double) {

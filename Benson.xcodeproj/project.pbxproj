@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0FE5F5930F44F74A2ECA5A33 /* Pods_Benson.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61F6D3A6007EDAEFAA0A4449 /* Pods_Benson.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		21010095242D4CBC0010ED8D /* YPDInsightSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21010094242D4CBC0010ED8D /* YPDInsightSummaryView.swift */; };
 		2101009B242EA0D70010ED8D /* YPDInsightProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2101009A242EA0D70010ED8D /* YPDInsightProgressBarView.swift */; };
 		2110620C243A374E00348E78 /* YPDInsightsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2110620B243A374E00348E78 /* YPDInsightsViewController.swift */; };
@@ -27,9 +26,6 @@
 		215F316224119B520093409F /* YPDRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215F316124119B520093409F /* YPDRecordViewController.swift */; };
 		216CAA70237A010E004D6B8E /* MetricLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CAA6F237A010E004D6B8E /* MetricLog.swift */; };
 		21734668240AC7C100B22219 /* BensonChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21734667240AC7C100B22219 /* BensonChartView.swift */; };
-		2173466B240AC83600B22219 /* CareKitUI in Frameworks */ = {isa = PBXBuildFile; productRef = 2173466A240AC83600B22219 /* CareKitUI */; settings = {ATTRIBUTES = (Weak, ); }; };
-		2173466D240AC83600B22219 /* CareKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2173466C240AC83600B22219 /* CareKit */; settings = {ATTRIBUTES = (Weak, ); }; };
-		2173466F240AC83600B22219 /* CareKitStore in Frameworks */ = {isa = PBXBuildFile; productRef = 2173466E240AC83600B22219 /* CareKitStore */; settings = {ATTRIBUTES = (Weak, ); }; };
 		21734671240AF9C700B22219 /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21734670240AF9C700B22219 /* Sample.swift */; };
 		2184B020238D11F900FE96EA /* Fetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2184B01F238D11F900FE96EA /* Fetcher.swift */; };
 		21880FBB23806ED000A02055 /* MetricCellValueComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21880FBA23806ED000A02055 /* MetricCellValueComponent.swift */; };
@@ -37,6 +33,12 @@
 		21938DBE2315552C0066B90B /* LogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21938DBD2315552C0066B90B /* LogViewController.swift */; };
 		21938DC023155E690066B90B /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21938DBF23155E690066B90B /* TabBarViewController.swift */; };
 		21C58F372327BCBB007EE5F1 /* CheckinCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C58F362327BCBB007EE5F1 /* CheckinCollectionViewCell.swift */; };
+		21E2F35F24684F5C00EFB205 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E2F35E24684F5B00EFB205 /* Alamofire.framework */; };
+		21E2F3642468508400EFB205 /* CareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E2F3632468508400EFB205 /* CareKit.framework */; };
+		21E2F3682468508A00EFB205 /* CareKitStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E2F3672468508900EFB205 /* CareKitStore.framework */; };
+		21E2F36B2468508D00EFB205 /* CareKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E2F36A2468508D00EFB205 /* CareKitUI.framework */; };
+		21E2F36E2468512200EFB205 /* ResearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E2F36D2468512200EFB205 /* ResearchKit.framework */; };
+		21E2F3722468518C00EFB205 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E2F3712468518C00EFB205 /* SwiftyJSON.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -53,7 +55,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0E295C82155AB8534DDC5057 /* Pods-BensonWatchApp Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BensonWatchApp Extension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BensonWatchApp Extension/Pods-BensonWatchApp Extension.debug.xcconfig"; sourceTree = "<group>"; };
 		21010094242D4CBC0010ED8D /* YPDInsightSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = YPDInsightSummaryView.swift; path = /Users/aaronbaw/Code/Benson/Benson/Views/YPDInsightSummaryView.swift; sourceTree = "<absolute>"; };
 		2101009A242EA0D70010ED8D /* YPDInsightProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDInsightProgressBarView.swift; sourceTree = "<group>"; };
 		2110620B243A374E00348E78 /* YPDInsightsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDInsightsViewController.swift; sourceTree = "<group>"; };
@@ -95,12 +96,12 @@
 		21938DBD2315552C0066B90B /* LogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewController.swift; sourceTree = "<group>"; };
 		21938DBF23155E690066B90B /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		21C58F362327BCBB007EE5F1 /* CheckinCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinCollectionViewCell.swift; sourceTree = "<group>"; };
-		21C82CCD239BE14A00948A5F /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2B2E9CA1158EA1BFA35587C8 /* Pods-Benson.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Benson.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Benson/Pods-Benson.debug.xcconfig"; sourceTree = "<group>"; };
-		61F6D3A6007EDAEFAA0A4449 /* Pods_Benson.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Benson.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8BBD203C63DEC4D7DFDC4233 /* Pods-Benson.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Benson.release.xcconfig"; path = "Pods/Target Support Files/Pods-Benson/Pods-Benson.release.xcconfig"; sourceTree = "<group>"; };
-		B5D061AD688228E6EC955332 /* Pods-BensonWatchApp Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BensonWatchApp Extension.release.xcconfig"; path = "Pods/Target Support Files/Pods-BensonWatchApp Extension/Pods-BensonWatchApp Extension.release.xcconfig"; sourceTree = "<group>"; };
-		D192581FA501CF94A4600EF1 /* Pods_BensonWatchApp_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BensonWatchApp_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		21E2F35E24684F5B00EFB205 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		21E2F3632468508400EFB205 /* CareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CareKit.framework; path = Carthage/Build/iOS/CareKit.framework; sourceTree = "<group>"; };
+		21E2F3672468508900EFB205 /* CareKitStore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CareKitStore.framework; path = Carthage/Build/iOS/CareKitStore.framework; sourceTree = "<group>"; };
+		21E2F36A2468508D00EFB205 /* CareKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CareKitUI.framework; path = Carthage/Build/iOS/CareKitUI.framework; sourceTree = "<group>"; };
+		21E2F36D2468512200EFB205 /* ResearchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ResearchKit.framework; path = Carthage/Build/iOS/ResearchKit.framework; sourceTree = "<group>"; };
+		21E2F3712468518C00EFB205 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,11 +109,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21E2F36B2468508D00EFB205 /* CareKitUI.framework in Frameworks */,
+				21E2F3642468508400EFB205 /* CareKit.framework in Frameworks */,
+				21E2F36E2468512200EFB205 /* ResearchKit.framework in Frameworks */,
 				212B86C7239D477600CE9C41 /* HealthKit.framework in Frameworks */,
-				0FE5F5930F44F74A2ECA5A33 /* Pods_Benson.framework in Frameworks */,
-				2173466D240AC83600B22219 /* CareKit in Frameworks */,
-				2173466B240AC83600B22219 /* CareKitUI in Frameworks */,
-				2173466F240AC83600B22219 /* CareKitStore in Frameworks */,
+				21E2F3722468518C00EFB205 /* SwiftyJSON.framework in Frameworks */,
+				21E2F3682468508A00EFB205 /* CareKitStore.framework in Frameworks */,
+				21E2F35F24684F5C00EFB205 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,7 +130,6 @@
 				21743E6F23D0FE9400F49CC3 /* BensonWatchApp Extension */,
 				213436E123098A42006B1CA8 /* Products */,
 				E1B3C5F3A2F32C62968879A2 /* Frameworks */,
-				595675D6A3CEA4B6C2D50FAA /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -247,24 +249,16 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		595675D6A3CEA4B6C2D50FAA /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				2B2E9CA1158EA1BFA35587C8 /* Pods-Benson.debug.xcconfig */,
-				8BBD203C63DEC4D7DFDC4233 /* Pods-Benson.release.xcconfig */,
-				0E295C82155AB8534DDC5057 /* Pods-BensonWatchApp Extension.debug.xcconfig */,
-				B5D061AD688228E6EC955332 /* Pods-BensonWatchApp Extension.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		E1B3C5F3A2F32C62968879A2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				21E2F3712468518C00EFB205 /* SwiftyJSON.framework */,
+				21E2F36D2468512200EFB205 /* ResearchKit.framework */,
+				21E2F36A2468508D00EFB205 /* CareKitUI.framework */,
+				21E2F3672468508900EFB205 /* CareKitStore.framework */,
+				21E2F3632468508400EFB205 /* CareKit.framework */,
+				21E2F35E24684F5B00EFB205 /* Alamofire.framework */,
 				212B86C6239D477600CE9C41 /* HealthKit.framework */,
-				21C82CCD239BE14A00948A5F /* Alamofire.framework */,
-				61F6D3A6007EDAEFAA0A4449 /* Pods_Benson.framework */,
-				D192581FA501CF94A4600EF1 /* Pods_BensonWatchApp_Extension.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -276,12 +270,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 213436F423098A43006B1CA8 /* Build configuration list for PBXNativeTarget "Benson" */;
 			buildPhases = (
-				A60DC5385EC460C3EA1C238D /* [CP] Check Pods Manifest.lock */,
 				213436DC23098A42006B1CA8 /* Sources */,
 				213436DD23098A42006B1CA8 /* Frameworks */,
 				213436DE23098A42006B1CA8 /* Resources */,
 				21743E8423D0FE9600F49CC3 /* Embed Watch Content */,
-				6CD8F46E73C9EE96C4B777BB /* [CP] Embed Pods Frameworks */,
+				21E2F36224684F9000EFB205 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -289,9 +282,6 @@
 			);
 			name = Benson;
 			packageProductDependencies = (
-				2173466A240AC83600B22219 /* CareKitUI */,
-				2173466C240AC83600B22219 /* CareKit */,
-				2173466E240AC83600B22219 /* CareKitStore */,
 			);
 			productName = Benson;
 			productReference = 213436E023098A42006B1CA8 /* Benson.app */;
@@ -348,7 +338,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		6CD8F46E73C9EE96C4B777BB /* [CP] Embed Pods Frameworks */ = {
+		21E2F36224684F9000EFB205 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -356,45 +346,20 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Benson/Pods-Benson-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/ResearchKit/ResearchKit.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyJSON-iOS/SwiftyJSON.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/CareKit.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/CareKitUI.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/CareKitStore.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/ResearchKit.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
 			);
-			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ResearchKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Benson/Pods-Benson-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A60DC5385EC460C3EA1C238D /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Benson-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/usr/local/bin/carthage copy-frameworks\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -577,13 +542,16 @@
 		};
 		213436F523098A43006B1CA8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2B2E9CA1158EA1BFA35587C8 /* Pods-Benson.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Benson/Benson.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = A5YJ22GHFR;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Benson/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -599,13 +567,16 @@
 		};
 		213436F623098A43006B1CA8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8BBD203C63DEC4D7DFDC4233 /* Pods-Benson.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Benson/Benson.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = A5YJ22GHFR;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Benson/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -647,29 +618,11 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/carekit-apple/CareKit.git";
 			requirement = {
-				branch = master;
+				branch = stable;
 				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		2173466A240AC83600B22219 /* CareKitUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 21734669240AC83600B22219 /* XCRemoteSwiftPackageReference "CareKit" */;
-			productName = CareKitUI;
-		};
-		2173466C240AC83600B22219 /* CareKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 21734669240AC83600B22219 /* XCRemoteSwiftPackageReference "CareKit" */;
-			productName = CareKit;
-		};
-		2173466E240AC83600B22219 /* CareKitStore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 21734669240AC83600B22219 /* XCRemoteSwiftPackageReference "CareKit" */;
-			productName = CareKitStore;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 213436D823098A42006B1CA8 /* Project object */;
 }

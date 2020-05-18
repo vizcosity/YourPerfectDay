@@ -15,7 +15,7 @@ import CareKit
 class ChartData {
     
     var dataSeries: [OCKDataSeries] = []
-    var horizontalAxisChartLabels: [String] = []
+    var horizontalAxisChartMarkers: [String] = []
     
     /// - Parameters:
     ///     - data: The JSON data recieved from the Fetcher() class, containing the aggregated health and checkin data
@@ -35,7 +35,7 @@ class ChartData {
         }
         
         // Generate the horizontal axis labels for the chart.
-        self.horizontalAxisChartLabels = self.generateHorizontalAxisLabels(forCollectionDates: sampleDates)
+        self.horizontalAxisChartMarkers = self.generateHorizontalAxisLabels(forCollectionDates: sampleDates)
         
     }
     

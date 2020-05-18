@@ -26,6 +26,7 @@
 		21532F542472FE600054AC84 /* YPDSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21532F532472FE600054AC84 /* YPDSummaryView.swift */; };
 		21532F58247305040054AC84 /* StaticData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21532F57247305040054AC84 /* StaticData.swift */; };
 		21532F5A24730B1F0054AC84 /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21532F5924730B1F0054AC84 /* Chart.swift */; };
+		21532F5F24730F660054AC84 /* OCKCartesianChartViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21532F5E24730F660054AC84 /* OCKCartesianChartViewWrapper.swift */; };
 		215F316224119B520093409F /* YPDRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215F316124119B520093409F /* YPDRecordViewController.swift */; };
 		216CAA70237A010E004D6B8E /* MetricLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CAA6F237A010E004D6B8E /* MetricLog.swift */; };
 		21734668240AC7C100B22219 /* BensonChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21734667240AC7C100B22219 /* BensonChartView.swift */; };
@@ -82,6 +83,7 @@
 		21532F532472FE600054AC84 /* YPDSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDSummaryView.swift; sourceTree = "<group>"; };
 		21532F57247305040054AC84 /* StaticData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticData.swift; sourceTree = "<group>"; };
 		21532F5924730B1F0054AC84 /* Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chart.swift; sourceTree = "<group>"; };
+		21532F5E24730F660054AC84 /* OCKCartesianChartViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCKCartesianChartViewWrapper.swift; sourceTree = "<group>"; };
 		215F316124119B520093409F /* YPDRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDRecordViewController.swift; sourceTree = "<group>"; };
 		216CAA6F237A010E004D6B8E /* MetricLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricLog.swift; sourceTree = "<group>"; };
 		21734667240AC7C100B22219 /* BensonChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BensonChartView.swift; sourceTree = "<group>"; };
@@ -178,6 +180,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		21532F5B24730F410054AC84 /* Wrappers */ = {
+			isa = PBXGroup;
+			children = (
+				21532F5E24730F660054AC84 /* OCKCartesianChartViewWrapper.swift */,
+			);
+			path = Wrappers;
+			sourceTree = "<group>";
+		};
 		21743E6023D0FE8C00F49CC3 /* BensonWatchApp */ = {
 			isa = PBXGroup;
 			children = (
@@ -227,6 +237,7 @@
 		217BEFC12395BC4B0076DF02 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				21532F5B24730F410054AC84 /* Wrappers */,
 				21E2F375246878AF00EFB205 /* YPDRecentCheckinView.swift */,
 				2127B00E2430E5B900B8D0B1 /* YPDSummaryIndividualMetricInsightView.swift */,
 				21010094242D4CBC0010ED8D /* YPDInsightSummaryView.swift */,
@@ -401,6 +412,7 @@
 				215F316224119B520093409F /* YPDRecordViewController.swift in Sources */,
 				212EEE992318685D00C01AD8 /* BensonButton.swift in Sources */,
 				216CAA70237A010E004D6B8E /* MetricLog.swift in Sources */,
+				21532F5F24730F660054AC84 /* OCKCartesianChartViewWrapper.swift in Sources */,
 				21532F58247305040054AC84 /* StaticData.swift in Sources */,
 				21938DBE2315552C0066B90B /* LogViewController.swift in Sources */,
 				213436E623098A42006B1CA8 /* RecordViewController.swift in Sources */,

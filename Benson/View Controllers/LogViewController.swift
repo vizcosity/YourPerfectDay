@@ -293,10 +293,10 @@ extension LogViewController {
         
         let chartView = OCKCartesianChartView(type: .line)
         
-//        var dataSeries: [OCKDataSeries] = []
-//
-//        // Dates of each metric log sample collected. This will be used to generate axis labels.
-//        var sampleDates: [Date] = []
+    //        var dataSeries: [OCKDataSeries] = []
+    //
+    //        // Dates of each metric log sample collected. This will be used to generate axis labels.
+    //        var sampleDates: [Date] = []
         
         let chartData = ChartData.init(data: data, attributes: attributes, selectedTimeUnit: timeUnit)
                 
@@ -310,7 +310,7 @@ extension LogViewController {
        // Remove unwanted header view from the ChartView's stack view.
         chartView.contentStackView.arrangedSubviews.first?.removeFromSuperview()
         
-        chartView.graphView.horizontalAxisMarkers = chartData.horizontalAxisChartLabels.sample(withAroundNumberOfPoints: 5)
+        chartView.graphView.horizontalAxisMarkers = chartData.horizontalAxisChartMarkers.sample(withAroundNumberOfPoints: 5)
         
         chartView.backgroundColor = Colour.secondary
                 

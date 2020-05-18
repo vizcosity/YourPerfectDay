@@ -20,9 +20,11 @@ struct YPDRecentCheckinView: View {
                 Spacer()
                 
                 Text("Last Checkin \(self.checkin.timeSince)")
-                    .fontWeight(.medium)
-                    
+                    .font(.footnote)
+                    .fontWeight(.regular)
                 Image(systemName: "clock")
+                    .resizable()
+                .frame(width: 12, height: 12)
                 
             }.foregroundColor(Color.gray)
             
@@ -36,7 +38,7 @@ struct YPDRecentCheckinView: View {
                             Spacer()
                         }
                     
-                        YPDProgressBar(progressValue: self.checkin.metrics[i].value/self.checkin.metrics[i].maxValue, colour: Color.blue)
+                    YPDProgressBar(progressValue: CGFloat(self.checkin.metrics[i].value/self.checkin.metrics[i].maxValue), colour: Color.blue)
                 }
                 
             }
@@ -60,6 +62,10 @@ struct YPDRecentCheckinView: View {
              }
         }
         .padding(15.0).cornerRadius(_DEFAULT_CORNER_RADIUS)
+        .background(Color.white)
+        .cornerRadius(6.0)
+        .shadow(color: Color.init(red: 0.9, green: 0.9, blue: 0.9), radius: 10, x: 0, y: 10)
+        .padding(.all, 10)
         
         
     }
@@ -67,6 +73,6 @@ struct YPDRecentCheckinView: View {
 
 struct RecentCheckinView_Previews: PreviewProvider {
     static var previews: some View {
-        YPDRecentCheckinView(checkin: MetricLog(metrics: [MetricAttribute(name: "Mood", value: 2)], timeSince: "2 Hours Ago"))
+        YPDRecentCheckinView(checkin: MetricLog(metrics: [MetricAttribute(name: "Mood", value: 3)], timeSince: "2 Hours Ago"))
     }
 }

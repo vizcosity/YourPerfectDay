@@ -274,7 +274,7 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource {
         func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
             
             if editingStyle == .delete {
-                fetcher.remove(metricLogId: self.logs[indexPath.row / 2].id ?? "") {
+                fetcher.remove(metricLogId: self.logs[indexPath.row / 2].metricId ?? "") {
     //                tableView.deleteRows(at: [indexPath, IndexPath(row: indexPath.row + 1, section: indexPath.section)], with: .automatic)
                     // Checkpoint: Trying to understand why I can't add in the delete swipe animation.
                     self.logs.remove(at: indexPath.row / 2)
@@ -287,44 +287,20 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource {
 
 /// Extend the LogViewController to support displaying the aggregated health and checkin data via CareKit charts.
 extension LogViewController {
-    
-    /// Formatter to convert from the Date object to the string which will be represented on the axis labels. We will use a format of 'day/month', which should suffice for most of the different time units.
-    var dateToStringFormatter: DateFormatter {
-        let dateToStringFormatter = DateFormatter()
-        dateToStringFormatter.dateFormat = "dd/MM"
-        return dateToStringFormatter
-    }
    
     /// Given  some JSON data representing the aggregated heath data, the selected attributes, and the TimeUnit, instantiates the chart view, if this has not already been done so, and updates the view to display the data.
     private func configureChartOverview(forData data: JSON, andAttributes attributes: [String], andSelectedTimeUnit timeUnit: AggregationCriteria) {
         
         let chartView = OCKCartesianChartView(type: .line)
         
-        var dataSeries: [OCKDataSeries] = []
-        
-        // Dates of each metric log sample collected. This will be used to generate axis labels.
-        var sampleDates: [Date] = []
-        
-        // For each attribute, generate the data series chart points, as well as axis labels.
-        attributes.forEach {
-            let (dates, chartPoints) = self.generateChartPointsAndAxisLabelDates(forAttribute: $0, andSelectedTimeUnit: timeUnit, ofAggregatedDataObjects: data.arrayValue, normalise: attributes.count > 1)
-            
-            sampleDates.append(contentsOf: dates)
-            dataSeries.append(OCKDataSeries(dataPoints: chartPoints, title: $0, size: 3, color: Colour.chartColours.randomElement()!))
-        }
-        
-        let horizontalAxisLabels = self.generateHorizontalAxisLabels(forCollectionDates: sampleDates)
-        
-//        var firstSeries: OCKDataSeries = .init(dataPoints: [CGPoint(x: 1.0, y: 3.0), CGPoint(x: 4.0, y: 5.0), CGPoint(x: 3.0, y: 4.0), CGPoint(x: 6.0, y: 1.0)], title: "First Data Series")
-//        firstSeries.size = 3.0
-//        firstSeries.gradientStartColor = UIColor.systemGray
-//        firstSeries.gradientEndColor = UIColor.systemGray2
+//        var dataSeries: [OCKDataSeries] = []
 //
-//        var secondSeries: OCKDataSeries = .init(dataPoints: [CGPoint(x: 14.0, y: 2.0), CGPoint(x: 4.0, y: 7.0), CGPoint(x: 3.0, y: 3.0), CGPoint(x: 6.0, y: 2.0)], title: "Second Data Series")
-//        secondSeries.size = 1
+//        // Dates of each metric log sample collected. This will be used to generate axis labels.
+//        var sampleDates: [Date] = []
         
-        
-        chartView.graphView.dataSeries = dataSeries
+        let chartData = ChartData.init(data: data, attributes: attributes, selectedTimeUnit: timeUnit)
+                
+        chartView.graphView.dataSeries = chartData.dataSeries
         //chartView.graphView.heightAnchor.constraint(equalToConstant: 250).isActive = true
         //chartView.graphView.frame = chartViewContainer.bounds
         
@@ -334,7 +310,8 @@ extension LogViewController {
        // Remove unwanted header view from the ChartView's stack view.
         chartView.contentStackView.arrangedSubviews.first?.removeFromSuperview()
         
-        chartView.graphView.horizontalAxisMarkers = horizontalAxisLabels.sample(withAroundNumberOfPoints: 5)
+        chartView.graphView.horizontalAxisMarkers = chartData.horizontalAxisChartLabels.sample(withAroundNumberOfPoints: 5)
+        
         chartView.backgroundColor = Colour.secondary
                 
         chartView.frame = self.chartViewContainer.bounds
@@ -349,55 +326,4 @@ extension LogViewController {
         
     }
     
-    /// Given an array of Dates corresponding to date samples when metric logs were taken, cleans out duplicates and generates horizontal axis labels.
-    private func generateHorizontalAxisLabels(forCollectionDates dates: [Date]) -> [String] {
-        return Array(Set(dates)).sorted(by: { (firstDate, secondDate) -> Bool in
-            return firstDate.timeIntervalSince1970 < secondDate.timeIntervalSince1970
-        }).map { self.dateToStringFormatter.string(from: $0) }
-    }
-    
-    /// Generates a series of chart points for a given attribute and array of aggregated health data & checkin objects.
-    /// Parameters:
-    /// - filterOutZeros: Filters out points which have a '0' value for the y axis. Useful for healthDataObjects where a '0' indicates the lack of a response.
-    /// Returns:
-    /// - Tuple ([String], [CGPoint]) denoting the horizontal axis labels as well as the individual data points.
-    private func generateChartPointsAndAxisLabelStrings(forAttribute attribute: String, andSelectedTimeUnit timeUnit: AggregationCriteria, ofAggregatedDataObjects data: [JSON], filterOutZeros: Bool = true, normalise: Bool = false) -> ([String], [CGPoint]) {
-       
-        let (dates, points) = self.generateChartPointsAndAxisLabelDates(forAttribute: attribute, andSelectedTimeUnit: timeUnit, ofAggregatedDataObjects: data, filterOutZeros: filterOutZeros, normalise: normalise)
-        
-        return (dates.map { self.dateToStringFormatter.string(from: $0) }, points)
-    }
-    
-    /// Generates the chart points to be used for the OCKDataSeries, as well as an array of Dates which can be concatenated amongst all attributes in order to generate all required horizontal axis labels.
-    private func generateChartPointsAndAxisLabelDates(forAttribute attribute: String, andSelectedTimeUnit timeUnit: AggregationCriteria, ofAggregatedDataObjects data: [JSON], filterOutZeros: Bool = true, normalise: Bool = false) -> ([Date], [CGPoint]) {
-        
-        // If normalise is set to true, then we will use the largest Y Value to normalise all the chart points within
-        // the range [0, 1]
-        var largestYValue: Double = 1
-       
-        let chartPoints = data.compactMap { (item) -> (Date, CGPoint)? in
-            let stringToDateFormatter = ISO8601DateFormatter()
-            stringToDateFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-            
-            // Parse the date value from the JSON string.
-            
-            guard let attributeValue = Double(item[attribute].stringValue),
-                let parsedDate = stringToDateFormatter.date(from: item["startOfDate"].stringValue)
-            else { return nil }
-            
-            // Ignore everything but the 'day', 'month' and 'year', as we would want to ensure that we do not produce multiple horizontal axis labels for dates of different times of the same day.
-            let truncatedDateComponents = Calendar.current.dateComponents([.day, .month, .year], from: parsedDate)
-            
-            // Set the largestYValue for normalisation.
-            largestYValue = max(largestYValue, attributeValue)
-            
-            if let truncatedDate = Calendar.current.date(from: truncatedDateComponents) {
-                return (truncatedDate, CGPoint(x: truncatedDate.timeIntervalSince1970, y: attributeValue))
-            } else { return nil }
-            
-        }.filter { !filterOutZeros || $0.1.y != 0 }
-        self.log("Generated chart points: \(chartPoints)")
-        
-        return (chartPoints.map { $0.0 }, chartPoints.map { CGPoint(x: $0.1.x, y: $0.1.y / CGFloat(normalise ? largestYValue : 1)) })
-    }
 }

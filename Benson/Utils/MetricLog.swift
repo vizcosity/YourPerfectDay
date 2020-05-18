@@ -74,7 +74,7 @@ class MetricResponse {
 }
 
 // Data model for a single attribute.
-class MetricAttribute: CustomStringConvertible {
+struct MetricAttribute: CustomStringConvertible, Hashable {
     
     var description: String {
         get {
@@ -98,14 +98,27 @@ class MetricAttribute: CustomStringConvertible {
         self.type = MetricType(rawValue: self.name) ?? .unknown
     }
     
-    convenience init(name: String, value: Double) {
+    init(name: String, value: Double) {
         self.init(name: name, value: value, average: value)
     }
 }
 
+// Ensure MetricAttribute is equatable.
+extension MetricAttribute: Equatable {
+    
+    static func == (lhs: MetricAttribute, rhs: MetricAttribute) -> Bool {
+        return lhs.name == rhs.name &&
+            lhs.value == rhs.value &&
+            lhs.average == rhs.average &&
+            lhs.type == rhs.type
+    }
+    
+    
+}
+
 
 // Data model for metric logs.
-class MetricLog: CustomStringConvertible {
+struct MetricLog: CustomStringConvertible {
     
     var description: String {
         get {
@@ -113,7 +126,8 @@ class MetricLog: CustomStringConvertible {
         }
     }
     
-    var id: String?
+    var id = UUID()
+    var metricId: String?
     var metrics: [MetricAttribute] = []
     var timestamp: Date?
     var timeSince: String = "Some time ago"
@@ -121,23 +135,50 @@ class MetricLog: CustomStringConvertible {
     /// Summary data obtained from healthkit for the day when the log was recorded.
     var enrichedData: BensonHealthDataObject?
     
-    init(metrics: [MetricAttribute], timeSince: String, id: String? = nil){
+    init(metrics: [MetricAttribute], timeSince: String, metricId: String? = nil){
         self.metrics = metrics
         self.timeSince = timeSince
-        self.id = id
+        self.metricId = metricId
     }
     
-    convenience init(metrics: [MetricAttribute], timeSince: String, timestamp: Int, id: String? = nil) {
+    init(metrics: [MetricAttribute], timeSince: String, timestamp: Int, metricId: String? = nil) {
         self.init(metrics: metrics, timeSince: timeSince)
         self.timestamp = Date(timeIntervalSince1970: Double(timestamp))
-        self.id = id
+        self.metricId = metricId
     }
+    
+    public func copy() -> MetricLog {
+        var copiedMetric = MetricLog(metrics: self.metrics, timeSince: self.timeSince, metricId: self.metricId)
+            
+        copiedMetric.timestamp = self.timestamp
+        copiedMetric.enrichedData = self.enrichedData
+        
+        return copiedMetric
+    }
+}
+
+/// Ensure that Metric Logs are hashable so that we can use them in ForEach loops in SwiftUI.
+extension MetricLog: Hashable {
+    
+    public func equals(otherMetricLog: MetricLog) -> Bool {
+        return self.metricId == otherMetricLog.metricId &&
+            self.timestamp == otherMetricLog.timestamp &&
+            self.timeSince == otherMetricLog.timeSince
+    }
+    
+    static func == (lhs: MetricLog, rhs: MetricLog) -> Bool {
+        return lhs.equals(otherMetricLog: rhs) &&
+            lhs.metrics.elementsEqual(rhs.metrics, by: { (lhsMetric, rhsMetric) -> Bool in
+                return lhsMetric == rhsMetric
+            })
+    }
+    
     
 }
 
 /// The measurement or metric type.
 // TODO: Refactor so that the metric types are inferred from the keys of the aggregated healthDataObject, from the backend.
-enum MetricType: String, CaseIterable {
+enum MetricType: String, CaseIterable, Hashable {
     
     case generalFeeling
     case mood

@@ -35,7 +35,7 @@ class BensonHealthAndCheckinObject {
 }
 
 /// Simplified version of the HKWorkout class which provides details of the workout type, duration and number of calories burned.
-class BensonWorkout: Codable {
+struct BensonWorkout: Codable, Hashable {
     
     var type: String = "Workout"
     var duration: TimeInterval
@@ -56,7 +56,7 @@ class BensonDietaryDataObject: Codable {
 }
 
 /// Container for holding health data obtained from HealthKit.
-class BensonHealthDataObject: Codable {
+struct BensonHealthDataObject: Codable, Hashable {
     
     var date: Date
     var startDate: Date
@@ -169,7 +169,7 @@ class BensonHealthManager {
     /// Fetches all data for workouts, caloric consumption and output, heart rate, and sleep analysis asynchronously.
     public func fetchHealthData(forDay day: Date, completionHandler: @escaping (BensonHealthDataObject) -> Void) {
         
-        let dataObject = BensonHealthDataObject(date: day)
+        var dataObject = BensonHealthDataObject(date: day)
         
         self.fetchSleepHours(forDay: day) { (sleepHours) in
 //            self.log("Asleep for \(sleepHours) on \(day)")

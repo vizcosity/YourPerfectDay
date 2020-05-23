@@ -36,6 +36,7 @@
 		21880FC1238093B100A02055 /* MetricCellValueComponent.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21880FC0238093B100A02055 /* MetricCellValueComponent.xib */; };
 		21938DBE2315552C0066B90B /* LogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21938DBD2315552C0066B90B /* LogViewController.swift */; };
 		21938DC023155E690066B90B /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21938DBF23155E690066B90B /* TabBarViewController.swift */; };
+		21AF6BB424785E2C001F4E30 /* sample_chart_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 21AF6BB324785E2C001F4E30 /* sample_chart_data.json */; };
 		21C58F372327BCBB007EE5F1 /* CheckinCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C58F362327BCBB007EE5F1 /* CheckinCollectionViewCell.swift */; };
 		21E2F35F24684F5C00EFB205 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E2F35E24684F5B00EFB205 /* Alamofire.framework */; };
 		21E2F3642468508400EFB205 /* CareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E2F3632468508400EFB205 /* CareKit.framework */; };
@@ -105,6 +106,7 @@
 		21880FC0238093B100A02055 /* MetricCellValueComponent.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MetricCellValueComponent.xib; sourceTree = "<group>"; };
 		21938DBD2315552C0066B90B /* LogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewController.swift; sourceTree = "<group>"; };
 		21938DBF23155E690066B90B /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		21AF6BB324785E2C001F4E30 /* sample_chart_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample_chart_data.json; sourceTree = "<group>"; };
 		21C58F362327BCBB007EE5F1 /* CheckinCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinCollectionViewCell.swift; sourceTree = "<group>"; };
 		21E2F35E24684F5B00EFB205 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		21E2F3632468508400EFB205 /* CareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CareKit.framework; path = Carthage/Build/iOS/CareKit.framework; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 		21532F56247304F00054AC84 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				21AF6BB324785E2C001F4E30 /* sample_chart_data.json */,
 				21532F57247305040054AC84 /* StaticData.swift */,
 				21532F5924730B1F0054AC84 /* Chart.swift */,
 			);
@@ -366,6 +369,7 @@
 				21880FC1238093B100A02055 /* MetricCellValueComponent.xib in Resources */,
 				213436ED23098A43006B1CA8 /* Assets.xcassets in Resources */,
 				213436EB23098A42006B1CA8 /* Main.storyboard in Resources */,
+				21AF6BB424785E2C001F4E30 /* sample_chart_data.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

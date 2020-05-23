@@ -10,13 +10,15 @@ import SwiftUI
 import SwiftyJSON
 import CareKitUI
 
+// TODO: Investigate why the horizontal axis label markers are not appearing.
+
 /// OCKCartersianChartViewWrapper for SwiftUI.
 struct OCKCartesianChartViewWrapper: UIViewRepresentable {
     
 //    var dataSeries: [OCKDataSeries]
 //    var horizontalAxisChartLabels: [String]
     
-    var chartData: ChartData
+    @ObservedObject var chartData: YPDChartData
     
     typealias UIViewType = OCKCartesianChartView
     
@@ -36,10 +38,12 @@ struct OCKCartesianChartViewWrapper: UIViewRepresentable {
         
         chartView.graphView.horizontalAxisMarkers = chartData.horizontalAxisChartMarkers.sample(withAroundNumberOfPoints: 5)
         
+//        chartView.graphView.horizontalAxisMarkers = ["SAMPLE"]
+        
         chartView.backgroundColor = Colour.secondary
                         
-        //chartView.frame = self.chartViewContainer.bounds
-        //chartView.headerView.titleLabel.text = "My Sample Chart"
+//        chartView.frame = CGRect(x: 0, y: 0, width: 300, height: 300)
+//        chartView.headerView.titleLabel.text = "My Sample Chart"
         chartView.headerView.isHidden = true
         
         return chartView
@@ -49,22 +53,42 @@ struct OCKCartesianChartViewWrapper: UIViewRepresentable {
     // This will be called whenever the properties passed down into the view are changed -
     // in which case we need to update the view accordingly.
     func updateUIView(_ uiView: OCKCartesianChartView, context: Context) {
+//        uiView.graphView.dataSeries = []
         uiView.graphView.dataSeries = self.chartData.dataSeries
-        uiView.graphView.horizontalAxisMarkers = self.chartData.horizontalAxisChartMarkers
+//        uiView.graphView.dataSeries = []
+        
+        print("Axis Chart Markers: \(self.chartData.horizontalAxisChartMarkers.sample(withAroundNumberOfPoints: 5).joined(separator: ","))")
+        
+        uiView.graphView.horizontalAxisMarkers = self.chartData.horizontalAxisChartMarkers.sample(withAroundNumberOfPoints: 5)
+
+        //print("Data series: \(self.chartData.dataSeries.map { $0.dataPoints })")
+        
+        uiView.graphView.setNeedsLayout()
+        uiView.graphView.setNeedsDisplay()
+        uiView.setNeedsLayout()
+        uiView.setNeedsDisplay()
+        
     }
     
-    
-//    var body: some View {
-//        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-//    }
 }
 
 struct OCKCartesianChartViewWrapper_Previews: PreviewProvider {
+    
+    static var chartData = YPDChartData(attributes: ["generalFeeling"], selectedTimeUnit: .week)
+    
     static var previews: some View {
-        OCKCartesianChartViewWrapper(chartData: .init(data: JSON(), attributes: [], selectedTimeUnit: .day))
+        VStack {
+            Button(action: {
+                self.chartData.fetchNewData(selectedTimeUnit: .month)
+            }, label: {
+                Text("Fetch new data")
+            })
+            
+            Text("\(chartData.attributes.joined(separator:","))")
+            
+            Text("\(chartData.horizontalAxisChartMarkers.sample(withAroundNumberOfPoints: 5).joined(separator: ","))")
+            OCKCartesianChartViewWrapper(chartData: chartData)
+            .frame(width: nil, height: 300)
+        }
     }
 }
-//
-//struct OCKCartersianChartViewWrapper: UIViewRepresentable {
-//
-//}

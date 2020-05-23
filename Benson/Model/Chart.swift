@@ -12,18 +12,63 @@ import SwiftyJSON
 import CareKit
 
 /// Class for handling the generation of data points needed to chart metric log data with an OCKChartView
-class ChartData {
+class YPDChartData: ObservableObject {
     
-    var dataSeries: [OCKDataSeries] = []
-    var horizontalAxisChartMarkers: [String] = []
+    // These two property wrappers add in a default implementation of `objectWillChange`, which will notify all subscribers dependant on the properties that they are about to change, and as such should re-render / update their views.
+    @Published var dataSeries: [OCKDataSeries] = []
+    @Published var horizontalAxisChartMarkers: [String] = []
+    @Published var error = ""
+    
+    var timeUnit: AggregationCriteria
+    var attributes: [String]
+    var data: JSON?
+    
+    /// Convenience initialiser which fetches the aggregated health and checkin data JSON file from the backend, and initialises the ChartData object.
+    /// - Parameters:
+    ///     - attributes: The attributes (such as generalFeeling, Mood, etc) which correspond to the aggregated data
+    ///     - timeUnit: The aggregation criteria (e.g. Day, Month, Week, etc)
+    public init(attributes: [String], selectedTimeUnit timeUnit: AggregationCriteria) {
+        self.attributes = attributes
+        self.timeUnit = timeUnit
+        self.fetchDataAndInitialize(attributes: attributes, selectedTimeUnit: timeUnit)
+    }
     
     /// - Parameters:
     ///     - data: The JSON data recieved from the Fetcher() class, containing the aggregated health and checkin data
     ///     - attributes: The attributes (such as generalFeeling, Mood, etc) which correspond to the aggregated data
     ///     - timeUnit: The aggregation criteria (e.g. Day, Month, Week, etc)
     public init(data: JSON, attributes: [String], selectedTimeUnit timeUnit: AggregationCriteria) {
+        self.attributes = attributes
+        self.timeUnit = timeUnit
+        self.data = data
+        self.initialize(data: data, attributes: attributes, selectedTimeUnit: timeUnit)
+    }
+    
+    /// Convenience method which fetches data given certain attributes and a time unit, and updates the chart data accordingly.
+    /// - Parameters:
+    ///     - attributes: The attributes (such as generalFeeling, Mood, etc) which correspond to the aggregated data
+    ///     - timeUnit: The aggregation criteria (e.g. Day, Month, Week, etc)
+    private func fetchDataAndInitialize(attributes: [String], selectedTimeUnit timeUnit: AggregationCriteria){
+        Fetcher.sharedInstance.fetchAggregatedHealthAndCheckinData(byAggregationCriteria: timeUnit) { (json) in
+            DispatchQueue.main.async {
+                if !json["success"].boolValue {
+                    self.log("Error retrieving aggregated healthAndCheckinData:", json.stringValue)
+                    self.error = json.stringValue
+                }
+                self.initialize(data: json["result"], attributes: attributes, selectedTimeUnit: timeUnit)
+            }
+        }
+    }
+    
+    /// Convenience method which can be used to initialize the object within the asynchronous call to fetch the health data .
+    private func initialize(data: JSON, attributes: [String], selectedTimeUnit timeUnit: AggregationCriteria){
         
+        self.data = data
+        self.attributes = attributes
+        self.timeUnit = timeUnit
         
+        self.dataSeries = []
+                
         var sampleDates: [Date] = []
         
         // For each attribute, generate the data series chart points, as well as axis labels.
@@ -37,6 +82,11 @@ class ChartData {
         // Generate the horizontal axis labels for the chart.
         self.horizontalAxisChartMarkers = self.generateHorizontalAxisLabels(forCollectionDates: sampleDates)
         
+    }
+    
+    /// Updates the ChartData object given new attributes or selected time units.
+    public func fetchNewData(forAttributes attributes: [String]? = nil, selectedTimeUnit timeUnit: AggregationCriteria? = nil){
+        self.fetchDataAndInitialize(attributes: attributes ?? self.attributes, selectedTimeUnit: timeUnit ?? self.timeUnit)
     }
     
     /// Given an array of Dates corresponding to date samples when metric logs were taken, cleans out duplicates and generates horizontal axis labels.

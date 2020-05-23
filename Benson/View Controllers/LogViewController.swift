@@ -293,12 +293,7 @@ extension LogViewController {
         
         let chartView = OCKCartesianChartView(type: .line)
         
-    //        var dataSeries: [OCKDataSeries] = []
-    //
-    //        // Dates of each metric log sample collected. This will be used to generate axis labels.
-    //        var sampleDates: [Date] = []
-        
-        let chartData = ChartData.init(data: data, attributes: attributes, selectedTimeUnit: timeUnit)
+        let chartData = YPDChartData.init(data: data, attributes: attributes, selectedTimeUnit: timeUnit)
                 
         chartView.graphView.dataSeries = chartData.dataSeries
         //chartView.graphView.heightAnchor.constraint(equalToConstant: 250).isActive = true

@@ -57,7 +57,7 @@ struct OCKCartesianChartViewWrapper: UIViewRepresentable {
         uiView.graphView.dataSeries = self.chartData.dataSeries
 //        uiView.graphView.dataSeries = []
         
-        print("Axis Chart Markers: \(self.chartData.horizontalAxisChartMarkers.sample(withAroundNumberOfPoints: 5).joined(separator: ","))")
+//        print("Axis Chart Markers: \(self.chartData.horizontalAxisChartMarkers.sample(withAroundNumberOfPoints: 5).joined(separator: ","))")
         
         uiView.graphView.horizontalAxisMarkers = self.chartData.horizontalAxisChartMarkers.sample(withAroundNumberOfPoints: 5)
 

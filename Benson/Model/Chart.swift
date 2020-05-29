@@ -136,7 +136,7 @@ class YPDChartData: ObservableObject {
             } else { return nil }
             
         }.filter { !filterOutZeros || $0.1.y != 0 }
-        self.log("Generated chart points: \(chartPoints)")
+//        self.log("Generated chart points: \(chartPoints)")
         
         return (chartPoints.map { $0.0 }, chartPoints.map { CGPoint(x: $0.1.x, y: $0.1.y / CGFloat(normalise ? largestYValue : 1)) })
     }

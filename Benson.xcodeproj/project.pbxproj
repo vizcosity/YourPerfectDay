@@ -15,6 +15,7 @@
 		212B86C7239D477600CE9C41 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 212B86C6239D477600CE9C41 /* HealthKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		212B86C9239D483500CE9C41 /* BensonHealthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212B86C8239D483500CE9C41 /* BensonHealthManager.swift */; };
 		212EEE992318685D00C01AD8 /* BensonButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212EEE982318685D00C01AD8 /* BensonButton.swift */; };
+		2132F659247B0F8500712616 /* YPDSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2132F658247B0F8500712616 /* YPDSummaryViewController.swift */; };
 		213436E423098A42006B1CA8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213436E323098A42006B1CA8 /* AppDelegate.swift */; };
 		213436E623098A42006B1CA8 /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213436E523098A42006B1CA8 /* RecordViewController.swift */; };
 		213436EB23098A42006B1CA8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 213436E923098A42006B1CA8 /* Main.storyboard */; };
@@ -28,7 +29,7 @@
 		21532F5A24730B1F0054AC84 /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21532F5924730B1F0054AC84 /* Chart.swift */; };
 		21532F5F24730F660054AC84 /* OCKCartesianChartViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21532F5E24730F660054AC84 /* OCKCartesianChartViewWrapper.swift */; };
 		215F316224119B520093409F /* YPDRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215F316124119B520093409F /* YPDRecordViewController.swift */; };
-		216CAA70237A010E004D6B8E /* MetricLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CAA6F237A010E004D6B8E /* MetricLog.swift */; };
+		216CAA70237A010E004D6B8E /* YPDCheckin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CAA6F237A010E004D6B8E /* YPDCheckin.swift */; };
 		21734668240AC7C100B22219 /* BensonChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21734667240AC7C100B22219 /* BensonChartView.swift */; };
 		21734671240AF9C700B22219 /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21734670240AF9C700B22219 /* Sample.swift */; };
 		2184B020238D11F900FE96EA /* Fetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2184B01F238D11F900FE96EA /* Fetcher.swift */; };
@@ -37,6 +38,8 @@
 		21938DBE2315552C0066B90B /* LogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21938DBD2315552C0066B90B /* LogViewController.swift */; };
 		21938DC023155E690066B90B /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21938DBF23155E690066B90B /* TabBarViewController.swift */; };
 		21AF6BB424785E2C001F4E30 /* sample_chart_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 21AF6BB324785E2C001F4E30 /* sample_chart_data.json */; };
+		21BD462424819E1F0077DCD7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BD462324819E1F0077DCD7 /* Constants.swift */; };
+		21BD46262481A3900077DCD7 /* YPDCheckinsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BD46252481A3900077DCD7 /* YPDCheckinsView.swift */; };
 		21C58F372327BCBB007EE5F1 /* CheckinCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C58F362327BCBB007EE5F1 /* CheckinCollectionViewCell.swift */; };
 		21E2F35F24684F5C00EFB205 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E2F35E24684F5B00EFB205 /* Alamofire.framework */; };
 		21E2F3642468508400EFB205 /* CareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E2F3632468508400EFB205 /* CareKit.framework */; };
@@ -71,6 +74,7 @@
 		212B86C6239D477600CE9C41 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		212B86C8239D483500CE9C41 /* BensonHealthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BensonHealthManager.swift; sourceTree = "<group>"; };
 		212EEE982318685D00C01AD8 /* BensonButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BensonButton.swift; sourceTree = "<group>"; };
+		2132F658247B0F8500712616 /* YPDSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDSummaryViewController.swift; sourceTree = "<group>"; };
 		213436E023098A42006B1CA8 /* Benson.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Benson.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		213436E323098A42006B1CA8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		213436E523098A42006B1CA8 /* RecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
@@ -86,7 +90,7 @@
 		21532F5924730B1F0054AC84 /* Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chart.swift; sourceTree = "<group>"; };
 		21532F5E24730F660054AC84 /* OCKCartesianChartViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCKCartesianChartViewWrapper.swift; sourceTree = "<group>"; };
 		215F316124119B520093409F /* YPDRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDRecordViewController.swift; sourceTree = "<group>"; };
-		216CAA6F237A010E004D6B8E /* MetricLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricLog.swift; sourceTree = "<group>"; };
+		216CAA6F237A010E004D6B8E /* YPDCheckin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDCheckin.swift; sourceTree = "<group>"; };
 		21734667240AC7C100B22219 /* BensonChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BensonChartView.swift; sourceTree = "<group>"; };
 		21734670240AF9C700B22219 /* Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sample.swift; sourceTree = "<group>"; };
 		21743E6223D0FE8C00F49CC3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
@@ -107,6 +111,8 @@
 		21938DBD2315552C0066B90B /* LogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewController.swift; sourceTree = "<group>"; };
 		21938DBF23155E690066B90B /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		21AF6BB324785E2C001F4E30 /* sample_chart_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample_chart_data.json; sourceTree = "<group>"; };
+		21BD462324819E1F0077DCD7 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		21BD46252481A3900077DCD7 /* YPDCheckinsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDCheckinsView.swift; sourceTree = "<group>"; };
 		21C58F362327BCBB007EE5F1 /* CheckinCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinCollectionViewCell.swift; sourceTree = "<group>"; };
 		21E2F35E24684F5B00EFB205 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		21E2F3632468508400EFB205 /* CareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CareKit.framework; path = Carthage/Build/iOS/CareKit.framework; sourceTree = "<group>"; };
@@ -233,6 +239,7 @@
 				2110620B243A374E00348E78 /* YPDInsightsViewController.swift */,
 				21938DBF23155E690066B90B /* TabBarViewController.swift */,
 				215F316124119B520093409F /* YPDRecordViewController.swift */,
+				2132F658247B0F8500712616 /* YPDSummaryViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -250,6 +257,7 @@
 				213436F72309A764006B1CA8 /* GradientView.swift */,
 				21E2F37724687A3F00EFB205 /* YPDProgressBar.swift */,
 				21532F532472FE600054AC84 /* YPDSummaryView.swift */,
+				21BD46252481A3900077DCD7 /* YPDCheckinsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -276,12 +284,13 @@
 		21FC4EA8238D185800578DE5 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				216CAA6F237A010E004D6B8E /* MetricLog.swift */,
+				216CAA6F237A010E004D6B8E /* YPDCheckin.swift */,
 				2184B01F238D11F900FE96EA /* Fetcher.swift */,
 				21471734239C4E2300E4226F /* Notifications.swift */,
 				212B86C8239D483500CE9C41 /* BensonHealthManager.swift */,
 				21734670240AF9C700B22219 /* Sample.swift */,
 				2127B0102430E67F00B8D0B1 /* Extensions.swift */,
+				21BD462324819E1F0077DCD7 /* Constants.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -408,14 +417,16 @@
 			files = (
 				21471735239C4E2300E4226F /* Notifications.swift in Sources */,
 				213436E423098A42006B1CA8 /* AppDelegate.swift in Sources */,
+				21BD46262481A3900077DCD7 /* YPDCheckinsView.swift in Sources */,
 				2184B020238D11F900FE96EA /* Fetcher.swift in Sources */,
 				21E2F37824687A3F00EFB205 /* YPDProgressBar.swift in Sources */,
 				2101009B242EA0D70010ED8D /* YPDInsightProgressBarView.swift in Sources */,
+				21BD462424819E1F0077DCD7 /* Constants.swift in Sources */,
 				21532F542472FE600054AC84 /* YPDSummaryView.swift in Sources */,
 				21010095242D4CBC0010ED8D /* YPDInsightSummaryView.swift in Sources */,
 				215F316224119B520093409F /* YPDRecordViewController.swift in Sources */,
 				212EEE992318685D00C01AD8 /* BensonButton.swift in Sources */,
-				216CAA70237A010E004D6B8E /* MetricLog.swift in Sources */,
+				216CAA70237A010E004D6B8E /* YPDCheckin.swift in Sources */,
 				21532F5F24730F660054AC84 /* OCKCartesianChartViewWrapper.swift in Sources */,
 				21532F58247305040054AC84 /* StaticData.swift in Sources */,
 				21938DBE2315552C0066B90B /* LogViewController.swift in Sources */,
@@ -433,6 +444,7 @@
 				2127B00F2430E5B900B8D0B1 /* YPDSummaryIndividualMetricInsightView.swift in Sources */,
 				21880FBB23806ED000A02055 /* MetricCellValueComponent.swift in Sources */,
 				21E2F376246878AF00EFB205 /* YPDRecentCheckinView.swift in Sources */,
+				2132F659247B0F8500712616 /* YPDSummaryViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

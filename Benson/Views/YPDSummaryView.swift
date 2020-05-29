@@ -17,6 +17,7 @@ struct YPDAttributePicker: View {
     var body: some View {
     
        VStack {
+                
         HStack {
             Spacer()
             Button(action: {
@@ -51,7 +52,7 @@ struct YPDTimeUnitPicker: View {
     var options: [String]
     
     var body: some View {
-    
+            
        VStack {
         HStack {
             Spacer()
@@ -83,7 +84,7 @@ struct YPDTimeUnitPicker: View {
 struct YPDSummaryView: View {
         
     // We will be listening to changes in the observed object, published by the data model, and reflecting changes in our view accordingly.
-    @Binding var checkins: [MetricLog]
+    @State var checkins: [YPDCheckin] = []
     @ObservedObject var chartData: YPDChartData
     
     // TODO: Refactor this to become an EnvironmentObject.
@@ -101,22 +102,28 @@ struct YPDSummaryView: View {
 
     
     // TEMP: Generalise this so that we can support multiple attributes in the future.
-    var selectedAttribute: MetricType {
-        MetricType.allCases[self.selectedAttributePickerIndex]
+    var selectedAttribute: YPDCheckinType {
+        YPDCheckinType.allCases[self.selectedAttributePickerIndex]
     }
     
     var selectedTimeUnit: AggregationCriteria {
         AggregationCriteria.allCases[self.selectedTimeUnitPickerIndex]
     }
     
-    @State var attributePickerIsDisplayed: Bool = true
-    @State var timeunitPickerIsDisplayed: Bool = true
+    @State var attributePickerIsDisplayed: Bool = false
+    @State var timeunitPickerIsDisplayed: Bool = false
     
     var body: some View {
         
         VStack {
             
             VStack {
+                
+                HStack {
+                    Text("Your Chart")
+                        .font(.largeTitle)
+                    Spacer()
+                }.padding([.top, .leading, .trailing], Constants.Padding)
             
                 HStack {
                     
@@ -128,7 +135,7 @@ struct YPDSummaryView: View {
                          // Update the chart data object.
                          self.chartData.fetchNewData(forAttributes: self.selectedAttributes)
                     }) {
-                        YPDAttributePicker(selectedPickerIndex: self.$selectedAttributePickerIndex, pickerIsDisplayed: self.$attributePickerIsDisplayed, options: MetricType.allCases.map { $0.rawValue })
+                        YPDAttributePicker(selectedPickerIndex: self.$selectedAttributePickerIndex, pickerIsDisplayed: self.$attributePickerIsDisplayed, options: YPDCheckinType.allCases.map { $0.rawValue })
                     }
 
                     
@@ -167,8 +174,10 @@ struct YPDSummaryView: View {
                  .padding(.init([.top, .leading, .trailing]), 10)
                 
                 if !self.checkins.isEmpty {
-                    YPDRecentCheckinView(checkin: self.checkins.first!)
+                    YPDRecentCheckinView(displayedCheckin: self.checkins.first!, allCheckins: self.checkins)
                 }
+            }.onAppear {
+                Fetcher.sharedInstance.fetchMetricLogs(completionHandler: { self.checkins = $0 })
             }
         }
         
@@ -178,7 +187,7 @@ struct YPDSummaryView: View {
 
 struct YPDRecentCheckinsView: View {
     
-    @Binding var checkins: [MetricLog]
+    @Binding var checkins: [YPDCheckin]
     
     var body: some View {
         VStack {
@@ -191,7 +200,7 @@ struct YPDRecentCheckinsView: View {
           
           List {
               ForEach(self.checkins, id: \.self) { (checkin) -> YPDRecentCheckinView in
-                  YPDRecentCheckinView(checkin: checkin)
+                  YPDRecentCheckinView(displayedCheckin: checkin)
               }
           }
           
@@ -201,6 +210,8 @@ struct YPDRecentCheckinsView: View {
 
 struct YPDSummaryView_Previews: PreviewProvider {
     static var previews: some View {
-        YPDSummaryView(checkins: .constant(_sampleMetricLogs), chartData: .init(attributes: ["generalFeeling"], selectedTimeUnit: .week))
+//        YPDSummaryView(checkins: .constant(_sampleMetricLogs), chartData: .init(attributes: ["generalFeeling"], selectedTimeUnit: .week))
+        YPDSummaryView(chartData: .init(attributes: ["generalFeeling"], selectedTimeUnit: .week))
+
     }
 }

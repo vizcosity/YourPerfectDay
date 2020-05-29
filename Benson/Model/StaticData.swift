@@ -9,11 +9,11 @@
 import Foundation
 import SwiftyJSON
 
-let _sampleMetricLog = MetricLog(metrics: [MetricAttribute(name: "Mood", value: 3)], timeSince: "2 Hours Ago")
-let _sampleMetricLogs: [MetricLog] = {
-    var output: [MetricLog] = []
+let _sampleCheckin = YPDCheckin(attributeValues: [YPDCheckinAttributeValue(type: "mood", name: "Mood", value: 3)], timeSince: "2 Hours Ago")
+let _sampleMetricLogs: [YPDCheckin] = {
+    var output: [YPDCheckin] = []
     for _ in 0..<10 {
-        output.append(_sampleMetricLog)
+        output.append(_sampleCheckin)
     }
     return output
 }()

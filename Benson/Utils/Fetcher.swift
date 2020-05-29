@@ -62,8 +62,8 @@ enum AggregationCriteria: String, CustomStringConvertible, CaseIterable {
 class Fetcher {
     
     var healthManager: BensonHealthManager = BensonHealthManager()!
-    var metricPrompts : [MetricPrompt] = []
-    var metricLogs: [MetricLog] = []
+    var metricPrompts : [YPDCheckinPrompt] = []
+    var metricLogs: [YPDCheckin] = []
     
     static let sharedInstance = Fetcher()
     
@@ -80,17 +80,17 @@ class Fetcher {
     
     /// Fetches the title for the metric prompt given the Id. Defaults to the metric id passed if no metric prompt is found.
     private func getTitleFromCachedMetricPrompts(forMetricId metricId: String) -> String {
-        return self.metricPrompts.filter { $0.metricId == metricId }.first?.metricTitle ?? metricId
+        return self.metricPrompts.filter { $0.type == metricId }.first?.readableTitle ?? metricId
     }
     
-    private func fetchAndCacheMetricPrompts(completionHandler: @escaping ([MetricPrompt]) -> Void){
+    private func fetchAndCacheMetricPrompts(completionHandler: @escaping ([YPDCheckinPrompt]) -> Void){
         self.fetchMetricPrompts(completionHandler: {
             self.metricPrompts = $0
             completionHandler($0)
         })
     }
         
-    public func fetchMetricPrompts(completionHandler: @escaping ([MetricPrompt]) -> Void){
+    public func fetchMetricPrompts(completionHandler: @escaping ([YPDCheckinPrompt]) -> Void){
         
         print("[Fetcher] Fetching metric prompts from \(Webserver.getMetrics)")
         
@@ -103,8 +103,8 @@ class Fetcher {
             if let metricPrompts = try? JSON(response.result.get()).arrayValue {
                         
                 // Convert the JSON array into the Metric Prompt objects.
-                completionHandler(metricPrompts.map({ (metricPromptJSON) -> MetricPrompt in
-                    return MetricPrompt.fromJSON(dict: metricPromptJSON)
+                completionHandler(metricPrompts.map({ (metricPromptJSON) -> YPDCheckinPrompt in
+                    return YPDCheckinPrompt.fromJSON(dict: metricPromptJSON)
                 }))
                 
             }
@@ -114,32 +114,33 @@ class Fetcher {
     
     
     // Checkpoint: Have just written a function to grab the metric titles given a metric id (this is not included in the metric log). Have since implemented this in the backend for simplicity.
-    public func fetchMetricLogs(completionHandler: @escaping ([MetricLog]) -> Void) {
+    public func fetchMetricLogs(completionHandler: @escaping ([YPDCheckin]) -> Void) {
         
         AF.request(Webserver.getMetricLog).responseJSON(queue: DispatchQueue.global(qos: .userInitiated), options: .allowFragments) { (response) in
 //            self.log("Recieved metric logs: \(response)")
             
-            if let metricLogsJSON = try? response.result.get() as? [[String: Any]] {
-                self.log("\(metricLogsJSON)")
+            if let checkinJSON = try? response.result.get() as? [[String: Any]] {
+                self.log("\(checkinJSON)")
 
+                // TODO: Rename the various field titles so that they make more sense and are more consistent across the application.
                 // Map each JSON object ot the MetricLog object and return this as part of the completionHandler.
-                let metricLogs = metricLogsJSON.map({ (metricLogJSON) -> MetricLog in
+                let checkins = checkinJSON.map({ (metricLogJSON) -> YPDCheckin in
 
-                    var metricAttributes : [MetricAttribute] = []
+                    var attributeValues : [YPDCheckinAttributeValue] = []
 
                     if let attributesFromResponse = metricLogJSON["attributes"] as? [[String : Any]] {
-                        metricAttributes = attributesFromResponse.map({ (attribute) -> MetricAttribute in
-                            return MetricAttribute(name: attribute["title"] as? String ?? "Attribute", value: attribute["value"] as? Double ?? 0)
+                        attributeValues = attributesFromResponse.map({ (attribute) -> YPDCheckinAttributeValue in
+                            return YPDCheckinAttributeValue(type: attribute["metricId"] as? String ?? "", name: attribute["title"] as? String ?? "", value: attribute["value"] as? Double ?? 0)
                         })
                     }
 
                     // Checkpoint: attaching a Date to each metric log to know when to grab HealthKit data for enrichment.
-                    return MetricLog(metrics: metricAttributes, timeSince: metricLogJSON["timesince"] as? String ?? "Some time ago", timestamp: metricLogJSON["timestamp"] as? Int ?? 0, metricId: metricLogJSON["_id"] as? String)
+                    return YPDCheckin(attributeValues: attributeValues, timeSince: metricLogJSON["timesince"] as? String ?? "Some time ago", timestamp: metricLogJSON["timestamp"] as? Int ?? 0, type: metricLogJSON["_id"] as? String)
                 })
                 
                 // Run the comletionHandler within the main thread as the argument passed to the completion handler will most likely be used to update the UI.
                 DispatchQueue.main.async {
-                    return completionHandler(metricLogs)
+                    return completionHandler(checkins)
                 }
             }
         }
@@ -251,11 +252,11 @@ class Fetcher {
     
     /// Given a metric log, fetches the BensonHealthKitDataObject associated with the given date which the log took place. To start with, Benson will fetch all metric logs for the user, and identify any logs which have not been enriched, by using the date from the timestamp and searching for all health data within this range.
     //TODO: Implement a background job to search for unenriched metric logs and to enrich them.
-    public func enrichMetricLogWithHealthKitData(forMetricLog metricLog: MetricLog, completionHandler: @escaping (MetricLog) -> Void) {
+    public func enrichMetricLogWithHealthKitData(forMetricLog metricLog: YPDCheckin, completionHandler: @escaping (YPDCheckin) -> Void) {
         
         // Instantiate a date object for the metricLog.
         guard let date = metricLog.timestamp else {
-            return self.log("Could not obtain date for metric log \(metricLog.metricId ?? metricLog.description)")
+            return self.log("Could not obtain date for metric log \(metricLog.type ?? metricLog.description)")
         }
         
         self.healthManager.fetchHealthData(forDay: date){ healthDataObject in

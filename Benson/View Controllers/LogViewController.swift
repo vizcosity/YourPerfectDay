@@ -37,7 +37,7 @@ class LogViewController: UIViewController{
     @IBOutlet weak var chartTimeUnitSelectionButton: BensonButton!
     
     // Stored and computed properties.
-    var logs: [MetricLog] = [] {
+    var logs: [YPDCheckin] = [] {
         
         // This is run from whatever context actually set the variable. If we are updating the variable from a background thread, then the execution of this closure occur within that thread.
         didSet {
@@ -46,7 +46,7 @@ class LogViewController: UIViewController{
         
     }
 
-    var selectedChartMetrics: [MetricType] = [.generalFeeling] {
+    var selectedChartMetrics: [YPDCheckinType] = [.generalFeeling] {
         didSet {
             self.updateChartAndButtons()
         }
@@ -75,7 +75,7 @@ class LogViewController: UIViewController{
     var dummyTextField: UITextField = UITextField(frame: CGRect.zero)
     
     /// Available metricTypes which the user can select from and view.
-    var metricTypes: [MetricType] = MetricType.allCases
+    var metricTypes: [YPDCheckinType] = YPDCheckinType.allCases
     
     /// Available time units which the user can select from and view.
     var timeUnits: [AggregationCriteria] = AggregationCriteria.allCases
@@ -109,7 +109,7 @@ class LogViewController: UIViewController{
     
     @objc private func chartMetricSelectionHandler(){
         self.selectionMode = .ChartMetric
-        self.log("All cases for MetricType: \(MetricType.allCases)")
+        self.log("All cases for MetricType: \(YPDCheckinType.allCases)")
 //        self.selectedChartMetric = MetricType.allCases[(MetricType.allCases.firstIndex(of: self.selectedChartMetric)! + 1) % MetricType.allCases.count]
         self.displayMetricPickerViewForChartMetrics()
     }
@@ -274,7 +274,7 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource {
         func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
             
             if editingStyle == .delete {
-                fetcher.remove(metricLogId: self.logs[indexPath.row / 2].metricId ?? "") {
+                fetcher.remove(metricLogId: self.logs[indexPath.row / 2].type ?? "") {
     //                tableView.deleteRows(at: [indexPath, IndexPath(row: indexPath.row + 1, section: indexPath.section)], with: .automatic)
                     // Checkpoint: Trying to understand why I can't add in the delete swipe animation.
                     self.logs.remove(at: indexPath.row / 2)

@@ -31,7 +31,7 @@ class RecordViewController: UIViewController, MetricSelectionDelegate {
     var fetcher = Fetcher()
     
 //    var metricPrompts = MetricPrompt(metricId: "feeling", metricTitle: "I'm Feeling", responses: [MetricResponse(title: "Horrible", value: 0), MetricResponse(title: "Meh", value: 1), MetricResponse(title: "Okay", value: 1), MetricResponse(title: "Okay", value: 2), MetricResponse(title: "Not Bad", value: 3), MetricResponse(title: "Great", value: 4)])
-    var metricPrompts : [MetricPrompt] = [] {
+    var metricPrompts : [YPDCheckinPrompt] = [] {
         
         didSet {
             
@@ -46,7 +46,7 @@ class RecordViewController: UIViewController, MetricSelectionDelegate {
     
     var selectedMetrics : [(String, Int)] = []
     
-    func addOrUpdate(metricPrompt: MetricPrompt) {
+    func addOrUpdate(metricPrompt: YPDCheckinPrompt) {
         let metricPromptView = MetricPromptView()
             
 //        print("Obtained metric title: \(metricPrompt.metricTitle) for metricId: \(metricPrompt.metricId)")
@@ -54,8 +54,8 @@ class RecordViewController: UIViewController, MetricSelectionDelegate {
         print("Metric prompt responses: \(metricPrompt.responses)")
             
              metricPromptView.actionDelegate = self
-             metricPromptView.metricTitle = metricPrompt.metricTitle
-             metricPromptView.metricId = metricPrompt.metricId
+             metricPromptView.metricTitle = metricPrompt.readableTitle
+             metricPromptView.metricId = metricPrompt.type
              metricPromptView.responses = metricPrompt.responses.map({ (metricResponse) -> String in
                 return metricResponse.title
              })
@@ -125,9 +125,9 @@ class RecordViewController: UIViewController, MetricSelectionDelegate {
         }
     }
     
-    func getMetricPrompt(byId id: String) -> MetricPrompt? {
+    func getMetricPrompt(byId id: String) -> YPDCheckinPrompt? {
         return self.metricPrompts.filter { (prompt) -> Bool in
-            return prompt.metricId == id
+            return prompt.type == id
         }.first
     }
     

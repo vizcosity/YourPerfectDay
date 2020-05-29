@@ -10,7 +10,8 @@ import SwiftUI
 
 struct YPDRecentCheckinView: View {
     
-    var checkin: MetricLog
+    var displayedCheckin: YPDCheckin
+    var allCheckins: [YPDCheckin] = []
     
     var body: some View {
         
@@ -19,7 +20,7 @@ struct YPDRecentCheckinView: View {
             HStack {
                 Spacer()
                 
-                Text("Last Checkin \(self.checkin.timeSince)")
+                Text("Last Checkin \(self.displayedCheckin.timeSince)")
                     .font(.footnote)
                     .fontWeight(.regular)
                 Image(systemName: "clock")
@@ -30,38 +31,25 @@ struct YPDRecentCheckinView: View {
             
             VStack {
                 
-                ForEach(0..<self.checkin.metrics.count){ i in
+                ForEach(0..<self.displayedCheckin.attributeValues.count){ i in
                     HStack {
-                        Text("\(self.checkin.metrics[i].type.humanReadable)  \(Int(self.checkin.metrics[i].value))/\(Int(self.checkin.metrics[i].maxValue))")
+                        Text("\(self.displayedCheckin.attributeValues[i].type.humanReadable)  \(Int(self.displayedCheckin.attributeValues[i].value))/\(Int(self.displayedCheckin.attributeValues[i].maxValue))")
                                 .fontWeight(.medium)
                                 
                             Spacer()
                         }
                     
-                    YPDProgressBar(progressValue: CGFloat(self.checkin.metrics[i].value/self.checkin.metrics[i].maxValue), colour: Color.blue)
+                    YPDProgressBar(progressValue: CGFloat(self.displayedCheckin.attributeValues[i].value/self.displayedCheckin.attributeValues[i].maxValue), colour: Color.blue)
                 }
                 
             }
             
             // Card below-fold content. (Click for more checkins indicator)
-             VStack {
-                 Rectangle()
-                     .fill(Color(red: 225/256, green: 229/256, blue: 233/256))
-                     .frame(width: nil, height: 1, alignment: .center)
-                 HStack {
-                     Spacer()
-                     HStack {
-                             Text("12 Checkins this week")
-                                 .font(.caption)
-                             Image(systemName: "chevron.right")
-                                 .scaleEffect(0.7)
-                     }.foregroundColor(Color.gray)
-                 }
-                 .padding(.all, CGFloat(5))
-//                 .padding(.bottom, CGFloat(5))
-             }
+            if !self.allCheckins.isEmpty   {
+                YPDAdditionalCheckins(checkins: self.allCheckins)
+            }
         }
-        .padding(15.0).cornerRadius(_DEFAULT_CORNER_RADIUS)
+        .padding(15.0).cornerRadius(Constants.defaultCornerRadius)
         .background(Color.white)
         .cornerRadius(6.0)
         .shadow(color: Color.init(red: 0.9, green: 0.9, blue: 0.9), radius: 10, x: 0, y: 10)
@@ -73,6 +61,37 @@ struct YPDRecentCheckinView: View {
 
 struct RecentCheckinView_Previews: PreviewProvider {
     static var previews: some View {
-        YPDRecentCheckinView(checkin: MetricLog(metrics: [MetricAttribute(name: "Mood", value: 3)], timeSince: "2 Hours Ago"))
+        YPDRecentCheckinView(displayedCheckin: YPDCheckin(attributeValues: [YPDCheckinAttributeValue(type:"mood", name: "Mood", value: 3)], timeSince: "2 Hours Ago"))
     }
+}
+
+struct YPDAdditionalCheckins: View {
+    
+    var checkins: [YPDCheckin]
+    
+    var body: some View {
+        VStack {
+            
+            // Horizontal divider.
+            Rectangle()
+                .fill(Color(red: 225/256, green: 229/256, blue: 233/256))
+                .frame(width: nil, height: 1, alignment: .center)
+            
+            // TODO: Create a new view which will display all the checkins.
+            NavigationLink(destination: YPDCheckinsView(checkins: self.checkins)) {
+                HStack {
+                    Spacer()
+                    HStack {
+                        Text("\(self.checkins.count) Checkins this week")
+                            .font(.caption)
+                        Image(systemName: "chevron.right")
+                            .scaleEffect(0.7)
+                    }.foregroundColor(Color.gray)
+                }
+                .padding(.all, CGFloat(5))
+            }
+
+        }
+    }
+    
 }

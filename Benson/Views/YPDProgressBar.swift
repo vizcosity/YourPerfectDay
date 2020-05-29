@@ -8,8 +8,6 @@
 
 import SwiftUI
 
-let _DEFAULT_PROGRESS_BAR_HEIGHT: CGFloat = 10
-let _DEFAULT_CORNER_RADIUS: CGFloat = 4
 
 struct YPDProgressBar: View {
     
@@ -25,14 +23,14 @@ struct YPDProgressBar: View {
         
             Rectangle()
                 .fill(self.colour)
-                .frame(width: geometry.size.width * self.progressValue, height: _DEFAULT_PROGRESS_BAR_HEIGHT, alignment: .center)
-            .cornerRadius(_DEFAULT_CORNER_RADIUS)
+                .frame(width: geometry.size.width * self.progressValue, height: Constants.defaultProgressBarHeight, alignment: .center)
+                .cornerRadius(Constants.defaultCornerRadius)
             .zIndex(1)
             
             YPDProgressBarBackground(colour: self.colour)
             
         }
-        .frame(height: _DEFAULT_PROGRESS_BAR_HEIGHT)
+        .frame(height: Constants.defaultProgressBarHeight)
         
     }
 }
@@ -47,13 +45,13 @@ struct YPDProgressBarBackground: View {
          
              Rectangle()
              .fill(self.colour)
-             .frame(width: geometry.size.width, height: _DEFAULT_PROGRESS_BAR_HEIGHT, alignment: .center)
-             .cornerRadius(_DEFAULT_CORNER_RADIUS)
+                .frame(width: geometry.size.width, height: Constants.defaultProgressBarHeight, alignment: .center)
+                .cornerRadius(Constants.defaultCornerRadius)
              .opacity(0.25)
              .zIndex(0)
              
          }
-         .frame(height: _DEFAULT_PROGRESS_BAR_HEIGHT)
+         .frame(height: Constants.defaultProgressBarHeight)
          
     }
 }

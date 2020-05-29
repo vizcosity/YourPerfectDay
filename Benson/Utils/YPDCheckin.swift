@@ -44,26 +44,26 @@ class YPDCheckinPrompt {
 
 /// Describes the different options a user can select for a given checkin prompt.
 class YPDCheckinResponseOption {
-    var type: MetricType
+    var type: YPDCheckinType
     var title: String
     var value: Double
     
-    init(type: MetricType, title: String, value: Double) {
+    init(type: YPDCheckinType, title: String, value: Double) {
         self.type = type
         self.title = title
         self.value = value
     }
     
     init(type: String, title: String, value: Double){
-        self.type = MetricType(rawValue: type) ?? .unknown
+        self.type = YPDCheckinType(rawValue: type) ?? .unknown
         self.title = title
         self.value = value
     }
     
 }
 
-// Data model for a single attribute.
-struct YPDCheckinAttribute: CustomStringConvertible, Hashable {
+/// Contains the value for a single attribute within a YPD Checkin.
+struct YPDCheckinAttributeValue: CustomStringConvertible, Hashable {
     
     var description: String {
         get {
@@ -75,29 +75,27 @@ struct YPDCheckinAttribute: CustomStringConvertible, Hashable {
     var name: String
     var value: Double
     var average: Double
-    var type: MetricType
+    var type: YPDCheckinType
     
     /// The maximum value which can be observed or recorded for the given metric.
     var maxValue: Double = 5
     
-    init(name: String, value: Double, average: Double){
+    init(type: YPDCheckinType, name: String, value: Double, average: Double? = nil){
         self.name = name
         self.value = value
-        self.average = average
-        print("Instantiating metric type with name: \(name)")
-        self.type = MetricType(rawValue: self.name) ?? .unknown
-        print("Instantiated with type: \(self.type)")
+        self.average = average ?? value
+        self.type = type
     }
     
-    init(name: String, value: Double) {
-        self.init(name: name, value: value, average: value)
+    init(type: String, name: String, value: Double, average: Double? = nil){
+        self.init(type: YPDCheckinType(rawValue: type) ?? .unknown, name: name, value: value, average: average)
     }
 }
 
 // Ensure MetricAttribute is equatable.
-extension YPDCheckinAttribute: Equatable {
+extension YPDCheckinAttributeValue: Equatable {
     
-    static func == (lhs: YPDCheckinAttribute, rhs: YPDCheckinAttribute) -> Bool {
+    static func == (lhs: YPDCheckinAttributeValue, rhs: YPDCheckinAttributeValue) -> Bool {
         return lhs.name == rhs.name &&
             lhs.value == rhs.value &&
             lhs.average == rhs.average &&
@@ -108,38 +106,38 @@ extension YPDCheckinAttribute: Equatable {
 }
 
 
-// Data model for metric logs.
-struct YPDCheckinGroup: CustomStringConvertible {
+/// A YPDCheckin object contains a collection of individual attribute values which the user has recorded for each given attribute type.
+struct YPDCheckin: CustomStringConvertible {
     
     var description: String {
         get {
-            return "\(self.metrics): \(self.timeSince)"
+            return "\(self.attributeValues): \(self.timeSince)"
         }
     }
     
     var id = UUID()
-    var metricId: String?
-    var metrics: [YPDCheckinAttribute] = []
+    var type: String?
+    var attributeValues: [YPDCheckinAttributeValue] = []
     var timestamp: Date?
     var timeSince: String = "Some time ago"
     
     /// Summary data obtained from healthkit for the day when the log was recorded.
     var enrichedData: BensonHealthDataObject?
     
-    init(metrics: [YPDCheckinAttribute], timeSince: String, metricId: String? = nil){
-        self.metrics = metrics
+    init(attributeValues: [YPDCheckinAttributeValue], timeSince: String, type: String? = nil){
+        self.attributeValues = attributeValues
         self.timeSince = timeSince
-        self.metricId = metricId
+        self.type = type
     }
     
-    init(metrics: [YPDCheckinAttribute], timeSince: String, timestamp: Int, metricId: String? = nil) {
-        self.init(metrics: metrics, timeSince: timeSince)
+    init(attributeValues: [YPDCheckinAttributeValue], timeSince: String, timestamp: Int, type: String? = nil) {
+        self.init(attributeValues: attributeValues, timeSince: timeSince)
         self.timestamp = Date(timeIntervalSince1970: Double(timestamp))
-        self.metricId = metricId
+        self.type = type
     }
     
-    public func copy() -> YPDCheckinGroup {
-        var copiedMetric = YPDCheckinGroup(metrics: self.metrics, timeSince: self.timeSince, metricId: self.metricId)
+    public func copy() -> YPDCheckin {
+        var copiedMetric = YPDCheckin(attributeValues: self.attributeValues, timeSince: self.timeSince, type: self.type)
             
         copiedMetric.timestamp = self.timestamp
         copiedMetric.enrichedData = self.enrichedData
@@ -149,17 +147,17 @@ struct YPDCheckinGroup: CustomStringConvertible {
 }
 
 /// Ensure that Metric Logs are hashable so that we can use them in ForEach loops in SwiftUI.
-extension YPDCheckinGroup: Hashable {
+extension YPDCheckin: Hashable {
     
-    public func equals(otherMetricLog: YPDCheckinGroup) -> Bool {
-        return self.metricId == otherMetricLog.metricId &&
+    public func equals(otherMetricLog: YPDCheckin) -> Bool {
+        return self.type == otherMetricLog.type &&
             self.timestamp == otherMetricLog.timestamp &&
             self.timeSince == otherMetricLog.timeSince
     }
     
-    static func == (lhs: YPDCheckinGroup, rhs: YPDCheckinGroup) -> Bool {
+    static func == (lhs: YPDCheckin, rhs: YPDCheckin) -> Bool {
         return lhs.equals(otherMetricLog: rhs) &&
-            lhs.metrics.elementsEqual(rhs.metrics, by: { (lhsMetric, rhsMetric) -> Bool in
+            lhs.attributeValues.elementsEqual(rhs.attributeValues, by: { (lhsMetric, rhsMetric) -> Bool in
                 return lhsMetric == rhsMetric
             })
     }
@@ -169,7 +167,7 @@ extension YPDCheckinGroup: Hashable {
 
 /// The measurement or metric type.
 // TODO: Refactor so that the metric types are inferred from the keys of the aggregated healthDataObject, from the backend.
-enum MetricType: String, CaseIterable, Hashable {
+enum YPDCheckinType: String, CaseIterable, Hashable {
     
     case generalFeeling
     case mood
@@ -317,7 +315,7 @@ enum MetricType: String, CaseIterable, Hashable {
 class YPDInsight {
     
     /// The MOI type.
-    var metricOfInterestType: MetricType
+    var metricOfInterestType: YPDCheckinType
     
     /// The value assocaited with the metric of interest (e.g., the anomaly value).
     var metricOfInterestValue: Double
@@ -325,14 +323,14 @@ class YPDInsight {
     /// A list of the most important metrics associated with the insight / anomaly.
     var mostImportantAnomalyMetrics: [YPDAnomalyMetric] = []
     
-    init(metricOfInterestType: MetricType, metricOfInterestValue: Double, mostImportantAnomalyMetrics: [YPDAnomalyMetric] ) {
+    init(metricOfInterestType: YPDCheckinType, metricOfInterestValue: Double, mostImportantAnomalyMetrics: [YPDAnomalyMetric] ) {
         self.metricOfInterestType = metricOfInterestType
         self.metricOfInterestValue = metricOfInterestValue
         self.mostImportantAnomalyMetrics = mostImportantAnomalyMetrics
     }
     
     convenience init(json: JSON){
-        let metricOfInterestType = MetricType(rawValue: json["desired_metric"].stringValue) ?? .unknown
+        let metricOfInterestType = YPDCheckinType(rawValue: json["desired_metric"].stringValue) ?? .unknown
         let metricOfInterestValue = json["anomaly_value"].doubleValue
 //        let metricOfInterestValue = MetricResponse(type: metricOfInterestType, value: metricOfInterestRawValue)
                 
@@ -346,7 +344,7 @@ class YPDInsight {
        
         mostImportantPrecedingDataJSONDict.keys.forEach { metric in
             
-            let metricType = MetricType(rawValue: metric) ?? .unknown
+            let metricType = YPDCheckinType(rawValue: metric) ?? .unknown
             let precedingDataDict = mostImportantPrecedingDataJSONDict[metric]?.dictionaryValue
             
             // Iterate over all of the values, and create an array.
@@ -379,7 +377,7 @@ class YPDInsight {
 class YPDAnomalyMetric {
     
     /// The metric attribute associated with the current insight.
-    var metricAttribute: MetricType
+    var metricAttribute: YPDCheckinType
     
     var localChange: Double
     var globalChange: Double
@@ -389,7 +387,7 @@ class YPDAnomalyMetric {
     
     var precedingData: [Double]
     
-    init(metricAttribute: MetricType, localChange: Double, globalChange: Double, correlation: Double, importance: Double, timePeriod: String, precedingData: [Double]){
+    init(metricAttribute: YPDCheckinType, localChange: Double, globalChange: Double, correlation: Double, importance: Double, timePeriod: String, precedingData: [Double]){
         self.metricAttribute = metricAttribute
         self.localChange = localChange
         self.globalChange = globalChange

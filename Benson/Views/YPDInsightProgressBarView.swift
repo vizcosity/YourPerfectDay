@@ -17,8 +17,8 @@ struct YPDBackgroundProgressBarView: View {
         // Background progress bar - the colour depends on whether the MOI has increased, or decreased.
         Rectangle()
             .fill(self.percentageMOIChangeValue >= 0.5 ? Colour.progresssBarGreen.opacity(0.8) : Colour.progressBarRed.opacity(0.8))
-            .frame(width: geometry.size.width, height: _DEFAULT_PROGRESS_BAR_HEIGHT, alignment: .center)
-            .cornerRadius(_DEFAULT_CORNER_RADIUS)
+            .frame(width: geometry.size.width, height: Constants.defaultProgressBarHeight, alignment: .center)
+            .cornerRadius(Constants.defaultCornerRadius)
             .zIndex(0)
     }
 }

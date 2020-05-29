@@ -11,7 +11,7 @@ import UIKit
 //@IBDesignable
 class CheckinCollectionViewCell: UITableViewCell {
 
-    var metricLog: MetricLog? { didSet { draw(metricAttributes: self.metricLog!.metrics ); setTimeSinceLabel(metricLog: self.metricLog!)
+    var metricLog: YPDCheckin? { didSet { draw(metricAttributes: self.metricLog!.attributeValues ); setTimeSinceLabel(metricLog: self.metricLog!)
         
         } }
         
@@ -30,7 +30,7 @@ class CheckinCollectionViewCell: UITableViewCell {
                 
     }
     
-    func setTimeSinceLabel(metricLog: MetricLog){
+    func setTimeSinceLabel(metricLog: YPDCheckin){
         // Display the time since the log took place.
         if let sinceLabel = self.viewWithTag(1) as? UILabel {
             sinceLabel.text = metricLog.timeSince
@@ -39,7 +39,7 @@ class CheckinCollectionViewCell: UITableViewCell {
     }
     
     // Adds metric cell value component child views displaying each of the metric attributes contained in the parameter passed.
-    func draw(metricAttributes: [MetricAttribute]){
+    func draw(metricAttributes: [YPDCheckinAttributeValue]){
                 
         let verticalOffsetToSuperview: CGFloat  = 30
         let verticalOffsetToPreviousComponent: CGFloat = 10.0
@@ -119,7 +119,7 @@ class CheckinCollectionViewCell: UITableViewCell {
         view.addSubview(cellValueComponent)
     }
     
-    func createCellValueComponent(fromMetricAttribute attribute: MetricAttribute) -> MetricCellValueComponent {
+    func createCellValueComponent(fromMetricAttribute attribute: YPDCheckinAttributeValue) -> MetricCellValueComponent {
         let cellValueComponent = MetricCellValueComponent()
         cellValueComponent.max = attribute.maxValue
         cellValueComponent.currentValue = attribute.value

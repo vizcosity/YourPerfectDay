@@ -15,11 +15,11 @@ struct YPDCheckinsView: View {
     var body: some View {
         VStack {
             
-            HStack {
-                Text("Checkin History")
-                    .font(.headline)
-                Spacer()
-            }.padding([.leading, .top, .trailing], Constants.Padding)
+//            HStack {
+//                Text("Checkin History")
+//                    .font(.headline)
+//                Spacer()
+//            }.padding([.leading, .top, .trailing], Constants.Padding)
             
             ScrollView {
                 ForEach(0..<self.checkins.count) { (i) -> YPDRecentCheckinView in
@@ -28,6 +28,7 @@ struct YPDCheckinsView: View {
             }
             
         }
+    .navigationBarTitle("Checkin History")
     }
 }
 

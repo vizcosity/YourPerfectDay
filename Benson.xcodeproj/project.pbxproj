@@ -37,10 +37,12 @@
 		21880FC1238093B100A02055 /* MetricCellValueComponent.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21880FC0238093B100A02055 /* MetricCellValueComponent.xib */; };
 		21938DBE2315552C0066B90B /* LogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21938DBD2315552C0066B90B /* LogViewController.swift */; };
 		21938DC023155E690066B90B /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21938DBF23155E690066B90B /* TabBarViewController.swift */; };
+		219C7D722482CAC50052AF72 /* YPDAttributePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219C7D712482CAC50052AF72 /* YPDAttributePicker.swift */; };
 		21AF6BB424785E2C001F4E30 /* sample_chart_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 21AF6BB324785E2C001F4E30 /* sample_chart_data.json */; };
 		21BD462424819E1F0077DCD7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BD462324819E1F0077DCD7 /* Constants.swift */; };
 		21BD46262481A3900077DCD7 /* YPDCheckinsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BD46252481A3900077DCD7 /* YPDCheckinsView.swift */; };
 		21C58F372327BCBB007EE5F1 /* CheckinCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C58F362327BCBB007EE5F1 /* CheckinCollectionViewCell.swift */; };
+		21DF333C2482CCCE00D18EBC /* YPDTimeUnitPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DF333B2482CCCE00D18EBC /* YPDTimeUnitPicker.swift */; };
 		21E2F35F24684F5C00EFB205 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E2F35E24684F5B00EFB205 /* Alamofire.framework */; };
 		21E2F3642468508400EFB205 /* CareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E2F3632468508400EFB205 /* CareKit.framework */; };
 		21E2F3682468508A00EFB205 /* CareKitStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E2F3672468508900EFB205 /* CareKitStore.framework */; };
@@ -110,10 +112,12 @@
 		21880FC0238093B100A02055 /* MetricCellValueComponent.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MetricCellValueComponent.xib; sourceTree = "<group>"; };
 		21938DBD2315552C0066B90B /* LogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewController.swift; sourceTree = "<group>"; };
 		21938DBF23155E690066B90B /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		219C7D712482CAC50052AF72 /* YPDAttributePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDAttributePicker.swift; sourceTree = "<group>"; };
 		21AF6BB324785E2C001F4E30 /* sample_chart_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample_chart_data.json; sourceTree = "<group>"; };
 		21BD462324819E1F0077DCD7 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		21BD46252481A3900077DCD7 /* YPDCheckinsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDCheckinsView.swift; sourceTree = "<group>"; };
 		21C58F362327BCBB007EE5F1 /* CheckinCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinCollectionViewCell.swift; sourceTree = "<group>"; };
+		21DF333B2482CCCE00D18EBC /* YPDTimeUnitPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDTimeUnitPicker.swift; sourceTree = "<group>"; };
 		21E2F35E24684F5B00EFB205 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		21E2F3632468508400EFB205 /* CareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CareKit.framework; path = Carthage/Build/iOS/CareKit.framework; sourceTree = "<group>"; };
 		21E2F3672468508900EFB205 /* CareKitStore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CareKitStore.framework; path = Carthage/Build/iOS/CareKitStore.framework; sourceTree = "<group>"; };
@@ -258,6 +262,8 @@
 				21E2F37724687A3F00EFB205 /* YPDProgressBar.swift */,
 				21532F532472FE600054AC84 /* YPDSummaryView.swift */,
 				21BD46252481A3900077DCD7 /* YPDCheckinsView.swift */,
+				219C7D712482CAC50052AF72 /* YPDAttributePicker.swift */,
+				21DF333B2482CCCE00D18EBC /* YPDTimeUnitPicker.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -427,11 +433,13 @@
 				215F316224119B520093409F /* YPDRecordViewController.swift in Sources */,
 				212EEE992318685D00C01AD8 /* BensonButton.swift in Sources */,
 				216CAA70237A010E004D6B8E /* YPDCheckin.swift in Sources */,
+				21DF333C2482CCCE00D18EBC /* YPDTimeUnitPicker.swift in Sources */,
 				21532F5F24730F660054AC84 /* OCKCartesianChartViewWrapper.swift in Sources */,
 				21532F58247305040054AC84 /* StaticData.swift in Sources */,
 				21938DBE2315552C0066B90B /* LogViewController.swift in Sources */,
 				213436E623098A42006B1CA8 /* RecordViewController.swift in Sources */,
 				213436FC2309AD9F006B1CA8 /* MetricPromptView.swift in Sources */,
+				219C7D722482CAC50052AF72 /* YPDAttributePicker.swift in Sources */,
 				21938DC023155E690066B90B /* TabBarViewController.swift in Sources */,
 				212B86C9239D483500CE9C41 /* BensonHealthManager.swift in Sources */,
 				21734671240AF9C700B22219 /* Sample.swift in Sources */,

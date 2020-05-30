@@ -8,79 +8,6 @@
 
 import SwiftUI
 
-struct YPDAttributePicker: View {
-    
-    @Binding var selectedPickerIndex: Int
-    @Binding var pickerIsDisplayed: Bool
-    var options: [String]
-    
-    var body: some View {
-    
-       VStack {
-                
-        HStack {
-            Spacer()
-            Button(action: {
-                self.pickerIsDisplayed = false
-            }) {
-                Text("Done")
-            }
-        }.padding(.all, 20)
-        Spacer()
-           Image(systemName: "waveform.path.ecg")
-            .resizable()
-            .frame(maxWidth: 50, maxHeight: 50)
-            .foregroundColor(.red)
-        Text("Which attributes would you like to chart?")
-                .padding(.top, 15)
-           Picker(selection: self.$selectedPickerIndex, label: Text("Which attributes would you like to chart?")) {
-            ForEach(0..<self.options.count) {
-                Text("\(self.options[$0])").tag($0)
-               }
-            Spacer()
-           }.pickerStyle(DefaultPickerStyle())
-           .labelsHidden()
-        Spacer()
-        }
-    }
-}
-
-struct YPDTimeUnitPicker: View {
-    
-    @Binding var selectedPickerIndex: Int
-    @Binding var pickerIsDisplayed: Bool
-    var options: [String]
-    
-    var body: some View {
-            
-       VStack {
-        HStack {
-            Spacer()
-            Button(action: {
-                self.pickerIsDisplayed = false
-            }) {
-                Text("Done")
-            }
-        }.padding(.all, 20)
-        Spacer()
-           Image(systemName: "timelapse")
-            .resizable()
-            .frame(maxWidth: 50, maxHeight: 50)
-            .foregroundColor(.blue)
-            Text("How would you like to aggregate the data?")
-                .padding(.top, 15)
-           Picker(selection: self.$selectedPickerIndex, label: Text("How would you like to aggregate the data?")) {
-              ForEach(0..<self.options.count) {
-                Text("\(self.options[$0])").tag($0)
-               }
-            Spacer()
-           }.pickerStyle(DefaultPickerStyle())
-           .labelsHidden()
-        Spacer()
-        }
-    }
-}
-
 struct YPDSummaryView: View {
         
     // We will be listening to changes in the observed object, published by the data model, and reflecting changes in our view accordingly.
@@ -115,70 +42,75 @@ struct YPDSummaryView: View {
     
     var body: some View {
         
-        VStack {
-            
+        
+        NavigationView {
+        
             VStack {
                 
-                HStack {
-                    Text("Your Chart")
-                        .font(.largeTitle)
-                    Spacer()
-                }.padding([.top, .leading, .trailing], Constants.Padding)
-            
-                HStack {
+                VStack {
                     
-                    Button(action: {
-                        self.attributePickerIsDisplayed = true
-                    }, label: {
-                        Text("\(self.selectedAttributes.joined(separator: ","))")
-                    }).sheet(isPresented: self.$attributePickerIsDisplayed, onDismiss: {
-                         // Update the chart data object.
-                         self.chartData.fetchNewData(forAttributes: self.selectedAttributes)
-                    }) {
-                        YPDAttributePicker(selectedPickerIndex: self.$selectedAttributePickerIndex, pickerIsDisplayed: self.$attributePickerIsDisplayed, options: YPDCheckinType.allCases.map { $0.rawValue })
-                    }
+//                    HStack {
+//                        Text("Your Chart")
+//                            .font(.headline)
+//                        Spacer()
+//                    }.padding([.top, .leading, .trailing], Constants.Padding)
+//
+                    HStack {
+                        
+                        Button(action: {
+                            self.attributePickerIsDisplayed = true
+                        }, label: {
+                            Text("\(self.selectedAttributes.joined(separator: ","))")
+                        }).sheet(isPresented: self.$attributePickerIsDisplayed, onDismiss: {
+                             // Update the chart data object.
+                             self.chartData.fetchNewData(forAttributes: self.selectedAttributes)
+                        }) {
+                            YPDAttributePicker(selectedPickerIndex: self.$selectedAttributePickerIndex, pickerIsDisplayed: self.$attributePickerIsDisplayed, options: YPDCheckinType.allCases.map { $0.rawValue })
+                        }
 
-                    
-                    Text("by")
-                        .foregroundColor(.gray)
-                    
-                    Button(action: {
-                        self.timeunitPickerIsDisplayed = true
-                    }, label: {
-                        Text("\(self.selectedAggregationCriteria.rawValue)")
-                    }).sheet(isPresented: self.$timeunitPickerIsDisplayed, onDismiss: {
-                        // Update the chart data object.
-                        self.chartData.fetchNewData(selectedTimeUnit: self.selectedAggregationCriteria)
-                    }){
-                            YPDTimeUnitPicker(selectedPickerIndex: self.$selectedTimeUnitPickerIndex, pickerIsDisplayed: self.$timeunitPickerIsDisplayed, options: AggregationCriteria.allCases.map { $0.rawValue })
-                    }.onDisappear {
-                        // Update the chart data object.
-                        self.chartData.fetchNewData(selectedTimeUnit: self.selectedTimeUnit)
-                    }
-                   Spacer()
-               }.padding(.init([.top, .leading, .trailing]), 10)
-                .font(.headline)
-                
-                OCKCartesianChartViewWrapper(chartData: self.chartData)
-                    .frame(maxHeight: 300)
-                    .padding(.all, 10)
-            }
-            
-            VStack {
-                
-                 HStack {
-                    Text("Recent Checkins")
+                        
+                        Text("by")
+                            .foregroundColor(.gray)
+                        
+                        Button(action: {
+                            self.timeunitPickerIsDisplayed = true
+                        }, label: {
+                            Text("\(self.selectedAggregationCriteria.rawValue)")
+                        }).sheet(isPresented: self.$timeunitPickerIsDisplayed, onDismiss: {
+                            // Update the chart data object.
+                            self.chartData.fetchNewData(selectedTimeUnit: self.selectedAggregationCriteria)
+                        }){
+                                YPDTimeUnitPicker(selectedPickerIndex: self.$selectedTimeUnitPickerIndex, pickerIsDisplayed: self.$timeunitPickerIsDisplayed, options: AggregationCriteria.allCases.map { $0.rawValue })
+                        }.onDisappear {
+                            // Update the chart data object.
+                            self.chartData.fetchNewData(selectedTimeUnit: self.selectedTimeUnit)
+                        }
+                       Spacer()
+                    }.padding(.init([.top, .leading, .trailing]), Constants.Padding)
                     .font(.headline)
-                    Spacer()
+                    
+                    OCKCartesianChartViewWrapper(chartData: self.chartData)
+                        .frame(maxHeight: 300)
+                        .padding(.all, 10)
                 }
-                 .padding(.init([.top, .leading, .trailing]), 10)
                 
-                if !self.checkins.isEmpty {
-                    YPDRecentCheckinView(displayedCheckin: self.checkins.first!, allCheckins: self.checkins)
+                VStack {
+                    
+                     HStack {
+                        Text("Recent Checkins")
+                        .font(.headline)
+                        Spacer()
+                    }
+                     .padding(.init([.top, .leading, .trailing]), Constants.Padding)
+                    
+                    if !self.checkins.isEmpty {
+                        YPDRecentCheckinView(displayedCheckin: self.checkins.first!, allCheckins: self.checkins)
+                    }
+                }.onAppear {
+                    Fetcher.sharedInstance.fetchMetricLogs(completionHandler: { self.checkins = $0 })
                 }
-            }.onAppear {
-                Fetcher.sharedInstance.fetchMetricLogs(completionHandler: { self.checkins = $0 })
-            }
+            }.navigationBarTitle("Summary")
+            
         }
         
         

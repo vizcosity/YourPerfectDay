@@ -49,10 +49,10 @@ struct YPDRecentCheckinView: View {
                 YPDAdditionalCheckins(checkins: self.allCheckins)
             }
         }
-        .padding(15.0).cornerRadius(Constants.defaultCornerRadius)
+        .padding(15.0)
         .background(Color.white)
-        .cornerRadius(6.0)
-        .shadow(color: Color.init(red: 0.9, green: 0.9, blue: 0.9), radius: 10, x: 0, y: 10)
+        .cornerRadius(Constants.defaultCornerRadius)
+        .shadow(color: Constants.shadowColour, radius: Constants.shadowRadius, x: Constants.shadowX, y: Constants.shadowY)
         .padding(.all, 10)
         
         
@@ -65,6 +65,16 @@ struct RecentCheckinView_Previews: PreviewProvider {
     }
 }
 
+struct YPDDivider: View {
+    
+    var body: some View {
+        Rectangle()
+            .fill(Color(red: 225/256, green: 229/256, blue: 233/256))
+            .frame(width: nil, height: 1, alignment: .center)
+    }
+    
+}
+
 struct YPDAdditionalCheckins: View {
     
     var checkins: [YPDCheckin]
@@ -73,9 +83,9 @@ struct YPDAdditionalCheckins: View {
         VStack {
             
             // Horizontal divider.
-            Rectangle()
-                .fill(Color(red: 225/256, green: 229/256, blue: 233/256))
-                .frame(width: nil, height: 1, alignment: .center)
+            YPDDivider()
+            
+//            Divider()
             
             // TODO: Create a new view which will display all the checkins.
             NavigationLink(destination: YPDCheckinsView(checkins: self.checkins)) {

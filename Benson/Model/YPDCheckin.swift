@@ -10,8 +10,9 @@ import Foundation
 import SwiftyJSON
 
 /// YPDCheckinPrompts contain a question which the user will need to respond to with a subjective measurement of how they feel with regards to a certain metric, such as `focus`, `energy`, `mood`, etc.
-class YPDCheckinPrompt {
+class YPDCheckinPrompt: Identifiable {
     
+    var id = UUID()
     var type: String
     var readableTitle: String
     var responses: [YPDCheckinResponseOption]

@@ -32,6 +32,8 @@
 		216CAA70237A010E004D6B8E /* YPDCheckin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CAA6F237A010E004D6B8E /* YPDCheckin.swift */; };
 		21734668240AC7C100B22219 /* BensonChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21734667240AC7C100B22219 /* BensonChartView.swift */; };
 		21734671240AF9C700B22219 /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21734670240AF9C700B22219 /* Sample.swift */; };
+		218241B92482DC8500B85C3E /* YPDButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218241B82482DC8500B85C3E /* YPDButton.swift */; };
+		218241BD2482E43200B85C3E /* YPDCheckinPromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218241BC2482E43200B85C3E /* YPDCheckinPromptView.swift */; };
 		2184B020238D11F900FE96EA /* Fetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2184B01F238D11F900FE96EA /* Fetcher.swift */; };
 		21880FBB23806ED000A02055 /* MetricCellValueComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21880FBA23806ED000A02055 /* MetricCellValueComponent.swift */; };
 		21880FC1238093B100A02055 /* MetricCellValueComponent.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21880FC0238093B100A02055 /* MetricCellValueComponent.xib */; };
@@ -43,6 +45,7 @@
 		21BD46262481A3900077DCD7 /* YPDCheckinsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BD46252481A3900077DCD7 /* YPDCheckinsView.swift */; };
 		21C58F372327BCBB007EE5F1 /* CheckinCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C58F362327BCBB007EE5F1 /* CheckinCollectionViewCell.swift */; };
 		21DF333C2482CCCE00D18EBC /* YPDTimeUnitPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DF333B2482CCCE00D18EBC /* YPDTimeUnitPicker.swift */; };
+		21DF333E2482D31800D18EBC /* YPDSubmitCheckinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DF333D2482D31800D18EBC /* YPDSubmitCheckinView.swift */; };
 		21E2F35F24684F5C00EFB205 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E2F35E24684F5B00EFB205 /* Alamofire.framework */; };
 		21E2F3642468508400EFB205 /* CareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E2F3632468508400EFB205 /* CareKit.framework */; };
 		21E2F3682468508A00EFB205 /* CareKitStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E2F3672468508900EFB205 /* CareKitStore.framework */; };
@@ -107,6 +110,8 @@
 		21743E7D23D0FE9600F49CC3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		21743E7F23D0FE9600F49CC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		21743E8023D0FE9600F49CC3 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		218241B82482DC8500B85C3E /* YPDButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDButton.swift; sourceTree = "<group>"; };
+		218241BC2482E43200B85C3E /* YPDCheckinPromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDCheckinPromptView.swift; sourceTree = "<group>"; };
 		2184B01F238D11F900FE96EA /* Fetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fetcher.swift; sourceTree = "<group>"; };
 		21880FBA23806ED000A02055 /* MetricCellValueComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricCellValueComponent.swift; sourceTree = "<group>"; };
 		21880FC0238093B100A02055 /* MetricCellValueComponent.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MetricCellValueComponent.xib; sourceTree = "<group>"; };
@@ -118,6 +123,7 @@
 		21BD46252481A3900077DCD7 /* YPDCheckinsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDCheckinsView.swift; sourceTree = "<group>"; };
 		21C58F362327BCBB007EE5F1 /* CheckinCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinCollectionViewCell.swift; sourceTree = "<group>"; };
 		21DF333B2482CCCE00D18EBC /* YPDTimeUnitPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDTimeUnitPicker.swift; sourceTree = "<group>"; };
+		21DF333D2482D31800D18EBC /* YPDSubmitCheckinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDSubmitCheckinView.swift; sourceTree = "<group>"; };
 		21E2F35E24684F5B00EFB205 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		21E2F3632468508400EFB205 /* CareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CareKit.framework; path = Carthage/Build/iOS/CareKit.framework; sourceTree = "<group>"; };
 		21E2F3672468508900EFB205 /* CareKitStore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CareKitStore.framework; path = Carthage/Build/iOS/CareKitStore.framework; sourceTree = "<group>"; };
@@ -186,6 +192,7 @@
 		21532F56247304F00054AC84 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				216CAA6F237A010E004D6B8E /* YPDCheckin.swift */,
 				21AF6BB324785E2C001F4E30 /* sample_chart_data.json */,
 				21532F57247305040054AC84 /* StaticData.swift */,
 				21532F5924730B1F0054AC84 /* Chart.swift */,
@@ -264,6 +271,9 @@
 				21BD46252481A3900077DCD7 /* YPDCheckinsView.swift */,
 				219C7D712482CAC50052AF72 /* YPDAttributePicker.swift */,
 				21DF333B2482CCCE00D18EBC /* YPDTimeUnitPicker.swift */,
+				21DF333D2482D31800D18EBC /* YPDSubmitCheckinView.swift */,
+				218241B82482DC8500B85C3E /* YPDButton.swift */,
+				218241BC2482E43200B85C3E /* YPDCheckinPromptView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -290,7 +300,6 @@
 		21FC4EA8238D185800578DE5 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				216CAA6F237A010E004D6B8E /* YPDCheckin.swift */,
 				2184B01F238D11F900FE96EA /* Fetcher.swift */,
 				21471734239C4E2300E4226F /* Notifications.swift */,
 				212B86C8239D483500CE9C41 /* BensonHealthManager.swift */,
@@ -421,7 +430,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21DF333E2482D31800D18EBC /* YPDSubmitCheckinView.swift in Sources */,
 				21471735239C4E2300E4226F /* Notifications.swift in Sources */,
+				218241BD2482E43200B85C3E /* YPDCheckinPromptView.swift in Sources */,
 				213436E423098A42006B1CA8 /* AppDelegate.swift in Sources */,
 				21BD46262481A3900077DCD7 /* YPDCheckinsView.swift in Sources */,
 				2184B020238D11F900FE96EA /* Fetcher.swift in Sources */,
@@ -440,6 +451,7 @@
 				213436E623098A42006B1CA8 /* RecordViewController.swift in Sources */,
 				213436FC2309AD9F006B1CA8 /* MetricPromptView.swift in Sources */,
 				219C7D722482CAC50052AF72 /* YPDAttributePicker.swift in Sources */,
+				218241B92482DC8500B85C3E /* YPDButton.swift in Sources */,
 				21938DC023155E690066B90B /* TabBarViewController.swift in Sources */,
 				212B86C9239D483500CE9C41 /* BensonHealthManager.swift in Sources */,
 				21734671240AF9C700B22219 /* Sample.swift in Sources */,

@@ -51,13 +51,13 @@ class RecordViewController: UIViewController, MetricSelectionDelegate {
             
 //        print("Obtained metric title: \(metricPrompt.metricTitle) for metricId: \(metricPrompt.metricId)")
         
-        print("Metric prompt responses: \(metricPrompt.responses)")
+        print("Metric prompt responses: \(metricPrompt.responseOptions)")
             
              metricPromptView.actionDelegate = self
              metricPromptView.metricTitle = metricPrompt.readableTitle
              metricPromptView.metricId = metricPrompt.type
-             metricPromptView.responses = metricPrompt.responses.map({ (metricResponse) -> String in
-                return metricResponse.title
+             metricPromptView.responses = metricPrompt.responseOptions.map({ (metricResponse) -> String in
+                return metricResponse.label
              })
                     
             if (!self.metricPromptStackView.arrangedSubviews.contains(metricPromptView)){
@@ -187,7 +187,7 @@ class RecordViewController: UIViewController, MetricSelectionDelegate {
     func didSelectMetric(responseIndex: Int, withMetricId metricId: String) {
 //        print("Did select metric action recieved for responseIndex: \(responseIndex) and metricId \(metricId)")
         if let metric = getMetricPrompt(byId: metricId) {
-            let responses = metric.responses
+            let responses = metric.responseOptions
             
             // If the response index exceeds the total number of responses, return instead of producing an index out of bounds error.
             guard responseIndex < responses.count else { return }

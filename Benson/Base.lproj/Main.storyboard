@@ -19,7 +19,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="uCP-dD-b0B">
-                                        <rect key="frame" x="197" y="418.5" width="20" height="20"/>
+                                        <rect key="frame" x="197" y="443" width="20" height="20"/>
                                         <color key="color" red="0.94712716340000003" green="0.83542150260000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </activityIndicatorView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="benson" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lcZ-dm-in6">
@@ -35,20 +35,20 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" multipleTouchEnabled="YES" contentMode="redraw" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="100" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Awp-BN-Acl">
-                                        <rect key="frame" x="25" y="378.5" width="364" height="100"/>
+                                        <rect key="frame" x="25" y="403" width="364" height="100"/>
                                     </stackView>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="YMl-nw-5l9">
-                                        <rect key="frame" x="15" y="756" width="20" height="20"/>
+                                        <rect key="frame" x="15" y="805" width="20" height="20"/>
                                         <color key="color" red="0.94712716340000003" green="0.83542150260000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </activityIndicatorView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5gy-Hf-PbN">
-                                        <rect key="frame" x="25" y="766" width="0.0" height="0.0"/>
+                                        <rect key="frame" x="25" y="815" width="0.0" height="0.0"/>
                                         <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="17"/>
                                         <color key="textColor" red="0.24120634794235229" green="0.27869305014610291" blue="0.44043487310409546" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="35H-Rc-GC6">
-                                        <rect key="frame" x="340" y="751" width="49" height="30"/>
+                                        <rect key="frame" x="340" y="800" width="49" height="30"/>
                                         <state key="normal" title="Submit">
                                             <color key="titleColor" red="0.94712716340000003" green="0.83542150260000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
@@ -103,7 +103,17 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1659.4202898550725" y="-320.08928571428572"/>
+            <point key="canvasLocation" x="554" y="-664"/>
+        </scene>
+        <!--Checkin-->
+        <scene sceneID="1Mv-Ca-e2y">
+            <objects>
+                <hostingController id="yzv-4d-Iw3" customClass="YPDSubmitCheckinViewController" customModule="Benson" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Checkin" image="pencil.and.ellipsis.rectangle" catalog="system" id="YwR-Ib-AGJ"/>
+                </hostingController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xXL-CK-V8k" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1658" y="-329"/>
         </scene>
         <!--YPDInsights-->
         <scene sceneID="NT3-cA-e3S">
@@ -265,8 +275,7 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="f6o-k5-lA3">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.11599317938089371" green="0.15514954924583435" blue="0.23814296722412109" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="selectedImageTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="color" keyPath="unselectedTintItemColor">
                                 <color key="value" red="1" green="1" blue="1" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
@@ -284,8 +293,8 @@
                     </tabBar>
                     <connections>
                         <outlet property="tabBar" destination="f6o-k5-lA3" id="98P-4r-Kas"/>
-                        <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="3mB-jz-21L"/>
                         <segue destination="gre-rk-rTs" kind="relationship" relationship="viewControllers" id="kCs-MP-sme"/>
+                        <segue destination="yzv-4d-Iw3" kind="relationship" relationship="viewControllers" id="lGg-rQ-iiF"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="adS-cv-7Uv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -295,6 +304,7 @@
     </scenes>
     <resources>
         <image name="RecordTabBarIcon" width="21" height="21"/>
+        <image name="pencil.and.ellipsis.rectangle" catalog="system" width="128" height="81"/>
         <image name="rectangle.3.offgrid.fill" catalog="system" width="128" height="81"/>
     </resources>
 </document>

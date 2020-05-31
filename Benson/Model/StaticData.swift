@@ -9,7 +9,7 @@
 import Foundation
 import SwiftyJSON
 
-let _sampleCheckin = YPDCheckin(attributeValues: [YPDCheckinAttributeValue(type: "mood", name: "Mood", value: 3)], timeSince: "2 Hours Ago")
+let _sampleCheckin = YPDCheckin(attributeValues: [YPDCheckinResponseValue(type: "mood", value: 3)], timeSince: "2 Hours Ago")
 let _sampleMetricLogs: [YPDCheckin] = {
     var output: [YPDCheckin] = []
     for _ in 0..<10 {

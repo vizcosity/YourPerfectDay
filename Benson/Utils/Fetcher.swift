@@ -126,11 +126,11 @@ class Fetcher {
                 // Map each JSON object ot the MetricLog object and return this as part of the completionHandler.
                 let checkins = checkinJSON.map({ (metricLogJSON) -> YPDCheckin in
 
-                    var attributeValues : [YPDCheckinAttributeValue] = []
+                    var attributeValues : [YPDCheckinResponseValue] = []
 
                     if let attributesFromResponse = metricLogJSON["attributes"] as? [[String : Any]] {
-                        attributeValues = attributesFromResponse.map({ (attribute) -> YPDCheckinAttributeValue in
-                            return YPDCheckinAttributeValue(type: attribute["metricId"] as? String ?? "", name: attribute["title"] as? String ?? "", value: attribute["value"] as? Double ?? 0)
+                        attributeValues = attributesFromResponse.map({ (attribute) -> YPDCheckinResponseValue in
+                            return YPDCheckinResponseValue(type: attribute["metricId"] as? String ?? "", value: attribute["value"] as? Double ?? 0)
                         })
                     }
 
@@ -220,6 +220,27 @@ class Fetcher {
                   completionHandler(nil, json["reason"].stringValue)
               }
         }
+    }
+    
+    
+    /// Submits an array of YPDAttributeResponses as a checkin,
+    public func submitCheckin(checkin: YPDCheckinResponseValue){
+//                AF.request(Webserver.submitCheckin, method: .post, parameters: [
+//                    "array": metricResposnes
+//                    ],
+//                           encoding: JSONEncoding.default).responseJSON { (response) in
+//                    do {
+//                        if let result = try response.result.get() as? [String:Any] {
+//                            if result["success"] as? Int == 1 {
+//        //                        print("Successfully submitted checkin for \(metricResposnes.count) metricResponses")
+//                            }
+//                        }
+//                        
+//                        self.fetchAndInsertLastCheckin()
+//                    } catch {
+//        //                print("Could not submit checkin: \(error)")
+//                    }
+//                }
     }
     
     // Checkpoint: Implementing swipe to delete checkin functionality.

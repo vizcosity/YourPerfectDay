@@ -39,7 +39,7 @@ class CheckinCollectionViewCell: UITableViewCell {
     }
     
     // Adds metric cell value component child views displaying each of the metric attributes contained in the parameter passed.
-    func draw(metricAttributes: [YPDCheckinAttributeValue]){
+    func draw(metricAttributes: [YPDCheckinResponseValue]){
                 
         let verticalOffsetToSuperview: CGFloat  = 30
         let verticalOffsetToPreviousComponent: CGFloat = 10.0
@@ -119,13 +119,13 @@ class CheckinCollectionViewCell: UITableViewCell {
         view.addSubview(cellValueComponent)
     }
     
-    func createCellValueComponent(fromMetricAttribute attribute: YPDCheckinAttributeValue) -> MetricCellValueComponent {
+    func createCellValueComponent(fromMetricAttribute attribute: YPDCheckinResponseValue) -> MetricCellValueComponent {
         let cellValueComponent = MetricCellValueComponent()
         cellValueComponent.max = attribute.maxValue
         cellValueComponent.currentValue = attribute.value
-        cellValueComponent.type = attribute.name
+        cellValueComponent.type = attribute.type.humanReadable
         // TODO: Ensure that we add an average value everytime we create a metric attribute response.
-        cellValueComponent.averageValue = attribute.average 
+        cellValueComponent.averageValue = attribute.average  ?? attribute.value
                 
         
         

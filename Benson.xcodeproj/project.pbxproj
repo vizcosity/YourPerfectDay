@@ -30,6 +30,7 @@
 		21532F5F24730F660054AC84 /* OCKCartesianChartViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21532F5E24730F660054AC84 /* OCKCartesianChartViewWrapper.swift */; };
 		215F316224119B520093409F /* YPDRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215F316124119B520093409F /* YPDRecordViewController.swift */; };
 		216CAA70237A010E004D6B8E /* YPDCheckin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CAA6F237A010E004D6B8E /* YPDCheckin.swift */; };
+		216CE749248401A400B195C6 /* YPDSubmitCheckinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CE748248401A400B195C6 /* YPDSubmitCheckinViewController.swift */; };
 		21734668240AC7C100B22219 /* BensonChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21734667240AC7C100B22219 /* BensonChartView.swift */; };
 		21734671240AF9C700B22219 /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21734670240AF9C700B22219 /* Sample.swift */; };
 		218241B92482DC8500B85C3E /* YPDButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218241B82482DC8500B85C3E /* YPDButton.swift */; };
@@ -96,6 +97,7 @@
 		21532F5E24730F660054AC84 /* OCKCartesianChartViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCKCartesianChartViewWrapper.swift; sourceTree = "<group>"; };
 		215F316124119B520093409F /* YPDRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDRecordViewController.swift; sourceTree = "<group>"; };
 		216CAA6F237A010E004D6B8E /* YPDCheckin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDCheckin.swift; sourceTree = "<group>"; };
+		216CE748248401A400B195C6 /* YPDSubmitCheckinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDSubmitCheckinViewController.swift; sourceTree = "<group>"; };
 		21734667240AC7C100B22219 /* BensonChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BensonChartView.swift; sourceTree = "<group>"; };
 		21734670240AF9C700B22219 /* Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sample.swift; sourceTree = "<group>"; };
 		21743E6223D0FE8C00F49CC3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
@@ -251,6 +253,7 @@
 				21938DBF23155E690066B90B /* TabBarViewController.swift */,
 				215F316124119B520093409F /* YPDRecordViewController.swift */,
 				2132F658247B0F8500712616 /* YPDSummaryViewController.swift */,
+				216CE748248401A400B195C6 /* YPDSubmitCheckinViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -456,6 +459,7 @@
 				212B86C9239D483500CE9C41 /* BensonHealthManager.swift in Sources */,
 				21734671240AF9C700B22219 /* Sample.swift in Sources */,
 				21C58F372327BCBB007EE5F1 /* CheckinCollectionViewCell.swift in Sources */,
+				216CE749248401A400B195C6 /* YPDSubmitCheckinViewController.swift in Sources */,
 				2110620C243A374E00348E78 /* YPDInsightsViewController.swift in Sources */,
 				2127B0112430E67F00B8D0B1 /* Extensions.swift in Sources */,
 				21532F5A24730B1F0054AC84 /* Chart.swift in Sources */,

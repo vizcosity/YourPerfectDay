@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftyJSON
+import SwiftUI
 
 /// YPDCheckinPrompts contain a question which the user will need to respond to with a subjective measurement of how they feel with regards to a certain metric, such as `focus`, `energy`, `mood`, etc.
 class YPDCheckinPrompt: Identifiable {
@@ -15,11 +16,13 @@ class YPDCheckinPrompt: Identifiable {
     var id = UUID()
     var type: String
     var readableTitle: String
-    var responses: [YPDCheckinResponseOption]
+    var responseOptions: [YPDCheckinResponseOption]
+    var responseValue: YPDCheckinResponseValue
     
-    init(type: String, readableTitle: String, responses: [YPDCheckinResponseOption]) {
+    init(type: String, readableTitle: String, responseOptions: [YPDCheckinResponseOption]) {
         self.type = type
-        self.responses = responses
+        self.responseOptions = responseOptions
+        self.responseValue = YPDCheckinResponseValue(type: type, value: 0)
         self.readableTitle = readableTitle
     }
     
@@ -33,71 +36,98 @@ class YPDCheckinPrompt: Identifiable {
         
         let responsesJSON = dict["responses"].arrayValue
         
-        print("Obtained responseJSON: \(responsesJSON)")
+        // print("Obtained responseJSON: \(responsesJSON)")
         
-        let responses: [YPDCheckinResponseOption] = responsesJSON.map { (responseJSON) -> YPDCheckinResponseOption in
-            return YPDCheckinResponseOption(type: type, title: responseJSON["title"].stringValue, value: responseJSON["value"].doubleValue)
+        let responseOptions: [YPDCheckinResponseOption] = responsesJSON.map { (responseJSON) -> YPDCheckinResponseOption in
+            return YPDCheckinResponseOption(type: type, label: responseJSON["title"].stringValue, value: responseJSON["value"].doubleValue)
         }.filter { $0.type != .unknown }
                 
-        return YPDCheckinPrompt(type: type, readableTitle: readableTitle, responses: responses)
+        return YPDCheckinPrompt(type: type, readableTitle: readableTitle, responseOptions: responseOptions)
     }
 }
 
-/// Describes the different options a user can select for a given checkin prompt.
+/// Describes the different options a user can select for an individual checkin prompt attribute.
+/// Example:
+///     I'm Feeling:
+///         "Horrible" (0), "Meh" (1), "Okay" (2), "Not Bad" (3), "Great" (4)
 class YPDCheckinResponseOption {
+    
+    /// The parent type which the response option belongs to.
     var type: YPDCheckinType
-    var title: String
+    
+    /// The label for the response option (e.g. "Horrible")
+    var label: String
+    
+    /// The value for the response option (e.g. 0)
     var value: Double
     
-    init(type: YPDCheckinType, title: String, value: Double) {
+    init(type: YPDCheckinType, label: String, value: Double) {
         self.type = type
-        self.title = title
+        self.label = label
         self.value = value
     }
     
-    init(type: String, title: String, value: Double){
+    init(type: String, label: String, value: Double){
         self.type = YPDCheckinType(rawValue: type) ?? .unknown
-        self.title = title
+        self.label = label
         self.value = value
     }
     
 }
 
-/// Contains the value for a single attribute within a YPD Checkin.
-struct YPDCheckinAttributeValue: CustomStringConvertible, Hashable {
+/// Contains the value for a single attribute (e.g., `Mood`, `Energy`, etc) within a YPD Checkin.
+struct YPDCheckinResponseValue: CustomStringConvertible, Hashable {
     
     var description: String {
         get {
-            return "[MetricAttribute] \(name): (\(value)/\(average))"
+            return "[MetricAttribute] \(self.type.humanReadable): (\(self.value)/\(self.average ?? self.value))"
         }
     }
     
 //    static let maxValue = 5
-    var name: String
-    var value: Double
-    var average: Double
+//    var readableTitle: String
+    // CHECKPOINT: Attempting to ensure that the slider value selected is bound to the response value instead of being kept separate - so that it can all be contained within the data model.
+    @State var _selectedValue: Float = 0
+    var value: Double {
+        get {
+            return Double(self._selectedValue)
+        }
+        
+        set {
+            self._selectedValue = Float(newValue)
+        }
+    }
+    var average: Double?
     var type: YPDCheckinType
     
     /// The maximum value which can be observed or recorded for the given metric.
     var maxValue: Double = 5
     
-    init(type: YPDCheckinType, name: String, value: Double, average: Double? = nil){
-        self.name = name
-        self.value = value
-        self.average = average ?? value
-        self.type = type
+    /// Initialises an empty, unsubmitted YPDCheckinAttributeValue option based off of the accompanied response option. This will be populated once the user records their response value.
+    init(selectedResponseOption: YPDCheckinResponseOption) {
+        // self.readableTitle = selectedResponseOption.readableTitle
+        self.type = selectedResponseOption.type
+        self.value = 0
     }
     
-    init(type: String, name: String, value: Double, average: Double? = nil){
-        self.init(type: YPDCheckinType(rawValue: type) ?? .unknown, name: name, value: value, average: average)
+    init(type: YPDCheckinType, value: Double, average: Double? = nil){
+        // self.readableTitle = readableTitle
+        self.average = average ?? value
+        self.type = type
+        self.value = value
+    }
+    
+    init(type: String, value: Double, average: Double? = nil){
+        self.init(type: YPDCheckinType(rawValue: type) ?? .unknown, value: value, average: average)
     }
 }
 
 // Ensure MetricAttribute is equatable.
-extension YPDCheckinAttributeValue: Equatable {
+extension YPDCheckinResponseValue: Equatable {
     
-    static func == (lhs: YPDCheckinAttributeValue, rhs: YPDCheckinAttributeValue) -> Bool {
-        return lhs.name == rhs.name &&
+    static func == (lhs: YPDCheckinResponseValue, rhs: YPDCheckinResponseValue) -> Bool {
+        return
+            // lhs.readableTitle == rhs.readableTitle &&
             lhs.value == rhs.value &&
             lhs.average == rhs.average &&
             lhs.type == rhs.type
@@ -118,20 +148,20 @@ struct YPDCheckin: CustomStringConvertible {
     
     var id = UUID()
     var type: String?
-    var attributeValues: [YPDCheckinAttributeValue] = []
+    var attributeValues: [YPDCheckinResponseValue] = []
     var timestamp: Date?
     var timeSince: String = "Some time ago"
     
     /// Summary data obtained from healthkit for the day when the log was recorded.
     var enrichedData: BensonHealthDataObject?
     
-    init(attributeValues: [YPDCheckinAttributeValue], timeSince: String, type: String? = nil){
+    init(attributeValues: [YPDCheckinResponseValue], timeSince: String, type: String? = nil){
         self.attributeValues = attributeValues
         self.timeSince = timeSince
         self.type = type
     }
     
-    init(attributeValues: [YPDCheckinAttributeValue], timeSince: String, timestamp: Int, type: String? = nil) {
+    init(attributeValues: [YPDCheckinResponseValue], timeSince: String, timestamp: Int, type: String? = nil) {
         self.init(attributeValues: attributeValues, timeSince: timeSince)
         self.timestamp = Date(timeIntervalSince1970: Double(timestamp))
         self.type = type

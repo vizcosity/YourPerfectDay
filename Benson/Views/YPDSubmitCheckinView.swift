@@ -17,46 +17,54 @@ struct YPDSubmitCheckinView: View {
     
     var body: some View {
         
-        
-        VStack {
-            ScrollView {
-                ForEach(self.checkinPrompts) { (checkinPrompt) -> YPDCheckinPromptView in
-                    
-                    let title = checkinPrompt.readableTitle
-                    
-                    let responses = checkinPrompt.responses
-                    
-                    let maxRecordableValue = Float(responses.map { $0.value }.sorted().last!)
-                    
-                    let stepLabels = responses.map { $0.title }
-                    
-                    
-                    let resultIndex = self.checkinPrompts.firstIndex(where: { $0.id == checkinPrompt.id})!
-                    
-                    
-                    let result = self.$results[resultIndex]
-                    
-                    
-                    return YPDCheckinPromptView(result: result, title: title, maxRecordableValue: maxRecordableValue, stepLabels: stepLabels)
+        NavigationView {
+            VStack {
+                ScrollView {
+                    ForEach(self.checkinPrompts) { checkinPrompt -> YPDCheckinPromptView in
+                        
+                        let title = checkinPrompt.readableTitle
+                        
+                        let responses = checkinPrompt.responseOptions
+                        
+                        let maxRecordableValue = Float(responses.map { $0.value }.sorted().last!)
+                        
+                        let stepLabels = responses.map { $0.label }
+                        
+                        
+//                        let resultIndex = self.checkinPrompts.firstIndex(where: { $0.id == checkinPrompt.id})!
+                        
+                        print(self.results)
+                        
+//                        let result = self.$results[resultIndex]
+                        
+                        let result = checkinPrompt.responseValue.$_selectedValue
+                        
+                        
+                        return YPDCheckinPromptView(result: result, title: title, maxRecordableValue: maxRecordableValue, stepLabels: stepLabels)
+                    }
                 }
-            }
-            
-            YPDButton(title: "Submit") {
-                print("Tapped Submit")
-            }
-        }.navigationBarTitle("How are you feeling?")
-        .onAppear(perform: {
-            Fetcher.sharedInstance.fetchMetricPrompts { (checkinPrompts) in
                 
-                self.checkinPrompts = checkinPrompts
+                YPDButton(title: "Submit") {
+                    
+                    // Fetcher.sharedInstance.sub
+                    
+                    print("Submitting checkin.")
+                                        
+                }
                 
-                self.results = Array.init(repeating: 0, count: self.checkinPrompts.count)
+            }.navigationBarTitle("How are you feeling?")
+            .onAppear(perform: {
                 
-                
-                print("Fetched metric prompts in view: \(self.checkinPrompts.count)")
-                
-            }
-        })
+                Fetcher.sharedInstance.fetchMetricPrompts { (checkinPrompts) in
+                                    
+                    // Ensure that we assign the results array first to avoid any index out of bounds errors.
+                    self.results = Array.init(repeating: 0, count: checkinPrompts.count)
+                    
+                    self.checkinPrompts = checkinPrompts
+                                    
+                }
+            })
+        }
     }
 }
 

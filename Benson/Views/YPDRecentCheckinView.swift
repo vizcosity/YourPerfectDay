@@ -61,7 +61,7 @@ struct YPDRecentCheckinView: View {
 
 struct RecentCheckinView_Previews: PreviewProvider {
     static var previews: some View {
-        YPDRecentCheckinView(displayedCheckin: YPDCheckin(attributeValues: [YPDCheckinAttributeValue(type:"mood", name: "Mood", value: 3)], timeSince: "2 Hours Ago"))
+        YPDRecentCheckinView(displayedCheckin: YPDCheckin(attributeValues: [YPDCheckinResponseValue(type:"mood", value: 3)], timeSince: "2 Hours Ago"))
     }
 }
 

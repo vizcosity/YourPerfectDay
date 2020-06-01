@@ -76,18 +76,13 @@ class YPDCheckinResponseOption {
 }
 
 /// Contains the value for a single attribute (e.g., `Mood`, `Energy`, etc) within a YPD Checkin.
-struct YPDCheckinResponseValue: CustomStringConvertible, Hashable {
-    
-    var description: String {
-        get {
-            return "[MetricAttribute] \(self.type.humanReadable): (\(self.value)/\(self.average ?? self.value))"
-        }
-    }
+class YPDCheckinResponseValue {
     
 //    static let maxValue = 5
 //    var readableTitle: String
     // CHECKPOINT: Attempting to ensure that the slider value selected is bound to the response value instead of being kept separate - so that it can all be contained within the data model.
     @State var _selectedValue: Float = 0
+    
     var value: Double {
         get {
             return Double(self._selectedValue)
@@ -117,9 +112,27 @@ struct YPDCheckinResponseValue: CustomStringConvertible, Hashable {
         self.value = value
     }
     
-    init(type: String, value: Double, average: Double? = nil){
+    convenience init(type: String, value: Double, average: Double? = nil){
         self.init(type: YPDCheckinType(rawValue: type) ?? .unknown, value: value, average: average)
     }
+}
+
+// Add a description to repsonse values.
+extension YPDCheckinResponseValue: CustomStringConvertible {
+    var description: String {
+        get {
+            return "[YPDResponseValue] \(self.type.humanReadable): (\(self.value)/\(self.average ?? self.value))"
+        }
+    }
+}
+
+// Ensure that YPDCheckinResponseValues are Hashable by providing a custom hash() implementation, since @State values cannot be used automatically.
+extension YPDCheckinResponseValue: Hashable {
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(ObjectIdentifier(self))
+    }
+    
 }
 
 // Ensure MetricAttribute is equatable.

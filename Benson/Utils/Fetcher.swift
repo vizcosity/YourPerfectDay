@@ -83,6 +83,8 @@ class Fetcher {
         return self.metricPrompts.filter { $0.type == metricId }.first?.readableTitle ?? metricId
     }
     
+    // MARK: - Fetching YPD CheckinPrompts
+    
     private func fetchAndCacheMetricPrompts(completionHandler: @escaping ([YPDCheckinPrompt]) -> Void){
         self.fetchMetricPrompts(completionHandler: {
             self.metricPrompts = $0
@@ -175,12 +177,14 @@ class Fetcher {
         }
     }
     
-    // MARK: Reporting & Visualisation.
+    // MARK: Fetching checkin data
     
     /// Fetches aggregated healthData objects, as well as aggregated checkin objects, merging each object for the same date and returning an array of results.
     public func fetchAggregatedHealthAndCheckinData(byAggregationCriteria criteria: AggregationCriteria, completionHandler: @escaping(JSON) -> Void){
         self.sendGetRequest(toEndpoint: Webserver.aggregatedHealthDataAndCheckins(byCriteria: "\(criteria)"), withQuery: nil, completionHandler: completionHandler)
     }
+    
+    // MARK: - Submitting Health Data
     
     /// Submits a health data object to the backend.
     /// The completionHandler receives the ID for the submitted healthdata object, if submitted successfully.
@@ -223,26 +227,53 @@ class Fetcher {
     }
     
     
-    /// Submits an array of YPDAttributeResponses as a checkin,
-    public func submitCheckin(checkin: YPDCheckinResponseValue){
-//                AF.request(Webserver.submitCheckin, method: .post, parameters: [
-//                    "array": metricResposnes
-//                    ],
-//                           encoding: JSONEncoding.default).responseJSON { (response) in
-//                    do {
-//                        if let result = try response.result.get() as? [String:Any] {
-//                            if result["success"] as? Int == 1 {
-//        //                        print("Successfully submitted checkin for \(metricResposnes.count) metricResponses")
-//                            }
-//                        }
-//                        
-//                        self.fetchAndInsertLastCheckin()
-//                    } catch {
-//        //                print("Could not submit checkin: \(error)")
-//                    }
-//                }
+    /// Submits an array of YPDCheckinPrompts which have had their ResponesValues selected by the user.
+    // TODO: Ensure that this makes use of Combine asynchronous data affordances, such as Future, Just, and so on.
+    public func submitCheckin(checkinPrompts: [YPDCheckinPrompt], completionHandler: @escaping (Bool) -> Void){
+
+        let responseValueArray: [[String: Any]] = checkinPrompts.map {
+            [
+                "metricId": $0.responseValue.type.rawValue,
+                "value": $0.responseValue.value
+            ] as [String : Any]
+        }
+
+        self.log("Generated response value array: \(responseValueArray)")
+
+        AF.request(Webserver.submitCheckin, method: .post, parameters: [
+                "array": responseValueArray
+            ],
+                   encoding: JSONEncoding.default).responseJSON { (response) in
+                    do {
+                        if let result = try response.result.get() as? [String:Any] {
+                                return completionHandler(result["success"] as? Int == 1)
+                        }
+                    } catch {
+                        self.log("Could not submit checkins: \(error.localizedDescription)")
+
+                        return completionHandler(false)
+                    }
+        }
     }
     
+    public func submitCheckinAsString(checkinPrompts: [YPDCheckinPrompt], completionHandler: @escaping (Bool) -> Void){
+        let responseValueArray: [[String: Any]] = checkinPrompts.map {
+            [
+                "metricId": $0.responseValue.type.rawValue,
+                "value": $0.responseValue.value
+                ] as [String : Any]
+        }
+        
+        let postBody = JSON(["array": responseValueArray]).stringValue
+        
+        self.log("Submitting \(postBody)")
+                
+        self.sendPostRequest(toEndpoint: Webserver.submitCheckin, withStringBody: postBody) { (response) in
+            self.log("Submitted checkin with response: \(response.stringValue)")
+        }
+        
+    }
+
     // Checkpoint: Implementing swipe to delete checkin functionality.
     public func remove(metricLogId: String, completionHandler: @escaping () -> Void) {
         

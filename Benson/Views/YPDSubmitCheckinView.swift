@@ -30,13 +30,8 @@ struct YPDSubmitCheckinView: View {
                         
                         let stepLabels = responses.map { $0.label }
                         
-                        
-//                        let resultIndex = self.checkinPrompts.firstIndex(where: { $0.id == checkinPrompt.id})!
-                        
-                        print(self.results)
-                        
-//                        let result = self.$results[resultIndex]
-                        
+                        //  print(self.results)
+                                                
                         let result = checkinPrompt.responseValue.$_selectedValue
                         
                         
@@ -46,9 +41,10 @@ struct YPDSubmitCheckinView: View {
                 
                 YPDButton(title: "Submit") {
                     
-                    // Fetcher.sharedInstance.sub
+                    Fetcher.sharedInstance.submitCheckin(checkinPrompts: self.checkinPrompts) { (result) in
+                            print("Submitted checkin with response: \(result)")
+                    }
                     
-                    print("Submitting checkin.")
                                         
                 }
                 
@@ -57,6 +53,8 @@ struct YPDSubmitCheckinView: View {
                 
                 Fetcher.sharedInstance.fetchMetricPrompts { (checkinPrompts) in
                                     
+                    print("Fetched checkin prompts.") 
+                    
                     // Ensure that we assign the results array first to avoid any index out of bounds errors.
                     self.results = Array.init(repeating: 0, count: checkinPrompts.count)
                     

@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-
+// CHECKPOINT: Bugs in displaying the checkin data values and being able to control sliders.
 struct YPDSubmitCheckinView: View {
     
     @State var results: [Float] = [0]
@@ -53,7 +53,7 @@ struct YPDSubmitCheckinView: View {
                 
                 Fetcher.sharedInstance.fetchMetricPrompts { (checkinPrompts) in
                                     
-                    print("Fetched checkin prompts.") 
+                    print("Fetched checkin prompts.")
                     
                     // Ensure that we assign the results array first to avoid any index out of bounds errors.
                     self.results = Array.init(repeating: 0, count: checkinPrompts.count)

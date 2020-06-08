@@ -11,7 +11,7 @@ import SwiftUI
 struct YPDCheckinPromptView: View {
         
     @Binding var result: Float
-    
+        
     var title: String
     
     var maxRecordableValue: Float
@@ -50,6 +50,7 @@ struct YPDCheckinPromptView: View {
             Slider(value: self.$result, in: Float(0)...Float(self.maxRecordableValue - 1), step: 1.0, minimumValueLabel: Text(self.minimumValueText).fontWeight(.semibold), maximumValueLabel: Text(self.maximumValueText).fontWeight(.semibold), label: {
                 Text("How are you feeling?")
             })
+            
         }
             .padding(Constants.cardPadding)
             .background(Color.white)
@@ -61,10 +62,13 @@ struct YPDCheckinPromptView: View {
 }
 
 struct YPDCheckinPromptView_Previews: PreviewProvider {
+    @State var result = 0
+    @State var maxRecordableValue = 4
     static var previews: some View {
-        VStack {
+        ScrollView {
             YPDCheckinPromptView(result: .constant(2), title: "I'm Feeling", maxRecordableValue: Float(4), stepLabels: ["Horrible", "Meh", "Okay", "Not Bad", "Great"])
                 .previewLayout(.sizeThatFits)
+            
         }
 
     }

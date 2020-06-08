@@ -29,10 +29,14 @@ struct YPDSubmitCheckinView: View {
                         let maxRecordableValue = Float(responses.map { $0.value }.sorted().last!)
                         
                         let stepLabels = responses.map { $0.label }
-                        
-                        //  print(self.results)
+                                                                    
+                        let sliderIndex = self.checkinPrompts.firstIndex(where: { $0 == checkinPrompt })
                                                 
-                        let result = checkinPrompt.responseValue.$_selectedValue
+                        var result = self.$results[0]
+                        
+                        if let sliderIndex = sliderIndex {
+                            result = self.$results[sliderIndex]
+                        }
                         
                         
                         return YPDCheckinPromptView(result: result, title: title, maxRecordableValue: maxRecordableValue, stepLabels: stepLabels)
@@ -40,6 +44,11 @@ struct YPDSubmitCheckinView: View {
                 }
                 
                 YPDButton(title: "Submit") {
+                    
+                    // Ensure that we attach the result from each slider to the YPDCheckinPrompt.
+                    for i in 0..<self.checkinPrompts.count {
+                        self.checkinPrompts[i].responseValue.value = Double(self.results[i])
+                    }
                     
                     Fetcher.sharedInstance.submitCheckin(checkinPrompts: self.checkinPrompts) { (result) in
                             print("Submitted checkin with response: \(result)")

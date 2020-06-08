@@ -59,12 +59,6 @@ struct YPDRecentCheckinView: View {
     }
 }
 
-struct RecentCheckinView_Previews: PreviewProvider {
-    static var previews: some View {
-        YPDRecentCheckinView(displayedCheckin: YPDCheckin(attributeValues: [YPDCheckinResponseValue(type:"mood", value: 3)], timeSince: "2 Hours Ago"))
-    }
-}
-
 struct YPDDivider: View {
     
     var body: some View {
@@ -104,4 +98,16 @@ struct YPDAdditionalCheckins: View {
         }
     }
     
+}
+
+struct RecentCheckinView_Previews: PreviewProvider {
+    static var checkins = [_sampleCheckin]
+    static var previews: some View {
+        YPDRecentCheckinView(displayedCheckin: self.checkins.first!).onAppear {
+            Fetcher.sharedInstance.fetchMetricLogs(completionHandler: {
+                checkins in self.checkins = checkins
+                
+            })
+        }
+    }
 }

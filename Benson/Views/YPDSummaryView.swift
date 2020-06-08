@@ -55,12 +55,6 @@ struct YPDSummaryView: View {
                     
                     VStack {
                         
-    //                    HStack {
-    //                        Text("Your Chart")
-    //                            .font(.headline)
-    //                        Spacer()
-    //                    }.padding([.top, .leading, .trailing], Constants.Padding)
-    //
                         HStack {
                             
                             Button(action: {
@@ -149,8 +143,8 @@ struct YPDRecentCheckinsView: View {
 
 struct YPDSummaryView_Previews: PreviewProvider {
     static var previews: some View {
-//        YPDSummaryView(checkins: .constant(_sampleMetricLogs), chartData: .init(attributes: ["generalFeeling"], selectedTimeUnit: .week))
-        YPDSummaryView(chartData: .init(attributes: ["generalFeeling"], selectedTimeUnit: .week))
+        YPDSummaryView(checkins: _sampleMetricLogs, chartData: .init(attributes: ["generalFeeling"], selectedTimeUnit: .week))
+//        YPDSummaryView(chartData: .init(attributes: ["generalFeeling"], selectedTimeUnit: .week))
 
     }
 }

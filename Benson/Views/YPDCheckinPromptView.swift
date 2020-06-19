@@ -48,7 +48,7 @@ struct YPDCheckinPromptView: View {
                 .foregroundColor(Color.blue)
             
             Slider(value: self.$result, in: Float(0)...Float(self.maxRecordableValue - 1), step: 1.0, minimumValueLabel: Text(self.minimumValueText).fontWeight(.semibold), maximumValueLabel: Text(self.maximumValueText).fontWeight(.semibold), label: {
-                Text("How are you feeling?")
+                Text(self.title)
             })
             
         }

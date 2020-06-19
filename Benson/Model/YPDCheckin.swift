@@ -85,20 +85,6 @@ class YPDCheckinResponseOption {
 /// Contains the value for a single attribute (e.g., `Mood`, `Energy`, etc) within a YPD Checkin.
 class YPDCheckinResponseValue: ObservableObject {
     
-//    static let maxValue = 5
-//    var readableTitle: String
-    // CHECKPOINT: Attempting to ensure that the slider value selected is bound to the response value instead of being kept separate - so that it can all be contained within the data model.
-//    @State var _selectedValue: Float = 0
-//
-//    var value: Double {
-//        get {
-//            return Double(self._selectedValue)
-//        }
-//
-//        set {
-//            self._selectedValue = Float(newValue)
-//        }
-//    }
     var value: Double
     var average: Double?
     var type: YPDCheckinType

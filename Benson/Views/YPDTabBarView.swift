@@ -14,24 +14,26 @@ struct YPDTabBarView: View {
     
     var body: some View {
         
-        TabView(selection: self.$selection) {
-            
-            // Initialise a summary view with the default general feeling attribute.
-            YPDSummaryView(chartData: YPDChartData(attributes: ["generalFeeling"], selectedTimeUnit: .day)).tabItem {
-                VStack {
-                    Image(systemName: "rectangle.3.offgrid")
-                    Text("Summary")
-                }
+        ZStack {
+            Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all)
+            TabView(selection: self.$selection) {
                 
-            }.tag(1)
-            
-        YPDSubmitCheckinView().tabItem {
-            VStack {
-                Image(systemName: "pencil.tip.crop.circle.badge.plus")
-                Text("Checkin")
+                // Initialise a summary view with the default general feeling attribute.
+                YPDSummaryView(chartData: YPDChartData(attributes: ["generalFeeling"], selectedTimeUnit: .day)).tabItem {
+                    VStack {
+                        Image(systemName: "rectangle.3.offgrid")
+                        Text("Summary")
+                    }
+                    
+                }.tag(1)
+                YPDSubmitCheckinView().tabItem {
+                    VStack {
+                        Image(systemName: "pencil.tip.crop.circle.badge.plus")
+                        Text("Checkin")
+                    }
+                }.tag(2)
             }
-        }.tag(2)
-        }.background(Color(UIColor.systemGroupedBackground))
+        }
     }
 }
 

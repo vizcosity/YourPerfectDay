@@ -11,16 +11,24 @@ import SwiftUI
 // CHECKPOINT: Bugs in displaying the checkin data values and being able to control sliders.
 struct YPDSubmitCheckinView: View {
     
-    @State var results: [Float] = [0]
+    //    @State var results: [Float] = [0]
     
-//    @State var checkinPrompts: [YPDCheckinPrompt] = []
+    //    @State var checkinPrompts: [YPDCheckinPrompt] = []
     @ObservedObject var model: YPDModel = .shared 
+    
+    init (){
+        //        UIView.appearance().backgroundColor = .systemGroupedBackground
+    }
     
     var body: some View {
         
-        NavigationView {
+        BackgroundViewWraper {
             VStack {
                 ScrollView {
+                    HStack{
+                        Text("How are you feeling?").font(Font(UIFont.systemFont(ofSize: 35, weight: .bold)))
+                        Spacer()
+                    }.padding(Constants.Padding + 5)
                     ForEach(self.model.checkinPrompts) { checkinPrompt -> YPDCheckinPromptView in
                         
                         let title = checkinPrompt.readableTitle
@@ -30,9 +38,9 @@ struct YPDSubmitCheckinView: View {
                         let maxRecordableValue = Float(responses.map { $0.value }.sorted().last!)
                         
                         let stepLabels = responses.map { $0.label }
-                                                                    
+                        
                         let sliderIndex = self.model.checkinPrompts.firstIndex(where: { $0 == checkinPrompt })
-                                                
+                        
                         var result = self.$model.sliderValues[0]
                         
                         if let sliderIndex = sliderIndex {
@@ -45,21 +53,15 @@ struct YPDSubmitCheckinView: View {
                 }
                 
                 YPDButton(title: "Submit") {
-                    
                     // Ensure that we attach the result from each slider to the YPDCheckinPrompt.
                     for i in 0..<self.model.checkinPrompts.count {
-                        
                         // The 'results' array is bound to the Sliders which are zero-indexed. We need to add one to ensure that the values being submitted reflect those reported by the checkin prompt.
-                        self.model.checkinPrompts[i].responseValue.value = Double(self.results[i] + 1)
+                        self.model.checkinPrompts[i].responseValue.value = Double(self.model.sliderValues[i] + 1)
                     }
-                    
                     Fetcher.sharedInstance.submitCheckin(checkinPrompts: self.model.checkinPrompts) { (result) in
-                            print("Submitted checkin with response: \(result)")
+                        print("Submitted checkin with response: \(result)")
                     }
-                    
-                                        
                 }.padding(.bottom, Constants.Padding)
-                
             }.navigationBarTitle("How are you feeling?")
         }
     }

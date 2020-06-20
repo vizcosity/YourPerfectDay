@@ -13,15 +13,15 @@ struct YPDSubmitCheckinView: View {
     
     @State var results: [Float] = [0]
     
-    @State var checkinPrompts: [YPDCheckinPrompt] = []
-
+//    @State var checkinPrompts: [YPDCheckinPrompt] = []
+    @ObservedObject var model: YPDModel = .shared 
     
     var body: some View {
         
         NavigationView {
             VStack {
                 ScrollView {
-                    ForEach(self.checkinPrompts) { checkinPrompt -> YPDCheckinPromptView in
+                    ForEach(self.model.checkinPrompts) { checkinPrompt -> YPDCheckinPromptView in
                         
                         let title = checkinPrompt.readableTitle
                         
@@ -31,12 +31,12 @@ struct YPDSubmitCheckinView: View {
                         
                         let stepLabels = responses.map { $0.label }
                                                                     
-                        let sliderIndex = self.checkinPrompts.firstIndex(where: { $0 == checkinPrompt })
+                        let sliderIndex = self.model.checkinPrompts.firstIndex(where: { $0 == checkinPrompt })
                                                 
-                        var result = self.$results[0]
+                        var result = self.$model.sliderValues[0]
                         
                         if let sliderIndex = sliderIndex {
-                            result = self.$results[sliderIndex]
+                            result = self.$model.sliderValues[sliderIndex]
                         }
                         
                         
@@ -47,13 +47,13 @@ struct YPDSubmitCheckinView: View {
                 YPDButton(title: "Submit") {
                     
                     // Ensure that we attach the result from each slider to the YPDCheckinPrompt.
-                    for i in 0..<self.checkinPrompts.count {
+                    for i in 0..<self.model.checkinPrompts.count {
                         
                         // The 'results' array is bound to the Sliders which are zero-indexed. We need to add one to ensure that the values being submitted reflect those reported by the checkin prompt.
-                        self.checkinPrompts[i].responseValue.value = Double(self.results[i] + 1)
+                        self.model.checkinPrompts[i].responseValue.value = Double(self.results[i] + 1)
                     }
                     
-                    Fetcher.sharedInstance.submitCheckin(checkinPrompts: self.checkinPrompts) { (result) in
+                    Fetcher.sharedInstance.submitCheckin(checkinPrompts: self.model.checkinPrompts) { (result) in
                             print("Submitted checkin with response: \(result)")
                     }
                     
@@ -61,19 +61,6 @@ struct YPDSubmitCheckinView: View {
                 }.padding(.bottom, Constants.Padding)
                 
             }.navigationBarTitle("How are you feeling?")
-            .onAppear(perform: {
-                
-                Fetcher.sharedInstance.fetchMetricPrompts { (checkinPrompts) in
-                                    
-                    print("Fetched checkin prompts.")
-                    
-                    // Ensure that we assign the results array first to avoid any index out of bounds errors.
-                    self.results = Array.init(repeating: 0, count: checkinPrompts.count)
-                    
-                    self.checkinPrompts = checkinPrompts
-                                                        
-                }
-            })
         }
     }
 }

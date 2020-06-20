@@ -56,6 +56,10 @@ enum AggregationCriteria: String, CustomStringConvertible, CaseIterable {
             case .year: return .year
         }
     }
+    
+    var humanReadable: String {
+        return self.description.prefix(1).capitalized + "\(self.description.dropFirst(1))"
+    }
 }
 
 

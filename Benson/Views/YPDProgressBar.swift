@@ -24,7 +24,7 @@ struct YPDProgressBar: View {
             Rectangle()
                 .fill(self.colour)
                 .frame(width: geometry.size.width * self.progressValue, height: Constants.defaultProgressBarHeight, alignment: .center)
-                .cornerRadius(Constants.defaultCornerRadius)
+                .cornerRadius(Constants.defaultProgressBarRadius)
             .zIndex(1)
             
             YPDProgressBarBackground(colour: self.colour)
@@ -46,7 +46,7 @@ struct YPDProgressBarBackground: View {
              Rectangle()
              .fill(self.colour)
                 .frame(width: geometry.size.width, height: Constants.defaultProgressBarHeight, alignment: .center)
-                .cornerRadius(Constants.defaultCornerRadius)
+                .cornerRadius(Constants.defaultProgressBarRadius)
              .opacity(0.25)
              .zIndex(0)
              

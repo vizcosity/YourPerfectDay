@@ -15,11 +15,11 @@ struct YPDTabBarView: View {
     var body: some View {
         
         ZStack {
-            Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all)
+//            Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all)
             TabView(selection: self.$selection) {
                 
                 // Initialise a summary view with the default general feeling attribute.
-                YPDSummaryView(chartData: YPDChartData(attributes: ["generalFeeling"], selectedTimeUnit: .day)).tabItem {
+                YPDSummaryView(chartData: YPDChartData(attributes: [.generalFeeling], selectedTimeUnit: .day)).tabItem {
                     VStack {
                         Image(systemName: "rectangle.3.offgrid")
                         Text("Summary")

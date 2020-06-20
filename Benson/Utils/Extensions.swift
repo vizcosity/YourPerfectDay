@@ -24,3 +24,9 @@ extension Double {
        return formattedPercentage ?? "0%"
     }
 }
+
+extension String {
+    var capitalisingFirstLetter: String {
+        return self.prefix(1).capitalized + self.dropFirst(1)
+    }
+}

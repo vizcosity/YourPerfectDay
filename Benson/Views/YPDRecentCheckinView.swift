@@ -16,10 +16,8 @@ struct YPDRecentCheckinView: View {
     var body: some View {
         
         VStack {
-            
             HStack {
                 Spacer()
-                
                 // Show 'last checkin' vs. 'Checkin date' if we know this is the
                 // only checkin being displayed.
                 Text("\(!self.allCheckins.isEmpty ? "Last Checkin" : "") \(self.displayedCheckin.timeSince)")
@@ -27,7 +25,7 @@ struct YPDRecentCheckinView: View {
                     .fontWeight(.regular)
                 Image(systemName: "clock")
                     .resizable()
-                .frame(width: 12, height: 12)
+                    .frame(width: 12, height: 12)
                 
             }.foregroundColor(Color.gray)
             
@@ -36,10 +34,10 @@ struct YPDRecentCheckinView: View {
                 ForEach(0..<self.displayedCheckin.attributeValues.count){ i in
                     HStack {
                         Text("\(self.displayedCheckin.attributeValues[i].type.humanReadable)  \(Int(self.displayedCheckin.attributeValues[i].value))/\(Int(self.displayedCheckin.attributeValues[i].maxValue))")
-                                .fontWeight(.medium)
-                                
-                            Spacer()
-                        }
+                            .fontWeight(.medium)
+                        
+                        Spacer()
+                    }
                     
                     YPDProgressBar(progressValue: CGFloat(self.displayedCheckin.attributeValues[i].value/self.displayedCheckin.attributeValues[i].maxValue), colour: Color.blue)
                 }
@@ -51,21 +49,22 @@ struct YPDRecentCheckinView: View {
                 YPDAdditionalCheckins(checkins: self.allCheckins)
             }
         }
-        .padding(15.0)
+        .padding(Constants.Padding)
         .background(Color.white)
         .cornerRadius(Constants.defaultCornerRadius)
         .shadow(color: Constants.shadowColour, radius: Constants.shadowRadius, x: Constants.shadowX, y: Constants.shadowY)
-        .padding(.all, 10)
+//            .shadow(color: Color.black.opacity(0.15), radius: Constants.shadowRadius, x: Constants.shadowX, y: Constants.shadowY - 5)
+            .padding([.leading, .trailing], Constants.Padding)
         .contextMenu(menuItems: {
-        Button(action: {
-            Fetcher.sharedInstance.remove(metricLogId: self.displayedCheckin.id ?? "") {
-                
-            }
-        }, label: {
-            Image(systemName: "trash")
-            Text("Delete")
+            Button(action: {
+                Fetcher.sharedInstance.remove(metricLogId: self.displayedCheckin.id ?? "") {
+                    
+                }
+            }, label: {
+                Image(systemName: "trash")
+                Text("Delete")
+            })
         })
-    })
         
         
     }
@@ -86,15 +85,13 @@ struct YPDAdditionalCheckins: View {
     var checkins: [YPDCheckin]
     
     var body: some View {
+        
         VStack {
             
             // Horizontal divider.
             YPDDivider()
             
-//            Divider()
-            
-            // TODO: Create a new view which will display all the checkins.
-            NavigationLink(destination: YPDCheckinsView(checkins: self.checkins)) {
+            NavigationLink(destination: YPDCheckinsView(checkins: self.checkins, maxDisplayedCheckins: 20)) {
                 HStack {
                     Spacer()
                     HStack {
@@ -104,9 +101,9 @@ struct YPDAdditionalCheckins: View {
                             .scaleEffect(0.7)
                     }.foregroundColor(Color.gray)
                 }
-                .padding(.all, CGFloat(5))
+                .padding([.leading, .trailing], CGFloat(5))
             }
-
+            
         }
     }
     
@@ -115,7 +112,7 @@ struct YPDAdditionalCheckins: View {
 struct RecentCheckinView_Previews: PreviewProvider {
     static var checkins = [_sampleCheckin]
     static var previews: some View {
-        YPDRecentCheckinView(displayedCheckin: self.checkins.first!).onAppear {
+        YPDRecentCheckinView(displayedCheckin: self.checkins.first!, allCheckins: .init(repeating: _sampleCheckin, count: 300)).onAppear {
             Fetcher.sharedInstance.fetchMetricLogs(completionHandler: {
                 checkins in self.checkins = checkins
                 

@@ -20,14 +20,14 @@ class YPDChartData: ObservableObject {
     @Published var error = ""
     
     var timeUnit: AggregationCriteria
-    var attributes: [String]
+    var attributes: [YPDCheckinType]
     var data: JSON?
     
     /// Convenience initialiser which fetches the aggregated health and checkin data JSON file from the backend, and initialises the ChartData object.
     /// - Parameters:
     ///     - attributes: The attributes (such as generalFeeling, Mood, etc) which correspond to the aggregated data
     ///     - timeUnit: The aggregation criteria (e.g. Day, Month, Week, etc)
-    public init(attributes: [String], selectedTimeUnit timeUnit: AggregationCriteria) {
+    public init(attributes: [YPDCheckinType], selectedTimeUnit timeUnit: AggregationCriteria) {
         self.attributes = attributes
         self.timeUnit = timeUnit
         self.fetchDataAndInitialize(attributes: attributes, selectedTimeUnit: timeUnit)
@@ -37,7 +37,7 @@ class YPDChartData: ObservableObject {
     ///     - data: The JSON data recieved from the Fetcher() class, containing the aggregated health and checkin data
     ///     - attributes: The attributes (such as generalFeeling, Mood, etc) which correspond to the aggregated data
     ///     - timeUnit: The aggregation criteria (e.g. Day, Month, Week, etc)
-    public init(data: JSON, attributes: [String], selectedTimeUnit timeUnit: AggregationCriteria) {
+    public init(data: JSON, attributes: [YPDCheckinType], selectedTimeUnit timeUnit: AggregationCriteria) {
         self.attributes = attributes
         self.timeUnit = timeUnit
         self.data = data
@@ -48,7 +48,7 @@ class YPDChartData: ObservableObject {
     /// - Parameters:
     ///     - attributes: The attributes (such as generalFeeling, Mood, etc) which correspond to the aggregated data
     ///     - timeUnit: The aggregation criteria (e.g. Day, Month, Week, etc)
-    private func fetchDataAndInitialize(attributes: [String], selectedTimeUnit timeUnit: AggregationCriteria){
+    private func fetchDataAndInitialize(attributes: [YPDCheckinType], selectedTimeUnit timeUnit: AggregationCriteria){
         Fetcher.sharedInstance.fetchAggregatedHealthAndCheckinData(byAggregationCriteria: timeUnit) { (json) in
             DispatchQueue.main.async {
                 if !json["success"].boolValue {
@@ -61,7 +61,7 @@ class YPDChartData: ObservableObject {
     }
     
     /// Convenience method which can be used to initialize the object within the asynchronous call to fetch the health data .
-    private func initialize(data: JSON, attributes: [String], selectedTimeUnit timeUnit: AggregationCriteria){
+    private func initialize(data: JSON, attributes: [YPDCheckinType], selectedTimeUnit timeUnit: AggregationCriteria){
         
         self.data = data
         self.attributes = attributes
@@ -73,10 +73,10 @@ class YPDChartData: ObservableObject {
         
         // For each attribute, generate the data series chart points, as well as axis labels.
         attributes.forEach {
-            let (dates, chartPoints) = self.generateChartPointsAndAxisLabelDates(forAttribute: $0, andSelectedTimeUnit: timeUnit, ofAggregatedDataObjects: data.arrayValue, normalise: attributes.count > 1)
+            let (dates, chartPoints) = self.generateChartPointsAndAxisLabelDates(forAttribute: $0.rawValue, andSelectedTimeUnit: timeUnit, ofAggregatedDataObjects: data.arrayValue, normalise: attributes.count > 1)
             
             sampleDates.append(contentsOf: dates)
-            self.dataSeries.append(OCKDataSeries(dataPoints: chartPoints, title: $0, size: 3, color: Colour.chartColours.randomElement()!))
+            self.dataSeries.append(OCKDataSeries(dataPoints: chartPoints, title: $0.humanReadable, size: 3, color: Colour.chartColours.randomElement()!))
         }
         
         // Generate the horizontal axis labels for the chart.
@@ -85,7 +85,7 @@ class YPDChartData: ObservableObject {
     }
     
     /// Updates the ChartData object given new attributes or selected time units.
-    public func fetchNewData(forAttributes attributes: [String]? = nil, selectedTimeUnit timeUnit: AggregationCriteria? = nil){
+    public func fetchNewData(forAttributes attributes: [YPDCheckinType]? = nil, selectedTimeUnit timeUnit: AggregationCriteria? = nil){
         self.fetchDataAndInitialize(attributes: attributes ?? self.attributes, selectedTimeUnit: timeUnit ?? self.timeUnit)
     }
     

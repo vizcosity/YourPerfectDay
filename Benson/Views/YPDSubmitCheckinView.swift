@@ -62,7 +62,7 @@ struct YPDSubmitCheckinView: View {
                         print("Submitted checkin with response: \(result)")
                     }
                 }.padding(.bottom, Constants.Padding)
-            }.navigationBarTitle("How are you feeling?")
+            }.navigationBarTitle("Checkin")
         }
     }
 }

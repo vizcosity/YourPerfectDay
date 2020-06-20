@@ -124,7 +124,7 @@ class LogViewController: UIViewController{
         chartMetricSelectionButton.setTitle(self.selectedChartMetrics.map { "\($0)" }.joined(separator: ", "), for: .normal)
         chartTimeUnitSelectionButton.setTitle("\(self.selectedTimeUnit)", for: .normal)
         Fetcher.sharedInstance.fetchAggregatedHealthAndCheckinData(byAggregationCriteria: self.selectedTimeUnit) { (data) in
-            self.configureChartOverview(forData: data["result"], andAttributes: self.selectedChartMetrics.map { "\($0)" } , andSelectedTimeUnit: self.selectedTimeUnit)
+            self.configureChartOverview(forData: data["result"], andAttributes: self.selectedChartMetrics.map { (YPDCheckinType(rawValue: "\($0)") ?? .unknown) } , andSelectedTimeUnit: self.selectedTimeUnit)
             self.chartActivityIndicator.stopAnimating()
             
         }
@@ -289,7 +289,7 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource {
 extension LogViewController {
    
     /// Given  some JSON data representing the aggregated heath data, the selected attributes, and the TimeUnit, instantiates the chart view, if this has not already been done so, and updates the view to display the data.
-    private func configureChartOverview(forData data: JSON, andAttributes attributes: [String], andSelectedTimeUnit timeUnit: AggregationCriteria) {
+    private func configureChartOverview(forData data: JSON, andAttributes attributes: [YPDCheckinType], andSelectedTimeUnit timeUnit: AggregationCriteria) {
         
         let chartView = OCKCartesianChartView(type: .line)
         

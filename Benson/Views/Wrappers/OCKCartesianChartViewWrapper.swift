@@ -74,7 +74,7 @@ struct OCKCartesianChartViewWrapper: UIViewRepresentable {
 
 struct OCKCartesianChartViewWrapper_Previews: PreviewProvider {
     
-    static var chartData = YPDChartData(attributes: ["generalFeeling"], selectedTimeUnit: .week)
+    static var chartData = YPDChartData(attributes: [.generalFeeling], selectedTimeUnit: .week)
     
     static var previews: some View {
         VStack {
@@ -84,7 +84,7 @@ struct OCKCartesianChartViewWrapper_Previews: PreviewProvider {
                 Text("Fetch new data")
             })
             
-            Text("\(chartData.attributes.joined(separator:","))")
+            Text("\(chartData.attributes.map { $0.humanReadable }.joined(separator:","))")
             
             Text("\(chartData.horizontalAxisChartMarkers.sample(withAroundNumberOfPoints: 5).joined(separator: ","))")
             OCKCartesianChartViewWrapper(chartData: chartData)

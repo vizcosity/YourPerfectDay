@@ -11,18 +11,19 @@ import UIKit
 import SwiftUI
 
 struct Constants {
-    static let cardPadding: CGFloat = 15
-    static let Padding: CGFloat = 10
+    static let cardPadding: CGFloat = 20
+    static let Padding: CGFloat = 20
     static var horizontalButtonMargin: CGFloat = 35
     static var buttonEdgeInsets: CGFloat = 5
     static let defaultProgressBarHeight: CGFloat = 10
-    static let defaultCornerRadius: CGFloat = 6
+    static let defaultProgressBarRadius: CGFloat = 6
+    static let defaultCornerRadius: CGFloat = 10
     
-    static let shadowColour: Color = Color.init(red: 0.9, green: 0.9, blue: 0.9)
+    static let shadowColour: Color = Color.black.opacity(0.15)
     
-    static let shadowRadius: CGFloat = 10
+    static let shadowRadius: CGFloat = 5
     static let shadowX: CGFloat = 0
-    static let shadowY: CGFloat = 10
+    static let shadowY: CGFloat = 3
 }
 
 struct Colour {

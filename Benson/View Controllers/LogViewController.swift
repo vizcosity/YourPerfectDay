@@ -274,7 +274,7 @@ extension LogViewController: UITableViewDelegate, UITableViewDataSource {
         func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
             
             if editingStyle == .delete {
-                fetcher.remove(metricLogId: self.logs[indexPath.row / 2].type ?? "") {
+                fetcher.remove(metricLogId: self.logs[indexPath.row / 2].id ?? "") {
     //                tableView.deleteRows(at: [indexPath, IndexPath(row: indexPath.row + 1, section: indexPath.section)], with: .automatic)
                     // Checkpoint: Trying to understand why I can't add in the delete swipe animation.
                     self.logs.remove(at: indexPath.row / 2)

@@ -54,6 +54,16 @@ struct YPDRecentCheckinView: View {
         .cornerRadius(Constants.defaultCornerRadius)
         .shadow(color: Constants.shadowColour, radius: Constants.shadowRadius, x: Constants.shadowX, y: Constants.shadowY)
         .padding(.all, 10)
+        .contextMenu(menuItems: {
+        Button(action: {
+            Fetcher.sharedInstance.remove(metricLogId: self.displayedCheckin.id ?? "") {
+                
+            }
+        }, label: {
+            Image(systemName: "trash")
+            Text("Delete")
+        })
+    })
         
         
     }

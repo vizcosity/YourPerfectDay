@@ -153,8 +153,10 @@ struct YPDCheckin: CustomStringConvertible {
         }
     }
     
-    var id = UUID()
-    var type: String?
+//    var id: String?
+    
+    /// Id for the Checkin.
+    var id: String?
     var attributeValues: [YPDCheckinResponseValue] = []
     var timestamp: Date?
     var timeSince: String = "Some time ago"
@@ -162,20 +164,20 @@ struct YPDCheckin: CustomStringConvertible {
     /// Summary data obtained from healthkit for the day when the log was recorded.
     var enrichedData: BensonHealthDataObject?
     
-    init(attributeValues: [YPDCheckinResponseValue], timeSince: String, type: String? = nil){
+    init(attributeValues: [YPDCheckinResponseValue], timeSince: String, id: String? = nil){
         self.attributeValues = attributeValues
         self.timeSince = timeSince
-        self.type = type
+        self.id = id
     }
     
-    init(attributeValues: [YPDCheckinResponseValue], timeSince: String, timestamp: Int, type: String? = nil) {
+    init(attributeValues: [YPDCheckinResponseValue], timeSince: String, timestamp: Int, id: String? = nil) {
         self.init(attributeValues: attributeValues, timeSince: timeSince)
         self.timestamp = Date(timeIntervalSince1970: Double(timestamp))
-        self.type = type
+        self.id = id
     }
     
     public func copy() -> YPDCheckin {
-        var copiedMetric = YPDCheckin(attributeValues: self.attributeValues, timeSince: self.timeSince, type: self.type)
+        var copiedMetric = YPDCheckin(attributeValues: self.attributeValues, timeSince: self.timeSince, id: self.id)
             
         copiedMetric.timestamp = self.timestamp
         copiedMetric.enrichedData = self.enrichedData
@@ -188,7 +190,7 @@ struct YPDCheckin: CustomStringConvertible {
 extension YPDCheckin: Hashable {
     
     public func equals(otherMetricLog: YPDCheckin) -> Bool {
-        return self.type == otherMetricLog.type &&
+        return self.id == otherMetricLog.id &&
             self.timestamp == otherMetricLog.timestamp &&
             self.timeSince == otherMetricLog.timeSince
     }

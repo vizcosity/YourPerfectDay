@@ -137,7 +137,7 @@ class Fetcher {
                     }
 
                     // Checkpoint: attaching a Date to each metric log to know when to grab HealthKit data for enrichment.
-                    return YPDCheckin(attributeValues: attributeValues, timeSince: metricLogJSON["timesince"] as? String ?? "Some time ago", timestamp: metricLogJSON["timestamp"] as? Int ?? 0, type: metricLogJSON["_id"] as? String)
+                    return YPDCheckin(attributeValues: attributeValues, timeSince: metricLogJSON["timesince"] as? String ?? "Some time ago", timestamp: metricLogJSON["timestamp"] as? Int ?? 0, id: metricLogJSON["_id"] as? String)
                 })
                 
                 // Run the comletionHandler within the main thread as the argument passed to the completion handler will most likely be used to update the UI.
@@ -308,7 +308,7 @@ class Fetcher {
         
         // Instantiate a date object for the metricLog.
         guard let date = metricLog.timestamp else {
-            return self.log("Could not obtain date for metric log \(metricLog.type ?? metricLog.description)")
+            return self.log("Could not obtain date for metric log \(metricLog.id ?? metricLog.description)")
         }
         
         self.healthManager.fetchHealthData(forDay: date){ healthDataObject in

@@ -117,42 +117,26 @@ class BensonHealthManager {
         
         self.healthStore?.requestAuthorization(toShare: nil, read: BensonHealthUtil.HKObjectsToRead, completion: { (result, error) in
             print("[BensonHealthManager] Recieved authorization to access health data: \(result)")
-           
-//            let today = Date()
-//
-//            DispatchQueue.global(qos: .background).async {
-//                self.fetchHealthData(forDay: today){
-//                    self.log("Fetched health data: \($0.toJSON()!)")
-//                }
-//            }
-        
-                            
+            print("[BensonHealthManager] Enriching Checkins with Health Data.")
+            self.enrichCheckinsWithHealthData()
         })
+        
         
     }
     
-    /// Fetches all healthData for an array of dates.
-//    func fetchHealthData(forDays days: [Date], completionHandler: @escaping ([BensonHealthDataObject]) -> Void) {
-//
-//        let dispatchGroup = DispatchGroup()
-//
-//        var healthDataObjects: [BensonHealthDataObject] = []
-//
-//        days.forEach { day in
-//            dispatchGroup.enter()
-//            self.fetchHealthData(forDay: day) { (healthDataObject) in
-//                print("Fetching health data for \(day)")
-//                healthDataObjects.append(healthDataObject)
-//                dispatchGroup.leave()
-//            }
-//        }
-//
-//        dispatchGroup.notify(queue: .global(qos: .utility)) {
-//            completionHandler(healthDataObjects)
-//        }
-//
-//    }
-    
+    public func enrichCheckinsWithHealthData(){
+        // Fetch unenriched checkins and submit pending health data.
+        Fetcher.sharedInstance.fetchUnenrichedCheckinDates { (dates) in
+            self.log("Fetched unenriched checkin dates: \(dates)")
+            BensonHealthManager.sharedInstance?.fetchHealthData(forDays: dates, completionHandler: { (healthDataObjects) in
+                self.log("Fetched \(healthDataObjects.count). Submitting these now.")
+                Fetcher.sharedInstance.submitHealthDataObjects(healthDataObjects: healthDataObjects) { (result, error) in
+                    self.log("Submitted all healthDataObjects. Result: \(String(describing: result)). Error: \(String(describing: error))")
+                }
+            })
+        }
+    }
+
     /// Iteratively fetches healthData for all days passed, returning an array of BensonHealthDataObjects.
     public func fetchHealthData(forDays days: [Date], completionHandler: @escaping ([BensonHealthDataObject]) -> Void) {
         return self.fetchHealthData(forDays: days, accumulatedHealthData: [], completionHandler: completionHandler)

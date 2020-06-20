@@ -20,7 +20,9 @@ struct YPDRecentCheckinView: View {
             HStack {
                 Spacer()
                 
-                Text("Last Checkin \(self.displayedCheckin.timeSince)")
+                // Show 'last checkin' vs. 'Checkin date' if we know this is the
+                // only checkin being displayed.
+                Text("\(!self.allCheckins.isEmpty ? "Last Checkin" : "") \(self.displayedCheckin.timeSince)")
                     .font(.footnote)
                     .fontWeight(.regular)
                 Image(systemName: "clock")

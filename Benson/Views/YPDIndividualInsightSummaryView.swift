@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct YPDInsightSummaryView: View {
+struct YPDIndividualInsightSummaryView: View {
     
     /// The metric which the following insight pertains to.
     var metricOfInterest: String
@@ -108,6 +108,6 @@ struct YPDInsightSummaryView: View {
 
 struct YPDInsightSummaryView_Previews: PreviewProvider {
     static var previews: some View {
-        YPDInsightSummaryView(metricOfInterest: "Vitality", percentageMOIChange: -0.16, insight: YPDInsight(metricOfInterestType: .vitality, metricOfInterestValue: 2.342, mostImportantAnomalyMetrics: [YPDAnomalyMetric(metricAttribute: .caloricIntake, localChange: -0.23, globalChange: -0.11, correlation: 0.45, importance: 0.8, timePeriod: "this week", precedingData: [])]))
+        YPDIndividualInsightSummaryView(metricOfInterest: "Vitality", percentageMOIChange: -0.16, insight: YPDInsight(metricOfInterestType: .vitality, metricOfInterestValue: 2.342, mostImportantAnomalyMetrics: [YPDAnomalyMetric(metricAttribute: .caloricIntake, localChange: -0.23, globalChange: -0.11, correlation: 0.45, importance: 0.8, timePeriod: "this week", precedingData: [])]))
     }
 }

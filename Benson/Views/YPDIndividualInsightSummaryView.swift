@@ -8,18 +8,15 @@ import SwiftUI
 
 struct YPDInsightSummaryView: View {
     
-    /// The metric which the following insight pertains to.
-    var metricOfInterest: String
-    
-    /// The percentage change for the metricOfInterest
-    var percentageMOIChange: Double
-    
-    // The time period should be specified by the insight.
-    var timePeriod: String = "this week"
+//    /// The metric which the following insight pertains to.
+//    var metricOfInterest: String
+//
+//    /// The percentage change for the metricOfInterest
+//    var percentageMOIChange: Double
     
     // Brief MetricOfInterestSummary Sentence.
     var briefMOISummarySentence: String {
-        return self.provideBriefMOISummarySentence(metricOfInterest: self.metricOfInterest, percentageMOIChange: self.percentageMOIChange)
+        return self.provideBriefMOISummarySentence(metricOfInterest: self.insight.metricOfInterestType.humanReadable, percentageMOIChange: self.insight.metricOfInterestLocalChange, startValue: self.insight.metricOfInterestGlobalMean, endValue: self.insight.metricOfInterestLocalMean)
     }
     
     var insight: YPDInsight
@@ -31,7 +28,7 @@ struct YPDInsightSummaryView: View {
             VStack {
                 
                 HStack {
-                    Text("\(self.percentageMOIChange > 0.0 ? "Improved": "Declining") \(metricOfInterest)")
+                    Text("\(self.insight.metricOfInterestLocalChange > 0.0 ? "Improved": "Declining") \(self.insight.metricOfInterestType.humanReadable)")
                         .font(.headline)
                         .multilineTextAlignment(.leading)
                     Spacer()
@@ -39,26 +36,27 @@ struct YPDInsightSummaryView: View {
                 
                 // Text notifying the user of the time period.
                 HStack {
-                    Text("\(self.metricOfInterest) \(self.timePeriod):")
-                        .font(.caption)
+                    Text("Your \(self.insight.metricOfInterestType.humanReadable) over the last \(self.insight.timePeriod).")
+                        .font(.subheadline)
                     Spacer()
-                }
+                }.padding(.top, 5)
                 
-            YPDInsightProgressBarView(percentageMOIChangeValue: self.percentageMOIChange)
+                YPDInsightProgressBarView(percentageMOIChangeValue: self.insight.metricOfInterestLocalChange)
                 
                 HStack {
                     Text("\(self.briefMOISummarySentence). Here are some other changes:")
                         .font(.caption)
+                        .foregroundColor(.gray)
                         .multilineTextAlignment(.leading)
-                    
-                    Spacer()
-                }.padding(.bottom, CGFloat(10.0))
+//                    Spacer()
+                }
+                .padding(.bottom, CGFloat(10.0))
                 
                 // Display each of the insights associated with the most important and correlated metrics.
                 ForEach(0..<self.insight.mostImportantAnomalyMetrics.count) {
 
                     // Embed in a HStack so that the results are all left-aligned.
-                    YPDSummaryIndividualMetricInsightView(metricName: self.insight.mostImportantAnomalyMetrics[$0].metricAttribute.humanReadable, percentageChangeValue: self.insight.mostImportantAnomalyMetrics[$0].localChange, timePeriod: self.insight.mostImportantAnomalyMetrics[$0].timePeriod ?? self.timePeriod)
+                    YPDSummaryIndividualMetricInsightView(metricName: self.insight.mostImportantAnomalyMetrics[$0].metricAttribute.humanReadable, percentageChangeValue: self.insight.mostImportantAnomalyMetrics[$0].localChange, timePeriod: self.insight.mostImportantAnomalyMetrics[$0].timePeriod ?? self.insight.timePeriod)
                     
 
                 }
@@ -91,7 +89,7 @@ struct YPDInsightSummaryView: View {
     }
     
     /// Given the metric of interest and the percentage change, provides a short summary sentence.
-    func provideBriefMOISummarySentence(metricOfInterest: String, percentageMOIChange: Double) -> String {
+    func provideBriefMOISummarySentence(metricOfInterest: String, percentageMOIChange: Double, startValue: Double, endValue: Double) -> String {
         
         // Format the percentageMOIChange as a percentage with no decimal places.
         let formatter = NumberFormatter()
@@ -100,15 +98,22 @@ struct YPDInsightSummaryView: View {
         formatter.maximumIntegerDigits = 2
         formatter.maximumFractionDigits = 0
         
-        let formattedPercentageMOIChange = formatter.string(from: NSNumber(value: percentageMOIChange))
+        let decimalFormatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = 2
         
-        return "Your \(metricOfInterest) has \(percentageMOIChange > 0 ? "improved" : "fallen") \(formattedPercentageMOIChange ?? "0%")"
+        let formattedStartValue = decimalFormatter.string(from: NSNumber(value: startValue))!
+        let formattedEndValue = decimalFormatter.string(from: NSNumber(value: endValue))!
+        
+        let formattedPercentageMOIChange = formatter.string(from: NSNumber(value: percentageMOIChange*100))!
+        
+        return "Your \(metricOfInterest) has \(percentageMOIChange > 0 ? "increased" : "decreased") by \(formattedPercentageMOIChange ?? "0")%, going from a global average of \(formattedStartValue) to \(formattedEndValue) during this period"
         
     }
 }
 
 struct YPDInsightSummaryView_Previews: PreviewProvider {
     static var previews: some View {
-        YPDInsightSummaryView(metricOfInterest: "Vitality", percentageMOIChange: -0.16, insight: YPDInsight(metricOfInterestType: .vitality, metricOfInterestValue: 2.342, metricOfInterestGlobalChange: 0.34, metricOfInterestGlobalMean: 3,metricOfInterestLocalChange: 0.43, metricOfInterestLocalMean: 2, date: Date(),  mostImportantAnomalyMetrics: [YPDAnomalyMetric(metricAttribute: .caloricIntake, localChange: -0.23, localMean: 1400, globalChange: -0.11, globalMean: 2000, correlation: 0.45, importance: 0.8, timePeriod: "this week", precedingData: [])]))
+        YPDInsightSummaryView(insight: YPDInsight(metricOfInterestType: .vitality, metricOfInterestValue: 2.342, metricOfInterestGlobalChange: 0.34, metricOfInterestGlobalMean: 3,metricOfInterestLocalChange: 0.43, metricOfInterestLocalMean: 2, date: Date(),  mostImportantAnomalyMetrics: [YPDAnomalyMetric(metricAttribute: .caloricIntake, localChange: -0.23, localMean: 1400, globalChange: -0.11, globalMean: 2000, correlation: 0.45, importance: 0.8, timePeriod: "this week", precedingData: [])]))
     }
 }

@@ -12,7 +12,7 @@ struct YPDInsightsView: View {
     @State var insights: [YPDInsight] = []
     var body: some View {
         List(self.insights) { (insight) -> YPDInsightSummaryView in
-            YPDInsightSummaryView(metricOfInterest: "Vitality", percentageMOIChange: 1.21, insight: insight)
+            YPDInsightSummaryView(insight: insight)
         }.onAppear {
             Fetcher.sharedInstance.fetchInsights(forAggregationCriteria: .day) { (insights) in
                         print("Fetched insights.")

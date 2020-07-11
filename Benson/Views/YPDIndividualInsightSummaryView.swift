@@ -1,13 +1,12 @@
 //
 //  YPDInsightSummaryView.swift
-//  
-//
+//  The Insight Summary View displays the change in the metric of interest, alongside the changes in the most important metrics which are believed to be related to this change.
 //  Created by Aaron Baw on 26/03/2020.
 //
 
 import SwiftUI
 
-struct YPDIndividualInsightSummaryView: View {
+struct YPDInsightSummaryView: View {
     
     /// The metric which the following insight pertains to.
     var metricOfInterest: String
@@ -15,8 +14,10 @@ struct YPDIndividualInsightSummaryView: View {
     /// The percentage change for the metricOfInterest
     var percentageMOIChange: Double
     
+    // The time period should be specified by the insight.
     var timePeriod: String = "this week"
     
+    // Brief MetricOfInterestSummary Sentence.
     var briefMOISummarySentence: String {
         return self.provideBriefMOISummarySentence(metricOfInterest: self.metricOfInterest, percentageMOIChange: self.percentageMOIChange)
     }
@@ -108,6 +109,6 @@ struct YPDIndividualInsightSummaryView: View {
 
 struct YPDInsightSummaryView_Previews: PreviewProvider {
     static var previews: some View {
-        YPDIndividualInsightSummaryView(metricOfInterest: "Vitality", percentageMOIChange: -0.16, insight: YPDInsight(metricOfInterestType: .vitality, metricOfInterestValue: 2.342, mostImportantAnomalyMetrics: [YPDAnomalyMetric(metricAttribute: .caloricIntake, localChange: -0.23, globalChange: -0.11, correlation: 0.45, importance: 0.8, timePeriod: "this week", precedingData: [])]))
+        YPDInsightSummaryView(metricOfInterest: "Vitality", percentageMOIChange: -0.16, insight: YPDInsight(metricOfInterestType: .vitality, metricOfInterestValue: 2.342, metricOfInterestGlobalChange: 0.34, metricOfInterestGlobalMean: 3,metricOfInterestLocalChange: 0.43, metricOfInterestLocalMean: 2, date: Date(),  mostImportantAnomalyMetrics: [YPDAnomalyMetric(metricAttribute: .caloricIntake, localChange: -0.23, localMean: 1400, globalChange: -0.11, globalMean: 2000, correlation: 0.45, importance: 0.8, timePeriod: "this week", precedingData: [])]))
     }
 }

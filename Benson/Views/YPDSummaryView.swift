@@ -101,7 +101,7 @@ struct YPDSummaryView: View {
                     Spacer()
                 }
                 
-            // Sets the title for the view itself. This is not obeyed for the tab bar item which is why it is repeated on the parent element below.
+            // Sets the title for the view itself. This is not obeyed for the tab bar item which is why it is repeated on the parent element below.s
             }.navigationBarTitle("Summary")
             
         // Sets the title for the tab bar item.

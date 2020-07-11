@@ -57,6 +57,17 @@ enum AggregationCriteria: String, CustomStringConvertible, CaseIterable {
         }
     }
     
+    /// Returns the maximum number of data points that should be displayed to the user when the given aggregation criteria is selected.
+    var maxNumberOfPoints: Int {
+        switch self {
+        case .day: return 30 // Two Weeks.
+        case .week: return 16 // Two Months.
+        case .month: return 12 // Six Months.
+        case .quarter: return 16 // Two years.
+        case .year: return 10 // Last Decade.
+        }
+    }
+    
     var humanReadable: String {
         return self.description.prefix(1).capitalized + "\(self.description.dropFirst(1))"
     }
@@ -126,7 +137,7 @@ class Fetcher {
 //            self.log("Recieved metric logs: \(response)")
             
             if let checkinJSON = try? response.result.get() as? [[String: Any]] {
-                self.log("\(checkinJSON)")
+                // self.log("\(checkinJSON)")
 
                 // TODO: Rename the various field titles so that they make more sense and are more consistent across the application.
                 // Map each JSON object ot the MetricLog object and return this as part of the completionHandler.
@@ -293,7 +304,7 @@ class Fetcher {
         request.httpBody = bodyJSONSerialised!.data(using: String.Encoding.utf8.rawValue)
         
         AF.request(request).responseJSON(queue: DispatchQueue.global(qos: .userInitiated), options: .allowFragments) { (response) in
-            self.log(response.debugDescription)
+            // self.log(response.debugDescription)
             let result = response.value as? [String: Bool]
             if result?["success"] ?? false {
                 self.log("Removed \(metricLogId)")
@@ -374,13 +385,14 @@ class Fetcher {
 }
 
 /// Fetching insights and other analysis-related data.
-//extension Fetcher {
-//    public func fetchInsights(forAggregationCriteria aggregationCriteria: AggregationCriteria, completionHandler: @escaping ([YPDInsight]) -> Void) {
-//        self.sendPostRequest(toEndpoint: Webserver.fetchInsights, withBody: [
-//            "aggregationCriteria": aggregationCriteria.description
-//        ]) { (json) in
-//            // TODO: Parse JSON response as YPD Insights.
-//            // TODO: Alter YPD Insights to conform to better support an entire insight with multiple important metrics.
-//        }
-//    }
-//}
+extension Fetcher {
+    public func fetchInsights(forAggregationCriteria aggregationCriteria: AggregationCriteria, completionHandler: @escaping ([YPDInsight]) -> Void) {
+        self.sendPostRequest(toEndpoint: Webserver.fetchInsights, withBody: [
+            "aggregationCriteria": aggregationCriteria.description
+        ]) { (json) in
+            // TODO: Parse JSON response as YPD Insights.
+            // TODO: Alter YPD Insights to conform to better support an entire insight with multiple important metrics.
+            completionHandler(json["data"].arrayValue.map(YPDInsight.init(json:)))
+        }
+    }
+}

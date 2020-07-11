@@ -109,7 +109,7 @@ class YPDChartData: ObservableObject {
     }
     
     /// Generates the chart points to be used for the OCKDataSeries, as well as an array of Dates which can be concatenated amongst all attributes in order to generate all required horizontal axis labels.
-    private func generateChartPointsAndAxisLabelDates(forAttribute attribute: String, andSelectedTimeUnit timeUnit: AggregationCriteria, ofAggregatedDataObjects data: [JSON], filterOutZeros: Bool = true, normalise: Bool = false) -> ([Date], [CGPoint]) {
+    private func generateChartPointsAndAxisLabelDates(forAttribute attribute: String, andSelectedTimeUnit timeUnit: AggregationCriteria, ofAggregatedDataObjects data: [JSON], filterOutZeros: Bool = true, normalise: Bool = false, showDataSubset: Bool = true) -> ([Date], [CGPoint]) {
         
         // If normalise is set to true, then we will use the largest Y Value to normalise all the chart points within
         // the range [0, 1]
@@ -136,7 +136,8 @@ class YPDChartData: ObservableObject {
             } else { return nil }
             
         }.filter { !filterOutZeros || $0.1.y != 0 }
-//        self.log("Generated chart points: \(chartPoints)")
+            // Ensure that we constrain the number of points returned so that we do not overwhelm the user initially, and instead present a subset of the available datapoints.
+            .suffix(showDataSubset ? timeUnit.maxNumberOfPoints : data.count)
         
         return (chartPoints.map { $0.0 }, chartPoints.map { CGPoint(x: $0.1.x, y: $0.1.y / CGFloat(normalise ? largestYValue : 1)) })
     }

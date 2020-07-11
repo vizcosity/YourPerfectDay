@@ -50,6 +50,7 @@
 		21BD46262481A3900077DCD7 /* YPDCheckinsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BD46252481A3900077DCD7 /* YPDCheckinsView.swift */; };
 		21BF588524B655D0009F6B1B /* YPDInsightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BF588424B655D0009F6B1B /* YPDInsightsView.swift */; };
 		21C58F372327BCBB007EE5F1 /* CheckinCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C58F362327BCBB007EE5F1 /* CheckinCollectionViewCell.swift */; };
+		21CEB34124BA1B1000F19C46 /* YPDInsight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CEB34024BA1B1000F19C46 /* YPDInsight.swift */; };
 		21DF333C2482CCCE00D18EBC /* YPDTimeUnitPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DF333B2482CCCE00D18EBC /* YPDTimeUnitPicker.swift */; };
 		21DF333E2482D31800D18EBC /* YPDSubmitCheckinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DF333D2482D31800D18EBC /* YPDSubmitCheckinView.swift */; };
 		21E2F35F24684F5C00EFB205 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E2F35E24684F5B00EFB205 /* Alamofire.framework */; };
@@ -60,6 +61,8 @@
 		21E2F3722468518C00EFB205 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21E2F3712468518C00EFB205 /* SwiftyJSON.framework */; };
 		21E2F376246878AF00EFB205 /* YPDRecentCheckinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E2F375246878AF00EFB205 /* YPDRecentCheckinView.swift */; };
 		21E2F37824687A3F00EFB205 /* YPDProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E2F37724687A3F00EFB205 /* YPDProgressBar.swift */; };
+		21F8C30E24BA260B00F7B3BB /* moment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F8C30D24BA260B00F7B3BB /* moment.swift */; };
+		21F8C31024BA262700F7B3BB /* moment-with-locales.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 21F8C30F24BA262700F7B3BB /* moment-with-locales.min.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -145,6 +148,7 @@
 		21BD46252481A3900077DCD7 /* YPDCheckinsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDCheckinsView.swift; sourceTree = "<group>"; };
 		21BF588424B655D0009F6B1B /* YPDInsightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDInsightsView.swift; sourceTree = "<group>"; };
 		21C58F362327BCBB007EE5F1 /* CheckinCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinCollectionViewCell.swift; sourceTree = "<group>"; };
+		21CEB34024BA1B1000F19C46 /* YPDInsight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDInsight.swift; sourceTree = "<group>"; };
 		21DF333B2482CCCE00D18EBC /* YPDTimeUnitPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDTimeUnitPicker.swift; sourceTree = "<group>"; };
 		21DF333D2482D31800D18EBC /* YPDSubmitCheckinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDSubmitCheckinView.swift; sourceTree = "<group>"; };
 		21E2F35E24684F5B00EFB205 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
@@ -155,6 +159,8 @@
 		21E2F3712468518C00EFB205 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		21E2F375246878AF00EFB205 /* YPDRecentCheckinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDRecentCheckinView.swift; sourceTree = "<group>"; };
 		21E2F37724687A3F00EFB205 /* YPDProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDProgressBar.swift; sourceTree = "<group>"; };
+		21F8C30D24BA260B00F7B3BB /* moment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = moment.swift; sourceTree = "<group>"; };
+		21F8C30F24BA262700F7B3BB /* moment-with-locales.min.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "moment-with-locales.min.js"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,6 +227,7 @@
 				21532F57247305040054AC84 /* StaticData.swift */,
 				21532F5924730B1F0054AC84 /* Chart.swift */,
 				2149410E249E305600EEF05A /* YPDModel.swift */,
+				21CEB34024BA1B1000F19C46 /* YPDInsight.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -335,6 +342,8 @@
 				21734670240AF9C700B22219 /* Sample.swift */,
 				2127B0102430E67F00B8D0B1 /* Extensions.swift */,
 				21BD462324819E1F0077DCD7 /* Constants.swift */,
+				21F8C30D24BA260B00F7B3BB /* moment.swift */,
+				21F8C30F24BA262700F7B3BB /* moment-with-locales.min.js */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -423,6 +432,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21F8C31024BA262700F7B3BB /* moment-with-locales.min.js in Resources */,
 				213436F023098A43006B1CA8 /* LaunchScreen.storyboard in Resources */,
 				21880FC1238093B100A02055 /* MetricCellValueComponent.xib in Resources */,
 				213436ED23098A43006B1CA8 /* Assets.xcassets in Resources */,
@@ -465,6 +475,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				21DF333E2482D31800D18EBC /* YPDSubmitCheckinView.swift in Sources */,
+				21CEB34124BA1B1000F19C46 /* YPDInsight.swift in Sources */,
 				21471735239C4E2300E4226F /* Notifications.swift in Sources */,
 				218241BD2482E43200B85C3E /* YPDCheckinPromptView.swift in Sources */,
 				213436E423098A42006B1CA8 /* AppDelegate.swift in Sources */,
@@ -480,6 +491,7 @@
 				21010095242D4CBC0010ED8D /* YPDIndividualInsightSummaryView.swift in Sources */,
 				215F316224119B520093409F /* YPDRecordViewController.swift in Sources */,
 				212EEE992318685D00C01AD8 /* BensonButton.swift in Sources */,
+				21F8C30E24BA260B00F7B3BB /* moment.swift in Sources */,
 				216CAA70237A010E004D6B8E /* YPDCheckin.swift in Sources */,
 				21DF333C2482CCCE00D18EBC /* YPDTimeUnitPicker.swift in Sources */,
 				21532F5F24730F660054AC84 /* OCKCartesianChartViewWrapper.swift in Sources */,

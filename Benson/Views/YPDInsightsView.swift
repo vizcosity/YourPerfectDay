@@ -9,8 +9,17 @@
 import SwiftUI
 
 struct YPDInsightsView: View {
+    @State var insights: [YPDInsight] = []
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        List(self.insights) { (insight) -> YPDInsightSummaryView in
+            YPDInsightSummaryView(metricOfInterest: "Vitality", percentageMOIChange: 1.21, insight: insight)
+        }.onAppear {
+            Fetcher.sharedInstance.fetchInsights(forAggregationCriteria: .day) { (insights) in
+                        print("Fetched insights.")
+                        self.insights = insights
+            }
+        }
+        
     }
 }
 

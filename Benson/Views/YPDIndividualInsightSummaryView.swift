@@ -16,7 +16,7 @@ struct YPDInsightSummaryView: View {
     
     // Brief MetricOfInterestSummary Sentence.
     var briefMOISummarySentence: String {
-        return self.provideBriefMOISummarySentence(metricOfInterest: self.insight.metricOfInterestType.humanReadable, percentageMOIChange: self.insight.metricOfInterestLocalChange, startValue: self.insight.metricOfInterestGlobalMean, endValue: self.insight.metricOfInterestLocalMean)
+        return self.provideBriefMOISummarySentence(metricOfInterest: self.insight.metricOfInterestType.humanReadable, percentageMOIChange: self.insight.metricOfInterestLocalChange, startValue: self.insight.metricOfInterestGlobalMean, endValue: self.insight.metricOfInterestValue)
     }
     
     var insight: YPDInsight
@@ -48,7 +48,7 @@ struct YPDInsightSummaryView: View {
                         .font(.caption)
                         .foregroundColor(.gray)
                         .multilineTextAlignment(.leading)
-//                    Spacer()
+                    Spacer()
                 }
                 .padding(.bottom, CGFloat(10.0))
                 
@@ -79,6 +79,7 @@ struct YPDInsightSummaryView: View {
                     }.foregroundColor(Color.gray)
                 }
                 .padding(.all, CGFloat(5))
+                .padding(.trailing, CGFloat(10))
                 .padding(.bottom, CGFloat(5))
             }
         }
@@ -114,6 +115,6 @@ struct YPDInsightSummaryView: View {
 
 struct YPDInsightSummaryView_Previews: PreviewProvider {
     static var previews: some View {
-        YPDInsightSummaryView(insight: YPDInsight(metricOfInterestType: .vitality, metricOfInterestValue: 2.342, metricOfInterestGlobalChange: 0.34, metricOfInterestGlobalMean: 3,metricOfInterestLocalChange: 0.43, metricOfInterestLocalMean: 2, date: Date(),  mostImportantAnomalyMetrics: [YPDAnomalyMetric(metricAttribute: .caloricIntake, localChange: -0.23, localMean: 1400, globalChange: -0.11, globalMean: 2000, correlation: 0.45, importance: 0.8, timePeriod: "this week", precedingData: [])]))
+        YPDInsightSummaryView(insight: YPDInsight(metricOfInterestType: .vitality, metricOfInterestValue: 2.342, metricOfInterestGlobalChange: 0.34, metricOfInterestGlobalMean: 3,metricOfInterestLocalChange: 1.22, metricOfInterestLocalMean: 2, date: Date(),  mostImportantAnomalyMetrics: [YPDAnomalyMetric(metricAttribute: .caloricIntake, localChange: -0.23, localMean: 1400, globalChange: -0.11, globalMean: 2000, correlation: 0.45, importance: 0.8, timePeriod: "this week", precedingData: [])]))
     }
 }

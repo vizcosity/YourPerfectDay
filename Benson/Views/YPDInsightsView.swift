@@ -9,15 +9,20 @@
 import SwiftUI
 
 struct YPDInsightsView: View {
-    @State var insights: [YPDInsight] = []
+    @State var insights: [YPDInsight]
     var body: some View {
         List(self.insights) { (insight) -> YPDInsightSummaryView in
-            YPDInsightSummaryView(insight: insight)
+            YPDInsightSummaryView(insight: insight, anomalyMetricLimit: 2)
         }.onAppear {
-            Fetcher.sharedInstance.fetchInsights(forAggregationCriteria: .day) { (insights) in
-                        print("Fetched insights.")
-                        self.insights = insights
+            // Checkpoint: Investigating index out of bounds error for retrieving insights.
+            UITableView.appearance().separatorStyle = .none
+            Fetcher.sharedInstance.fetchInsights(forAggregationCriteria: .day, limit: 1) { (insights) in
+                print("Fetched insights.")
+                self.insights = insights
             }
+        }.onDisappear {
+            UITableView.appearance().separatorStyle = .singleLine
+            
         }
         
     }
@@ -25,6 +30,6 @@ struct YPDInsightsView: View {
 
 struct YPDInsightsView_Previews: PreviewProvider {
     static var previews: some View {
-        YPDInsightsView()
+        YPDInsightsView(insights: _sampleInsights)
     }
 }

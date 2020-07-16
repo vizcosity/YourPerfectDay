@@ -20,7 +20,7 @@ struct YPDBackgroundProgressBarView: View {
         // Background progress bar - the colour depends on whether the MOI has increased, or decreased.
         return Rectangle()
             .fill(colour.opacity(0.5))
-            .frame(width: geometry.size.width, height: Constants.defaultProgressBarHeight, alignment: .center)
+            .frame(width: geometry.size.width, height: ProgressBarDefaults.defaultProgressBarHeight, alignment: .center)
             .cornerRadius(ProgressBarDefaults.defaultCornerRadius)
             .zIndex(0)
     }
@@ -34,7 +34,7 @@ struct YPDIntermediaryProgressBarView: View {
     var body: some View {
         let colour = self.percentageMOIChangeValue >= 0 ? Colour.progresssBarGreen : Colour.progressBarRed
        
-        let widthIfIncreasing = max(0.5,(geometry.size.width * 0.5) + (geometry.size.width * 0.5)*CGFloat(self.percentageMOIChangeValue))
+        let widthIfIncreasing = min(geometry.size.width,(geometry.size.width * 0.5) + (geometry.size.width * 0.5)*CGFloat(self.percentageMOIChangeValue))
         
         let widthIfDecreasing = (self.percentageMOIChangeValue < -1 ? 0 : 0.5) * geometry.size.width
         
@@ -92,8 +92,9 @@ struct YPDProgressBarPercentage: View {
     
     var body: some View {
         Text(self.percentageMOIChangeValue.formattedAsPercentage)
-        .font(.caption)
-        .foregroundColor(Color.white.opacity(0.85))
+            .font(.body)
+            .fontWeight(.semibold)
+            .foregroundColor(Color.white.opacity(1))
         .scaleEffect(0.6)
             .position(x: self.textPositionX, y: self.textPositionY)
         .zIndex(3)
@@ -126,12 +127,12 @@ struct YPDInsightProgressBarView: View {
 }
 
 struct ProgressBarDefaults {
-    static let defaultProgressBarHeight: CGFloat = 10
+    static let defaultProgressBarHeight: CGFloat = 15
     static let defaultCornerRadius: CGFloat = 5
 }
 
 struct YPDInsightSummaryVIEWProgressBar_Previews: PreviewProvider {
     static var previews: some View {
-        YPDInsightProgressBarView(percentageMOIChangeValue: 2.95)
+        YPDInsightProgressBarView(percentageMOIChangeValue: 0.95)
     }
 }

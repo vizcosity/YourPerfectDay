@@ -386,13 +386,25 @@ class Fetcher {
 
 /// Fetching insights and other analysis-related data.
 extension Fetcher {
-    public func fetchInsights(forAggregationCriteria aggregationCriteria: AggregationCriteria, completionHandler: @escaping ([YPDInsight]) -> Void) {
-        self.sendPostRequest(toEndpoint: Webserver.fetchInsights, withBody: [
+    public func fetchInsights(forAggregationCriteria aggregationCriteria: AggregationCriteria, limit: Int? = nil, completionHandler: @escaping ([YPDInsight]) -> Void) {
+        
+        var body = [
             "aggregationCriteria": aggregationCriteria.description
-        ]) { (json) in
+        ]
+        
+        if let limit = limit {
+            body["limit"] = "\(limit)"
+        }
+        
+        self.sendPostRequest(toEndpoint: Webserver.fetchInsights, withBody: body) { (json) in
             // TODO: Parse JSON response as YPD Insights.
             // TODO: Alter YPD Insights to conform to better support an entire insight with multiple important metrics.
             completionHandler(json["data"].arrayValue.map(YPDInsight.init(json:)))
         }
     }
 }
+
+// Custom protocol and extensions so that we can serialise either ints or strings within the Body sent as a POST request to our webserver.
+//protocol POSTRequestAble {}
+//extension String: POSTRequestable {}
+//extension Int: POSTRequestable {}

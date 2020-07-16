@@ -8,11 +8,11 @@ import SwiftUI
 
 struct YPDInsightSummaryView: View {
     
-//    /// The metric which the following insight pertains to.
-//    var metricOfInterest: String
-//
-//    /// The percentage change for the metricOfInterest
-//    var percentageMOIChange: Double
+    //    /// The metric which the following insight pertains to.
+    //    var metricOfInterest: String
+    //
+    //    /// The percentage change for the metricOfInterest
+    //    var percentageMOIChange: Double
     
     // Brief MetricOfInterestSummary Sentence.
     var briefMOISummarySentence: String {
@@ -21,46 +21,52 @@ struct YPDInsightSummaryView: View {
     
     var insight: YPDInsight
     
+    /// Limit for the number of anomalies which should be displayed.
+    var anomalyMetricLimit: Int?
+    var getAnomalyMetricLimit: Int {
+        return self.anomalyMetricLimit != nil ? min(self.anomalyMetricLimit!, self.insight.mostImportantAnomalyMetrics.count) :  self.insight.mostImportantAnomalyMetrics.count
+    }
+    
+    var increasedOrDecreasedString: String {
+        return self.insight.metricOfInterestLocalChange > 0.0 ? "increased" : "decreased"
+    }
+    
     var body: some View {
         VStack {
             
             // Card above-fold content.
-            VStack {
+            VStack(alignment: .leading) {
                 
-                HStack {
-                    Text("\(self.insight.metricOfInterestLocalChange > 0.0 ? "Improved": "Declining") \(self.insight.metricOfInterestType.humanReadable)")
-                        .font(.headline)
-                        .multilineTextAlignment(.leading)
-                    Spacer()
-                }
+                Text("\(self.insight.metricOfInterestLocalChange > 0.0 ? "Improved": "Declining") \(self.insight.metricOfInterestType.humanReadable)")
+                    .font(.headline)
+                    .multilineTextAlignment(.leading)
                 
                 // Text notifying the user of the time period.
-                HStack {
-                    Text("Your \(self.insight.metricOfInterestType.humanReadable) over the last \(self.insight.timePeriod).")
-                        .font(.subheadline)
-                    Spacer()
-                }.padding(.top, 5)
+                Text("Your \(self.insight.metricOfInterestType.humanReadable) has \(self.increasedOrDecreasedString) over the last \(self.insight.timePeriod).")
+                    .font(.subheadline)
+                .fixedSize(horizontal: false, vertical: true)
+                    //                    Spacer()
+                    .padding(.top, 5)
                 
                 YPDInsightProgressBarView(percentageMOIChangeValue: self.insight.metricOfInterestLocalChange)
                 
-                HStack {
-                    Text("\(self.briefMOISummarySentence). Here are some other changes:")
-                        .font(.caption)
-                        .foregroundColor(.gray)
-                        .multilineTextAlignment(.leading)
-                    Spacer()
-                }
-                .padding(.bottom, CGFloat(10.0))
+                Text("\(self.briefMOISummarySentence). \nHere are some other changes:")
+                    .font(.caption)
+                    .foregroundColor(.gray)
+                    .multilineTextAlignment(.leading)
+                    .padding(.bottom, CGFloat(10.0))
+                    .fixedSize(horizontal: false, vertical: true)
                 
                 // Display each of the insights associated with the most important and correlated metrics.
+                // CHECKPOINT. Investigating index of out bounds error.
                 ForEach(0..<self.insight.mostImportantAnomalyMetrics.count) {
-
+                    
                     // Embed in a HStack so that the results are all left-aligned.
                     YPDSummaryIndividualMetricInsightView(metricName: self.insight.mostImportantAnomalyMetrics[$0].metricAttribute.humanReadable, percentageChangeValue: self.insight.mostImportantAnomalyMetrics[$0].localChange, timePeriod: self.insight.mostImportantAnomalyMetrics[$0].timePeriod ?? self.insight.timePeriod)
                     
-
+                    
                 }
-                                
+                
             }
             .padding(.all, CGFloat(20.0))
             
@@ -72,10 +78,10 @@ struct YPDInsightSummaryView: View {
                 HStack {
                     Spacer()
                     HStack {
-                            Text("More Detail")
-                                .font(.caption)
-                            Image(systemName: "chevron.right")
-                                .scaleEffect(0.7)
+                        Text("More Detail")
+                            .font(.caption)
+                        Image(systemName: "chevron.right")
+                            .scaleEffect(0.7)
                     }.foregroundColor(Color.gray)
                 }
                 .padding(.all, CGFloat(5))
@@ -86,7 +92,7 @@ struct YPDInsightSummaryView: View {
         .background(Color.white)
         .cornerRadius(6.0)
         .shadow(color: Color.init(red: 0.9, green: 0.9, blue: 0.9), radius: 10, x: 0, y: 10)
-        .padding(.all, 10)
+        .padding([.leading, .top, .trailing], 10)
     }
     
     /// Given the metric of interest and the percentage change, provides a short summary sentence.
@@ -108,13 +114,17 @@ struct YPDInsightSummaryView: View {
         
         let formattedPercentageMOIChange = formatter.string(from: NSNumber(value: percentageMOIChange*100))!
         
-        return "Your \(metricOfInterest) has \(percentageMOIChange > 0 ? "increased" : "decreased") by \(formattedPercentageMOIChange ?? "0")%, going from a global average of \(formattedStartValue) to \(formattedEndValue) during this period"
+//        return "Your \(metricOfInterest) has \(percentageMOIChange > 0 ? "increased" : "decreased") by \(formattedPercentageMOIChange ?? "0")%, going from a global average of \(formattedStartValue) to \(formattedEndValue) during this period"
+        
+        
+        return "Your \(metricOfInterest) has \(percentageMOIChange > 0 ? "increased" : "decreased") by \(self.insight.metricOfInterestLocalChange.formattedAsPercentage)"
         
     }
 }
 
 struct YPDInsightSummaryView_Previews: PreviewProvider {
     static var previews: some View {
-        YPDInsightSummaryView(insight: YPDInsight(metricOfInterestType: .vitality, metricOfInterestValue: 2.342, metricOfInterestGlobalChange: 0.34, metricOfInterestGlobalMean: 3,metricOfInterestLocalChange: 1.22, metricOfInterestLocalMean: 2, date: Date(),  mostImportantAnomalyMetrics: [YPDAnomalyMetric(metricAttribute: .caloricIntake, localChange: -0.23, localMean: 1400, globalChange: -0.11, globalMean: 2000, correlation: 0.45, importance: 0.8, timePeriod: "this week", precedingData: [])]))
+        YPDInsightSummaryView(insight: YPDInsight(metricOfInterestType: .generalFeeling, metricOfInterestValue: 2.342, metricOfInterestGlobalChange: 0.34, metricOfInterestGlobalMean: 3,metricOfInterestLocalChange: 1.82, metricOfInterestLocalMean: 2, date: Date(),  mostImportantAnomalyMetrics: [YPDAnomalyMetric(metricAttribute: .caloricIntake, localChange: -0.23, localMean: 1400, globalChange: -0.11, globalMean: 2000, correlation: 0.45, importance: 0.8, timePeriod: "this week", precedingData: []), YPDAnomalyMetric(metricAttribute: .dietaryCarbohydrates, localChange: -0.83, localMean: 1400, globalChange: -0.11, globalMean: 2000, correlation: 0.45, importance: 0.8, timePeriod: "this week", precedingData: []), YPDAnomalyMetric(metricAttribute: .lowHeartRateEvents, localChange: 0.33, localMean: 1400, globalChange: -0.11, globalMean: 2000, correlation: 0.45, importance: 0.8, timePeriod: "this week", precedingData: []), YPDAnomalyMetric(metricAttribute: .sleepHours, localChange: -0.23, localMean: 1400, globalChange: -0.11, globalMean: 2000, correlation: 0.45, importance: 0.8, timePeriod: "this week", precedingData: [])]), anomalyMetricLimit: 2)
+        //        YPDInsightSummaryView(insight: _sampleInsights[0])
     }
 }

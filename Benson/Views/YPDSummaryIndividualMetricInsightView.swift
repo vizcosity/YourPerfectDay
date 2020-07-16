@@ -25,31 +25,34 @@ struct YPDSummaryIndividualMetricInsightView: View {
 //    }
     
     var body: some View {
-        HStack {
             VStack(alignment: .leading) {
                 
                 HStack {
                     Image(systemName: self.percentageChangeValue >= 0 ? "chevron.up" : "chevron.down").foregroundColor(self.percentageChangeValue >= 0 ? Color.green : Color.red)
+                        .scaleEffect(0.8)
                     
                     Text("\(self.percentageChangeValue >= 0 ? "Increase" : "Decrease") in \(self.metricName)")
-                        .font(.body)
+                        .font(.footnote)
                         .fontWeight(.semibold)
                         .multilineTextAlignment(.leading)
                 }
+                .padding(0.0)
                 
-                Text("Over the last \(self.timePeriod) your \(self.metricName) \(self.percentageChangeValue >= 0 ? "increased" : "fell") by \(self.percentageChangeValue.formattedAsPercentage).")
-                    .font(.footnote)
+                Text("Your \(self.metricName) \(self.percentageChangeValue >= 0 ? "increased" : "fell") by \(self.percentageChangeValue.formattedAsPercentage).")
+                    .font(.caption)
                     .multilineTextAlignment(.leading)
                     .foregroundColor(.gray)
-            }
-            Spacer()
-        }
+                    .padding(.top, -5.0)
+            }.padding(.all, 0)
+        .lineSpacing(0)
+//            Spacer()
+
     }
 }
 
 struct YPDSummaryIndividualMetricInsightView_Previews: PreviewProvider {
     static var previews: some View {
-        YPDSummaryIndividualMetricInsightView(metricName: "dietaryCarbohydrates", percentageChangeValue: 0.34, timePeriod: "week")
+        YPDSummaryIndividualMetricInsightView(metricName: "dietaryCarbohydrates", percentageChangeValue: 2.34, timePeriod: "week")
         
     }
 }

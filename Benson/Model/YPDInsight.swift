@@ -307,7 +307,9 @@ class YPDInsight: Identifiable, PrettyPrintable {
     }
 }
 /// Represents a change in a given metric; used for displaying insights to the user.
-class YPDAnomalyMetric: PrettyPrintable {
+class YPDAnomalyMetric: PrettyPrintable, Identifiable {
+    
+    var id = UUID()
     
     /// The metric attribute associated with the current insight.
     var metricAttribute: YPDCheckinType

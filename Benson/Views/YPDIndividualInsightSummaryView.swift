@@ -59,10 +59,10 @@ struct YPDInsightSummaryView: View {
                 
                 // Display each of the insights associated with the most important and correlated metrics.
                 // CHECKPOINT. Investigating index of out bounds error.
-                ForEach(0..<self.insight.mostImportantAnomalyMetrics.count) {
+                ForEach(self.insight.mostImportantAnomalyMetrics.prefix(self.getAnomalyMetricLimit), id: \.id) { anomalyMetric -> YPDSummaryIndividualMetricInsightView in
                     
                     // Embed in a HStack so that the results are all left-aligned.
-                    YPDSummaryIndividualMetricInsightView(metricName: self.insight.mostImportantAnomalyMetrics[$0].metricAttribute.humanReadable, percentageChangeValue: self.insight.mostImportantAnomalyMetrics[$0].localChange, timePeriod: self.insight.mostImportantAnomalyMetrics[$0].timePeriod ?? self.insight.timePeriod)
+                    return YPDSummaryIndividualMetricInsightView(metricName: anomalyMetric.metricAttribute.humanReadable, percentageChangeValue: anomalyMetric.localChange, timePeriod: anomalyMetric.timePeriod)
                     
                     
                 }

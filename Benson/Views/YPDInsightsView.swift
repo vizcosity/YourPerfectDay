@@ -16,7 +16,7 @@ struct YPDInsightsView: View {
         }.onAppear {
             // Checkpoint: Investigating index out of bounds error for retrieving insights.
             UITableView.appearance().separatorStyle = .none
-            Fetcher.sharedInstance.fetchInsights(forAggregationCriteria: .day, limit: 1) { (insights) in
+            Fetcher.sharedInstance.fetchInsights(forAggregationCriteria: .day, limit: 10) { (insights) in
                 print("Fetched insights.")
                 self.insights = insights
             }

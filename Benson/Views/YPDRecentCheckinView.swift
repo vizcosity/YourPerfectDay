@@ -9,6 +9,49 @@
 import SwiftUI
 
 struct YPDRecentCheckinView: View {
+
+    var displayedCheckin: YPDCheckin
+    var allCheckins: [YPDCheckin] = []
+    
+    var body: some View {
+        YPDCardView(aboveFold: {
+            HStack {
+                Spacer()
+                // Show 'last checkin' vs. 'Checkin date' if we know this is the
+                // only checkin being displayed.
+                Text("\(!self.allCheckins.isEmpty ? "Last Checkin" : "") \(self.displayedCheckin.timeSince)")
+                    .font(.footnote)
+                    .fontWeight(.regular)
+                Image(systemName: "clock")
+                    .resizable()
+                    .frame(width: 12, height: 12)
+                
+            }.foregroundColor(Color.gray)
+        }, mainContent: {
+                        VStack {
+                
+                ForEach(0..<self.displayedCheckin.attributeValues.count){ i in
+                    HStack {
+                        Text("\(self.displayedCheckin.attributeValues[i].type.humanReadable)  \(Int(self.displayedCheckin.attributeValues[i].value))/\(Int(self.displayedCheckin.attributeValues[i].maxValue))")
+                            .fontWeight(.medium)
+                        
+                        Spacer()
+                    }
+                    
+                    YPDProgressBar(progressValue: CGFloat(self.displayedCheckin.attributeValues[i].value/self.displayedCheckin.attributeValues[i].maxValue), colour: Color.blue)
+                }
+                
+            }
+        }, belowFold: {
+            if !self.allCheckins.isEmpty   {
+                YPDAdditionalCheckins(checkins: self.allCheckins)
+            }
+        })
+    }
+    
+}
+
+struct YPDRecentCheckinViewLegacy: View {
     
     var displayedCheckin: YPDCheckin
     var allCheckins: [YPDCheckin] = []
@@ -49,7 +92,7 @@ struct YPDRecentCheckinView: View {
                 YPDAdditionalCheckins(checkins: self.allCheckins)
             }
         }
-        .padding(Constants.Padding)
+        .padding(.all, Constants.Padding)
         .background(Color.white)
         .cornerRadius(Constants.defaultCornerRadius)
         .shadow(color: Constants.shadowColour, radius: Constants.shadowRadius, x: Constants.shadowX, y: Constants.shadowY)
@@ -70,16 +113,6 @@ struct YPDRecentCheckinView: View {
     }
 }
 
-struct YPDDivider: View {
-    
-    var body: some View {
-        Rectangle()
-            .fill(Color(red: 225/256, green: 229/256, blue: 233/256))
-            .frame(width: nil, height: 1, alignment: .center)
-    }
-    
-}
-
 struct YPDAdditionalCheckins: View {
     
     var checkins: [YPDCheckin]
@@ -88,20 +121,18 @@ struct YPDAdditionalCheckins: View {
         
         VStack {
             
-            // Horizontal divider.
-            YPDDivider()
-            
             NavigationLink(destination: YPDCheckinsView(checkins: self.checkins, maxDisplayedCheckins: 20)) {
                 HStack {
                     Spacer()
                     HStack {
-                        Text("\(self.checkins.count) Checkins this week")
+                        Text("\(self.checkins.count) more checkins")
                             .font(.caption)
                         Image(systemName: "chevron.right")
                             .scaleEffect(0.7)
                     }.foregroundColor(Color.gray)
                 }
-                .padding([.leading, .trailing], CGFloat(5))
+                .padding([.leading, .trailing, .top], CGFloat(5))
+                .padding(.bottom, -5)
             }
             
         }

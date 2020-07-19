@@ -62,6 +62,8 @@
 		21E2F37824687A3F00EFB205 /* YPDProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E2F37724687A3F00EFB205 /* YPDProgressBar.swift */; };
 		21F8C30E24BA260B00F7B3BB /* moment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F8C30D24BA260B00F7B3BB /* moment.swift */; };
 		21F8C31024BA262700F7B3BB /* moment-with-locales.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 21F8C30F24BA262700F7B3BB /* moment-with-locales.min.js */; };
+		21FEE7D324C4E18700C6207A /* YPDRecentCheckinsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FEE7D224C4E18600C6207A /* YPDRecentCheckinsView.swift */; };
+		21FEE7D524C4E7A000C6207A /* YPDCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FEE7D424C4E7A000C6207A /* YPDCardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -160,6 +162,8 @@
 		21E2F37724687A3F00EFB205 /* YPDProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDProgressBar.swift; sourceTree = "<group>"; };
 		21F8C30D24BA260B00F7B3BB /* moment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = moment.swift; sourceTree = "<group>"; };
 		21F8C30F24BA262700F7B3BB /* moment-with-locales.min.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "moment-with-locales.min.js"; sourceTree = "<group>"; };
+		21FEE7D224C4E18600C6207A /* YPDRecentCheckinsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDRecentCheckinsView.swift; sourceTree = "<group>"; };
+		21FEE7D424C4E7A000C6207A /* YPDCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDCardView.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -290,6 +294,7 @@
 		217BEFC12395BC4B0076DF02 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				21FEE7D424C4E7A000C6207A /* YPDCardView.swift */,
 				21532F5B24730F410054AC84 /* Wrappers */,
 				21E2F375246878AF00EFB205 /* YPDRecentCheckinView.swift */,
 				2127B00E2430E5B900B8D0B1 /* YPDSummaryIndividualMetricInsightView.swift */,
@@ -301,6 +306,7 @@
 				213436F72309A764006B1CA8 /* GradientView.swift */,
 				21E2F37724687A3F00EFB205 /* YPDProgressBar.swift */,
 				21532F532472FE600054AC84 /* YPDSummaryView.swift */,
+				21FEE7D224C4E18600C6207A /* YPDRecentCheckinsView.swift */,
 				21BD46252481A3900077DCD7 /* YPDCheckinsView.swift */,
 				219C7D712482CAC50052AF72 /* YPDAttributePicker.swift */,
 				21DF333B2482CCCE00D18EBC /* YPDTimeUnitPicker.swift */,
@@ -477,6 +483,7 @@
 				213436E423098A42006B1CA8 /* AppDelegate.swift in Sources */,
 				21BD46262481A3900077DCD7 /* YPDCheckinsView.swift in Sources */,
 				2184B020238D11F900FE96EA /* Fetcher.swift in Sources */,
+				21FEE7D324C4E18700C6207A /* YPDRecentCheckinsView.swift in Sources */,
 				21E2F37824687A3F00EFB205 /* YPDProgressBar.swift in Sources */,
 				2101009B242EA0D70010ED8D /* YPDInsightProgressBarView.swift in Sources */,
 				21BD462424819E1F0077DCD7 /* Constants.swift in Sources */,
@@ -499,6 +506,7 @@
 				218241B92482DC8500B85C3E /* YPDButton.swift in Sources */,
 				21938DC023155E690066B90B /* TabBarViewController.swift in Sources */,
 				212B86C9239D483500CE9C41 /* BensonHealthManager.swift in Sources */,
+				21FEE7D524C4E7A000C6207A /* YPDCardView.swift in Sources */,
 				21734671240AF9C700B22219 /* Sample.swift in Sources */,
 				21C58F372327BCBB007EE5F1 /* CheckinCollectionViewCell.swift in Sources */,
 				216CE749248401A400B195C6 /* YPDSubmitCheckinViewController.swift in Sources */,

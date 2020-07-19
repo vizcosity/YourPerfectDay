@@ -83,56 +83,67 @@ struct YPDSummaryView: View {
                             .padding([.leading, .trailing], Constants.Padding)
                     }
                     
-                    VStack {
+                    ScrollView {
                         
-                        HStack {
-                            Text("Recent Checkins")
-                                .font(.headline)
-                            Spacer()
-                        }
-                        .padding(.init([.top, .leading, .trailing]), Constants.Padding)
+                        YPDInsightSummarySection()
                         
-                        if !self.checkins.isEmpty {
-                            YPDRecentCheckinView(displayedCheckin: self.checkins.first!, allCheckins: self.checkins)
-                        }
-                    }.onAppear {
-                        Fetcher.sharedInstance.fetchMetricLogs(completionHandler: { self.checkins = $0 })
+                        YPDRecentCheckinsSection(checkins: self.checkins)
+                        
+                        Spacer()
                     }
-                    Spacer()
-                }
+                    
+                    // Sets the title for the view itself. This is not obeyed for the tab bar item which is why it is repeated on the parent element below.s
+                }.navigationBarTitle("Summary")
                 
-            // Sets the title for the view itself. This is not obeyed for the tab bar item which is why it is repeated on the parent element below.s
+                // Sets the title for the tab bar item.
             }.navigationBarTitle("Summary")
             
-        // Sets the title for the tab bar item.
-        }.navigationBarTitle("Summary")
-        
-        
-    }
-}
-
-struct YPDRecentCheckinsView: View {
-    
-    @Binding var checkins: [YPDCheckin]
-    
-    var body: some View {
-        VStack {
-            HStack {
-                Text("Recent Checkins")
-                    .font(.headline)
-                Spacer()
-            }
-            .padding(.all, 10)
-            
-            List {
-                ForEach(self.checkins, id: \.self) { (checkin) -> YPDRecentCheckinView in
-                    YPDRecentCheckinView(displayedCheckin: checkin)
-                }
-            }
             
         }
     }
+    
 }
+
+/// Displays a single YPD insight, linking to the extended YPDInsightExpandedView.
+struct YPDInsightSummarySection: View {
+    
+    @State var insight: YPDInsight?
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+
+            if self.insight != nil {
+                Text("Recent Insight")
+                    .font(.headline)
+                    .padding(.init([.top, .leading, .trailing]), Constants.Padding)
+                YPDInsightSummaryView(insight: self.insight!, anomalyMetricLimit: 2)
+            }
+        }
+        .onAppear {
+            Fetcher.sharedInstance.fetchInsights(forAggregationCriteria: .day, limit: 1) { if $0.count >= 1 {self.insight = $0.first! } }
+        }
+    }
+}
+
+struct YPDRecentCheckinsSection: View {
+    
+    @State var checkins: [YPDCheckin]
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text("Recent Checkins")
+                .font(.headline)
+                .padding(.init([.top, .leading, .trailing]), Constants.Padding)
+            
+            if !self.checkins.isEmpty {
+                YPDRecentCheckinView(displayedCheckin: self.checkins.first!, allCheckins: self.checkins)
+            }
+        }.onAppear {
+            Fetcher.sharedInstance.fetchMetricLogs(completionHandler: { self.checkins = $0 })
+        }
+    }
+}
+
 
 struct YPDSummaryView_Previews: PreviewProvider {
     static var previews: some View {

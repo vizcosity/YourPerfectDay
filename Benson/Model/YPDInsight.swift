@@ -236,6 +236,21 @@ class YPDInsight: Identifiable, PrettyPrintable {
     /// The date associated with the insight.
     var date: Date
     
+    /// The human readable date associated with the given insight. (If the anomaly was detected today, it highlights so - otherwise, it describes the timeSince in human readable terms (e.g. "3 days ago").
+    var humanReadableDate: String {
+        let checkinDate = moment(self.date).startOf("day");
+        let today = moment(Date()).startOf("day");
+        let timeSinceString = checkinDate.isSame(today) ? "Today" : checkinDate.from(today)
+        return timeSinceString
+    }
+    
+    /// Abbreviated date (DD/MM) for the insight.
+    var abbreviatedDateString: String {
+        let checkinDate = moment(self.date).startOf("day")
+        let shortDateString = checkinDate.format("DD/MM")
+        return shortDateString
+    }
+    
     /// The time period associated with the metric.
     var timePeriod: String = "while"
     

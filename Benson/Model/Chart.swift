@@ -19,9 +19,10 @@ class YPDChartData: ObservableObject {
     @Published var horizontalAxisChartMarkers: [String] = []
     @Published var error = ""
     
-    var timeUnit: AggregationCriteria
+    var timeUnit: AggregationCriteria?
     var attributes: [YPDCheckinType]
-    var data: JSON?
+    var jsonData: JSON?
+    var data: [(Date, Double)]?
     
     /// Convenience initialiser which fetches the aggregated health and checkin data JSON file from the backend, and initialises the ChartData object.
     /// - Parameters:
@@ -40,8 +41,18 @@ class YPDChartData: ObservableObject {
     public init(data: JSON, attributes: [YPDCheckinType], selectedTimeUnit timeUnit: AggregationCriteria) {
         self.attributes = attributes
         self.timeUnit = timeUnit
-        self.data = data
+        self.jsonData = data
         self.initialize(data: data, attributes: attributes, selectedTimeUnit: timeUnit)
+    }
+    
+    /// - Parameters:
+    ///     - data: The tuple of (Date, Double) tuple pairs providing the data to be displayed in the chart.
+    ///     - attributes: The attributes (such as generalFeeling, Mood, etc) which correspond to the aggregated data
+    ///     - timeUnit: (Optional) The aggregation criteria (e.g. Day, Month, Week, etc)
+    public init(data: [(Date, Double)], attributes: [YPDCheckinType], selectedTimeUnit timeUnit: AggregationCriteria? = nil) {
+        self.attributes = attributes
+        self.timeUnit = timeUnit
+        self.initialize(data: data, attributes: attributes)
     }
     
     /// Convenience method which fetches data given certain attributes and a time unit, and updates the chart data accordingly.
@@ -63,7 +74,7 @@ class YPDChartData: ObservableObject {
     /// Convenience method which can be used to initialize the object within the asynchronous call to fetch the health data .
     private func initialize(data: JSON, attributes: [YPDCheckinType], selectedTimeUnit timeUnit: AggregationCriteria){
         
-        self.data = data
+        self.jsonData = data
         self.attributes = attributes
         self.timeUnit = timeUnit
         
@@ -84,9 +95,35 @@ class YPDChartData: ObservableObject {
         
     }
     
+    /// Convenience method which can be used to initialize the YPDChartData object using the array of (Double, Date) tuples.
+    private func initialize(data: [(Date, Double)], attributes: [YPDCheckinType]){
+        
+//        self.data = data
+        self.attributes = attributes
+        
+        self.dataSeries = []
+                
+        var sampleDates: [Date] = []
+        
+        self.data = data
+        
+        // For each attribute, generate the data series chart points, as well as axis labels.
+        attributes.forEach {
+            let (dates, chartPoints) = self.generateChartPointsAndAxisLabelDates(forData: data, normalise: attributes.count > 1)
+            
+            sampleDates.append(contentsOf: dates)
+            
+            self.dataSeries.append(OCKDataSeries(dataPoints: chartPoints, title: $0.humanReadable, size: 3, color: Colour.chartColours.randomElement()!))
+        }
+        
+        // Generate the horizontal axis labels for the chart.
+        self.horizontalAxisChartMarkers = self.generateHorizontalAxisLabels(forCollectionDates: sampleDates)
+        
+    }
+    
     /// Updates the ChartData object given new attributes or selected time units.
     public func fetchNewData(forAttributes attributes: [YPDCheckinType]? = nil, selectedTimeUnit timeUnit: AggregationCriteria? = nil){
-        self.fetchDataAndInitialize(attributes: attributes ?? self.attributes, selectedTimeUnit: timeUnit ?? self.timeUnit)
+        self.fetchDataAndInitialize(attributes: attributes ?? self.attributes, selectedTimeUnit: timeUnit ?? self.timeUnit ?? .day)
     }
     
     /// Given an array of Dates corresponding to date samples when metric logs were taken, cleans out duplicates and generates horizontal axis labels.
@@ -138,6 +175,40 @@ class YPDChartData: ObservableObject {
         }.filter { !filterOutZeros || $0.1.y != 0 }
             // Ensure that we constrain the number of points returned so that we do not overwhelm the user initially, and instead present a subset of the available datapoints.
             .suffix(showDataSubset ? timeUnit.maxNumberOfPoints : data.count)
+        
+        return (chartPoints.map { $0.0 }, chartPoints.map { CGPoint(x: $0.1.x, y: $0.1.y / CGFloat(normalise ? largestYValue : 1)) })
+    }
+    
+    /// Generates the chart points to be used for the OCKDataSeries, as well as an array of Dates which can be concatenated amongst all attributes in order to generate all required horizontal axis labels. Convenience method which takes in array of (Date, Double) tuples instead of a JSON array
+    private func generateChartPointsAndAxisLabelDates(forData data: [(Date, Double)], filterOutZeros: Bool = true, normalise: Bool = false, showDataSubset: Bool = true) -> ([Date], [CGPoint]) {
+        
+        // If normalise is set to true, then we will use the largest Y Value to normalise all the chart points within
+        // the range [0, 1]
+        var largestYValue: Double = 1
+       
+        let chartPoints = data.compactMap { (date, doubleValue) -> (Date, CGPoint)? in
+            let stringToDateFormatter = ISO8601DateFormatter()
+            stringToDateFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+            
+            // Parse the date value from the JSON string.
+            
+//            guard let doubleValue = Double(item[attribute].stringValue),
+//                let date = stringToDateFormatter.date(from: item["startOfDate"].stringValue)
+//            else { return nil }
+                        
+            // Ignore everything but the 'day', 'month' and 'year', as we would want to ensure that we do not produce multiple horizontal axis labels for dates of different times of the same day.
+            let truncatedDateComponents = Calendar.current.dateComponents([.day, .month, .year], from: date)
+            
+            // Set the largestYValue for normalisation.
+            largestYValue = max(largestYValue, doubleValue)
+            
+            if let truncatedDate = Calendar.current.date(from: truncatedDateComponents) {
+                return (truncatedDate, CGPoint(x: truncatedDate.timeIntervalSince1970, y: doubleValue))
+            } else { return nil }
+            
+        }.filter { !filterOutZeros || $0.1.y != 0 }
+            // Ensure that we constrain the number of points returned so that we do not overwhelm the user initially, and instead present a subset of the available datapoints.
+            .suffix(showDataSubset ? (self.timeUnit ?? .day).maxNumberOfPoints : data.count)
         
         return (chartPoints.map { $0.0 }, chartPoints.map { CGPoint(x: $0.1.x, y: $0.1.y / CGFloat(normalise ? largestYValue : 1)) })
     }

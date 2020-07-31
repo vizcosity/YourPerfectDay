@@ -6,11 +6,13 @@
 //  Copyright © 2020 Ventr. All rights reserved.
 //
 
+import UIKit
 import SwiftUI
 import SwiftyJSON
 import CareKitUI
 
 // TODO: Investigate why the horizontal axis label markers are not appearing.
+// Checkpoint: Investigating the square icon subview to see why it becomes enlarged in some cases.
 
 /// OCKCartersianChartViewWrapper for SwiftUI.
 struct OCKCartesianChartViewWrapper: UIViewRepresentable {
@@ -28,10 +30,14 @@ struct OCKCartesianChartViewWrapper: UIViewRepresentable {
                         
         chartView.graphView.dataSeries = self.chartData.dataSeries
         
+//        chartView.graphView.subviews
+        
         //chartView.graphView.heightAnchor.constraint(equalToConstant: 250).isActive = true
         //chartView.graphView.frame = chartViewContainer.bounds
         
         chartView.headerView.removeFromSuperview()
+        
+//        chartView.graphView.yMaximum = 3
         
        // Remove unwanted header view from the ChartView's stack view.
         chartView.contentStackView.arrangedSubviews.first?.removeFromSuperview()
@@ -42,10 +48,26 @@ struct OCKCartesianChartViewWrapper: UIViewRepresentable {
         
         chartView.backgroundColor = Colour.secondary
                         
-//        chartView.frame = CGRect(x: 0, y: 0, width: 300, height: 300)
+//        chartView.frame = CGRect(x: 0, y: 0, width: 300, height: 400)
 //        chartView.headerView.titleLabel.text = "My Sample Chart"
         chartView.headerView.isHidden = true
         
+//        chartView.translatesAutoresizingMaskIntoConstraints = false
+        
+//        chartView.contentStackView.clear()
+        let graphLegendView = chartView.graphView.subviews[3]
+        graphLegendView.translatesAutoresizingMaskIntoConstraints = false
+        
+        // chartView.graphView.legend
+        
+//        graphLegendView.frame = CGRect(x: graphLegendView.frame.minX, y: graphLegendView.frame.minY, width: graphLegendView.frame.width, height: )
+        
+        
+        
+        
+        
+//        chartView.bounds = CGRect(x:0, y:0, width: 500, height: 500)
+                
         return chartView
         
     }
@@ -56,6 +78,9 @@ struct OCKCartesianChartViewWrapper: UIViewRepresentable {
 //        uiView.graphView.dataSeries = []
         uiView.graphView.dataSeries = self.chartData.dataSeries
 //        uiView.graphView.dataSeries = []
+        
+        // Add a constraint to the graph legend view.
+//        uiView.graphView.subviews[]
         
 //        print("Axis Chart Markers: \(self.chartData.horizontalAxisChartMarkers.sample(withAroundNumberOfPoints: 5).joined(separator: ","))")
         
@@ -76,8 +101,10 @@ struct OCKCartesianChartViewWrapper_Previews: PreviewProvider {
     
     static var chartData = YPDChartData(attributes: [.generalFeeling], selectedTimeUnit: .week)
     
+    static var anomalyMetricChartData = YPDChartData(data: _sampleInsights[0].mostImportantAnomalyMetrics[0].precedingData, attributes: [.vitality], selectedTimeUnit: .day)
+    
     static var previews: some View {
-        VStack {
+        VStack(alignment: .leading) {
             Button(action: {
                 self.chartData.fetchNewData(selectedTimeUnit: .month)
             }, label: {
@@ -87,8 +114,11 @@ struct OCKCartesianChartViewWrapper_Previews: PreviewProvider {
             Text("\(chartData.attributes.map { $0.humanReadable }.joined(separator:","))")
             
             Text("\(chartData.horizontalAxisChartMarkers.sample(withAroundNumberOfPoints: 5).joined(separator: ","))")
-            OCKCartesianChartViewWrapper(chartData: chartData)
+            OCKCartesianChartViewWrapper(chartData: anomalyMetricChartData)
             .frame(width: nil, height: 300)
+            
+            Text("Chart Data:")
+            Text("\(_sampleInsights[0].mostImportantAnomalyMetrics[0].precedingData.description)")
         }
     }
 }

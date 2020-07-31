@@ -321,6 +321,7 @@ class YPDInsight: Identifiable, PrettyPrintable {
 
     }
 }
+
 /// Represents a change in a given metric; used for displaying insights to the user.
 class YPDAnomalyMetric: PrettyPrintable, Identifiable {
     
@@ -337,10 +338,60 @@ class YPDAnomalyMetric: PrettyPrintable, Identifiable {
     var importance: Double
     var correlation: Double
     
+    /// The metric attribute which this appears to be affecting.
+    var affectingMetricAttribute: YPDCheckinType?
+    
     var precedingData: [(Date, Double)]
     
-    init(metricAttribute: YPDCheckinType, localChange: Double, localMean: Double, globalChange: Double, globalMean: Double, correlation: Double, importance: Double, timePeriod: String, precedingData: [(Date, Double)]){
+    
+    /// Describes the change seen over the period for which the anomaly has been detected.
+    var changeOverLocalPeriodDescription: String? {
+        
+        guard let startingValue = self.precedingData.first?.1, let endingValue = self.precedingData.last?.1 else {
+            return nil
+        }
+        
+        return "Over the last \(self.timePeriod), your \(self.metricAttribute.humanReadable) has \(self.localChangeType) by \(self.localChange.formattedAsPercentage) (going from \(startingValue.rounded(toDecimalPlaces: 2)) to \(endingValue.rounded(toDecimalPlaces: 2))), with a mean of \(self.localMean.rounded(toDecimalPlaces: 2))."
+    }
+    
+    /// Describes the current anomaly within the context of the global mean.
+    var changeOverGlobalPeriodDescription: String {
+        return "Your \(self.metricAttribute.humanReadable) has \(self.globalChangeType) from the all-time average of \(self.globalMean.rounded(toDecimalPlaces: 2)) to an average of \(self.localMean.rounded(toDecimalPlaces: 2)) within the last \(self.timePeriod)."
+    }
+    
+    /// Describes how the current anomaly metric relates to the affecting metric attribute, in terms of the correlation and importance.
+    var correlationToAffectingMetricAttributeDescription: String? {
+        guard let affectingMetricAttribute = self.affectingMetricAttribute else {
+            return nil
+        }
+        return "This appears to be \(self.correlationTypeString) with \(affectingMetricAttribute.humanReadable) (\(self.correlation.formattedAsPercentage))"
+    }
+    
+    var correlationTypeString: String {
+        guard self.correlation != 0 else {
+            return "uncorrelated"
+        }
+        return self.correlation > 0 ? "positively correlated" : "negatively correlated"
+    }
+    
+    var localChangeType: String {
+        if self.localChange == 0 {
+            return "changed"
+        }
+        return self.localChange >= 0 ? "increased" : "decreased"
+    }
+    
+    var globalChangeType: String {
+         if self.globalChange == 0 {
+             return "changed"
+         }
+         return self.globalChange >= 0 ? "increased" : "decreased"
+     }
+    
+        
+    init(metricAttribute: YPDCheckinType, affectingMetricAttribute: YPDCheckinType? = nil, localChange: Double, localMean: Double, globalChange: Double, globalMean: Double, correlation: Double, importance: Double, timePeriod: String, precedingData: [(Date, Double)]){
         self.metricAttribute = metricAttribute
+        self.affectingMetricAttribute = affectingMetricAttribute
         self.localChange = localChange
         self.localMean = localMean
         self.globalChange = globalChange

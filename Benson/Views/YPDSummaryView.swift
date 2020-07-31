@@ -42,7 +42,7 @@ struct YPDSummaryView: View {
     
     var body: some View {
         NavigationView {
-            BackgroundViewWraper {
+            BackgroundViewWrapper {
                 VStack {
                     VStack {
                         HStack {

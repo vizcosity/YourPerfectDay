@@ -23,6 +23,13 @@ extension Double {
        
        return formattedPercentage ?? "0%"
     }
+    
+    func rounded(toDecimalPlaces decimalPlaces: Int) -> String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.maximumFractionDigits = decimalPlaces
+        return numberFormatter.string(from: NSNumber(value: self))!
+    }
+
 }
 
 extension String {

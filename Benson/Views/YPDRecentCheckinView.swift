@@ -12,6 +12,7 @@ struct YPDRecentCheckinView: View {
 
     var displayedCheckin: YPDCheckin
     var allCheckins: [YPDCheckin] = []
+    var displayShadow: Bool = true
     
     var body: some View {
         YPDCardView(aboveFold: {
@@ -45,8 +46,8 @@ struct YPDRecentCheckinView: View {
         }, belowFold: {
             if !self.allCheckins.isEmpty   {
                 YPDAdditionalCheckins(checkins: self.allCheckins)
-            }
-        })
+            } 
+        }, displayShadow: self.displayShadow)
     }
     
 }

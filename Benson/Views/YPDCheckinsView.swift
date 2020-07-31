@@ -30,14 +30,14 @@ struct YPDCheckinsView: View {
                 ForEach(0..<min(self.maxDisplayedCheckins, self.checkins.count)){ i in
                     
                     YPDRecentCheckinView(displayedCheckin:
-                        self.checkins[i]).listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
+                        self.checkins[i], displayShadow: false).listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
                 }
             }.listStyle(DefaultListStyle())
                 .navigationBarTitle("Checkin History")
                 .onAppear {
-                    UITableView.appearance().separatorStyle = .none
+//                    UITableView.appearance().separatorStyle = .none
             }.onDisappear {
-                UITableView.appearance().separatorStyle = .singleLine
+//                UITableView.appearance().separatorStyle = .singleLine
                 
             }
     }

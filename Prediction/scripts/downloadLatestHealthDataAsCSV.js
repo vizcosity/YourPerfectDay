@@ -6,7 +6,7 @@
 
 const fs = require('fs');
 const request = require('request');
-const _SAMPLE_LOCAL_DATA = JSON.parse(fs.readFileSync('./sampleAggHealthAndCheckinData.json').toString('utf8'));
+// const _SAMPLE_LOCAL_DATA = JSON.parse(fs.readFileSync('./sampleAggHealthAndCheckinData.json').toString('utf8'));
 
 function getHealthData(){ return new Promise((resolve, reject) => {
     request.get(`http://benson-backend.herokuapp.com/api/v1/healthDataAndCheckinsAggregatedBy/${process.argv[2]}`, (req, res) => {
@@ -15,7 +15,7 @@ function getHealthData(){ return new Promise((resolve, reject) => {
   })
 };
 
-async function main(healthData){
+async function main_legacy(healthData){
 
   if (!healthData) healthData = await getHealthData();
 
@@ -51,10 +51,16 @@ async function main(healthData){
 
   });
 
-  fs.writeFileSync('sample_agg_health_and_checkin_data.csv', csvString, 'utf8');
+  fs.writeFileSync('../data/sample_agg_health_and_checkin_data_'+String((Math.random()*100)).substring(0, 2)+'.csv', csvString, 'utf8');
 
   log(`Generated CSV:`, csvString);
 
+}
+
+async function main(){
+  let healthData = await getHealthData()
+  console.log(healthData)
+  return fs.writeFileSync("../data/sample_data.json", JSON.stringify(healthData["result"]), 'utf8')
 }
 
 main().catch(console.error);

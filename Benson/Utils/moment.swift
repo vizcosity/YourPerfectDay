@@ -60,7 +60,7 @@ open class moment{
         var arguments = args
         for (index, arg) in args.enumerated() {
             if arg is moment {
-                arguments[index] = (arg.self as! moment).momentInstance
+                arguments[index] = (arg.self as! moment).momentInstance as Any
             }
         }
         return arguments
@@ -89,7 +89,7 @@ extension moment {
     
     // moment().clone()
     func clone() -> moment {
-        return moment(self.momentInstance)
+        return moment(self.momentInstance as Any)
     }
     
     // moment.utc()

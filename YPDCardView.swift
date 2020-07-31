@@ -10,40 +10,54 @@ import SwiftUI
 
 struct YPDCardView<AboveFoldContent: View, MainContent: View, BelowFoldContent: View>: View {
     
-    init(@ViewBuilder aboveFold: @escaping () -> AboveFoldContent, @ViewBuilder mainContent: @escaping () -> MainContent, @ViewBuilder belowFold: @escaping () -> BelowFoldContent){
+    init(@ViewBuilder aboveFold: @escaping () -> AboveFoldContent? = { nil }, @ViewBuilder mainContent: @escaping () -> MainContent, @ViewBuilder belowFold: @escaping () -> BelowFoldContent? = { nil }, displayShadow: Bool = true, hideBelowFoldSeparator: Bool = false){
         
-        self.aboveFold = aboveFold
+        self.aboveFoldContent = aboveFold
         self.mainContent = mainContent
-        self.belowFold = belowFold
+        self.belowFoldContent = belowFold
+        self.displayShadow = displayShadow
+        self.hideBelowFoldSeparator = hideBelowFoldSeparator
+        
     }
     
-    var aboveFold: () -> AboveFoldContent
+    var aboveFoldContent: () -> AboveFoldContent?
     
     var mainContent: () -> MainContent
     
-    var belowFold: () -> BelowFoldContent
+    var belowFoldContent: () -> BelowFoldContent?
+    
+    var displayShadow: Bool
+
+    /// Determines whether or not we should display the below-fold-separator.
+    var hideBelowFoldSeparator: Bool
     
     var body: some View {
         
         VStack {
-            HStack {
-                Spacer()
-                self.aboveFold()
-            }.foregroundColor(Color.gray)
+            
+            if self.aboveFoldContent() != nil {
+                HStack {
+                    Spacer()
+                    self.aboveFoldContent()
+                }.foregroundColor(Color.gray)
+            }
             
             VStack {
-                    self.mainContent()
+                self.mainContent()
             }
             
             // Card below-fold content. (Click for more checkins indicator)
+            if self.belowFoldContent() != nil && !self.hideBelowFoldSeparator {
                 YPDBelowFoldCardView {
-                    self.belowFold()
+                    self.belowFoldContent()!
                 }
+            }
+            
         }
         .padding(.all, Constants.Padding)
         .background(Color.white)
         .cornerRadius(Constants.defaultCornerRadius)
-        .shadow(color: Constants.shadowColour, radius: Constants.shadowRadius, x: Constants.shadowX, y: Constants.shadowY)
+        .shadow(color: self.displayShadow ? Constants.shadowColour : .clear, radius: Constants.shadowRadius, x: Constants.shadowX, y: Constants.shadowY)
 //            .shadow(color: Color.black.opacity(0.15), radius: Constants.shadowRadius, x: Constants.shadowX, y: Constants.shadowY - 5)
             .padding([.leading, .trailing], Constants.Padding)
         
@@ -84,17 +98,32 @@ struct YPDBelowFoldCardView<Content: View>: View {
 
 struct YPDCardView_Previews: PreviewProvider {
     static var previews: some View {
-        YPDCardView(aboveFold: {
-            VStack {Text("This is my Card!")}
-        }, mainContent: {
-            VStack {
-            Image(systemName: "calendar")
-            }
-        }, belowFold: {
-            HStack {
-            Text("Another one bites the dust.")
-                .font(.footnote)
-            }
-        })
+        VStack {
+            YPDCardView(aboveFold: {
+                VStack {Text("This is my Card!")}
+            }, mainContent: {
+                VStack {
+                Image(systemName: "calendar")
+                }
+            }, belowFold: {
+                HStack {
+                Text("Another one bites the dust.")
+                    .font(.footnote)
+                }
+            })
+            
+            YPDCardView(aboveFold: {
+                          VStack {Text("This is my Card!")}
+                      }, mainContent: {
+                          VStack {
+                          Image(systemName: "calendar")
+                          }
+                      }, belowFold: {
+                          HStack {
+                          Text("Another one bites the dust.")
+                              .font(.footnote)
+                          }
+                      })
+        }
     }
 }

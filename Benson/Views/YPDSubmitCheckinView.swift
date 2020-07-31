@@ -22,7 +22,7 @@ struct YPDSubmitCheckinView: View {
     
     var body: some View {
         
-        BackgroundViewWraper {
+        BackgroundViewWrapper {
             VStack {
                 ScrollView {
                     HStack{

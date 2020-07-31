@@ -43,7 +43,7 @@ struct Colour {
     ]
 }
 
-struct BackgroundViewWraper<Children>: View where Children: View {
+struct BackgroundViewWrapper<Children>: View where Children: View {
     var children: () -> Children
     
     // ViewBuilder allows us to access the child views instantiated through the use of a closure. The closure passed as an argument to the initialiser here will outlive the constructor itself (as the child objects can mutate or change), and so this requires the '@escaping' property wrapper.

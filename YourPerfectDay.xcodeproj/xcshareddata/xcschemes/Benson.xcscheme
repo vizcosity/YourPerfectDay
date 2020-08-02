@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "213436DF23098A42006B1CA8"
-               BuildableName = "Benson.app"
-               BlueprintName = "Benson"
-               ReferencedContainer = "container:Benson.xcodeproj">
+               BuildableName = "YourPerfectDay.app"
+               BlueprintName = "YourPerfectDay"
+               ReferencedContainer = "container:YourPerfectDay.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "213436DF23098A42006B1CA8"
-            BuildableName = "Benson.app"
-            BlueprintName = "Benson"
-            ReferencedContainer = "container:Benson.xcodeproj">
+            BuildableName = "YourPerfectDay.app"
+            BlueprintName = "YourPerfectDay"
+            ReferencedContainer = "container:YourPerfectDay.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "213436DF23098A42006B1CA8"
-            BuildableName = "Benson.app"
-            BlueprintName = "Benson"
-            ReferencedContainer = "container:Benson.xcodeproj">
+            BuildableName = "YourPerfectDay.app"
+            BlueprintName = "YourPerfectDay"
+            ReferencedContainer = "container:YourPerfectDay.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

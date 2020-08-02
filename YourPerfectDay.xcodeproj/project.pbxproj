@@ -3,12 +3,17 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		21010095242D4CBC0010ED8D /* YPDIndividualInsightSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21010094242D4CBC0010ED8D /* YPDIndividualInsightSummaryView.swift */; };
 		2101009B242EA0D70010ED8D /* YPDInsightProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2101009A242EA0D70010ED8D /* YPDInsightProgressBarView.swift */; };
+		2109EDD424D5D8A100BA4880 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 2109EDD324D5D8A100BA4880 /* SwiftyJSON */; };
+		2109EDD724D5D8D800BA4880 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 2109EDD624D5D8D800BA4880 /* Alamofire */; };
+		2109EDDC24D5D92300BA4880 /* CareKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2109EDDB24D5D92300BA4880 /* CareKit */; };
+		2109EDDE24D5D92300BA4880 /* CareKitStore in Frameworks */ = {isa = PBXBuildFile; productRef = 2109EDDD24D5D92300BA4880 /* CareKitStore */; };
+		2109EDE024D5D92300BA4880 /* CareKitUI in Frameworks */ = {isa = PBXBuildFile; productRef = 2109EDDF24D5D92300BA4880 /* CareKitUI */; };
 		2110620C243A374E00348E78 /* YPDInsightsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2110620B243A374E00348E78 /* YPDInsightsViewController.swift */; };
 		2127B00F2430E5B900B8D0B1 /* YPDSummaryIndividualMetricInsightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2127B00E2430E5B900B8D0B1 /* YPDSummaryIndividualMetricInsightView.swift */; };
 		2127B0112430E67F00B8D0B1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2127B0102430E67F00B8D0B1 /* Extensions.swift */; };
@@ -102,7 +107,7 @@
 		212B86C8239D483500CE9C41 /* BensonHealthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BensonHealthManager.swift; sourceTree = "<group>"; };
 		212EEE982318685D00C01AD8 /* BensonButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BensonButton.swift; sourceTree = "<group>"; };
 		2132F658247B0F8500712616 /* YPDSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDSummaryViewController.swift; sourceTree = "<group>"; };
-		213436E023098A42006B1CA8 /* Benson.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Benson.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		213436E023098A42006B1CA8 /* YourPerfectDay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YourPerfectDay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		213436E323098A42006B1CA8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		213436E523098A42006B1CA8 /* RecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
 		213436EA23098A42006B1CA8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -175,10 +180,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2109EDDC24D5D92300BA4880 /* CareKit in Frameworks */,
+				2109EDD724D5D8D800BA4880 /* Alamofire in Frameworks */,
 				214CAC9324C70DDE007382CF /* CareKitStore.framework in Frameworks */,
 				214CAC9524C70DEC007382CF /* CareKitUI.framework in Frameworks */,
+				2109EDD424D5D8A100BA4880 /* SwiftyJSON in Frameworks */,
 				21E2F36E2468512200EFB205 /* ResearchKit.framework in Frameworks */,
 				212B86C7239D477600CE9C41 /* HealthKit.framework in Frameworks */,
+				2109EDDE24D5D92300BA4880 /* CareKitStore in Frameworks */,
+				2109EDE024D5D92300BA4880 /* CareKitUI in Frameworks */,
 				21E2F3722468518C00EFB205 /* SwiftyJSON.framework in Frameworks */,
 				21E2F35F24684F5C00EFB205 /* Alamofire.framework in Frameworks */,
 				214CAC9024C70DDB007382CF /* CareKit.framework in Frameworks */,
@@ -202,7 +212,7 @@
 		213436E123098A42006B1CA8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				213436E023098A42006B1CA8 /* Benson.app */,
+				213436E023098A42006B1CA8 /* YourPerfectDay.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -377,9 +387,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		213436DF23098A42006B1CA8 /* Benson */ = {
+		213436DF23098A42006B1CA8 /* YourPerfectDay */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 213436F423098A43006B1CA8 /* Build configuration list for PBXNativeTarget "Benson" */;
+			buildConfigurationList = 213436F423098A43006B1CA8 /* Build configuration list for PBXNativeTarget "YourPerfectDay" */;
 			buildPhases = (
 				213436DC23098A42006B1CA8 /* Sources */,
 				213436DD23098A42006B1CA8 /* Frameworks */,
@@ -392,11 +402,16 @@
 			);
 			dependencies = (
 			);
-			name = Benson;
+			name = YourPerfectDay;
 			packageProductDependencies = (
+				2109EDD324D5D8A100BA4880 /* SwiftyJSON */,
+				2109EDD624D5D8D800BA4880 /* Alamofire */,
+				2109EDDB24D5D92300BA4880 /* CareKit */,
+				2109EDDD24D5D92300BA4880 /* CareKitStore */,
+				2109EDDF24D5D92300BA4880 /* CareKitUI */,
 			);
 			productName = Benson;
-			productReference = 213436E023098A42006B1CA8 /* Benson.app */;
+			productReference = 213436E023098A42006B1CA8 /* YourPerfectDay.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -415,7 +430,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 213436DB23098A42006B1CA8 /* Build configuration list for PBXProject "Benson" */;
+			buildConfigurationList = 213436DB23098A42006B1CA8 /* Build configuration list for PBXProject "YourPerfectDay" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -425,12 +440,15 @@
 			);
 			mainGroup = 213436D723098A42006B1CA8;
 			packageReferences = (
+				2109EDD224D5D8A100BA4880 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+				2109EDD524D5D8D800BA4880 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				2109EDD824D5D92300BA4880 /* XCRemoteSwiftPackageReference "CareKit" */,
 			);
 			productRefGroup = 213436E123098A42006B1CA8 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				213436DF23098A42006B1CA8 /* Benson */,
+				213436DF23098A42006B1CA8 /* YourPerfectDay */,
 			);
 		};
 /* End PBXProject section */
@@ -673,7 +691,8 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -691,7 +710,10 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = Benson/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ventr.YourPerfectDay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -713,7 +735,10 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = Benson/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ventr.YourPerfectDay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -725,7 +750,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		213436DB23098A42006B1CA8 /* Build configuration list for PBXProject "Benson" */ = {
+		213436DB23098A42006B1CA8 /* Build configuration list for PBXProject "YourPerfectDay" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				213436F223098A43006B1CA8 /* Debug */,
@@ -734,7 +759,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		213436F423098A43006B1CA8 /* Build configuration list for PBXNativeTarget "Benson" */ = {
+		213436F423098A43006B1CA8 /* Build configuration list for PBXNativeTarget "YourPerfectDay" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				213436F523098A43006B1CA8 /* Debug */,
@@ -744,6 +769,61 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2109EDD224D5D8A100BA4880 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		2109EDD524D5D8D800BA4880 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.2.2;
+			};
+		};
+		2109EDD824D5D92300BA4880 /* XCRemoteSwiftPackageReference "CareKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/carekit-apple/CareKit.git";
+			requirement = {
+				branch = stable;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2109EDD324D5D8A100BA4880 /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2109EDD224D5D8A100BA4880 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
+		};
+		2109EDD624D5D8D800BA4880 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2109EDD524D5D8D800BA4880 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		2109EDDB24D5D92300BA4880 /* CareKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2109EDD824D5D92300BA4880 /* XCRemoteSwiftPackageReference "CareKit" */;
+			productName = CareKit;
+		};
+		2109EDDD24D5D92300BA4880 /* CareKitStore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2109EDD824D5D92300BA4880 /* XCRemoteSwiftPackageReference "CareKit" */;
+			productName = CareKitStore;
+		};
+		2109EDDF24D5D92300BA4880 /* CareKitUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2109EDD824D5D92300BA4880 /* XCRemoteSwiftPackageReference "CareKit" */;
+			productName = CareKitUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 213436D823098A42006B1CA8 /* Project object */;
 }

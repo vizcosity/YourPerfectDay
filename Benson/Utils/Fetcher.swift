@@ -386,10 +386,11 @@ class Fetcher {
 
 /// Fetching insights and other analysis-related data.
 extension Fetcher {
-    public func fetchInsights(forAggregationCriteria aggregationCriteria: AggregationCriteria, limit: Int? = nil, completionHandler: @escaping ([YPDInsight]) -> Void) {
+    public func fetchInsights(forMetric metric: YPDCheckinType = .vitality, withAggregationCriteria aggregationCriteria: AggregationCriteria, limit: Int? = nil, completionHandler: @escaping ([YPDInsight]) -> Void) {
         
         var body = [
-            "aggregationCriteria": aggregationCriteria.description
+            "aggregationCriteria": aggregationCriteria.description,
+            "desiredMetric": metric.rawValue
         ]
         
         if let limit = limit {

@@ -207,7 +207,7 @@ extension YPDCheckin: Hashable {
 
 /// The measurement or metric type.
 // TODO: Refactor so that the metric types are inferred from the keys of the aggregated healthDataObject, from the backend.
-enum YPDCheckinType: String, CaseIterable, Hashable {
+enum YPDCheckinType: String, CaseIterable, Hashable, Identifiable {
     
     case generalFeeling
     case mood
@@ -233,5 +233,9 @@ enum YPDCheckinType: String, CaseIterable, Hashable {
     /// Returns human readable sentences describing the metric type, converting from camelCase to a sentence.
     var humanReadable: String {
         return self.rawValue.map { "\($0.isUppercase ? " \($0)" : "\($0)")" }.joined(separator: "").capitalized
+    }
+    
+    var id: String {
+        self.rawValue
     }
 }

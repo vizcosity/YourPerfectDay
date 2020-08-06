@@ -14,15 +14,12 @@ struct YPDSummaryView: View {
     @State var checkins: [YPDCheckin] = []
     @ObservedObject var chartData: YPDChartData
     
-    // TODO: Refactor this to become an EnvironmentObject.
-    // TODO: Refactor selected attributes to make use of an enum.
-    var selectedAttributes: [YPDCheckinType] {
-        [self.selectedAttribute]
-    }
+//    var selectedAggregationCriteria: AggregationCriteria {
+//        AggregationCriteria.allCases[self.selectedTimeUnitPickerIndex]
+//    }
     
-    var selectedAggregationCriteria: AggregationCriteria {
-        AggregationCriteria.allCases[self.selectedTimeUnitPickerIndex]
-    }
+    @State var selectedAggregationCriteria: AggregationCriteria = .day
+//    @State var selectedMetric: YPDCheckinType = .generalFeeling
     
     @State var selectedAttributePickerIndex: Int = 0
     @State var selectedTimeUnitPickerIndex: Int = 0
@@ -37,8 +34,7 @@ struct YPDSummaryView: View {
         AggregationCriteria.allCases[self.selectedTimeUnitPickerIndex]
     }
     
-    @State var attributePickerIsDisplayed: Bool = false
-    @State var timeunitPickerIsDisplayed: Bool = false
+    @State var selectedAttributes: [YPDCheckinType] = [.generalFeeling]
     
     var body: some View {
         NavigationView {
@@ -46,35 +42,39 @@ struct YPDSummaryView: View {
                 VStack {
                     VStack {
                         HStack {
-                            Button(action: {
-                                self.attributePickerIsDisplayed = true
-                            }, label: {
-                                Text("\(self.selectedAttributes.map { $0.humanReadable }.joined(separator: ","))")
-                            }).sheet(isPresented: self.$attributePickerIsDisplayed, onDismiss: {
-                                // Update the chart data object.
-                                self.chartData.fetchNewData(forAttributes: self.selectedAttributes)
-                            }) {
-                                YPDAttributePicker(selectedPickerIndex: self.$selectedAttributePickerIndex, pickerIsDisplayed: self.$attributePickerIsDisplayed, options: YPDCheckinType.allCases.map { $0.humanReadable })
-                            }
                             
+                            ForEach(self.selectedAttributes.indices, id: \.self) { i in
+                                YPDMetricAttributePickerButton(selectedMetric: self.$selectedAttributes[i])
+                                
+                                if (i != (self.selectedAttributes.count - 1)) {
+                                    Text(",").fontWeight(.bold).foregroundColor(.gray)
+                                        .padding(.all, -2)
+                                }
+                                
+                            }
                             
                             Text("by")
                                 .foregroundColor(.gray)
                             
-                            Button(action: {
-                                self.timeunitPickerIsDisplayed = true
-                            }, label: {
-                                Text("\(self.selectedAggregationCriteria.humanReadable)")
-                            }).sheet(isPresented: self.$timeunitPickerIsDisplayed, onDismiss: {
-                                // Update the chart data object.
-                                self.chartData.fetchNewData(selectedTimeUnit: self.selectedAggregationCriteria)
-                            }){
-                                YPDTimeUnitPicker(selectedPickerIndex: self.$selectedTimeUnitPickerIndex, pickerIsDisplayed: self.$timeunitPickerIsDisplayed, options: AggregationCriteria.allCases.map { $0.humanReadable })
-                            }.onDisappear {
-                                // Update the chart data object.
-                                self.chartData.fetchNewData(selectedTimeUnit: self.selectedTimeUnit)
-                            }
+                            YPDAggregationCriteriaPickerButton(selectedAggregationCriteria: self.$selectedAggregationCriteria, onDismiss: {
+                                self.chartData.fetchNewData(forAttributes: self.selectedAttributes, selectedTimeUnit: self.selectedAggregationCriteria)
+                            })
                             Spacer()
+                            
+                            Button {
+                                self.selectedAttributes.append(self.selectedAttributes.last!)
+                            } label: {
+                                Text("+")
+                            }
+                            
+                            // TODO: Investigate index out of bounds error.
+                            Button {
+                                self.selectedAttributes = [.generalFeeling]
+                            } label: {
+                                Text("-")
+                            }
+
+                            
                         }.padding(.init([.leading, .trailing]), Constants.Padding)
                             .font(.headline)
                         
@@ -85,7 +85,7 @@ struct YPDSummaryView: View {
                     
                     ScrollView {
                         
-                        YPDInsightSummarySection()
+                        YPDInsightSummarySection(metric: self.selectedAttribute, aggregationCriteria: self.selectedAggregationCriteria)
                         
                         YPDRecentCheckinsSection(checkins: self.checkins)
                         
@@ -109,6 +109,9 @@ struct YPDInsightSummarySection: View {
     
     @State var insight: YPDInsight?
     
+    var metric: YPDCheckinType = .vitality
+    var aggregationCriteria: AggregationCriteria = .day
+    
     var body: some View {
         VStack(alignment: .leading) {
 
@@ -116,12 +119,27 @@ struct YPDInsightSummarySection: View {
                 Text("Recent Insight")
                     .font(.headline)
                     .padding(.init([.top, .leading, .trailing]), Constants.Padding)
+                
                 YPDInsightSummaryView(insight: self.insight!, anomalyMetricLimit: 2)
+            } else {
+                // Display an indeterminate progress bar.
+                if #available(iOS 14.0, *) {
+                    ProgressView("Loading Insights")
+                        .padding(.top, Constants.Padding)
+                } else {
+                    Text("Loading Insights")
+                }
             }
         }
         .onAppear {
-            Fetcher.sharedInstance.fetchInsights(forAggregationCriteria: .day, limit: 1) { if $0.count >= 1 {self.insight = $0.first! } }
-        }
+            Fetcher.sharedInstance.fetchInsights(forMetric: self.metric,  withAggregationCriteria: self.aggregationCriteria, limit: 1) {
+                if let firstInsight = $0.first {
+                    withAnimation {
+                        self.insight = firstInsight
+                    }
+                }
+            }
+        }.animation(.easeInOut)
     }
 }
 
@@ -139,8 +157,13 @@ struct YPDRecentCheckinsSection: View {
                 YPDRecentCheckinView(displayedCheckin: self.checkins.first!, allCheckins: self.checkins)
             }
         }.onAppear {
-            Fetcher.sharedInstance.fetchMetricLogs(completionHandler: { self.checkins = $0 })
-        }
+            Fetcher.sharedInstance.fetchMetricLogs(completionHandler: { checkins in
+                withAnimation {
+                    self.checkins = checkins
+                }
+                
+            })
+        }.animation(.easeInOut)
     }
 }
 
@@ -150,5 +173,62 @@ struct YPDSummaryView_Previews: PreviewProvider {
         YPDSummaryView(checkins: _sampleMetricLogs, chartData: .init(attributes: [.generalFeeling], selectedTimeUnit: .week))
         //        YPDSummaryView(chartData: .init(attributes: ["generalFeeling"], selectedTimeUnit: .week))
         
+    }
+}
+
+struct YPDMetricAttributePickerButton: View, Identifiable {
+    
+    var id: String {
+        UUID.init().uuidString
+    }
+    
+    @State var pickerDisplayed = false
+    
+    @Binding var selectedMetric: YPDCheckinType
+    
+    @State var selectedPickerIndex: Int = 0
+    
+    var onDismiss: () -> Void = {}
+    
+    var body: some View {
+        Button(action: {
+            self.pickerDisplayed = true
+        }, label: {
+//            Text("\(self.selectedAttributes.map { $0.humanReadable }.joined(separator: ","))")
+            Text(self.selectedMetric.humanReadable)
+        }).sheet(isPresented: self.$pickerDisplayed, onDismiss: {
+            // Update the chart data object.
+//            self.chartData.fetchNewData(selectedTimeUnit: self.selectedAggregationCriteria)
+            self.selectedMetric = YPDCheckinType.allCases[self.selectedPickerIndex]
+            self.onDismiss()
+        }){
+            YPDAttributePicker(selectedPickerIndex: self.$selectedPickerIndex, pickerIsDisplayed: self.$pickerDisplayed, options: YPDCheckinType.allCases.map { $0.humanReadable })
+        }
+    }
+}
+
+struct YPDAggregationCriteriaPickerButton: View {
+    
+    @State var pickerDisplayed = false
+    
+    @Binding var selectedAggregationCriteria: AggregationCriteria
+    
+    @State var selectedPickerIndex: Int = 0
+    
+    var onDismiss: () -> Void = {}
+
+    var body: some View {
+        Button(action: {
+            self.pickerDisplayed = true
+        }, label: {
+            Text("\(self.selectedAggregationCriteria.humanReadable)")
+        }).sheet(isPresented: self.$pickerDisplayed, onDismiss: {
+            // Update the chart data object.
+//            self.chartData.fetchNewData(selectedTimeUnit: self.selectedAggregationCriteria)
+            self.selectedAggregationCriteria = AggregationCriteria.allCases[self.selectedPickerIndex]
+            self.onDismiss()
+        }){
+            YPDTimeUnitPicker(selectedPickerIndex: self.$selectedPickerIndex, pickerIsDisplayed: self.$pickerDisplayed, options: AggregationCriteria.allCases.map { $0.humanReadable })
+        }
     }
 }

@@ -44,9 +44,11 @@ struct YPDRecentCheckinView: View {
                 
             }
         }, belowFold: {
+            #if MAIN_APP
             if !self.allCheckins.isEmpty   {
                 YPDAdditionalCheckins(checkins: self.allCheckins)
-            } 
+            }
+            #endif
         }, displayShadow: self.displayShadow)
     }
     
@@ -89,9 +91,11 @@ struct YPDRecentCheckinViewLegacy: View {
             }
             
             // Card below-fold content. (Click for more checkins indicator)
+            #if MAIN_APP
             if !self.allCheckins.isEmpty   {
                 YPDAdditionalCheckins(checkins: self.allCheckins)
             }
+            #endif
         }
         .padding(.all, Constants.Padding)
         .background(Color.white)
@@ -101,9 +105,12 @@ struct YPDRecentCheckinViewLegacy: View {
             .padding([.leading, .trailing], Constants.Padding)
         .contextMenu(menuItems: {
             Button(action: {
+                #if MAIN_APP
                 Fetcher.sharedInstance.remove(metricLogId: self.displayedCheckin.id ?? "") {
                     
                 }
+                #endif
+                
             }, label: {
                 Image(systemName: "trash")
                 Text("Delete")
@@ -114,6 +121,7 @@ struct YPDRecentCheckinViewLegacy: View {
     }
 }
 
+#if MAIN_APP
 struct YPDAdditionalCheckins: View {
     
     var checkins: [YPDCheckin]
@@ -140,7 +148,9 @@ struct YPDAdditionalCheckins: View {
     }
     
 }
+#endif
 
+#if MAIN_APP
 struct RecentCheckinView_Previews: PreviewProvider {
     static var checkins = [_sampleCheckin]
     static var previews: some View {
@@ -152,3 +162,4 @@ struct RecentCheckinView_Previews: PreviewProvider {
         }
     }
 }
+#endif

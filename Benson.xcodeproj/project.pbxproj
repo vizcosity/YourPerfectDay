@@ -30,6 +30,12 @@
 		21532F58247305040054AC84 /* StaticData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21532F57247305040054AC84 /* StaticData.swift */; };
 		21532F5A24730B1F0054AC84 /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21532F5924730B1F0054AC84 /* Chart.swift */; };
 		21532F5F24730F660054AC84 /* OCKCartesianChartViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21532F5E24730F660054AC84 /* OCKCartesianChartViewWrapper.swift */; };
+		21645BB724DCB02F004080B9 /* YPDCheckinType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21645BB624DCB02F004080B9 /* YPDCheckinType.swift */; };
+		21645BB824DCB02F004080B9 /* YPDCheckinType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21645BB624DCB02F004080B9 /* YPDCheckinType.swift */; };
+		21645BBA24DCB053004080B9 /* YPDCheckinResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21645BB924DCB053004080B9 /* YPDCheckinResponse.swift */; };
+		21645BBD24DCB08E004080B9 /* YPDCheckinPrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21645BBC24DCB08E004080B9 /* YPDCheckinPrompt.swift */; };
+		21645BBF24DCB0C8004080B9 /* YPDCheckin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CAA6F237A010E004D6B8E /* YPDCheckin.swift */; };
+		21645BC024DCB0DA004080B9 /* YPDCheckinResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21645BB924DCB053004080B9 /* YPDCheckinResponse.swift */; };
 		216CAA70237A010E004D6B8E /* YPDCheckin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CAA6F237A010E004D6B8E /* YPDCheckin.swift */; };
 		21734671240AF9C700B22219 /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21734670240AF9C700B22219 /* Sample.swift */; };
 		218241B92482DC8500B85C3E /* YPDButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218241B82482DC8500B85C3E /* YPDButton.swift */; };
@@ -44,6 +50,23 @@
 		21BD46262481A3900077DCD7 /* YPDCheckinsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BD46252481A3900077DCD7 /* YPDCheckinsView.swift */; };
 		21BF588524B655D0009F6B1B /* YPDInsightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BF588424B655D0009F6B1B /* YPDInsightsView.swift */; };
 		21C58F372327BCBB007EE5F1 /* CheckinCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C58F362327BCBB007EE5F1 /* CheckinCollectionViewCell.swift */; };
+		21C6338424DCA00D002BDC83 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 217B614724B9E8FD00E88B04 /* WidgetKit.framework */; };
+		21C6338524DCA00D002BDC83 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 217B614924B9E8FD00E88B04 /* SwiftUI.framework */; };
+		21C6338824DCA00D002BDC83 /* YPDWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C6338724DCA00D002BDC83 /* YPDWidget.swift */; };
+		21C6338A24DCA00F002BDC83 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21C6338924DCA00F002BDC83 /* Assets.xcassets */; };
+		21C6338E24DCA00F002BDC83 /* YPDWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 21C6338324DCA00D002BDC83 /* YPDWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		21C6339724DCA2CC002BDC83 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BD462324819E1F0077DCD7 /* Constants.swift */; };
+		21C6339A24DCA2FC002BDC83 /* moment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F8C30D24BA260B00F7B3BB /* moment.swift */; };
+		21C6339B24DCA3B6002BDC83 /* moment-with-locales.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 21F8C30F24BA262700F7B3BB /* moment-with-locales.min.js */; };
+		21C6339C24DCA3FA002BDC83 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2127B0102430E67F00B8D0B1 /* Extensions.swift */; };
+		21C633A224DCA475002BDC83 /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21734670240AF9C700B22219 /* Sample.swift */; };
+		21C633A924DCA580002BDC83 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21471734239C4E2300E4226F /* Notifications.swift */; };
+		21C633B424DCA9E8002BDC83 /* BensonHealthUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C633B324DCA9E8002BDC83 /* BensonHealthUtil.swift */; };
+		21C633B524DCA9E8002BDC83 /* BensonHealthUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C633B324DCA9E8002BDC83 /* BensonHealthUtil.swift */; };
+		21C633B624DCAAB9002BDC83 /* YPDRecentCheckinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E2F375246878AF00EFB205 /* YPDRecentCheckinView.swift */; };
+		21C633B824DCAAEC002BDC83 /* StaticData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21532F57247305040054AC84 /* StaticData.swift */; };
+		21C633BA24DCAB16002BDC83 /* YPDCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FEE7D424C4E7A000C6207A /* YPDCardView.swift */; };
+		21C633BB24DCAB24002BDC83 /* YPDProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E2F37724687A3F00EFB205 /* YPDProgressBar.swift */; };
 		21CEB34124BA1B1000F19C46 /* YPDInsight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CEB34024BA1B1000F19C46 /* YPDInsight.swift */; };
 		21DF333C2482CCCE00D18EBC /* YPDTimeUnitPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DF333B2482CCCE00D18EBC /* YPDTimeUnitPicker.swift */; };
 		21DF333E2482D31800D18EBC /* YPDSubmitCheckinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DF333D2482D31800D18EBC /* YPDSubmitCheckinView.swift */; };
@@ -55,6 +78,16 @@
 		21FEE7D524C4E7A000C6207A /* YPDCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FEE7D424C4E7A000C6207A /* YPDCardView.swift */; };
 		21FEE7D724C4F2CF00C6207A /* YPDExpandedInsightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FEE7D624C4F2CF00C6207A /* YPDExpandedInsightView.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		21C6338C24DCA00F002BDC83 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 213436D823098A42006B1CA8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 21C6338224DCA00D002BDC83;
+			remoteInfo = YPDWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		21743E8423D0FE9600F49CC3 /* Embed Watch Content */ = {
@@ -73,6 +106,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				21C6338E24DCA00F002BDC83 /* YPDWidgetExtension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -103,6 +137,9 @@
 		21532F57247305040054AC84 /* StaticData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticData.swift; sourceTree = "<group>"; };
 		21532F5924730B1F0054AC84 /* Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chart.swift; sourceTree = "<group>"; };
 		21532F5E24730F660054AC84 /* OCKCartesianChartViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCKCartesianChartViewWrapper.swift; sourceTree = "<group>"; };
+		21645BB624DCB02F004080B9 /* YPDCheckinType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YPDCheckinType.swift; sourceTree = "<group>"; };
+		21645BB924DCB053004080B9 /* YPDCheckinResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDCheckinResponse.swift; sourceTree = "<group>"; };
+		21645BBC24DCB08E004080B9 /* YPDCheckinPrompt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDCheckinPrompt.swift; sourceTree = "<group>"; };
 		216CAA6F237A010E004D6B8E /* YPDCheckin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDCheckin.swift; sourceTree = "<group>"; };
 		216CE748248401A400B195C6 /* YPDSubmitCheckinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDSubmitCheckinViewController.swift; sourceTree = "<group>"; };
 		21734670240AF9C700B22219 /* Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sample.swift; sourceTree = "<group>"; };
@@ -133,6 +170,11 @@
 		21BD46252481A3900077DCD7 /* YPDCheckinsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDCheckinsView.swift; sourceTree = "<group>"; };
 		21BF588424B655D0009F6B1B /* YPDInsightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDInsightsView.swift; sourceTree = "<group>"; };
 		21C58F362327BCBB007EE5F1 /* CheckinCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinCollectionViewCell.swift; sourceTree = "<group>"; };
+		21C6338324DCA00D002BDC83 /* YPDWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = YPDWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		21C6338724DCA00D002BDC83 /* YPDWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDWidget.swift; sourceTree = "<group>"; };
+		21C6338924DCA00F002BDC83 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		21C6338B24DCA00F002BDC83 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		21C633B324DCA9E8002BDC83 /* BensonHealthUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BensonHealthUtil.swift; sourceTree = "<group>"; };
 		21CEB34024BA1B1000F19C46 /* YPDInsight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDInsight.swift; sourceTree = "<group>"; };
 		21DF333B2482CCCE00D18EBC /* YPDTimeUnitPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDTimeUnitPicker.swift; sourceTree = "<group>"; };
 		21DF333D2482D31800D18EBC /* YPDSubmitCheckinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDSubmitCheckinView.swift; sourceTree = "<group>"; };
@@ -164,6 +206,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		21C6338024DCA00D002BDC83 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				21C6338524DCA00D002BDC83 /* SwiftUI.framework in Frameworks */,
+				21C6338424DCA00D002BDC83 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -173,6 +224,7 @@
 				213436E223098A42006B1CA8 /* Benson */,
 				21743E6023D0FE8C00F49CC3 /* BensonWatchApp */,
 				21743E6F23D0FE9400F49CC3 /* BensonWatchApp Extension */,
+				21C6338624DCA00D002BDC83 /* YPDWidget */,
 				213436E123098A42006B1CA8 /* Products */,
 				E1B3C5F3A2F32C62968879A2 /* Frameworks */,
 			);
@@ -182,6 +234,7 @@
 			isa = PBXGroup;
 			children = (
 				213436E023098A42006B1CA8 /* YourPerfectDay.app */,
+				21C6338324DCA00D002BDC83 /* YPDWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -207,12 +260,15 @@
 		21532F56247304F00054AC84 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				21645BB624DCB02F004080B9 /* YPDCheckinType.swift */,
 				216CAA6F237A010E004D6B8E /* YPDCheckin.swift */,
+				21645BBC24DCB08E004080B9 /* YPDCheckinPrompt.swift */,
 				21AF6BB324785E2C001F4E30 /* sample_chart_data.json */,
 				21532F57247305040054AC84 /* StaticData.swift */,
 				21532F5924730B1F0054AC84 /* Chart.swift */,
 				2149410E249E305600EEF05A /* YPDModel.swift */,
 				21CEB34024BA1B1000F19C46 /* YPDInsight.swift */,
+				21645BB924DCB053004080B9 /* YPDCheckinResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -315,9 +371,20 @@
 			path = Assets;
 			sourceTree = "<group>";
 		};
+		21C6338624DCA00D002BDC83 /* YPDWidget */ = {
+			isa = PBXGroup;
+			children = (
+				21C6338724DCA00D002BDC83 /* YPDWidget.swift */,
+				21C6338924DCA00F002BDC83 /* Assets.xcassets */,
+				21C6338B24DCA00F002BDC83 /* Info.plist */,
+			);
+			path = YPDWidget;
+			sourceTree = "<group>";
+		};
 		21FC4EA8238D185800578DE5 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				21C633B324DCA9E8002BDC83 /* BensonHealthUtil.swift */,
 				2184B01F238D11F900FE96EA /* Fetcher.swift */,
 				21471734239C4E2300E4226F /* Notifications.swift */,
 				212B86C8239D483500CE9C41 /* BensonHealthManager.swift */,
@@ -362,6 +429,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				21C6338D24DCA00F002BDC83 /* PBXTargetDependency */,
 			);
 			name = YourPerfectDay;
 			packageProductDependencies = (
@@ -374,6 +442,23 @@
 			productName = Benson;
 			productReference = 213436E023098A42006B1CA8 /* YourPerfectDay.app */;
 			productType = "com.apple.product-type.application";
+		};
+		21C6338224DCA00D002BDC83 /* YPDWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 21C6339124DCA00F002BDC83 /* Build configuration list for PBXNativeTarget "YPDWidgetExtension" */;
+			buildPhases = (
+				21C6337F24DCA00D002BDC83 /* Sources */,
+				21C6338024DCA00D002BDC83 /* Frameworks */,
+				21C6338124DCA00D002BDC83 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = YPDWidgetExtension;
+			productName = YPDWidgetExtension;
+			productReference = 21C6338324DCA00D002BDC83 /* YPDWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -388,6 +473,9 @@
 					213436DF23098A42006B1CA8 = {
 						CreatedOnToolsVersion = 10.2.1;
 						ProvisioningStyle = Automatic;
+					};
+					21C6338224DCA00D002BDC83 = {
+						CreatedOnToolsVersion = 12.0;
 					};
 				};
 			};
@@ -410,6 +498,7 @@
 			projectRoot = "";
 			targets = (
 				213436DF23098A42006B1CA8 /* YourPerfectDay */,
+				21C6338224DCA00D002BDC83 /* YPDWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -425,6 +514,15 @@
 				213436ED23098A43006B1CA8 /* Assets.xcassets in Resources */,
 				213436EB23098A42006B1CA8 /* Main.storyboard in Resources */,
 				21AF6BB424785E2C001F4E30 /* sample_chart_data.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		21C6338124DCA00D002BDC83 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				21C6339B24DCA3B6002BDC83 /* moment-with-locales.min.js in Resources */,
+				21C6338A24DCA00F002BDC83 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -450,6 +548,7 @@
 				21BF588524B655D0009F6B1B /* YPDInsightsView.swift in Sources */,
 				2149410F249E305600EEF05A /* YPDModel.swift in Sources */,
 				21532F542472FE600054AC84 /* YPDSummaryView.swift in Sources */,
+				21645BB724DCB02F004080B9 /* YPDCheckinType.swift in Sources */,
 				21B0D6E7249E2A310080B58A /* YPDTabBarViewController.swift in Sources */,
 				21FEE7D724C4F2CF00C6207A /* YPDExpandedInsightView.swift in Sources */,
 				21010095242D4CBC0010ED8D /* YPDIndividualInsightSummaryView.swift in Sources */,
@@ -466,15 +565,47 @@
 				21734671240AF9C700B22219 /* Sample.swift in Sources */,
 				21C58F372327BCBB007EE5F1 /* CheckinCollectionViewCell.swift in Sources */,
 				2127B0112430E67F00B8D0B1 /* Extensions.swift in Sources */,
+				21645BBA24DCB053004080B9 /* YPDCheckinResponse.swift in Sources */,
+				21C633B424DCA9E8002BDC83 /* BensonHealthUtil.swift in Sources */,
 				21532F5A24730B1F0054AC84 /* Chart.swift in Sources */,
 				2136C98B249D422900ECE95E /* YPDTabBarView.swift in Sources */,
 				2127B00F2430E5B900B8D0B1 /* YPDSummaryIndividualMetricInsightView.swift in Sources */,
+				21645BBD24DCB08E004080B9 /* YPDCheckinPrompt.swift in Sources */,
 				21880FBB23806ED000A02055 /* MetricCellValueComponent.swift in Sources */,
 				21E2F376246878AF00EFB205 /* YPDRecentCheckinView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		21C6337F24DCA00D002BDC83 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				21645BC024DCB0DA004080B9 /* YPDCheckinResponse.swift in Sources */,
+				21C633A924DCA580002BDC83 /* Notifications.swift in Sources */,
+				21645BBF24DCB0C8004080B9 /* YPDCheckin.swift in Sources */,
+				21645BB824DCB02F004080B9 /* YPDCheckinType.swift in Sources */,
+				21C6338824DCA00D002BDC83 /* YPDWidget.swift in Sources */,
+				21C633BB24DCAB24002BDC83 /* YPDProgressBar.swift in Sources */,
+				21C633B524DCA9E8002BDC83 /* BensonHealthUtil.swift in Sources */,
+				21C633B624DCAAB9002BDC83 /* YPDRecentCheckinView.swift in Sources */,
+				21C633B824DCAAEC002BDC83 /* StaticData.swift in Sources */,
+				21C6339724DCA2CC002BDC83 /* Constants.swift in Sources */,
+				21C633A224DCA475002BDC83 /* Sample.swift in Sources */,
+				21C6339C24DCA3FA002BDC83 /* Extensions.swift in Sources */,
+				21C633BA24DCAB16002BDC83 /* YPDCardView.swift in Sources */,
+				21C6339A24DCA2FC002BDC83 /* moment.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		21C6338D24DCA00F002BDC83 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 21C6338224DCA00D002BDC83 /* YPDWidgetExtension */;
+			targetProxy = 21C6338C24DCA00F002BDC83 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		213436E923098A42006B1CA8 /* Main.storyboard */ = {
@@ -627,6 +758,7 @@
 		213436F523098A43006B1CA8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Benson/Benson.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -641,9 +773,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MAIN_APP = "-D MAIN_APP";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ventr.YourPerfectDay;
 				PRODUCT_NAME = YourPerfectDay;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"SWIFT_ACTIVE_COMPILATION_CONDITIONS[arch=*]" = MAIN_APP;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -652,6 +786,7 @@
 		213436F623098A43006B1CA8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Benson/Benson.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -666,11 +801,65 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MAIN_APP = "-D MAIN_APP";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ventr.YourPerfectDay;
 				PRODUCT_NAME = YourPerfectDay;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"SWIFT_ACTIVE_COMPILATION_CONDITIONS[arch=*]" = MAIN_APP;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		21C6338F24DCA00F002BDC83 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = A5YJ22GHFR;
+				INFOPLIST_FILE = YPDWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ventr.YourPerfectDay.YPDWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				"SWIFT_ACTIVE_COMPILATION_CONDITIONS[arch=*]" = WIDGET;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WIDGET = "-D WIDGET";
+			};
+			name = Debug;
+		};
+		21C6339024DCA00F002BDC83 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = A5YJ22GHFR;
+				INFOPLIST_FILE = YPDWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ventr.YourPerfectDay.YPDWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				"SWIFT_ACTIVE_COMPILATION_CONDITIONS[arch=*]" = WIDGET;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WIDGET = "-D WIDGET";
 			};
 			name = Release;
 		};
@@ -691,6 +880,15 @@
 			buildConfigurations = (
 				213436F523098A43006B1CA8 /* Debug */,
 				213436F623098A43006B1CA8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		21C6339124DCA00F002BDC83 /* Build configuration list for PBXNativeTarget "YPDWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				21C6338F24DCA00F002BDC83 /* Debug */,
+				21C6339024DCA00F002BDC83 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

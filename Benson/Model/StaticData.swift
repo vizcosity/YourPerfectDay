@@ -22,12 +22,17 @@ let _sampleAggregatedHealthAndCheckinData: JSON = {
     
     let defaultJSON = JSON(parseJSON: _sampleAggregatedHealthAndCheckinDataJsonString)["result"]
     
-    guard let sampleDataPath = try? Bundle.main.path(forResource: "sample_chart_data", ofType: "json")?.asURL() else { return defaultJSON }
-    guard let jsonData = try? Data(contentsOf: sampleDataPath) else { return defaultJSON }
-    
-    guard let json = try? JSON(data: jsonData) else { return defaultJSON["result"] }
-    
-    return json["result"]
+    #if MAIN_APP
+        
+        guard let sampleDataPath = try? Bundle.main.path(forResource: "sample_chart_data", ofType: "json")?.asURL() else { return defaultJSON }
+        guard let jsonData = try? Data(contentsOf: sampleDataPath) else { return defaultJSON }
+        guard let json = try? JSON(data: jsonData) else { return defaultJSON["result"] }
+
+        return json["result"]
+   
+    #else
+        return defaultJSON["result"]
+    #endif
     
 }()
 
@@ -3440,4 +3445,6 @@ let sampleInsightsJsonString = """
 
 var _samplePrecedingData = [(Date(timeIntervalSinceNow: -99999), 3), (Date(timeIntervalSinceNow: -88888), 2), (Date(timeIntervalSinceNow: -33333), 2), (Date(timeIntervalSinceNow: -22222), 1), (Date(timeIntervalSinceNow: -11111), 1.5)]
 
+#if MAIN_APP
 var _sampleInsights = Array.init(repeating: YPDInsight(metricOfInterestType: .generalFeeling, metricOfInterestValue: 2.342, metricOfInterestGlobalChange: 0.34, metricOfInterestGlobalMean: 3,metricOfInterestLocalChange: 1.82, metricOfInterestLocalMean: 2, date: Date(),  mostImportantAnomalyMetrics: [YPDAnomalyMetric(metricAttribute: .caloricIntake, localChange: -0.23, localMean: 1400, globalChange: -0.11, globalMean: 2000, correlation: 0.45, importance: 0.8, timePeriod: "this week", precedingData: _samplePrecedingData), YPDAnomalyMetric(metricAttribute: .dietaryCarbohydrates, localChange: -0.83, localMean: 1400, globalChange: -0.11, globalMean: 2000, correlation: 0.45, importance: 0.8, timePeriod: "this week", precedingData: _samplePrecedingData), YPDAnomalyMetric(metricAttribute: .lowHeartRateEvents, localChange: 0.33, localMean: 1400, globalChange: -0.11, globalMean: 2000, correlation: 0.45, importance: 0.8, timePeriod: "this week", precedingData:_samplePrecedingData), YPDAnomalyMetric(metricAttribute: .sleepHours, localChange: -0.23, localMean: 1400, globalChange: -0.11, globalMean: 2000, correlation: 0.45, importance: 0.8, timePeriod: "this week", precedingData: [])]), count: 5)
+#endif

@@ -36,7 +36,7 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "4B84D5B2-FED2-4C1F-A64E-7961B4B16E73 - a3426a1579e32825"
+                  uuid = "4B84D5B2-FED2-4C1F-A64E-7961B4B16E73 - 26207eb04a2f87ce"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -51,7 +51,7 @@
                   offsetFromSymbolStart = "968">
                </Location>
                <Location
-                  uuid = "4B84D5B2-FED2-4C1F-A64E-7961B4B16E73 - 83cfe8488a10c548"
+                  uuid = "4B84D5B2-FED2-4C1F-A64E-7961B4B16E73 - 6adfcedb9dc6a8c"
                   shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -114,6 +114,22 @@
             endingLineNumber = "61"
             landmarkName = "makeUIView(context:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F014E8A7-7FD9-4665-8D99-0BBB1DA18A73"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Benson/Utils/BensonHealthManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "15"
+            endingLineNumber = "15"
+            landmarkName = "BensonHealthManager"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

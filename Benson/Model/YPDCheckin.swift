@@ -28,7 +28,9 @@ struct YPDCheckin: CustomStringConvertible {
     var timeSince: String = "Some time ago"
     
     /// Summary data obtained from healthkit for the day when the log was recorded.
+    #if MAIN_APP
     var enrichedData: BensonHealthDataObject?
+    #endif
     
     init(attributeValues: [YPDCheckinResponseValue], timeSince: String, id: String? = nil){
         self.attributeValues = attributeValues
@@ -46,7 +48,9 @@ struct YPDCheckin: CustomStringConvertible {
         var copiedMetric = YPDCheckin(attributeValues: self.attributeValues, timeSince: self.timeSince, id: self.id)
             
         copiedMetric.timestamp = self.timestamp
+        #if MAIN_APP
         copiedMetric.enrichedData = self.enrichedData
+        #endif
         
         return copiedMetric
     }

@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import SwiftUI
+import SwiftyJSON
 
 #if MAIN_APP
 /// YPDCheckinPrompts contain a question which the user will need to respond to with a subjective measurement of how they feel with regards to a certain metric, such as `focus`, `energy`, `mood`, etc.

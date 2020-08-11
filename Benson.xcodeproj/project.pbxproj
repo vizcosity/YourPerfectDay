@@ -31,11 +31,19 @@
 		21532F5A24730B1F0054AC84 /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21532F5924730B1F0054AC84 /* Chart.swift */; };
 		21532F5F24730F660054AC84 /* OCKCartesianChartViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21532F5E24730F660054AC84 /* OCKCartesianChartViewWrapper.swift */; };
 		21645BB724DCB02F004080B9 /* YPDCheckinType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21645BB624DCB02F004080B9 /* YPDCheckinType.swift */; };
-		21645BB824DCB02F004080B9 /* YPDCheckinType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21645BB624DCB02F004080B9 /* YPDCheckinType.swift */; };
 		21645BBA24DCB053004080B9 /* YPDCheckinResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21645BB924DCB053004080B9 /* YPDCheckinResponse.swift */; };
 		21645BBD24DCB08E004080B9 /* YPDCheckinPrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21645BBC24DCB08E004080B9 /* YPDCheckinPrompt.swift */; };
-		21645BBF24DCB0C8004080B9 /* YPDCheckin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CAA6F237A010E004D6B8E /* YPDCheckin.swift */; };
-		21645BC024DCB0DA004080B9 /* YPDCheckinResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21645BB924DCB053004080B9 /* YPDCheckinResponse.swift */; };
+		216764CC24DDE95800141AF3 /* YPDCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FEE7D424C4E7A000C6207A /* YPDCardView.swift */; };
+		216764CD24DDE96F00141AF3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BD462324819E1F0077DCD7 /* Constants.swift */; };
+		216764CE24DDEBFC00141AF3 /* YPDSummaryIndividualMetricInsightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2127B00E2430E5B900B8D0B1 /* YPDSummaryIndividualMetricInsightView.swift */; };
+		216764CF24DDEC1000141AF3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2127B0102430E67F00B8D0B1 /* Extensions.swift */; };
+		216764D024DDEC7C00141AF3 /* YPDCheckinType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21645BB624DCB02F004080B9 /* YPDCheckinType.swift */; };
+		216764D124DDECC300141AF3 /* moment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F8C30D24BA260B00F7B3BB /* moment.swift */; };
+		216764D324DDEFC000141AF3 /* YPDRecentCheckinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E2F375246878AF00EFB205 /* YPDRecentCheckinView.swift */; };
+		216764D424DDF03500141AF3 /* YPDCheckinResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21645BB924DCB053004080B9 /* YPDCheckinResponse.swift */; };
+		216764D524DDF04600141AF3 /* YPDCheckin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CAA6F237A010E004D6B8E /* YPDCheckin.swift */; };
+		216764D624DDF07100141AF3 /* YPDProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E2F37724687A3F00EFB205 /* YPDProgressBar.swift */; };
+		216764D724DDF0BD00141AF3 /* StaticData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21532F57247305040054AC84 /* StaticData.swift */; };
 		216CAA70237A010E004D6B8E /* YPDCheckin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CAA6F237A010E004D6B8E /* YPDCheckin.swift */; };
 		21734671240AF9C700B22219 /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21734670240AF9C700B22219 /* Sample.swift */; };
 		218241B92482DC8500B85C3E /* YPDButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218241B82482DC8500B85C3E /* YPDButton.swift */; };
@@ -55,18 +63,8 @@
 		21C6338824DCA00D002BDC83 /* YPDWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C6338724DCA00D002BDC83 /* YPDWidget.swift */; };
 		21C6338A24DCA00F002BDC83 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21C6338924DCA00F002BDC83 /* Assets.xcassets */; };
 		21C6338E24DCA00F002BDC83 /* YPDWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 21C6338324DCA00D002BDC83 /* YPDWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		21C6339724DCA2CC002BDC83 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BD462324819E1F0077DCD7 /* Constants.swift */; };
-		21C6339A24DCA2FC002BDC83 /* moment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F8C30D24BA260B00F7B3BB /* moment.swift */; };
 		21C6339B24DCA3B6002BDC83 /* moment-with-locales.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 21F8C30F24BA262700F7B3BB /* moment-with-locales.min.js */; };
-		21C6339C24DCA3FA002BDC83 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2127B0102430E67F00B8D0B1 /* Extensions.swift */; };
-		21C633A224DCA475002BDC83 /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21734670240AF9C700B22219 /* Sample.swift */; };
-		21C633A924DCA580002BDC83 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21471734239C4E2300E4226F /* Notifications.swift */; };
 		21C633B424DCA9E8002BDC83 /* BensonHealthUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C633B324DCA9E8002BDC83 /* BensonHealthUtil.swift */; };
-		21C633B524DCA9E8002BDC83 /* BensonHealthUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C633B324DCA9E8002BDC83 /* BensonHealthUtil.swift */; };
-		21C633B624DCAAB9002BDC83 /* YPDRecentCheckinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E2F375246878AF00EFB205 /* YPDRecentCheckinView.swift */; };
-		21C633B824DCAAEC002BDC83 /* StaticData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21532F57247305040054AC84 /* StaticData.swift */; };
-		21C633BA24DCAB16002BDC83 /* YPDCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FEE7D424C4E7A000C6207A /* YPDCardView.swift */; };
-		21C633BB24DCAB24002BDC83 /* YPDProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E2F37724687A3F00EFB205 /* YPDProgressBar.swift */; };
 		21CEB34124BA1B1000F19C46 /* YPDInsight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CEB34024BA1B1000F19C46 /* YPDInsight.swift */; };
 		21DF333C2482CCCE00D18EBC /* YPDTimeUnitPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DF333B2482CCCE00D18EBC /* YPDTimeUnitPicker.swift */; };
 		21DF333E2482D31800D18EBC /* YPDSubmitCheckinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DF333D2482D31800D18EBC /* YPDSubmitCheckinView.swift */; };
@@ -580,20 +578,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				21645BC024DCB0DA004080B9 /* YPDCheckinResponse.swift in Sources */,
-				21C633A924DCA580002BDC83 /* Notifications.swift in Sources */,
-				21645BBF24DCB0C8004080B9 /* YPDCheckin.swift in Sources */,
-				21645BB824DCB02F004080B9 /* YPDCheckinType.swift in Sources */,
+				216764CF24DDEC1000141AF3 /* Extensions.swift in Sources */,
+				216764D524DDF04600141AF3 /* YPDCheckin.swift in Sources */,
+				216764D024DDEC7C00141AF3 /* YPDCheckinType.swift in Sources */,
+				216764CC24DDE95800141AF3 /* YPDCardView.swift in Sources */,
+				216764D324DDEFC000141AF3 /* YPDRecentCheckinView.swift in Sources */,
+				216764D724DDF0BD00141AF3 /* StaticData.swift in Sources */,
+				216764D124DDECC300141AF3 /* moment.swift in Sources */,
 				21C6338824DCA00D002BDC83 /* YPDWidget.swift in Sources */,
-				21C633BB24DCAB24002BDC83 /* YPDProgressBar.swift in Sources */,
-				21C633B524DCA9E8002BDC83 /* BensonHealthUtil.swift in Sources */,
-				21C633B624DCAAB9002BDC83 /* YPDRecentCheckinView.swift in Sources */,
-				21C633B824DCAAEC002BDC83 /* StaticData.swift in Sources */,
-				21C6339724DCA2CC002BDC83 /* Constants.swift in Sources */,
-				21C633A224DCA475002BDC83 /* Sample.swift in Sources */,
-				21C6339C24DCA3FA002BDC83 /* Extensions.swift in Sources */,
-				21C633BA24DCAB16002BDC83 /* YPDCardView.swift in Sources */,
-				21C6339A24DCA2FC002BDC83 /* moment.swift in Sources */,
+				216764D424DDF03500141AF3 /* YPDCheckinResponse.swift in Sources */,
+				216764D624DDF07100141AF3 /* YPDProgressBar.swift in Sources */,
+				216764CD24DDE96F00141AF3 /* Constants.swift in Sources */,
+				216764CE24DDEBFC00141AF3 /* YPDSummaryIndividualMetricInsightView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -49,7 +49,7 @@ struct YPDRecentCheckinView: View {
                 YPDAdditionalCheckins(checkins: self.allCheckins)
             }
             #endif
-        }, displayShadow: self.displayShadow)
+        }, displayShadow: self.displayShadow, hideBelowFoldSeparator: self.allCheckins.isEmpty)
     }
     
 }
@@ -105,6 +105,7 @@ struct YPDRecentCheckinViewLegacy: View {
             .padding([.leading, .trailing], Constants.Padding)
         .contextMenu(menuItems: {
             Button(action: {
+                
                 #if MAIN_APP
                 Fetcher.sharedInstance.remove(metricLogId: self.displayedCheckin.id ?? "") {
                     

@@ -18,23 +18,21 @@ let _sampleMetricLogs: [YPDCheckin] = {
     return output
 }()
 
+#if MAIN_APP
 let _sampleAggregatedHealthAndCheckinData: JSON = {
     
     let defaultJSON = JSON(parseJSON: _sampleAggregatedHealthAndCheckinDataJsonString)["result"]
-    
-    #if MAIN_APP
-        
+            
         guard let sampleDataPath = try? Bundle.main.path(forResource: "sample_chart_data", ofType: "json")?.asURL() else { return defaultJSON }
         guard let jsonData = try? Data(contentsOf: sampleDataPath) else { return defaultJSON }
         guard let json = try? JSON(data: jsonData) else { return defaultJSON["result"] }
 
         return json["result"]
-   
-    #else
+        
         return defaultJSON["result"]
-    #endif
     
 }()
+#endif
 
 
 let _sampleAggregatedHealthAndCheckinDataJsonString = """

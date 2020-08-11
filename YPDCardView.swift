@@ -123,7 +123,7 @@ struct YPDCardView_Previews: PreviewProvider {
                           Text("Another one bites the dust.")
                               .font(.footnote)
                           }
-                      })
+                      }, hideBelowFoldSeparator: true)
         }
     }
 }

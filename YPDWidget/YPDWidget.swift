@@ -49,7 +49,17 @@ struct YPDWidgetEntryView : View {
 
     var body: some View {
 //        Text(entry.date, style: .time)
-        YPDRecentCheckinView(displayedCheckin: _sampleCheckin)
+//
+//        YPDRecentCheckinView(displayedCheckin: _sampleCheckin)
+//        YPDCardView(aboveFold: {
+//            Text("Insights Overview")
+//        }, mainContent: {
+//            Text("Your vitality has dropped this week.")
+//        }, belowFold: {
+//            Text("10 Days Ago")
+//        }, displayShadow: false, hideBelowFoldSeparator: false)
+        
+        YPDRecentCheckinView(displayedCheckin: _sampleCheckin, displayShadow: false)
     }
 }
 

@@ -16,7 +16,7 @@ import Combine
 /// Singleton object containing YPDCheckinPrompts.
 class YPDModel: ObservableObject {
     
-    static let shared = YPDModel()
+//    static let shared = YPDModel()
     
     @Published var checkinPrompts: [YPDCheckinPrompt] = []
     
@@ -32,7 +32,7 @@ class YPDModel: ObservableObject {
     
     @Published var selectedAggregationCriteria: AggregationCriteria = .day
     
-    @Published var sliderValues: [Float] = []
+    @Published var sliderValues: [Float] = [0]
     
 //    public func select(metricAttribute: YPDCheckinType) {
 //        self.selectedMetricAttribute = metricAttribute
@@ -66,8 +66,12 @@ class YPDModel: ObservableObject {
     
     init() {
         
-        Fetcher.sharedInstance.fetchMetricPrompts(completionHandler: {
-            self.checkinPrompts = $0
+        Fetcher.sharedInstance.fetchMetricPrompts(completionHandler: { checkinPrompts in
+            DispatchQueue.main.async {
+                self.checkinPrompts = checkinPrompts
+                self.sliderValues = Array.init(repeating: 0, count: self.checkinPrompts.count)
+            }
+ 
         })
         
         self.fetchInsights()

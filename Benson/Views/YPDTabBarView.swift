@@ -15,7 +15,6 @@ struct YPDTabBarView: View {
     var body: some View {
         
         ZStack {
-//            Color(UIColor.systemGroupedBackground).edgesIgnoringSafeArea(.all)
             TabView(selection: self.$selection) {
                 
                 // Initialise a summary view with the default general feeling attribute.
@@ -33,7 +32,8 @@ struct YPDTabBarView: View {
                     }
                 }.tag(2)
             }
-        }
+        // Not ideal, but because of our current setup we need to pass the environment object in here.
+        }.environmentObject(YPDModel())
     }
 }
 

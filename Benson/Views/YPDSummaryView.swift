@@ -15,7 +15,7 @@ struct YPDSummaryView: View {
     
     @ObservedObject var chartData: YPDChartData
     
-    @ObservedObject var model: YPDModel = YPDModel.shared
+    @EnvironmentObject var model: YPDModel
     
     @State var selectedAggregationCriteria: AggregationCriteria = .day
     
@@ -125,7 +125,7 @@ struct YPDSummaryView: View {
 
 struct YPDSummaryView_Previews: PreviewProvider {
     static var previews: some View {
-        YPDSummaryView(checkins: _sampleMetricLogs, chartData: .init(attributes: [.generalFeeling], selectedTimeUnit: .week))
+        YPDSummaryView(checkins: _sampleMetricLogs, chartData: .init(attributes: [.generalFeeling], selectedTimeUnit: .week)).environmentObject(YPDModel())
         //        YPDSummaryView(chartData: .init(attributes: ["generalFeeling"], selectedTimeUnit: .week))
         
     }

@@ -23,6 +23,7 @@ struct YPDButton: View {
 //        .padding(.all, Constants.Padding)
         .background(Color.blue)
             .cornerRadius(10)
+        .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
             
         
         }.frame(height: 50)

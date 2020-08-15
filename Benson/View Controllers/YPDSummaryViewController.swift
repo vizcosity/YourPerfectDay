@@ -18,10 +18,12 @@ class YPDSummaryViewController: UIHostingController<YPDSummaryView> {
     }
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         
+        
         // Reassign the root view to make use of the @Binding held at this level.
-        self.rootView = YPDSummaryView(chartData: YPDChartData(attributes: [.generalFeeling], selectedTimeUnit: .day))
+        self.rootView = YPDSummaryView(chartData: YPDChartData(attributes: [.generalFeeling], selectedTimeUnit: .day)).environmentObject(YPDModel())
         
         // Fetch metric logs and assign this to the root view object.
 //        Fetcher.sharedInstance.fetchMetricLogs { (metricLogs) in

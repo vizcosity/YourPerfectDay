@@ -57,7 +57,7 @@ struct OCKCartesianChartViewWrapper: UIViewRepresentable {
 //        chartView.contentStackView.clear()
         let graphLegendView = chartView.graphView.subviews[3]
         graphLegendView.translatesAutoresizingMaskIntoConstraints = false
-        
+                
         // chartView.graphView.legend
         
 //        graphLegendView.frame = CGRect(x: graphLegendView.frame.minX, y: graphLegendView.frame.minY, width: graphLegendView.frame.width, height: )
@@ -75,18 +75,16 @@ struct OCKCartesianChartViewWrapper: UIViewRepresentable {
     // This will be called whenever the properties passed down into the view are changed -
     // in which case we need to update the view accordingly.
     func updateUIView(_ uiView: OCKCartesianChartView, context: Context) {
-//        uiView.graphView.dataSeries = []
+        
         uiView.graphView.dataSeries = self.chartData.dataSeries
-//        uiView.graphView.dataSeries = []
         
-        // Add a constraint to the graph legend view.
-//        uiView.graphView.subviews[]
+        let (minY, maxY) = self.chartData.minMaxYValues
         
-//        print("Axis Chart Markers: \(self.chartData.horizontalAxisChartMarkers.sample(withAroundNumberOfPoints: 5).joined(separator: ","))")
+        uiView.graphView.yMaximum = maxY
+        uiView.graphView.yMinimum = minY
         
         uiView.graphView.horizontalAxisMarkers = self.chartData.horizontalAxisChartMarkers.sample(withAroundNumberOfPoints: 5)
 
-        //print("Data series: \(self.chartData.dataSeries.map { $0.dataPoints })")
         
         uiView.graphView.setNeedsLayout()
         uiView.graphView.setNeedsDisplay()

@@ -18,17 +18,85 @@ class YPDModel: ObservableObject {
     
     static let shared = YPDModel()
     
-    /// Checkin prompt values for each slider.
-    @Published var sliderValues: [Float] = [0]
-    
     @Published var checkinPrompts: [YPDCheckinPrompt] = []
     
+    @Published var insightForSelectedAttribute: YPDInsight?
+
+    @Published var insightsForSelectedAttributes: [YPDInsight] = []
+    
+    var selectedMetricAttribute: YPDCheckinType {
+        self.selectedMetricAttributes.first ?? .generalFeeling
+    }
+    
+    @Published var selectedMetricAttributes: [YPDCheckinType] = [.generalFeeling]
+    
+    @Published var selectedAggregationCriteria: AggregationCriteria = .day
+    
+    @Published var sliderValues: [Float] = []
+    
+//    public func select(metricAttribute: YPDCheckinType) {
+//        self.selectedMetricAttribute = metricAttribute
+//        self.fetchInsights()
+//    }
+    
+    public func select(metricAttribute: YPDCheckinType, atIndex index: Int) {
+        guard index < self.selectedMetricAttributes.count else { return }
+        self.selectedMetricAttributes[index] = metricAttribute
+        self.fetchInsights()
+    }
+    
+    public func select(aggregationCriteria: AggregationCriteria) {
+        self.selectedAggregationCriteria = aggregationCriteria
+        self.fetchInsights()
+    }
+    
+    public func addNewSelectedMetricAttribute(_ metricAttribute: YPDCheckinType? = nil){
+        self.selectedMetricAttributes.append(metricAttribute ?? (self.selectedMetricAttributes.last ?? .generalFeeling))
+        self.fetchInsights()
+    }
+    
+    public func removeSelectedMetricAttribute(_ metricAttribute: YPDCheckinType? = nil){
+        guard self.selectedMetricAttributes.count > 1 else { return }
+        if let metricAttribute = metricAttribute {
+            self.selectedMetricAttributes = self.selectedMetricAttributes.filter { $0 != metricAttribute }
+        } else {
+           let _ = self.selectedMetricAttributes.popLast()
+        }
+    }
+    
     init() {
+        
         Fetcher.sharedInstance.fetchMetricPrompts(completionHandler: {
             self.checkinPrompts = $0
-            self.sliderValues = Array.init(repeating: 0, count: self.checkinPrompts.count)
+        })
+        
+        self.fetchInsights()
+        
+    }
+    
+    /// Fetches the YPDInsight given the selected metric attribute and aggregation criteria.
+    private func fetchInsight() -> Void {
+        // Mark the insight as empty so that the views which depend on the insight display progress bars to indicate that the insight is loading. When the insight variable is set, an event should be published which will cause the views to update.
+        self.insightForSelectedAttribute = nil
+        Fetcher.sharedInstance.fetchInsights(forMetric: self.selectedMetricAttribute, withAggregationCriteria: self.selectedAggregationCriteria, limit: 1, completionHandler: {
+            self.insightForSelectedAttribute = $0.first!
             
         })
+    }
+        
+    /// Fetches an insight for every selected metric attribute.
+    private func fetchInsights() -> Void {
+        
+        // Mark the insight as empty so that the views which depend on the insight display progress bars to indicate that the insight is loading. When the insight variable is set, an event should be published which will cause the views to update.
+        self.insightsForSelectedAttributes = []
+        
+        self.selectedMetricAttributes.forEach {
+            Fetcher.sharedInstance.fetchInsights(forMetric: $0, withAggregationCriteria: self.selectedAggregationCriteria, limit: 1, completionHandler: {
+                self.insightsForSelectedAttributes.append($0.first!)
+            })
+        }
+        
+
     }
     
     func log(_ msg: String...){

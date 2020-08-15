@@ -24,6 +24,20 @@ class YPDChartData: ObservableObject {
     var jsonData: JSON?
     var data: [(Date, Double)]?
     
+    /// Returns the minimum and maximum y values across all of the OCKDataSeries' which are contained within the YPDChartData object.
+    var minMaxYValues: (CGFloat, CGFloat) {
+        
+        let minMaxForEachSeries = self.dataSeries.map(self.getMinMaxYValues(forDataSeries:))
+        
+        let minY = minMaxForEachSeries.map {$0.0}.sorted { $0 < $1 }.first ?? 0
+        let maxY = minMaxForEachSeries.map {$0.1}.sorted{ $0 < $1 }.first ?? 0
+        
+        // Add some fudge.
+        return (CGFloat(Int(minY*0.99)), CGFloat(Int((maxY*1.01 + 0.5))))
+        
+    }
+    
+    
     /// Convenience initialiser which fetches the aggregated health and checkin data JSON file from the backend, and initialises the ChartData object.
     /// - Parameters:
     ///     - attributes: The attributes (such as generalFeeling, Mood, etc) which correspond to the aggregated data
@@ -213,6 +227,21 @@ class YPDChartData: ObservableObject {
         return (chartPoints.map { $0.0 }, chartPoints.map { CGPoint(x: $0.1.x, y: $0.1.y / CGFloat(normalise ? largestYValue : 1)) })
     }
 
+    /// Fetches the min and max y values for a given dimension passed on a dataseries.
+    private func getMinMaxYValues(forDataSeries dataSeries: OCKDataSeries) -> (CGFloat, CGFloat) {
+        
+        let sorted = dataSeries.dataPoints.sorted { (firstPoint, secondPoint) -> Bool in
+            return firstPoint.y < secondPoint.y
+        }
+        
+        guard !sorted.isEmpty else {
+            return (0, 0)
+        }
+        
+        return (sorted.first!.y, sorted.last!.y)
+        
+    }
+    
     private func log(_ msg: String...){
         print("Chart Util |", msg)
     }

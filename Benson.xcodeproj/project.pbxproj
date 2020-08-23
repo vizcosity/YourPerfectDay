@@ -33,7 +33,6 @@
 		21645BB724DCB02F004080B9 /* YPDCheckinType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21645BB624DCB02F004080B9 /* YPDCheckinType.swift */; };
 		21645BBA24DCB053004080B9 /* YPDCheckinResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21645BB924DCB053004080B9 /* YPDCheckinResponse.swift */; };
 		21645BBD24DCB08E004080B9 /* YPDCheckinPrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21645BBC24DCB08E004080B9 /* YPDCheckinPrompt.swift */; };
-		216764CC24DDE95800141AF3 /* YPDCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FEE7D424C4E7A000C6207A /* YPDCardView.swift */; };
 		216764CD24DDE96F00141AF3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BD462324819E1F0077DCD7 /* Constants.swift */; };
 		216764CE24DDEBFC00141AF3 /* YPDSummaryIndividualMetricInsightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2127B00E2430E5B900B8D0B1 /* YPDSummaryIndividualMetricInsightView.swift */; };
 		216764CF24DDEC1000141AF3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2127B0102430E67F00B8D0B1 /* Extensions.swift */; };
@@ -46,6 +45,7 @@
 		216764D724DDF0BD00141AF3 /* StaticData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21532F57247305040054AC84 /* StaticData.swift */; };
 		216CAA70237A010E004D6B8E /* YPDCheckin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CAA6F237A010E004D6B8E /* YPDCheckin.swift */; };
 		21734671240AF9C700B22219 /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21734670240AF9C700B22219 /* Sample.swift */; };
+		2181290124F30B0B0050B6C9 /* YPDAnimatableLoadingBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2181290024F30B0B0050B6C9 /* YPDAnimatableLoadingBar.swift */; };
 		218241B92482DC8500B85C3E /* YPDButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218241B82482DC8500B85C3E /* YPDButton.swift */; };
 		218241BD2482E43200B85C3E /* YPDCheckinPromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218241BC2482E43200B85C3E /* YPDCheckinPromptView.swift */; };
 		2184B020238D11F900FE96EA /* Fetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2184B01F238D11F900FE96EA /* Fetcher.swift */; };
@@ -59,6 +59,9 @@
 		21BD462424819E1F0077DCD7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BD462324819E1F0077DCD7 /* Constants.swift */; };
 		21BD46262481A3900077DCD7 /* YPDCheckinsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BD46252481A3900077DCD7 /* YPDCheckinsView.swift */; };
 		21BF588524B655D0009F6B1B /* YPDInsightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BF588424B655D0009F6B1B /* YPDInsightsView.swift */; };
+		21C4EE0724EB32C400F5278F /* YPDCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C4EE0624EB32C400F5278F /* YPDCardView.swift */; };
+		21C4EE0924EB32EC00F5278F /* YPDEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C4EE0824EB32EC00F5278F /* YPDEntryView.swift */; };
+		21C4EE0A24EB34EC00F5278F /* YPDCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C4EE0624EB32C400F5278F /* YPDCardView.swift */; };
 		21C58F372327BCBB007EE5F1 /* CheckinCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C58F362327BCBB007EE5F1 /* CheckinCollectionViewCell.swift */; };
 		21C6338424DCA00D002BDC83 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 217B614724B9E8FD00E88B04 /* WidgetKit.framework */; };
 		21C6338524DCA00D002BDC83 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 217B614924B9E8FD00E88B04 /* SwiftUI.framework */; };
@@ -75,7 +78,6 @@
 		21F8C30E24BA260B00F7B3BB /* moment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F8C30D24BA260B00F7B3BB /* moment.swift */; };
 		21F8C31024BA262700F7B3BB /* moment-with-locales.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 21F8C30F24BA262700F7B3BB /* moment-with-locales.min.js */; };
 		21FEE7D324C4E18700C6207A /* YPDRecentCheckinsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FEE7D224C4E18600C6207A /* YPDRecentCheckinsView.swift */; };
-		21FEE7D524C4E7A000C6207A /* YPDCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FEE7D424C4E7A000C6207A /* YPDCardView.swift */; };
 		21FEE7D724C4F2CF00C6207A /* YPDExpandedInsightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FEE7D624C4F2CF00C6207A /* YPDExpandedInsightView.swift */; };
 /* End PBXBuildFile section */
 
@@ -157,6 +159,7 @@
 		21743E8023D0FE9600F49CC3 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		217B614724B9E8FD00E88B04 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		217B614924B9E8FD00E88B04 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		2181290024F30B0B0050B6C9 /* YPDAnimatableLoadingBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDAnimatableLoadingBar.swift; sourceTree = "<group>"; };
 		218241B82482DC8500B85C3E /* YPDButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDButton.swift; sourceTree = "<group>"; };
 		218241BC2482E43200B85C3E /* YPDCheckinPromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDCheckinPromptView.swift; sourceTree = "<group>"; };
 		2184B01F238D11F900FE96EA /* Fetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fetcher.swift; sourceTree = "<group>"; };
@@ -171,6 +174,8 @@
 		21BD462324819E1F0077DCD7 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		21BD46252481A3900077DCD7 /* YPDCheckinsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDCheckinsView.swift; sourceTree = "<group>"; };
 		21BF588424B655D0009F6B1B /* YPDInsightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDInsightsView.swift; sourceTree = "<group>"; };
+		21C4EE0624EB32C400F5278F /* YPDCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YPDCardView.swift; sourceTree = "<group>"; };
+		21C4EE0824EB32EC00F5278F /* YPDEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDEntryView.swift; sourceTree = "<group>"; };
 		21C58F362327BCBB007EE5F1 /* CheckinCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinCollectionViewCell.swift; sourceTree = "<group>"; };
 		21C6338324DCA00D002BDC83 /* YPDWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = YPDWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		21C6338724DCA00D002BDC83 /* YPDWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDWidget.swift; sourceTree = "<group>"; };
@@ -191,7 +196,6 @@
 		21F8C30D24BA260B00F7B3BB /* moment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = moment.swift; sourceTree = "<group>"; };
 		21F8C30F24BA262700F7B3BB /* moment-with-locales.min.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "moment-with-locales.min.js"; sourceTree = "<group>"; };
 		21FEE7D224C4E18600C6207A /* YPDRecentCheckinsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDRecentCheckinsView.swift; sourceTree = "<group>"; };
-		21FEE7D424C4E7A000C6207A /* YPDCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDCardView.swift; sourceTree = SOURCE_ROOT; };
 		21FEE7D624C4F2CF00C6207A /* YPDExpandedInsightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDExpandedInsightView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -331,27 +335,15 @@
 		217BEFC12395BC4B0076DF02 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				21B53B3824E84AFE009AE103 /* YPDRecentCheckinsSection.swift */,
-				21B53B3624E8490E009AE103 /* YPDInsightSummarySection.swift */,
-				21FEE7D424C4E7A000C6207A /* YPDCardView.swift */,
+				21C4EE0424EB328800F5278F /* Insights */,
+				21C4EE0524EB32AD00F5278F /* Common */,
 				21532F5B24730F410054AC84 /* Wrappers */,
-				21E2F375246878AF00EFB205 /* YPDRecentCheckinView.swift */,
-				2127B00E2430E5B900B8D0B1 /* YPDSummaryIndividualMetricInsightView.swift */,
-				21010094242D4CBC0010ED8D /* YPDIndividualInsightSummaryView.swift */,
-				21BF588424B655D0009F6B1B /* YPDInsightsView.swift */,
-				2101009A242EA0D70010ED8D /* YPDInsightProgressBarView.swift */,
-				21E2F37724687A3F00EFB205 /* YPDProgressBar.swift */,
+				21C4EE0324EB327400F5278F /* Checkin */,
 				21532F532472FE600054AC84 /* YPDSummaryView.swift */,
-				21FEE7D224C4E18600C6207A /* YPDRecentCheckinsView.swift */,
-				21BD46252481A3900077DCD7 /* YPDCheckinsView.swift */,
-				219C7D712482CAC50052AF72 /* YPDAttributePicker.swift */,
 				21DF333B2482CCCE00D18EBC /* YPDTimeUnitPicker.swift */,
-				21DF333D2482D31800D18EBC /* YPDSubmitCheckinView.swift */,
-				218241B82482DC8500B85C3E /* YPDButton.swift */,
-				218241BC2482E43200B85C3E /* YPDCheckinPromptView.swift */,
 				2136C98A249D422900ECE95E /* YPDTabBarView.swift */,
-				214CAC9724C71280007382CF /* YPDExpandedIndividualMetricInsightView.swift */,
-				21FEE7D624C4F2CF00C6207A /* YPDExpandedInsightView.swift */,
+				21C4EE0824EB32EC00F5278F /* YPDEntryView.swift */,
+				2181290024F30B0B0050B6C9 /* YPDAnimatableLoadingBar.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -373,6 +365,44 @@
 				21B013F52381EE21008FF7BB /* CellComponent */,
 			);
 			path = Assets;
+			sourceTree = "<group>";
+		};
+		21C4EE0324EB327400F5278F /* Checkin */ = {
+			isa = PBXGroup;
+			children = (
+				21BD46252481A3900077DCD7 /* YPDCheckinsView.swift */,
+				21B53B3824E84AFE009AE103 /* YPDRecentCheckinsSection.swift */,
+				21E2F375246878AF00EFB205 /* YPDRecentCheckinView.swift */,
+				21FEE7D224C4E18600C6207A /* YPDRecentCheckinsView.swift */,
+				21DF333D2482D31800D18EBC /* YPDSubmitCheckinView.swift */,
+				218241BC2482E43200B85C3E /* YPDCheckinPromptView.swift */,
+			);
+			path = Checkin;
+			sourceTree = "<group>";
+		};
+		21C4EE0424EB328800F5278F /* Insights */ = {
+			isa = PBXGroup;
+			children = (
+				214CAC9724C71280007382CF /* YPDExpandedIndividualMetricInsightView.swift */,
+				21B53B3624E8490E009AE103 /* YPDInsightSummarySection.swift */,
+				2127B00E2430E5B900B8D0B1 /* YPDSummaryIndividualMetricInsightView.swift */,
+				21010094242D4CBC0010ED8D /* YPDIndividualInsightSummaryView.swift */,
+				21FEE7D624C4F2CF00C6207A /* YPDExpandedInsightView.swift */,
+				21BF588424B655D0009F6B1B /* YPDInsightsView.swift */,
+				2101009A242EA0D70010ED8D /* YPDInsightProgressBarView.swift */,
+			);
+			path = Insights;
+			sourceTree = "<group>";
+		};
+		21C4EE0524EB32AD00F5278F /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				21C4EE0624EB32C400F5278F /* YPDCardView.swift */,
+				21E2F37724687A3F00EFB205 /* YPDProgressBar.swift */,
+				219C7D712482CAC50052AF72 /* YPDAttributePicker.swift */,
+				218241B82482DC8500B85C3E /* YPDButton.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		21C6338624DCA00D002BDC83 /* YPDWidget */ = {
@@ -555,18 +585,20 @@
 				21645BB724DCB02F004080B9 /* YPDCheckinType.swift in Sources */,
 				21B0D6E7249E2A310080B58A /* YPDTabBarViewController.swift in Sources */,
 				21FEE7D724C4F2CF00C6207A /* YPDExpandedInsightView.swift in Sources */,
+				2181290124F30B0B0050B6C9 /* YPDAnimatableLoadingBar.swift in Sources */,
 				21B53B3924E84AFE009AE103 /* YPDRecentCheckinsSection.swift in Sources */,
 				21010095242D4CBC0010ED8D /* YPDIndividualInsightSummaryView.swift in Sources */,
+				21C4EE0924EB32EC00F5278F /* YPDEntryView.swift in Sources */,
 				212EEE992318685D00C01AD8 /* BensonButton.swift in Sources */,
 				21F8C30E24BA260B00F7B3BB /* moment.swift in Sources */,
 				216CAA70237A010E004D6B8E /* YPDCheckin.swift in Sources */,
 				21DF333C2482CCCE00D18EBC /* YPDTimeUnitPicker.swift in Sources */,
 				21532F5F24730F660054AC84 /* OCKCartesianChartViewWrapper.swift in Sources */,
+				21C4EE0724EB32C400F5278F /* YPDCardView.swift in Sources */,
 				21532F58247305040054AC84 /* StaticData.swift in Sources */,
 				219C7D722482CAC50052AF72 /* YPDAttributePicker.swift in Sources */,
 				218241B92482DC8500B85C3E /* YPDButton.swift in Sources */,
 				212B86C9239D483500CE9C41 /* BensonHealthManager.swift in Sources */,
-				21FEE7D524C4E7A000C6207A /* YPDCardView.swift in Sources */,
 				21734671240AF9C700B22219 /* Sample.swift in Sources */,
 				21C58F372327BCBB007EE5F1 /* CheckinCollectionViewCell.swift in Sources */,
 				2127B0112430E67F00B8D0B1 /* Extensions.swift in Sources */,
@@ -589,7 +621,6 @@
 				216764CF24DDEC1000141AF3 /* Extensions.swift in Sources */,
 				216764D524DDF04600141AF3 /* YPDCheckin.swift in Sources */,
 				216764D024DDEC7C00141AF3 /* YPDCheckinType.swift in Sources */,
-				216764CC24DDE95800141AF3 /* YPDCardView.swift in Sources */,
 				216764D324DDEFC000141AF3 /* YPDRecentCheckinView.swift in Sources */,
 				216764D724DDF0BD00141AF3 /* StaticData.swift in Sources */,
 				216764D124DDECC300141AF3 /* moment.swift in Sources */,
@@ -597,6 +628,7 @@
 				216764D424DDF03500141AF3 /* YPDCheckinResponse.swift in Sources */,
 				216764D624DDF07100141AF3 /* YPDProgressBar.swift in Sources */,
 				216764CD24DDE96F00141AF3 /* Constants.swift in Sources */,
+				21C4EE0A24EB34EC00F5278F /* YPDCardView.swift in Sources */,
 				216764CE24DDEBFC00141AF3 /* YPDSummaryIndividualMetricInsightView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

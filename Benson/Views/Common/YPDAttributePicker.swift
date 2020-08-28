@@ -74,6 +74,7 @@ struct YPDMetricAttributePickerButton: View, Identifiable {
             //            Text("\(self.selectedAttributes.map { $0.humanReadable }.joined(separator: ","))")
             Text(self.selectedMetric.humanReadable)
         }).sheet(isPresented: self.$pickerDisplayed, onDismiss: {
+            print("Selected picker index: \(self.selectedPickerIndex)")
             self.onDismiss(self.selectedMetric)
         }){
             YPDAttributePicker(selectedPickerIndex: self.$selectedPickerIndex, pickerIsDisplayed: self.$pickerDisplayed, options: YPDCheckinType.allCases.map { $0.humanReadable })

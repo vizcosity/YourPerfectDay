@@ -12,9 +12,12 @@ struct YPDTabBarView: View {
     
     @State var selection: Int = 0
     
+    @ObservedObject var model: YPDModel = YPDModel()
+    
     var body: some View {
         
         ZStack {
+                    
             TabView(selection: self.$selection) {
                 
                 // Initialise a summary view with the default general feeling attribute.
@@ -31,9 +34,16 @@ struct YPDTabBarView: View {
                         Text("Checkin")
                     }
                 }.tag(2)
+                
             }
+            
+            // Display the entry view while items are loading.
+                YPDEntryView()
+                    .opacity(model.checkinPrompts.count == 0 ? 1 : 0)
+                    .transition(.move(edge: .bottom))
+                    .animation(.easeInOut)
         // Not ideal, but because of our current setup we need to pass the environment object in here.
-        }.environmentObject(YPDModel())
+        }.environmentObject(model)
     }
 }
 

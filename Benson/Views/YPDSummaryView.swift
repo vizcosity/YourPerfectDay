@@ -33,7 +33,7 @@ struct YPDSummaryView: View {
     }
     
     // Why is it that when we modify a child of this array, the subscribed views do not change?
-    @State var selectedAttributes: [YPDCheckinType] = [.generalFeeling]
+//    @State var selectedAttributes: [YPDCheckinType] = [.generalFeeling]
     
     var body: some View {
         NavigationView {
@@ -55,6 +55,7 @@ struct YPDSummaryView: View {
                                     withAnimation {
                                         // Ensure that we update the model with the newly selected metric attribute
                                         self.model.select(metricAttribute: selectedAttribute, atIndex: i)
+                                        print("Selected \(selectedAttribute.humanReadable) and now fetching new data")
                                         self.chartData.fetchNewData(forAttributes: self.model.selectedMetricAttributes, selectedTimeUnit: self.model.selectedAggregationCriteria)
                                     }
                                 })

@@ -10,7 +10,8 @@ import SwiftUI
 
 struct YPDAnimatableLoadingBar: View {
     
-    var height: CGFloat = 15
+    var size: CGFloat = 15
+    var paddingFromSides: CGFloat = 50
     var cornerRadius: CGFloat = 15
     var extraSliderSize: CGFloat = 5
     var barOpacity: Double = 0.4
@@ -25,15 +26,16 @@ struct YPDAnimatableLoadingBar: View {
             ZStack {
                 RoundedRectangle(cornerRadius: cornerRadius)
                     .fill(Color.white.opacity(barOpacity))
-                    .frame(height: height)
+                    .frame(height: size)
                     .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
                 
                 Circle()
-                    .frame(width: height + extraSliderSize, height: height + extraSliderSize)
-                    .position(x: animating ? geometry.size.width - height : height, y: geometry.size.height / 2)
-                    .animation(Animation.easeInOut.repeatForever(autoreverses: true))
+                    .frame(width: size + extraSliderSize, height: size + extraSliderSize)
+                    .position(x: animating ? geometry.size.width - paddingFromSides : paddingFromSides, y: geometry.size.height / 2)
+                    .foregroundColor(.white)
+                    .animation(Animation.easeInOut(duration: 1.8).repeatForever(autoreverses: true))
             }
-        }.frame(height: height + extraSliderSize * 2)
+        }.frame(height: size + extraSliderSize * 2)
         .onAppear {
             withAnimation {
                 self.animating.toggle()

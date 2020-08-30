@@ -14,6 +14,8 @@ struct YPDTabBarView: View {
     
     @ObservedObject var model: YPDModel = YPDModel()
     
+    var initialChartData: YPDChartData = YPDChartData(attributes: [.generalFeeling], selectedTimeUnit: .day)
+    
     var body: some View {
         
         ZStack {
@@ -21,7 +23,7 @@ struct YPDTabBarView: View {
             TabView(selection: self.$selection) {
                 
                 // Initialise a summary view with the default general feeling attribute.
-                YPDSummaryView(chartData: YPDChartData(attributes: [.generalFeeling], selectedTimeUnit: .day)).tabItem {
+                YPDSummaryView(chartData: initialChartData).tabItem {
                     VStack {
                         Image(systemName: "rectangle.3.offgrid")
                         Text("Summary")

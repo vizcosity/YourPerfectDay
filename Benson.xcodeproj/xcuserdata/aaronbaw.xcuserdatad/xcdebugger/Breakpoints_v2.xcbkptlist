@@ -132,5 +132,212 @@
             landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BA7F9DF3-9234-4F60-A29C-AD34A324CAB6"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Benson/Views/Insights/YPDInsightSummaryView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
+            landmarkName = "unknown"
+            landmarkType = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "53E73F67-A6CA-48B4-8B41-CAD1882918AC"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Benson/Views/YPDSummaryView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DB9D4FCB-26E4-46B7-9095-B3873314E776"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Benson/Model/Chart.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
+            landmarkName = "fetchDataAndInitialize(attributes:selectedTimeUnit:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "DB9D4FCB-26E4-46B7-9095-B3873314E776 - a19be2430026b22e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "YourPerfectDay.YPDChartData.(fetchDataAndInitialize in _8349DB4FEB4CB6CBF66E9440926EBDFD)(attributes: Swift.Array&lt;YourPerfectDay.YPDCheckinType&gt;, selectedTimeUnit: YourPerfectDay.AggregationCriteria) -&gt; ()"
+                  moduleName = "YourPerfectDay"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aaronbaw/Code/Benson/Benson/Model/Chart.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "77"
+                  endingLineNumber = "77"
+                  offsetFromSymbolStart = "50">
+               </Location>
+               <Location
+                  uuid = "DB9D4FCB-26E4-46B7-9095-B3873314E776 - e992af52bd9f0ba0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (SwiftyJSON.JSON) -&gt; () in YourPerfectDay.YPDChartData.(fetchDataAndInitialize in _8349DB4FEB4CB6CBF66E9440926EBDFD)(attributes: Swift.Array&lt;YourPerfectDay.YPDCheckinType&gt;, selectedTimeUnit: YourPerfectDay.AggregationCriteria) -&gt; ()"
+                  moduleName = "YourPerfectDay"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aaronbaw/Code/Benson/Benson/Model/Chart.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "78"
+                  endingLineNumber = "78"
+                  offsetFromSymbolStart = "222">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6B37251E-B933-4FF6-8993-41FD07237A87"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Benson/Model/Chart.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
+            landmarkName = "initialize(data:attributes:selectedTimeUnit:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5CDFD0CE-0B84-45BD-955B-ADD46F47D895"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Benson/Model/Chart.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
+            landmarkName = "fetchDataAndInitialize(attributes:selectedTimeUnit:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9CA0C732-FAD6-45A0-8E6F-88942D93471D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Benson/Model/Chart.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "141"
+            endingLineNumber = "141"
+            landmarkName = "fetchNewData(forAttributes:selectedTimeUnit:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "9CA0C732-FAD6-45A0-8E6F-88942D93471D - c2dd025c2b3bb13d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "default argument 0 of YourPerfectDay.YPDChartData.fetchNewData(forAttributes: Swift.Optional&lt;Swift.Array&lt;YourPerfectDay.YPDCheckinType&gt;&gt;, selectedTimeUnit: Swift.Optional&lt;YourPerfectDay.AggregationCriteria&gt;) -&gt; ()"
+                  moduleName = "YourPerfectDay"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aaronbaw/Code/Benson/Benson/Model/Chart.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "141"
+                  endingLineNumber = "141"
+                  offsetFromSymbolStart = "6">
+               </Location>
+               <Location
+                  uuid = "9CA0C732-FAD6-45A0-8E6F-88942D93471D - ef0991d7331ee33c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "default argument 1 of YourPerfectDay.YPDChartData.fetchNewData(forAttributes: Swift.Optional&lt;Swift.Array&lt;YourPerfectDay.YPDCheckinType&gt;&gt;, selectedTimeUnit: Swift.Optional&lt;YourPerfectDay.AggregationCriteria&gt;) -&gt; ()"
+                  moduleName = "YourPerfectDay"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aaronbaw/Code/Benson/Benson/Model/Chart.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "141"
+                  endingLineNumber = "141"
+                  offsetFromSymbolStart = "6">
+               </Location>
+               <Location
+                  uuid = "9CA0C732-FAD6-45A0-8E6F-88942D93471D - f8485be84b3193db"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "YourPerfectDay.YPDChartData.fetchNewData(forAttributes: Swift.Optional&lt;Swift.Array&lt;YourPerfectDay.YPDCheckinType&gt;&gt;, selectedTimeUnit: Swift.Optional&lt;YourPerfectDay.AggregationCriteria&gt;) -&gt; ()"
+                  moduleName = "YourPerfectDay"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aaronbaw/Code/Benson/Benson/Model/Chart.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "142"
+                  endingLineNumber = "142"
+                  offsetFromSymbolStart = "73">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0EA26EE1-944E-4174-95DE-EC0134991782"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Benson/Model/Chart.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "143"
+            endingLineNumber = "143"
+            landmarkName = "fetchNewData(forAttributes:selectedTimeUnit:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D5BF6B11-97B3-4C14-94EE-D25D4A913B50"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Benson/Model/Chart.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
+            landmarkName = "fetchDataAndInitialize(attributes:selectedTimeUnit:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

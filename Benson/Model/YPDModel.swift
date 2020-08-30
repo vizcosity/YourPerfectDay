@@ -41,7 +41,7 @@ class YPDModel: ObservableObject {
     
     public func select(metricAttribute: YPDCheckinType, atIndex index: Int) {
         guard index < self.selectedMetricAttributes.count else { return }
-        print("Selecting metric attribute:\(metricAttribute.humanReadable)")
+        print("[YPD Model] | Selecting metric attribute:\(metricAttribute.humanReadable) at index \(index)")
         self.selectedMetricAttributes[index] = metricAttribute
         self.fetchInsights()
     }
@@ -96,6 +96,7 @@ class YPDModel: ObservableObject {
         self.insightsForSelectedAttributes = []
         
         self.selectedMetricAttributes.forEach {
+            print("[YPD Model] | Fetching insight for metric attribute \($0.humanReadable)")
             Fetcher.sharedInstance.fetchInsights(forMetric: $0, withAggregationCriteria: self.selectedAggregationCriteria, limit: 1, completionHandler: {
                 if let insight = $0.first {
                     DispatchQueue.main.async {

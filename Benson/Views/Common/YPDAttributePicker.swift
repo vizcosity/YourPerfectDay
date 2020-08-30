@@ -47,7 +47,10 @@ struct YPDAttributePicker: View {
 
 struct YPDAttributePicker_Previews: PreviewProvider {
     static var previews: some View {
-        YPDAttributePicker(selectedPickerIndex: .constant(0), pickerIsDisplayed: .constant(true), options: ["Option One", "Option Two", "Option Three"])
+//        YPDAttributePicker(selectedPickerIndex: .constant(0), pickerIsDisplayed: .constant(true), options: ["Option One", "Option Two", "Option Three"])
+        YPDMetricAttributePickerButton(onDismiss: {
+            metric in print("\(metric.humanReadable)")
+        })
     }
 }
 
@@ -55,7 +58,6 @@ struct YPDAttributePicker_Previews: PreviewProvider {
 struct YPDMetricAttributePickerButton: View, Identifiable {
     
     var id: String = UUID.init().uuidString
-    
     
     @State var pickerDisplayed = false
     

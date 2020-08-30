@@ -106,6 +106,12 @@ class Fetcher {
             completionHandler($0)
         })
     }
+    
+    public func fetchMetricPromptsWithURLSession(completionHandler: @escaping ([YPDCheckinPrompt]) -> Void) {
+        let request = URLRequest(url: URL(string: Webserver.getMetrics)!)
+        
+        let session = URLSessionTask()
+    }
         
     public func fetchMetricPrompts(completionHandler: @escaping ([YPDCheckinPrompt]) -> Void){
         

@@ -107,6 +107,8 @@ class YPDChartData: ObservableObject {
         // Generate the horizontal axis labels for the chart.
         self.horizontalAxisChartMarkers = self.generateHorizontalAxisLabels(forCollectionDates: sampleDates)
         
+        print("Chart Data | Initialized chart data with attributes: \(attributes) and data \(self.dataSeries)")
+        
     }
     
     /// Convenience method which can be used to initialize the YPDChartData object using the array of (Double, Date) tuples.
@@ -137,6 +139,7 @@ class YPDChartData: ObservableObject {
     
     /// Updates the ChartData object given new attributes or selected time units.
     public func fetchNewData(forAttributes attributes: [YPDCheckinType]? = nil, selectedTimeUnit timeUnit: AggregationCriteria? = nil){
+        print("Chart | Fetching chart data for attributes: \((attributes ?? []).map { $0.humanReadable }.joined(separator: ", ")) ")
         self.fetchDataAndInitialize(attributes: attributes ?? self.attributes, selectedTimeUnit: timeUnit ?? self.timeUnit ?? .day)
     }
     

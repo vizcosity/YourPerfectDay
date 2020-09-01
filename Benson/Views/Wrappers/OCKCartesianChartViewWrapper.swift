@@ -99,7 +99,7 @@ struct OCKCartesianChartViewWrapper_Previews: PreviewProvider {
     
     static var chartData = YPDChartData(attributes: [.generalFeeling], selectedTimeUnit: .week)
     
-    static var anomalyMetricChartData = YPDChartData(data: _sampleInsights[0].mostImportantAnomalyMetrics[0].precedingData, attributes: [.vitality], selectedTimeUnit: .day)
+    static var anomalyMetricChartData = YPDChartData(multipleSeries: [_sampleInsights[0].mostImportantAnomalyMetrics[0].precedingData], attributes: [.vitality], selectedTimeUnit: .day)
     
     static var previews: some View {
         VStack(alignment: .leading) {

@@ -151,22 +151,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "53E73F67-A6CA-48B4-8B41-CAD1882918AC"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Benson/Views/YPDSummaryView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "50"
-            endingLineNumber = "50"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "DB9D4FCB-26E4-46B7-9095-B3873314E776"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -174,8 +158,8 @@
             filePath = "Benson/Model/Chart.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
             landmarkName = "fetchDataAndInitialize(attributes:selectedTimeUnit:)"
             landmarkType = "7">
             <Locations>
@@ -222,8 +206,8 @@
             filePath = "Benson/Model/Chart.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
             landmarkName = "initialize(data:attributes:selectedTimeUnit:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -238,8 +222,8 @@
             filePath = "Benson/Model/Chart.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
             landmarkName = "fetchDataAndInitialize(attributes:selectedTimeUnit:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -254,8 +238,8 @@
             filePath = "Benson/Model/Chart.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "141"
-            endingLineNumber = "141"
+            startingLineNumber = "163"
+            endingLineNumber = "163"
             landmarkName = "fetchNewData(forAttributes:selectedTimeUnit:)"
             landmarkType = "7">
             <Locations>
@@ -317,8 +301,8 @@
             filePath = "Benson/Model/Chart.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "143"
-            endingLineNumber = "143"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
             landmarkName = "fetchNewData(forAttributes:selectedTimeUnit:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -333,8 +317,8 @@
             filePath = "Benson/Model/Chart.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
             landmarkName = "fetchDataAndInitialize(attributes:selectedTimeUnit:)"
             landmarkType = "7">
          </BreakpointContent>

@@ -20,6 +20,15 @@
         }
       },
       {
+        "package": "SwiftUICharts",
+        "repositoryURL": "https://github.com/AppPear/ChartView.git",
+        "state": {
+          "branch": "master",
+          "revision": "4699847a9ac0c694666cea3acef133498952566e",
+          "version": null
+        }
+      },
+      {
         "package": "SwiftyJSON",
         "repositoryURL": "https://github.com/SwiftyJSON/SwiftyJSON.git",
         "state": {

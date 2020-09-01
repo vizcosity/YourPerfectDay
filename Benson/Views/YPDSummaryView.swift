@@ -35,71 +35,22 @@ struct YPDSummaryView: View {
     // Why is it that when we modify a child of this array, the subscribed views do not change?
 //    @State var selectedAttributes: [YPDCheckinType] = [.generalFeeling]
     
+    // Magic numbers.
+    var chartViewHorizontalPadding: CGFloat = 10
+    
     var body: some View {
         NavigationView {
             BackgroundViewWrapper {
                 VStack {
                     VStack {
                         
-                        HStack {
-                            
-                            ForEach(self.model.selectedMetricAttributes.indices, id: \.self) { i in
-                                
-//                                YPDMetricAttributePickerButton(selectedMetric: self.$selectedAttributes[i], onDismiss: {
-//                                    withAnimation {
-//                                        self.chartData.fetchNewData(forAttributes: self.selectedAttributes, selectedTimeUnit: self.selectedAggregationCriteria)
-//                                    }
-//                                })
-//
-                                YPDMetricAttributePickerButton(onDismiss: { selectedAttribute in
-                                    withAnimation {
-                                        // Ensure that we update the model with the newly selected metric attribute
-                                        self.model.select(metricAttribute: selectedAttribute, atIndex: i)
-                                        print("Selected \(selectedAttribute.humanReadable) and now fetching new data")
-                                        self.chartData.fetchNewData(forAttributes: self.model.selectedMetricAttributes, selectedTimeUnit: self.model.selectedAggregationCriteria)
-                                    }
-                                })
-                                
-                                
-                                
-                                if (i != (self.model.selectedMetricAttributes.count - 1)) {
-                                    Text(",").fontWeight(.bold).foregroundColor(.gray)
-                                        .padding(.all, -2)
-                                }
-                                
-                            }
-                            
-                            Text("by")
-                                .foregroundColor(.gray)
-                            
-                            YPDAggregationCriteriaPickerButton(onDismiss: { aggregationCriteria in
-                                withAnimation {
-                                    self.chartData.fetchNewData(forAttributes: self.model.selectedMetricAttributes, selectedTimeUnit: self.model.selectedAggregationCriteria)
-                                    self.model.select(aggregationCriteria: aggregationCriteria)
-                                }
-                                
-                            })
-                            Spacer()
-                            
-                            Button {
-                                self.model.addNewSelectedMetricAttribute()
-                            } label: {
-                                Text("+")
-                            }
-                            
-                            Button {
-                                self.model.removeSelectedMetricAttribute()
-                            } label: {
-                                Text("-")
-                            }
-                            
-                            
-                        }.padding(.init([.leading, .trailing]), Constants.Padding)
-                        .font(.headline)
+                        YPDChartMetricSelectionHeader(chartData: chartData)
                         
-                        OCKCartesianChartViewWrapper(chartData: self.chartData)
-                            .frame(maxHeight: 300)
-                            .padding([.leading, .trailing], Constants.Padding)
+//                        OCKCartesianChartViewWrapper(chartData: self.chartData)
+//                            .frame(maxHeight: 300)
+//                            .padding([.leading, .trailing], Constants.Padding)
+                        YPDChartView(chartData: chartData, chartTitle: "Metrics", displayChartLegend: true, height: 410)
+                            .padding([.leading, .trailing], chartViewHorizontalPadding)
                     }
                     
                     ScrollView {
@@ -124,6 +75,68 @@ struct YPDSummaryView: View {
 }
 
 
+
+struct YPDChartMetricSelectionHeader: View {
+    
+    @EnvironmentObject var model: YPDModel
+    
+    @ObservedObject var chartData: YPDChartData
+    
+    var body: some View {
+        HStack {
+            
+            ForEach(self.model.selectedMetricAttributes.indices, id: \.self) { i in
+                
+                YPDMetricAttributePickerButton(onDismiss: { selectedAttribute in
+                    withAnimation {
+                        // Ensure that we update the model with the newly selected metric attribute
+                        self.model.select(metricAttribute: selectedAttribute, atIndex: i)
+                        print("Selected \(selectedAttribute.humanReadable) and now fetching new data")
+                        self.chartData.fetchNewData(forAttributes: self.model.selectedMetricAttributes, selectedTimeUnit: self.model.selectedAggregationCriteria)
+                    }
+                })
+                
+                
+                
+                if (i != (self.model.selectedMetricAttributes.count - 1)) {
+                    Text(",").fontWeight(.bold).foregroundColor(.gray)
+                        .padding(.all, -2)
+                }
+                
+            }
+            
+            Text("by")
+                .foregroundColor(.gray)
+            
+            YPDAggregationCriteriaPickerButton(onDismiss: { aggregationCriteria in
+                withAnimation {
+                    self.chartData.fetchNewData(forAttributes: self.model.selectedMetricAttributes, selectedTimeUnit: self.model.selectedAggregationCriteria)
+                    self.model.select(aggregationCriteria: aggregationCriteria)
+                }
+                
+            })
+            Spacer()
+            
+            Button {
+                self.model.addNewSelectedMetricAttribute()
+            } label: {
+                Text("+")
+            }
+            
+            Button {
+                self.model.removeSelectedMetricAttribute()
+            } label: {
+                Text("-")
+            }
+            
+            
+        }.padding(.init([.leading, .trailing]), Constants.Padding)
+        .font(.headline)
+    }
+}
+
+
+
 struct YPDSummaryView_Previews: PreviewProvider {
     static var previews: some View {
         YPDSummaryView(checkins: _sampleMetricLogs, chartData: .init(attributes: [.generalFeeling], selectedTimeUnit: .week)).environmentObject(YPDModel())
@@ -131,4 +144,3 @@ struct YPDSummaryView_Previews: PreviewProvider {
         
     }
 }
-

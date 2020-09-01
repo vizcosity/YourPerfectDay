@@ -13,6 +13,8 @@
 		2109EDDC24D5D92300BA4880 /* CareKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2109EDDB24D5D92300BA4880 /* CareKit */; };
 		2109EDDE24D5D92300BA4880 /* CareKitStore in Frameworks */ = {isa = PBXBuildFile; productRef = 2109EDDD24D5D92300BA4880 /* CareKitStore */; };
 		2109EDE024D5D92300BA4880 /* CareKitUI in Frameworks */ = {isa = PBXBuildFile; productRef = 2109EDDF24D5D92300BA4880 /* CareKitUI */; };
+		2115927324FC22CE00F57EED /* YPDChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2115927224FC22CE00F57EED /* YPDChartView.swift */; };
+		2115927624FC232100F57EED /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 2115927524FC232100F57EED /* SwiftUICharts */; };
 		2127B00F2430E5B900B8D0B1 /* YPDSummaryIndividualMetricInsightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2127B00E2430E5B900B8D0B1 /* YPDSummaryIndividualMetricInsightView.swift */; };
 		2127B0112430E67F00B8D0B1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2127B0102430E67F00B8D0B1 /* Extensions.swift */; };
 		212B86C9239D483500CE9C41 /* BensonHealthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212B86C8239D483500CE9C41 /* BensonHealthManager.swift */; };
@@ -91,6 +93,7 @@
 
 /* Begin PBXFileReference section */
 		2101009A242EA0D70010ED8D /* YPDInsightProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDInsightProgressBarView.swift; sourceTree = "<group>"; };
+		2115927224FC22CE00F57EED /* YPDChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDChartView.swift; sourceTree = "<group>"; };
 		2127B00E2430E5B900B8D0B1 /* YPDSummaryIndividualMetricInsightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDSummaryIndividualMetricInsightView.swift; sourceTree = "<group>"; };
 		2127B0102430E67F00B8D0B1 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		212B86C5239D477600CE9C41 /* Benson.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Benson.entitlements; sourceTree = "<group>"; };
@@ -179,6 +182,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2109EDDC24D5D92300BA4880 /* CareKit in Frameworks */,
+				2115927624FC232100F57EED /* SwiftUICharts in Frameworks */,
 				2109EDD724D5D8D800BA4880 /* Alamofire in Frameworks */,
 				2109EDD424D5D8A100BA4880 /* SwiftyJSON in Frameworks */,
 				21A8CA5224FB127A00B6621D /* HealthKit.framework in Frameworks */,
@@ -367,6 +371,7 @@
 				21E2F37724687A3F00EFB205 /* YPDProgressBar.swift */,
 				219C7D712482CAC50052AF72 /* YPDAttributePicker.swift */,
 				218241B82482DC8500B85C3E /* YPDButton.swift */,
+				2115927224FC22CE00F57EED /* YPDChartView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -437,6 +442,7 @@
 				2109EDDB24D5D92300BA4880 /* CareKit */,
 				2109EDDD24D5D92300BA4880 /* CareKitStore */,
 				2109EDDF24D5D92300BA4880 /* CareKitUI */,
+				2115927524FC232100F57EED /* SwiftUICharts */,
 			);
 			productName = Benson;
 			productReference = 213436E023098A42006B1CA8 /* YourPerfectDay.app */;
@@ -470,6 +476,7 @@
 				2109EDD224D5D8A100BA4880 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				2109EDD524D5D8D800BA4880 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				2109EDD824D5D92300BA4880 /* XCRemoteSwiftPackageReference "CareKit" */,
+				2115927424FC232100F57EED /* XCRemoteSwiftPackageReference "ChartView" */,
 			);
 			productRefGroup = 213436E123098A42006B1CA8 /* Products */;
 			projectDirPath = "";
@@ -538,6 +545,7 @@
 				21C58F372327BCBB007EE5F1 /* CheckinCollectionViewCell.swift in Sources */,
 				2127B0112430E67F00B8D0B1 /* Extensions.swift in Sources */,
 				21645BBA24DCB053004080B9 /* YPDCheckinResponse.swift in Sources */,
+				2115927324FC22CE00F57EED /* YPDChartView.swift in Sources */,
 				21B53B3724E8490E009AE103 /* YPDInsightSummarySection.swift in Sources */,
 				21C633B424DCA9E8002BDC83 /* BensonHealthUtil.swift in Sources */,
 				21532F5A24730B1F0054AC84 /* Chart.swift in Sources */,
@@ -805,6 +813,14 @@
 				kind = branch;
 			};
 		};
+		2115927424FC232100F57EED /* XCRemoteSwiftPackageReference "ChartView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AppPear/ChartView.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -832,6 +848,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2109EDD824D5D92300BA4880 /* XCRemoteSwiftPackageReference "CareKit" */;
 			productName = CareKitUI;
+		};
+		2115927524FC232100F57EED /* SwiftUICharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2115927424FC232100F57EED /* XCRemoteSwiftPackageReference "ChartView" */;
+			productName = SwiftUICharts;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

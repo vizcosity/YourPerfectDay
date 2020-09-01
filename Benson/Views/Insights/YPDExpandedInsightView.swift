@@ -39,7 +39,7 @@ struct YPDExpandedInsightView: View {
                             YPDIndividualMetricInsightView(anomalyMetric: anomalyMetric).padding(.bottom, Constants.Padding)
                             
                             // We assume that the aggregation criteria is always on a day-basis for the anomaly metric. (This will need to be udpated in the future to support weekly, as well as monthly aggregation.
-                            OCKCartesianChartViewWrapper(chartData: YPDChartData(data: anomalyMetric.precedingData, attributes: [anomalyMetric.metricAttribute]))
+                            OCKCartesianChartViewWrapper(chartData: YPDChartData(multipleSeries: [anomalyMetric.precedingData], attributes: [anomalyMetric.metricAttribute]))
                                 .frame(width: nil, height: 300, alignment: .center)
                                 .padding([.leading, .trailing], Constants.Padding)
                         }

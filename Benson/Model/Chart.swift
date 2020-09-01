@@ -11,6 +11,13 @@ import UIKit
 import SwiftyJSON
 import CareKit
 
+struct YPDChartError: Error {
+    var description: String
+    init(_ description: String){
+        self.description = description
+    }
+}
+
 /// Class for handling the generation of data points needed to chart metric log data with an OCKChartView
 class YPDChartData: ObservableObject {
     
@@ -22,7 +29,7 @@ class YPDChartData: ObservableObject {
     var timeUnit: AggregationCriteria?
     var attributes: [YPDCheckinType]
     var jsonData: JSON?
-    var data: [(Date, Double)]?
+    var data: [[(Date, Double)]]?
     
     /// Returns the minimum and maximum y values across all of the OCKDataSeries' which are contained within the YPDChartData object.
     var minMaxYValues: (CGFloat, CGFloat) {
@@ -63,10 +70,10 @@ class YPDChartData: ObservableObject {
     ///     - data: The tuple of (Date, Double) tuple pairs providing the data to be displayed in the chart.
     ///     - attributes: The attributes (such as generalFeeling, Mood, etc) which correspond to the aggregated data
     ///     - timeUnit: (Optional) The aggregation criteria (e.g. Day, Month, Week, etc)
-    public init(data: [(Date, Double)], attributes: [YPDCheckinType], selectedTimeUnit timeUnit: AggregationCriteria? = nil) {
+    public init(multipleSeries: [[(Date, Double)]], attributes: [YPDCheckinType], selectedTimeUnit timeUnit: AggregationCriteria? = nil) {
         self.attributes = attributes
         self.timeUnit = timeUnit
-        self.initialize(data: data, attributes: attributes)
+        try? self.initialize(multipleSeries: multipleSeries, attributes: attributes)
     }
     
     /// Convenience method which fetches data given certain attributes and a time unit, and updates the chart data accordingly.
@@ -74,12 +81,14 @@ class YPDChartData: ObservableObject {
     ///     - attributes: The attributes (such as generalFeeling, Mood, etc) which correspond to the aggregated data
     ///     - timeUnit: The aggregation criteria (e.g. Day, Month, Week, etc)
     private func fetchDataAndInitialize(attributes: [YPDCheckinType], selectedTimeUnit timeUnit: AggregationCriteria){
+        self.log("Fetching Chart Data")
         Fetcher.sharedInstance.fetchAggregatedHealthAndCheckinData(byAggregationCriteria: timeUnit) { (json) in
             DispatchQueue.main.async {
                 if !json["success"].boolValue {
                     self.log("Error retrieving aggregated healthAndCheckinData:", json.stringValue)
                     self.error = json.stringValue
                 }
+                self.log("Received Chart Data.")
                 self.initialize(data: json["result"], attributes: attributes, selectedTimeUnit: timeUnit)
             }
         }
@@ -93,7 +102,8 @@ class YPDChartData: ObservableObject {
         self.timeUnit = timeUnit
         
         self.dataSeries = []
-                
+        self.data = []
+        
         var sampleDates: [Date] = []
         
         // For each attribute, generate the data series chart points, as well as axis labels.
@@ -102,17 +112,25 @@ class YPDChartData: ObservableObject {
             
             sampleDates.append(contentsOf: dates)
             self.dataSeries.append(OCKDataSeries(dataPoints: chartPoints, title: $0.humanReadable, size: 3, color: Colour.chartColours.randomElement()!))
+            
+            // Append the data and dates to te data array.
+            let dataToAppend = zip(dates, chartPoints.map { Double($0.y) }).map { $0 }
+
+            self.data?.append(dataToAppend)
+            
         }
         
         // Generate the horizontal axis labels for the chart.
         self.horizontalAxisChartMarkers = self.generateHorizontalAxisLabels(forCollectionDates: sampleDates)
         
-        print("Chart Data | Initialized chart data with attributes: \(attributes) and data \(self.dataSeries)")
+//        print("Chart Data | Initialized chart data with attributes: \(attributes) and dataSeries \(self.dataSeries), data: \(self.data)")
         
     }
     
     /// Convenience method which can be used to initialize the YPDChartData object using the array of (Double, Date) tuples.
-    private func initialize(data: [(Date, Double)], attributes: [YPDCheckinType]){
+    private func initialize(multipleSeries: [[(Date, Double)]], attributes: [YPDCheckinType]) throws {
+        
+        guard multipleSeries.count == attributes.count else { throw YPDChartError("Length of data (\(multipleSeries)) does not match length of attributes (\(attributes)).") }
         
 //        self.data = data
         self.attributes = attributes
@@ -121,16 +139,20 @@ class YPDChartData: ObservableObject {
                 
         var sampleDates: [Date] = []
         
-        self.data = data
+        self.data = multipleSeries
         
         // For each attribute, generate the data series chart points, as well as axis labels.
-        attributes.forEach {
-            let (dates, chartPoints) = self.generateChartPointsAndAxisLabelDates(forData: data, normalise: attributes.count > 1)
+        for i in 0..<multipleSeries.count {
+            let series = multipleSeries[i]
+            let attribute = attributes[i]
+            
+            let (dates, chartPoints) = self.generateChartPointsAndAxisLabelDates(forData: series, normalise: attributes.count > 1)
             
             sampleDates.append(contentsOf: dates)
             
-            self.dataSeries.append(OCKDataSeries(dataPoints: chartPoints, title: $0.humanReadable, size: 3, color: Colour.chartColours.randomElement()!))
+            self.dataSeries.append(OCKDataSeries(dataPoints: chartPoints, title: attribute.humanReadable, size: 3, color: Colour.chartColours.randomElement()!))
         }
+        
         
         // Generate the horizontal axis labels for the chart.
         self.horizontalAxisChartMarkers = self.generateHorizontalAxisLabels(forCollectionDates: sampleDates)

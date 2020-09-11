@@ -22,18 +22,9 @@ struct YPDSummaryView: View {
     @State var selectedAttributePickerIndex: Int = 0
     @State var selectedTimeUnitPickerIndex: Int = 0
     
-    
-    // TEMP: Generalise this so that we can support multiple attributes in the future.
-//    var selectedAttribute: YPDCheckinType {
-//        YPDCheckinType.allCases[self.selectedAttributePickerIndex]
-//    }
-    
     var selectedTimeUnit: AggregationCriteria {
         AggregationCriteria.allCases[self.selectedTimeUnitPickerIndex]
     }
-    
-    // Why is it that when we modify a child of this array, the subscribed views do not change?
-//    @State var selectedAttributes: [YPDCheckinType] = [.generalFeeling]
     
     // Magic numbers.
     var chartViewHorizontalPadding: CGFloat = 10
@@ -49,7 +40,7 @@ struct YPDSummaryView: View {
 //                        OCKCartesianChartViewWrapper(chartData: self.chartData)
 //                            .frame(maxHeight: 300)
 //                            .padding([.leading, .trailing], Constants.Padding)
-                        YPDChartView(chartData: chartData, chartTitle: "Metrics", displayChartLegend: true, height: 410)
+                        YPDChartView(chartData: chartData, displayChartLegend: true, height: 410)
                             .padding([.leading, .trailing], chartViewHorizontalPadding)
                     }
                     

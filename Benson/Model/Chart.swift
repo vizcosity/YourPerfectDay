@@ -88,7 +88,7 @@ class YPDChartData: ObservableObject {
                     self.log("Error retrieving aggregated healthAndCheckinData:", json.stringValue)
                     self.error = json.stringValue
                 }
-                self.log("Received Chart Data.")
+                self.log("Received Chart Data. \(json["result"].arrayValue)")
                 self.initialize(data: json["result"], attributes: attributes, selectedTimeUnit: timeUnit)
             }
         }
@@ -113,7 +113,7 @@ class YPDChartData: ObservableObject {
             sampleDates.append(contentsOf: dates)
             self.dataSeries.append(OCKDataSeries(dataPoints: chartPoints, title: $0.humanReadable, size: 3, color: Colour.chartColours.randomElement()!))
             
-            // Append the data and dates to te data array.
+            // Append the data and dates to the data array.
             let dataToAppend = zip(dates, chartPoints.map { Double($0.y) }).map { $0 }
 
             self.data?.append(dataToAppend)
@@ -122,7 +122,7 @@ class YPDChartData: ObservableObject {
         
         // Generate the horizontal axis labels for the chart.
         self.horizontalAxisChartMarkers = self.generateHorizontalAxisLabels(forCollectionDates: sampleDates)
-        
+                
 //        print("Chart Data | Initialized chart data with attributes: \(attributes) and dataSeries \(self.dataSeries), data: \(self.data)")
         
     }
@@ -201,6 +201,8 @@ class YPDChartData: ObservableObject {
                 let parsedDate = stringToDateFormatter.date(from: item["startOfDate"].stringValue)
             else { return nil }
             
+//            print("Parsed Date: \(parsedDate), Attribute Value: \(attributeValue)")
+            
             // Ignore everything but the 'day', 'month' and 'year', as we would want to ensure that we do not produce multiple horizontal axis labels for dates of different times of the same day.
             let truncatedDateComponents = Calendar.current.dateComponents([.day, .month, .year], from: parsedDate)
             
@@ -213,9 +215,9 @@ class YPDChartData: ObservableObject {
             
         }.filter { !filterOutZeros || $0.1.y != 0 }
             // Ensure that we constrain the number of points returned so that we do not overwhelm the user initially, and instead present a subset of the available datapoints.
-            .suffix(showDataSubset ? timeUnit.maxNumberOfPoints : data.count)
+            .prefix(showDataSubset ? timeUnit.maxNumberOfPoints : data.count)
         
-        return (chartPoints.map { $0.0 }, chartPoints.map { CGPoint(x: $0.1.x, y: $0.1.y / CGFloat(normalise ? largestYValue : 1)) })
+        return (chartPoints.map { $0.0 }, chartPoints.map { CGPoint(x: $0.1.x, y: $0.1.y / CGFloat(normalise ? largestYValue : 1)) }.reversed())
     }
     
     /// Generates the chart points to be used for the OCKDataSeries, as well as an array of Dates which can be concatenated amongst all attributes in order to generate all required horizontal axis labels. Convenience method which takes in array of (Date, Double) tuples instead of a JSON array

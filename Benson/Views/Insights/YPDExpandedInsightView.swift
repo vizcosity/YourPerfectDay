@@ -36,12 +36,16 @@ struct YPDExpandedInsightView: View {
                     ForEach(self.insight.mostImportantAnomalyMetrics, id: \.id) { anomalyMetric in
                         
                         VStack {
-                            YPDIndividualMetricInsightView(anomalyMetric: anomalyMetric).padding(.bottom, Constants.Padding)
+                            YPDIndividualMetricInsightView(anomalyMetric: anomalyMetric)
+                            
+                            // Use a YPDChartView instead of the OCKCartersianChartView
+                            YPDChartView(chartData: YPDChartData(multipleSeries: [anomalyMetric.precedingData], attributes: [anomalyMetric.metricAttribute])).padding([.trailing, .leading], 10)
+                            
                             
                             // We assume that the aggregation criteria is always on a day-basis for the anomaly metric. (This will need to be udpated in the future to support weekly, as well as monthly aggregation.
-                            OCKCartesianChartViewWrapper(chartData: YPDChartData(multipleSeries: [anomalyMetric.precedingData], attributes: [anomalyMetric.metricAttribute]))
-                                .frame(width: nil, height: 300, alignment: .center)
-                                .padding([.leading, .trailing], Constants.Padding)
+//                            OCKCartesianChartViewWrapper(chartData: YPDChartData(multipleSeries: [anomalyMetric.precedingData], attributes: [anomalyMetric.metricAttribute]))
+//                                .frame(width: nil, height: 300, alignment: .center)
+//                                .padding([.leading, .trailing], Constants.Padding)
                         }
                         
                     }

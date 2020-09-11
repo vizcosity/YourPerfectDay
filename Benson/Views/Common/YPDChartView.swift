@@ -39,12 +39,16 @@ struct YPDChartView: View {
                 // TEMP: For now we wish to use the first element of the plottableData array.
                 VStack {
                     ForEach(plottableData, id: \.self, content: { data in
+//
                         LineView(data: data, title: chartTitle, legend: chartLegend, style: Styles.barChartStyleNeonBlueLight, valueSpecifier: "%.2f")
                             .padding([.leading, .trailing, .bottom], Constants.cardPadding)
                             .frame(height: height)
                     })
+                                        
+//                    MultiLineChartView(data: plottableData.map { ($0, GradientColor(start: .blue, end: .pink)) }, title: "Sample Multiple Lines")
                     
-                    
+//                    LineChartView(data: plottableData[0], title: "General Feeling")
+                                        
                     HStack {
                         ForEach(chartData.horizontalAxisChartMarkers.sample(withAroundNumberOfPoints: 5), id: \.self, content: { dateString in
                             Spacer()
@@ -71,10 +75,15 @@ struct YPDChartView: View {
 }
 
 struct YPDChartView_Previews: PreviewProvider {
+    
+    static var seriesOne: [(Date,Double)] = [(Date(),22), (Date(timeIntervalSinceNow: 100003), 23), (Date(timeIntervalSinceNow: 400003), 35)]
+    
+    static var seriesTwo: [(Date, Double)] = [(Date(),34), (Date(timeIntervalSinceNow: 100003), 45), (Date(timeIntervalSinceNow: 400003), 22)]
+    
     static var previews: some View {
 //        YPDChartView(chartData: YPDChartData(multipleSeries: [[(Date(timeIntervalSinceNow: -109000), 1), (Date(timeIntervalSinceNow: -300000), 1), (Date(), 1), (Date(), 4), (Date(), 3)]], attributes: [.generalFeeling]))
 //            .previewLayout(.sizeThatFits)
-        YPDChartView(chartData: YPDChartData(attributes: [.generalFeeling], selectedTimeUnit: .day))
+        YPDChartView(chartData: YPDChartData(multipleSeries: [seriesOne, seriesTwo] ,attributes: [.generalFeeling, .generalFeeling], selectedTimeUnit: .day))
             .previewLayout(.sizeThatFits)
     }
 }

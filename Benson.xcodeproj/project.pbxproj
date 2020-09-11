@@ -43,6 +43,7 @@
 		21880FBB23806ED000A02055 /* MetricCellValueComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21880FBA23806ED000A02055 /* MetricCellValueComponent.swift */; };
 		21880FC1238093B100A02055 /* MetricCellValueComponent.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21880FC0238093B100A02055 /* MetricCellValueComponent.xib */; };
 		219C7D722482CAC50052AF72 /* YPDAttributePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219C7D712482CAC50052AF72 /* YPDAttributePicker.swift */; };
+		21A7B3AE250B5C8D00811F3C /* MultiLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7B3AD250B5C8D00811F3C /* MultiLineView.swift */; };
 		21A8CA5224FB127A00B6621D /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 212B86C6239D477600CE9C41 /* HealthKit.framework */; };
 		21AF6BB424785E2C001F4E30 /* sample_chart_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 21AF6BB324785E2C001F4E30 /* sample_chart_data.json */; };
 		21B0D6E7249E2A310080B58A /* YPDTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B0D6E6249E2A310080B58A /* YPDTabBarViewController.swift */; };
@@ -143,6 +144,7 @@
 		21880FC0238093B100A02055 /* MetricCellValueComponent.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MetricCellValueComponent.xib; sourceTree = "<group>"; };
 		21938DBF23155E690066B90B /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		219C7D712482CAC50052AF72 /* YPDAttributePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDAttributePicker.swift; sourceTree = "<group>"; };
+		21A7B3AD250B5C8D00811F3C /* MultiLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiLineView.swift; sourceTree = "<group>"; };
 		21AF6BB324785E2C001F4E30 /* sample_chart_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample_chart_data.json; sourceTree = "<group>"; };
 		21B0D6E6249E2A310080B58A /* YPDTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDTabBarViewController.swift; sourceTree = "<group>"; };
 		21B53B3624E8490E009AE103 /* YPDInsightSummarySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDInsightSummarySection.swift; sourceTree = "<group>"; };
@@ -372,6 +374,7 @@
 				219C7D712482CAC50052AF72 /* YPDAttributePicker.swift */,
 				218241B82482DC8500B85C3E /* YPDButton.swift */,
 				2115927224FC22CE00F57EED /* YPDChartView.swift */,
+				21A7B3AD250B5C8D00811F3C /* MultiLineView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -529,6 +532,7 @@
 				21FA455024FB0C23007B0BD6 /* YPDInsightSummaryView.swift in Sources */,
 				2181290124F30B0B0050B6C9 /* YPDAnimatableLoadingBar.swift in Sources */,
 				21B53B3924E84AFE009AE103 /* YPDRecentCheckinsSection.swift in Sources */,
+				21A7B3AE250B5C8D00811F3C /* MultiLineView.swift in Sources */,
 				21C4EE0924EB32EC00F5278F /* YPDEntryView.swift in Sources */,
 				212EEE992318685D00C01AD8 /* BensonButton.swift in Sources */,
 				21F8C30E24BA260B00F7B3BB /* moment.swift in Sources */,

@@ -11,27 +11,16 @@ import SwiftUI
 /// Displays a single YPD insight, linking to the extended YPDInsightExpandedView.
 struct YPDInsightSummarySection: View {
     
-    var insight: YPDInsight?
+    //    var insight: YPDInsight?
     
     var insights: [YPDInsight]?
-
+    
     
     // When the metric changes, the entire view should invalidate and request a new insight.
     var metric: YPDCheckinType? = .generalFeeling
     
     var aggregationCriteria: AggregationCriteria? = .day
     
-//    func fetchInsight() -> Void {
-//        if let metric = self.metric, let aggregationCriteria = self.aggregationCriteria {
-//        Fetcher.sharedInstance.fetchInsights(forMetric: metric,  withAggregationCriteria: aggregationCriteria, limit: 1) {
-//            if let firstInsight = $0.first {
-//                withAnimation {
-//                    self.insight = firstInsight
-//                }
-//            }
-//        }
-//        }
-//    }
     @ViewBuilder
     var loadingView: some View {
         // Display an indeterminate progress bar.
@@ -44,17 +33,16 @@ struct YPDInsightSummarySection: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .center) {
             
-            if self.insight != nil && self.insights == nil {
+            if self.insights != nil && !self.insights!.isEmpty {
                 
-                Text("Recent Insight")
-                    .font(.headline)
-                    .padding(.init([.top, .leading, .trailing]), Constants.Padding)
-                
-                YPDInsightSummaryView(insight: self.insight!, anomalyMetricLimit: 2)
-                
-            } else if self.insight == nil && self.insights != nil && !self.insights!.isEmpty {
+                HStack {
+                    Text("Recent Insight")
+                        .font(.headline)
+                    
+                    Spacer()
+                }.padding(.init([.top, .leading, .trailing]), Constants.Padding)
                 
                 ForEach(self.insights!){
                     YPDInsightSummaryView(insight: $0, anomalyMetricLimit: 2)
@@ -63,11 +51,7 @@ struct YPDInsightSummarySection: View {
             } else {
                 self.loadingView
             }
-        }
-//        .onAppear {
-//            self.fetchInsight()
-//        }
-        .animation(.easeInOut)
+        }.animation(.easeInOut)
         
     }
 }

@@ -81,14 +81,14 @@ class YPDChartData: ObservableObject {
     ///     - attributes: The attributes (such as generalFeeling, Mood, etc) which correspond to the aggregated data
     ///     - timeUnit: The aggregation criteria (e.g. Day, Month, Week, etc)
     private func fetchDataAndInitialize(attributes: [YPDCheckinType], selectedTimeUnit timeUnit: AggregationCriteria){
-        self.log("Fetching Chart Data")
+        self.log("Fetching Chart Data with attributes \(attributes.map { $0.humanReadable }.joined(separator: ", ")) and timeUnit: \(timeUnit.humanReadable)")
         Fetcher.sharedInstance.fetchAggregatedHealthAndCheckinData(byAggregationCriteria: timeUnit) { (json) in
             DispatchQueue.main.async {
                 if !json["success"].boolValue {
                     self.log("Error retrieving aggregated healthAndCheckinData:", json.stringValue)
                     self.error = json.stringValue
                 }
-                self.log("Received Chart Data. \(json["result"].arrayValue)")
+                self.log("Received Chart Data.")
                 self.initialize(data: json["result"], attributes: attributes, selectedTimeUnit: timeUnit)
             }
         }
@@ -161,8 +161,8 @@ class YPDChartData: ObservableObject {
     
     /// Updates the ChartData object given new attributes or selected time units.
     public func fetchNewData(forAttributes attributes: [YPDCheckinType]? = nil, selectedTimeUnit timeUnit: AggregationCriteria? = nil){
-        print("Chart | Fetching chart data for attributes: \((attributes ?? []).map { $0.humanReadable }.joined(separator: ", ")) ")
-        self.fetchDataAndInitialize(attributes: attributes ?? self.attributes, selectedTimeUnit: timeUnit ?? self.timeUnit ?? .day)
+        print("Chart | Fetching chart data for attributes: \((attributes ?? []).map { $0.humanReadable }.joined(separator: ", "))  with aggregation criteria: \(timeUnit?.humanReadable ?? "Day")")
+        self.fetchDataAndInitialize(attributes: attributes ?? self.attributes, selectedTimeUnit: (timeUnit ?? self.timeUnit) ?? .day)
     }
     
     /// Given an array of Dates corresponding to date samples when metric logs were taken, cleans out duplicates and generates horizontal axis labels.

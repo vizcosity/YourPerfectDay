@@ -48,6 +48,7 @@ class YPDModel: ObservableObject {
     
     public func select(aggregationCriteria: AggregationCriteria) {
         self.selectedAggregationCriteria = aggregationCriteria
+        print("[YPD Model] | Selected aggregation criteria: \(aggregationCriteria.humanReadable). Fetching insights now.")
         self.fetchInsights()
     }
     

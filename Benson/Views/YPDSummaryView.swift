@@ -32,28 +32,15 @@ struct YPDSummaryView: View {
     var body: some View {
         NavigationView {
             BackgroundViewWrapper {
-                VStack {
-                    VStack {
-                        
-                        YPDChartMetricSelectionHeader(chartData: chartData)
-                        
-//                        OCKCartesianChartViewWrapper(chartData: self.chartData)
-//                            .frame(maxHeight: 300)
-//                            .padding([.leading, .trailing], Constants.Padding)
-                        YPDChartView(chartData: chartData, displayChartLegend: true, height: 410)
-                            .padding([.leading, .trailing], chartViewHorizontalPadding)
-                    }
+                ScrollView {
                     
-                    ScrollView {
-                        
+                    YPDMetricSelectionAndChartView(chartData: chartData, chartViewHorizontalPadding: chartViewHorizontalPadding)
+                                            
                         YPDInsightSummarySection(insights: self.model.insightsForSelectedAttributes)
                         
                         YPDRecentCheckinsSection(checkins: self.checkins)
-                        
-                        Spacer()
-                    }
-                    
-                    // Sets the title for the view itself. This is not obeyed for the tab bar item which is why it is repeated on the parent element below.s
+                                            
+                    // Sets the title for the view itself. This is not obeyed for the tab bar item which is why it is repeated on the parent element below.
                 }.navigationBarTitle("Summary")
                 
                 // Sets the title for the tab bar item.
@@ -65,7 +52,26 @@ struct YPDSummaryView: View {
     
 }
 
-
+struct YPDMetricSelectionAndChartView: View {
+    
+    @ObservedObject var chartData: YPDChartData
+    
+    // Magic numbers.
+    var chartViewHorizontalPadding: CGFloat = 10
+    
+    var body: some View {
+        
+            
+            YPDChartMetricSelectionHeader(chartData: chartData)
+            
+            //                        OCKCartesianChartViewWrapper(chartData: self.chartData)
+            //                            .frame(maxHeight: 300)
+            //                            .padding([.leading, .trailing], Constants.Padding)
+            YPDChartView(chartData: chartData, displayChartLegend: true, height: 410)
+                .padding([.leading, .trailing], chartViewHorizontalPadding)
+        
+    }
+}
 
 struct YPDChartMetricSelectionHeader: View {
     
@@ -80,6 +86,7 @@ struct YPDChartMetricSelectionHeader: View {
                 
                 YPDMetricAttributePickerButton(onDismiss: { selectedAttribute in
                     withAnimation {
+                        
                         // Ensure that we update the model with the newly selected metric attribute
                         self.model.select(metricAttribute: selectedAttribute, atIndex: i)
                         print("Selected \(selectedAttribute.humanReadable) and now fetching new data")
@@ -101,8 +108,8 @@ struct YPDChartMetricSelectionHeader: View {
             
             YPDAggregationCriteriaPickerButton(onDismiss: { aggregationCriteria in
                 withAnimation {
-                    self.chartData.fetchNewData(forAttributes: self.model.selectedMetricAttributes, selectedTimeUnit: self.model.selectedAggregationCriteria)
                     self.model.select(aggregationCriteria: aggregationCriteria)
+                    self.chartData.fetchNewData(forAttributes: self.model.selectedMetricAttributes, selectedTimeUnit: self.model.selectedAggregationCriteria)
                 }
                 
             })

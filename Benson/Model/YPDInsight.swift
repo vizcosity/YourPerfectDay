@@ -10,7 +10,9 @@ import Foundation
 import SwiftyJSON
 
 /// Represents an insight / anomaly for a given metric of interest.
-class YPDInsight: Identifiable, PrettyPrintable, Decodable {
+struct YPDInsight: Identifiable, PrettyPrintable {
+    
+    var id: String?
     
     /// The MOI type. This maps to the 'desired_metric' in the response JSON.
     var metricOfInterestType: YPDCheckinType
@@ -32,21 +34,6 @@ class YPDInsight: Identifiable, PrettyPrintable, Decodable {
 
     /// The date associated with the insight.
     var date: Date
-    
-    /// The human readable date associated with the given insight. (If the anomaly was detected today, it highlights so - otherwise, it describes the timeSince in human readable terms (e.g. "3 days ago").
-    var humanReadableDate: String {
-        let checkinDate = moment(self.date).startOf("day");
-        let today = moment(Date()).startOf("day");
-        let timeSinceString = checkinDate.isSame(today) ? "Today" : checkinDate.from(today)
-        return timeSinceString
-    }
-    
-    /// Abbreviated date (DD/MM) for the insight.
-    var abbreviatedDateString: String {
-        let checkinDate = moment(self.date).startOf("day")
-        let shortDateString = checkinDate.format("DD/MM")
-        return shortDateString
-    }
     
     /// The time period associated with the metric.
     var timePeriod: String = "while"
@@ -76,51 +63,157 @@ class YPDInsight: Identifiable, PrettyPrintable, Decodable {
         self.mostImportantAnomalyMetrics = mostImportantAnomalyMetrics
     }
     
-    convenience init(json: JSON){
-        let metricOfInterestType = YPDCheckinType(rawValue: json["desired_metric"].stringValue) ?? .unknown
-        let metricOfInterestValue = json["anomaly_value"].doubleValue
-        
-        let metricOfInterestGlobalChange = json["anomaly_metrics"]["global_percentage_change"].doubleValue
-        let metricOfInterestGlobalMean = json["anomaly_metrics"]["global_mean"].doubleValue
-        
-        let metricOfInterestLocalChange = json["anomaly_metrics"]["local_percentage_change"].doubleValue
-        let metricOfInterestLocalMean = json["anomaly_metrics"]["local_mean"].doubleValue
-        
-        let date = Date.from(isoString: json["anomaly_start_of_date"].stringValue)
-                    
-        // Fetch the dates associated with the preceding data.
-        let precedingDataDates: [Date] = json["preceding_data"]["startOfDate"].arrayValue.map { Date.from(isoString: $0.stringValue) }
+    init(json: JSON){
+    let metricOfInterestType = YPDCheckinType(rawValue: json["desired_metric"].stringValue) ?? .unknown
+    let metricOfInterestValue = json["anomaly_value"].doubleValue
+    
+    let metricOfInterestGlobalChange = json["anomaly_metrics"]["global_percentage_change"].doubleValue
+    let metricOfInterestGlobalMean = json["anomaly_metrics"]["global_mean"].doubleValue
+    
+    let metricOfInterestLocalChange = json["anomaly_metrics"]["local_percentage_change"].doubleValue
+    let metricOfInterestLocalMean = json["anomaly_metrics"]["local_mean"].doubleValue
+    
+    let date = Date.from(isoString: json["anomaly_start_of_date"].stringValue)
                 
-        var timePeriod: String = "while"
-        
-        if precedingDataDates.count >= 2 {
-            timePeriod = moment(precedingDataDates.first!).from(precedingDataDates.last!, true)
-        }
-        
-        let mostImportantMetrics = json["most_important_metrics_array"].arrayValue.map {
+    // Fetch the dates associated with the preceding data.
+    let precedingDataDates: [Date] = json["preceding_data"]["startOfDate"].arrayValue.map { Date.from(isoString: $0.stringValue) }
             
-            YPDAnomalyMetric(json: $0, timePeriod: timePeriod, precedingData: zip(precedingDataDates, json["most_important_preceding_data"][$0["metric"].stringValue].arrayValue.map{$0.doubleValue}).map { $0 }
-            )
-            
-        }
+    var timePeriod: String = "while"
+    
+    if precedingDataDates.count >= 2 {
+        timePeriod = moment(precedingDataDates.first!).from(precedingDataDates.last!, true)
+    }
+    
+    let mostImportantMetrics = json["most_important_metrics_array"].arrayValue.map {
         
-        self.init(
-            metricOfInterestType: metricOfInterestType,
-            metricOfInterestValue: metricOfInterestValue,
-            metricOfInterestGlobalChange: metricOfInterestGlobalChange,
-            metricOfInterestGlobalMean: metricOfInterestGlobalMean,
-            metricOfInterestLocalChange: metricOfInterestLocalChange,
-            metricOfInterestLocalMean: metricOfInterestLocalMean,
-            date: date,
-            timePeriod: timePeriod,
-            mostImportantAnomalyMetrics: mostImportantMetrics
+        YPDAnomalyMetric(json: $0, timePeriod: timePeriod, precedingData: zip(precedingDataDates, json["most_important_preceding_data"][$0["metric"].stringValue].arrayValue.map{$0.doubleValue}).map { $0 }
         )
+        
+    }
+    
+    self.init(
+        metricOfInterestType: metricOfInterestType,
+        metricOfInterestValue: metricOfInterestValue,
+        metricOfInterestGlobalChange: metricOfInterestGlobalChange,
+        metricOfInterestGlobalMean: metricOfInterestGlobalMean,
+        metricOfInterestLocalChange: metricOfInterestLocalChange,
+        metricOfInterestLocalMean: metricOfInterestLocalMean,
+        date: date,
+        timePeriod: timePeriod,
+        mostImportantAnomalyMetrics: mostImportantMetrics
+    )
+
+}
+}
+
+/// Decodable YPDInsight extension.
+extension YPDInsight: Decodable {
+
+    enum CodingKeys: String, CodingKey {
+        case success
+        case data
+
+        enum DataCodingKeys: String, CodingKey {
+            case desiredMetric = "desired_metric"
+            case anomalyIndex = "anomaly_index"
+            case anomalyValue = "anomaly_value"
+            case anomalyMetrics = "anomaly_metrics"
+            case anomalyStartOfDate = "anomaly_start_of_date"
+            case precedingData = "preceding_data"
+            case mostImportantMetricsDict = "most_important_metrics_dict"
+            case mostImportantMetricsArray = "most_important_metrics_array"
+            case mostImportantPrecedingData = "most_important_preceding_data"
+
+            enum AnomalyMetricCodingKeys: String, CodingKey {
+                 case correlation
+                 case localPercentageChange = "local_percentage_change"
+                 case localMean = "local_mean"
+                 case globalPercentageChange = "global_percentage_change"
+                 case globalMean = "global_mean"
+                 case importance
+             }
+
+            enum MostImportantMetricsCodingKeys: String, CodingKey {
+                 case correlation
+                 case localPercentageChange = "local_percentage_change"
+                 case localMean = "local_mean"
+                 case globalPercentageChange = "global_percentage_change"
+                 case globalMean = "global_mean"
+                 case importance, metric
+             }
+ 
+            enum PrecedingDataKeys: String, CodingKey {
+                 case activeEnergyBurned, basalEnergyBurned, caloricIntake, dietaryCarbohydrates, dietaryFats, dietaryProtein, exerciseMinutes, hrv, lowHeartRateEvents, restingHeartRate, sleepHours, standingMinutes, stepCount, weight, generalFeeling, mood, energy, focus, vitality, startOfDate
+             }
+            
+            
+
+
+        }
+
+
 
     }
+
+
+
+    init(from decoder: Decoder) throws {
+
+        let topLevelContainer = try decoder.container(keyedBy: CodingKeys.self)
+        let success = try topLevelContainer.decode(Bool.self, forKey: .success)
+        guard success else { return }
+        let dataContainer = try topLevelContainer.nestedContainer(keyedBy: CodingKeys.DataCodingKeys.self, forKey: .data)
+
+        self.metricOfInterestType = YPDCheckinType(try dataContainer.decode(String.self, forKey: .desiredMetric))
+        self.metricOfInterestValue = try dataContainer.decode(Double.self, forKey: .anomalyValue)
+        
+        // Why is it that we need to refer to 'self' when referencing an enum that we would like our container to be keyed by, or when referencing a type that we would like to be decoded?
+        let anomalyMetricsContainer = try dataContainer.nestedContainer(keyedBy: CodingKeys.DataCodingKeys.AnomalyMetricCodingKeys.self, forKey: .anomalyMetrics)
+        
+        self.date = try dataContainer.decode(Date.self, forKey: .anomalyStartOfDate)
+        
+        self.metricOfInterestGlobalChange = try anomalyMetricsContainer.decode(Double.self, forKey: .globalPercentageChange)
+        self.metricOfInterestGlobalMean = try anomalyMetricsContainer.decode(Double.self, forKey: .globalMean)
+        self.metricOfInterestLocalChange = try anomalyMetricsContainer.decode(Double.self, forKey: .localPercentageChange)
+        self.metricOfInterestLocalMean = try anomalyMetricsContainer.decode(Double.self, forKey: .localMean)
+        
+        let precedingDataContainer = try dataContainer.nestedContainer(keyedBy: CodingKeys.DataCodingKeys.PrecedingDataKeys.self, forKey: .precedingData)
+        
+        let precedingDataDates = try precedingDataContainer.decode([Date].self, forKey: .startOfDate)
+        
+        // Calculating the 'time period' string.
+        if precedingDataDates.count >= 2 {
+            self.timePeriod = moment(precedingDataDates.first!).from(precedingDataDates.last!, true)
+        }
+        
+//        self.mostImportantAnomalyMetrics = mostImportantAnomalyMetrics
+        let mostImportantMetricsContainer = try dataContainer.nestedContainer(keyedBy: CodingKeys.DataCodingKeys.MostImportantMetricsCodingKeys, forKey: .mostImportantMetricsArray)
+    }
+
+}
+
+/// Extensions for displaying date information.
+extension YPDInsight {
+    
+    /// The human readable date associated with the given insight. (If the anomaly was detected today, it highlights so - otherwise, it describes the timeSince in human readable terms (e.g. "3 days ago").
+    var humanReadableDate: String {
+        let checkinDate = moment(self.date).startOf("day");
+        let today = moment(Date()).startOf("day");
+        let timeSinceString = checkinDate.isSame(today) ? "Today" : checkinDate.from(today)
+        return timeSinceString
+    }
+    
+    /// Abbreviated date (DD/MM) for the insight.
+    var abbreviatedDateString: String {
+        let checkinDate = moment(self.date).startOf("day")
+        let shortDateString = checkinDate.format("DD/MM")
+        return shortDateString
+    }
+    
 }
 
 /// Represents a change in a given metric; used for displaying insights to the user.
-class YPDAnomalyMetric: PrettyPrintable, Identifiable, Decodable {
+struct YPDAnomalyMetric: PrettyPrintable, Identifiable {
     
     var id = UUID()
     
@@ -138,8 +231,64 @@ class YPDAnomalyMetric: PrettyPrintable, Identifiable, Decodable {
     /// The metric attribute which this appears to be affecting.
     var affectingMetricAttribute: YPDCheckinType?
     
-    var precedingData: [(Date, Double)]
+    var precedingData: [(Date, Double)] = []
+        
+    init(metricAttribute: YPDCheckinType, affectingMetricAttribute: YPDCheckinType? = nil, localChange: Double, localMean: Double, globalChange: Double, globalMean: Double, correlation: Double, importance: Double, timePeriod: String, precedingData: [(Date, Double)]){
+        self.metricAttribute = metricAttribute
+        self.affectingMetricAttribute = affectingMetricAttribute
+        self.localChange = localChange
+        self.localMean = localMean
+        self.globalChange = globalChange
+        self.globalMean = globalMean
+        self.correlation = correlation
+        self.importance = importance
+        self.timePeriod = timePeriod
+        self.precedingData = precedingData
+    }
+
+    init(json: JSON, timePeriod: String, precedingData: [(Date, Double)]) {
+        self.init(metricAttribute: YPDCheckinType(json["metric"].stringValue), localChange: json["local_percentage_change"].doubleValue, localMean: json["local_mean"].doubleValue, globalChange: json["global_percentage_change"].doubleValue, globalMean: json["global_mean"].doubleValue, correlation: json["correlation"].doubleValue, importance: json["importance"].doubleValue, timePeriod: timePeriod, precedingData: precedingData)
+    }
     
+}
+
+extension YPDAnomalyMetric: Decodable {
+    
+    enum CodingKeys: String, CodingKey {
+        case correlation
+        case localPercentageChange = "local_percentage_change"
+        case localMean = "local_mean"
+        case globalPercentageChange = "global_percentage_change"
+        case globalMean = "global_mean"
+        case importance
+        case metricAttribute = "metric"
+    }
+    
+    init(from decoder: Decoder) throws {
+        
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.localChange = try container.decode(Double.self, forKey: .localPercentageChange)
+        self.localMean = try container.decode(Double.self, forKey: .localMean)
+        self.globalChange = try container.decode(Double.self, forKey: .globalPercentageChange)
+        self.globalMean = try container.decode(Double.self, forKey: .globalMean)
+        self.correlation = try container.decode(Double.self, forKey: .correlation)
+        self.importance = try container.decode(Double.self, forKey: .importance)
+        
+        // We need to ensure that the metric attribute is contained within the object - as there are instances where this may not appear (depending which version of the anomaly metric is being decoded).
+        let metricAttributeString = try container.decodeIfPresent(String.self, forKey: .metricAttribute)
+        if let metricAttributeString = metricAttributeString {
+            self.metricAttribute = YPDCheckinType(metricAttributeString)
+        } else {
+            self.metricAttribute = .unknown
+        }
+        
+    }
+    
+}
+
+/// Computed properties for describing the anomaly metric.
+extension YPDAnomalyMetric {
     
     /// Describes the change seen over the period for which the anomaly has been detected.
     var changeOverLocalPeriodDescription: String? {
@@ -184,23 +333,5 @@ class YPDAnomalyMetric: PrettyPrintable, Identifiable, Decodable {
          }
          return self.globalChange >= 0 ? "increased" : "decreased"
      }
-    
-        
-    init(metricAttribute: YPDCheckinType, affectingMetricAttribute: YPDCheckinType? = nil, localChange: Double, localMean: Double, globalChange: Double, globalMean: Double, correlation: Double, importance: Double, timePeriod: String, precedingData: [(Date, Double)]){
-        self.metricAttribute = metricAttribute
-        self.affectingMetricAttribute = affectingMetricAttribute
-        self.localChange = localChange
-        self.localMean = localMean
-        self.globalChange = globalChange
-        self.globalMean = globalMean
-        self.correlation = correlation
-        self.importance = importance
-        self.timePeriod = timePeriod
-        self.precedingData = precedingData
-    }
-
-    convenience init(json: JSON, timePeriod: String, precedingData: [(Date, Double)]) {
-        self.init(metricAttribute: YPDCheckinType( json["metric"].stringValue), localChange: json["local_percentage_change"].doubleValue, localMean: json["local_mean"].doubleValue, globalChange: json["global_percentage_change"].doubleValue, globalMean: json["global_mean"].doubleValue, correlation: json["correlation"].doubleValue, importance: json["importance"].doubleValue, timePeriod: timePeriod, precedingData: precedingData)
-    }
     
 }

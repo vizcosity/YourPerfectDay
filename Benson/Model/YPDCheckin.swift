@@ -7,20 +7,17 @@
 //
 
 import Foundation
-import SwiftyJSON
 import SwiftUI
 
 /// A YPDCheckin object contains a collection of individual attribute values which the user has recorded for each given attribute type.
-struct YPDCheckin: CustomStringConvertible {
+struct YPDCheckin: CustomStringConvertible, Identifiable, Decodable {
     
     var description: String {
         get {
             return "\(self.attributeValues): \(self.timeSince)"
         }
     }
-    
-//    var id: String?
-    
+        
     /// Id for the Checkin.
     var id: String?
     var attributeValues: [YPDCheckinResponseValue] = []
@@ -57,20 +54,20 @@ struct YPDCheckin: CustomStringConvertible {
 }
 
 /// Ensure that Metric Logs are hashable so that we can use them in ForEach loops in SwiftUI.
-extension YPDCheckin: Hashable {
-    
-    public func equals(otherMetricLog: YPDCheckin) -> Bool {
-        return self.id == otherMetricLog.id &&
-            self.timestamp == otherMetricLog.timestamp &&
-            self.timeSince == otherMetricLog.timeSince
-    }
-    
-    static func == (lhs: YPDCheckin, rhs: YPDCheckin) -> Bool {
-        return lhs.equals(otherMetricLog: rhs) &&
-            lhs.attributeValues.elementsEqual(rhs.attributeValues, by: { (lhsMetric, rhsMetric) -> Bool in
-                return lhsMetric == rhsMetric
-            })
-    }
-    
-    
-}
+//extension YPDCheckin: Hashable {
+//    
+//    public func equals(otherMetricLog: YPDCheckin) -> Bool {
+//        return self.id == otherMetricLog.id &&
+//            self.timestamp == otherMetricLog.timestamp &&
+//            self.timeSince == otherMetricLog.timeSince
+//    }
+//    
+//    static func == (lhs: YPDCheckin, rhs: YPDCheckin) -> Bool {
+//        return lhs.equals(otherMetricLog: rhs) &&
+//            lhs.attributeValues.elementsEqual(rhs.attributeValues, by: { (lhsMetric, rhsMetric) -> Bool in
+//                return lhsMetric == rhsMetric
+//            })
+//    }
+//    
+//    
+//}

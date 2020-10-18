@@ -9,70 +9,7 @@
 import Foundation
 import Alamofire
 import SwiftyJSON
-//import Alamofire_S
-
-struct Webserver {
-    
-    // Change the API endpiont depending on whether we are running in the simulator or not.
-    #if targetEnvironment(simulator)
-        private static var infoAPIDictionaryKey = "Webserver Endpoint (Local)"
-    #else
-        private static var infoAPIDictionaryKey = "Webserver Endpoint (Heroku)"
-    #endif
-//    private static var infoAPIDictionaryKey = "Webserver Endpoint (Local Tunnel)"
-
-    static var endpoint = Bundle.main.object(forInfoDictionaryKey: infoAPIDictionaryKey) as! String
-    static var getMetrics: String = "\(Webserver.endpoint)/metrics"
-    static var getMetricLog: String = "\(Webserver.endpoint)/checkins"
-    static var getLastCheckin: String = "\(Webserver.endpoint)/lastCheckin"
-    static var submitCheckin: String = "\(Webserver.endpoint)/checkin"
-    static var removeMetricLog: String = "\(Webserver.endpoint)/delete"
-    static var submitHealthData: String = "\(Webserver.endpoint)/healthData"
-    static var fetchUnenrichedCheckinDates: String = "\(Webserver.endpoint)/unenrichedCheckinDates"
-    static var aggregatedCheckinsByCriteria: String = "\(Webserver.endpoint)/aggregatedCheckinsByCriteria"
-    static var fetchInsights: String = "\(Webserver.endpoint)/analyse"
-    static func aggregatedHealthDataAndCheckins(byCriteria criteria: String) -> String { return "\(Webserver.endpoint)/healthDataAndCheckinsAggregatedBy/\(criteria)" }
-    
-}
-
-/// Enum describing the different aggregation criterias that can be used to collected aggregated health and checkin data.
-enum AggregationCriteria: String, CustomStringConvertible, CaseIterable {
-    case day
-    case week
-    case month
-    case quarter
-    case year
-
-    var description: String {
-        return self.rawValue
-    }
-
-    var calendarComponent: Calendar.Component {
-        switch self {
-            case .day: return .day
-            case .week: return .weekOfMonth
-            case .month: return .month
-            case .quarter: return .quarter
-            case .year: return .year
-        }
-    }
-    
-    /// Returns the maximum number of data points that should be displayed to the user when the given aggregation criteria is selected.
-    var maxNumberOfPoints: Int {
-        switch self {
-        case .day: return 30 // Two Weeks.
-        case .week: return 16 // Two Months.
-        case .month: return 12 // Six Months.
-        case .quarter: return 16 // Two years.
-        case .year: return 10 // Last Decade.
-        }
-    }
-    
-    var humanReadable: String {
-        return self.description.prefix(1).capitalized + "\(self.description.dropFirst(1))"
-    }
-}
-
+import Combine
 
 class Fetcher {
     
@@ -106,13 +43,7 @@ class Fetcher {
             completionHandler($0)
         })
     }
-    
-//    public func fetchMetricPromptsWithURLSession(completionHandler: @escaping ([YPDCheckinPrompt]) -> Void) {
-//        let request = URLRequest(url: URL(string: Webserver.getMetrics)!)
-//        
-//        let session = URLSessionTask()
-//    }
-        
+            
     public func fetchMetricPrompts(completionHandler: @escaping ([YPDCheckinPrompt]) -> Void){
         
         print("[Fetcher] Fetching metric prompts from \(Webserver.getMetrics)")
@@ -133,6 +64,22 @@ class Fetcher {
             }
               
         }
+    }
+    
+    /// Combine method for fetching metric prompts.
+    public func fetchMetricPrompts() -> AnyPublisher<[YPDCheckinPrompt], YPDNetworkingError> {
+        let url = URL(string: Webserver.getMetrics)!
+        return URLSession.shared.dataTaskPublisher(for: url)
+            .tryMap { (data: Data, response: URLResponse) -> Data in
+                
+                if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200 {
+                    throw YPDNetworkingError.satusError(statusCode: httpResponse.statusCode)
+                }
+                
+                return data
+            }.decode(type: [YPDCheckinPrompt].self, decoder: JSONDecoder())
+            .mapError(YPDNetworkingError.mapError(_:))
+            .eraseToAnyPublisher()
     }
     
     

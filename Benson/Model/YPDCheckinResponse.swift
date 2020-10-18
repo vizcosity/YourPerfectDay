@@ -9,7 +9,7 @@
 import Foundation
 
 /// Contains the value for a single attribute (e.g., `Mood`, `Energy`, etc) within a YPD Checkin.
-class YPDCheckinResponseValue: ObservableObject {
+struct YPDCheckinResponseValue: Decodable {
     
     var value: Double
     var average: Double?
@@ -21,7 +21,7 @@ class YPDCheckinResponseValue: ObservableObject {
     /// Initialises an empty, unsubmitted YPDCheckinAttributeValue option based off of the accompanied response option. This will be populated once the user records their response value.
     init(selectedResponseOption: YPDCheckinResponseOption) {
         // self.readableTitle = selectedResponseOption.readableTitle
-        self.type = selectedResponseOption.type
+        self.type = selectedResponseOption.type ?? .unknown
         self.value = 0
     }
     
@@ -32,7 +32,7 @@ class YPDCheckinResponseValue: ObservableObject {
         self.value = value
     }
     
-    convenience init(type: String, value: Double, average: Double? = nil){
+    init(type: String, value: Double, average: Double? = nil){
         self.init(type: YPDCheckinType(rawValue: type) ?? .unknown, value: value, average: average)
     }
 }
@@ -47,13 +47,13 @@ extension YPDCheckinResponseValue: CustomStringConvertible {
 }
 
 // Ensure that YPDCheckinResponseValues are Hashable by providing a custom hash() implementation, since @State values cannot be used automatically.
-extension YPDCheckinResponseValue: Hashable {
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(ObjectIdentifier(self))
-    }
-    
-}
+//extension YPDCheckinResponseValue: Hashable {
+//    
+//    func hash(into hasher: inout Hasher) {
+//        hasher.combine(ObjectIdentifier(self))
+//    }
+//    
+//}
 
 // Ensure MetricAttribute is equatable.
 extension YPDCheckinResponseValue: Equatable {
@@ -73,10 +73,10 @@ extension YPDCheckinResponseValue: Equatable {
 /// Example:
 ///     I'm Feeling:
 ///         "Horrible" (0), "Meh" (1), "Okay" (2), "Not Bad" (3), "Great" (4)
-class YPDCheckinResponseOption {
+struct YPDCheckinResponseOption: Codable {
     
     /// The parent type which the response option belongs to.
-    var type: YPDCheckinType
+    var type: YPDCheckinType?
     
     /// The label for the response option (e.g. "Horrible")
     var label: String
@@ -94,6 +94,10 @@ class YPDCheckinResponseOption {
         self.type = YPDCheckinType(rawValue: type) ?? .unknown
         self.label = label
         self.value = value
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case label = "title", value
     }
     
 }

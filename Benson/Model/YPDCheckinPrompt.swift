@@ -12,19 +12,22 @@ import SwiftyJSON
 
 #if MAIN_APP
 /// YPDCheckinPrompts contain a question which the user will need to respond to with a subjective measurement of how they feel with regards to a certain metric, such as `focus`, `energy`, `mood`, etc.
-class YPDCheckinPrompt: Identifiable, ObservableObject {
+struct YPDCheckinPrompt: Identifiable, Codable {
     
     var id = UUID()
     var type: String
     var readableTitle: String
     var responseOptions: [YPDCheckinResponseOption]
-    @State var responseValue: YPDCheckinResponseValue
+    
+    @State var responseValue: YPDCheckinResponseValue = YPDCheckinResponseValue(type: .unknown, value: 0)
     
     init(type: String, readableTitle: String, responseOptions: [YPDCheckinResponseOption]) {
         self.type = type
         self.responseOptions = responseOptions
-        self.responseValue = YPDCheckinResponseValue(type: type, value: 0)
         self.readableTitle = readableTitle
+        
+        // Note that @State variables typically live *outside* of the view, which is why the compiler throws an error when trying to assign a value to the state variable from within the initializer.
+        self.responseValue = YPDCheckinResponseValue(type: type, value: 0)
     }
     
     /// Given a JSON response from the web api, returns a MetricPrompt object.
@@ -45,12 +48,28 @@ class YPDCheckinPrompt: Identifiable, ObservableObject {
                 
         return YPDCheckinPrompt(type: type, readableTitle: readableTitle, responseOptions: responseOptions)
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case type = "metricId", readableTitle = "title", responseOptions = "responses"
+    }
+    
+    init(from decoder: Decoder) throws {
+        guard let checkinPromptContainer = try? decoder.container(keyedBy: CodingKeys.self) else {
+            throw YPDNetworkingError.decodingError
+        }
+                
+        self.readableTitle = try checkinPromptContainer.decode(String.self, forKey: .readableTitle)
+        self.responseOptions = try checkinPromptContainer.decode([YPDCheckinResponseOption].self, forKey: .responseOptions)
+        let type = try checkinPromptContainer.decode(String.self, forKey: .type)
+        self.type = type
+        self.responseValue = YPDCheckinResponseValue(type: type, value: 0)
+    }
 }
 
 // Add support for Equatability so that we can find the index of specific checkin prompts.
 extension YPDCheckinPrompt: Equatable {
     static func == (lhs: YPDCheckinPrompt, rhs: YPDCheckinPrompt) -> Bool {
-        return ObjectIdentifier(lhs) == ObjectIdentifier(rhs)
+        return lhs.id == rhs.id
     }
 }
 #endif

@@ -11,7 +11,8 @@ import Foundation
 
 /// The measurement or metric type.
 // TODO: Refactor so that the metric types are inferred from the keys of the aggregated healthDataObject, from the backend.
-enum YPDCheckinType: String, CaseIterable, Hashable, Identifiable {
+enum YPDCheckinType: String, CaseIterable, Hashable, Identifiable, Codable {
+    
     
     case generalFeeling
     case mood
@@ -30,6 +31,10 @@ enum YPDCheckinType: String, CaseIterable, Hashable, Identifiable {
     case restingHeartRate
     case sleepHours
     case weight
+    case standingMinutes
+    case exerciseMinutes
+    case mindfulSession
+    case stepCount
     
     // Unknown case, occurring when we fail to initialise via a string value.
     case unknown
@@ -41,5 +46,13 @@ enum YPDCheckinType: String, CaseIterable, Hashable, Identifiable {
     
     var id: String {
         self.rawValue
+    }
+    
+    init(_ rawValue: String) {
+        if let checkinType = YPDCheckinType(rawValue: rawValue) {
+            self = checkinType
+        } else {
+            self = .unknown
+        }
     }
 }

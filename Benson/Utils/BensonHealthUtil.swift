@@ -24,6 +24,14 @@ struct BensonHealthUtil {
         HKObjectType.quantityType(forIdentifier: .bodyMass)!,
         HKObjectType.quantityType(forIdentifier: .heartRateVariabilitySDNN)!,
         HKObjectType.categoryType(forIdentifier: .sleepAnalysis)!,
+        
+        // New addittions.
+        HKObjectType.categoryType(forIdentifier: .mindfulSession)!,
+        HKObjectType.quantityType(forIdentifier: .appleStandTime)!,
+        HKObjectType.quantityType(forIdentifier: .dietaryWater)!,
+        HKObjectType.quantityType(forIdentifier: .stepCount)!,
+        HKObjectType.quantityType(forIdentifier: .appleExerciseTime)!,
+        HKObjectType.activitySummaryType(),
     ])
 }
 
@@ -60,7 +68,6 @@ struct BensonHealthDataObject: Codable, Hashable {
     var startDate: Date
     var endDate: Date
     var sleepHours: Double?
-    // var diet: BensonDietaryDataObject?
     var caloricIntake: Double?
     var dietaryCarbohydrates: Double?
     var dietaryProtein: Double?
@@ -69,9 +76,13 @@ struct BensonHealthDataObject: Codable, Hashable {
     var basalEnergyBurned: Double?
     var weight: Double?
     var workouts: [BensonWorkout]?
+    var exerciseMinutes: Double?
+    var standingMinutes: Double?
+    var stepCount: Double?
     var hrv: Double?
     var restingHeartRate: Double?
     var lowHeartRateEvents: Int?
+
     
     init (date: Date){
         

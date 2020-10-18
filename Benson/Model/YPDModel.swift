@@ -16,28 +16,17 @@ import Combine
 /// Singleton object containing YPDCheckinPrompts.
 class YPDModel: ObservableObject {
     
-//    static let shared = YPDModel()
-    
+    var subscriptions: Set<AnyCancellable> = Set<AnyCancellable>()
+        
     @Published var checkinPrompts: [YPDCheckinPrompt] = []
-    
     @Published var insightForSelectedAttribute: YPDInsight?
-
     @Published var insightsForSelectedAttributes: [YPDInsight] = []
-    
     var selectedMetricAttribute: YPDCheckinType {
         self.selectedMetricAttributes.first ?? .generalFeeling
     }
-    
     @Published var selectedMetricAttributes: [YPDCheckinType] = [.generalFeeling]
-    
     @Published var selectedAggregationCriteria: AggregationCriteria = .day
-    
     @Published var sliderValues: [Float] = [0]
-    
-//    public func select(metricAttribute: YPDCheckinType) {
-//        self.selectedMetricAttribute = metricAttribute
-//        self.fetchInsights()
-//    }
     
     public func select(metricAttribute: YPDCheckinType, atIndex index: Int) {
         guard index < self.selectedMetricAttributes.count else { return }
@@ -68,13 +57,18 @@ class YPDModel: ObservableObject {
     
     init() {
         
-        Fetcher.sharedInstance.fetchMetricPrompts(completionHandler: { checkinPrompts in
-            DispatchQueue.main.async {
+          Fetcher
+            .sharedInstance
+            .fetchMetricPrompts()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] (error) in
+                self?.log("Could not fetch metric prompts using Combine: \(error)")
+            } receiveValue: { (checkinPrompts) in
                 self.checkinPrompts = checkinPrompts
                 self.sliderValues = Array.init(repeating: 0, count: self.checkinPrompts.count)
             }
- 
-        })
+            .store(in: &subscriptions)
+
         
         self.fetchInsights()
         

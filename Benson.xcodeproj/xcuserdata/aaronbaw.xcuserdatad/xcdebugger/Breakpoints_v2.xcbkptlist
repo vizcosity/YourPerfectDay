@@ -136,7 +136,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "BA7F9DF3-9234-4F60-A29C-AD34A324CAB6"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Benson/Views/Insights/YPDInsightSummaryView.swift"
@@ -152,7 +152,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "DB9D4FCB-26E4-46B7-9095-B3873314E776"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Benson/Model/Chart.swift"
@@ -164,7 +164,7 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "DB9D4FCB-26E4-46B7-9095-B3873314E776 - a19be2430026b22e"
+                  uuid = "DB9D4FCB-26E4-46B7-9095-B3873314E776 - a19be2430026b336"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -174,24 +174,24 @@
                   urlString = "file:///Users/aaronbaw/Code/Benson/Benson/Model/Chart.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "77"
-                  endingLineNumber = "77"
-                  offsetFromSymbolStart = "50">
+                  startingLineNumber = "85"
+                  endingLineNumber = "85"
+                  offsetFromSymbolStart = "840">
                </Location>
                <Location
-                  uuid = "DB9D4FCB-26E4-46B7-9095-B3873314E776 - e992af52bd9f0ba0"
+                  uuid = "DB9D4FCB-26E4-46B7-9095-B3873314E776 - 42db288a3f4ebcb9"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (SwiftyJSON.JSON) -&gt; () in YourPerfectDay.YPDChartData.(fetchDataAndInitialize in _8349DB4FEB4CB6CBF66E9440926EBDFD)(attributes: Swift.Array&lt;YourPerfectDay.YPDCheckinType&gt;, selectedTimeUnit: YourPerfectDay.AggregationCriteria) -&gt; ()"
+                  symbolName = "closure #2 (SwiftyJSON.JSON) -&gt; () in YourPerfectDay.YPDChartData.(fetchDataAndInitialize in _8349DB4FEB4CB6CBF66E9440926EBDFD)(attributes: Swift.Array&lt;YourPerfectDay.YPDCheckinType&gt;, selectedTimeUnit: YourPerfectDay.AggregationCriteria) -&gt; ()"
                   moduleName = "YourPerfectDay"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/aaronbaw/Code/Benson/Benson/Model/Chart.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "78"
-                  endingLineNumber = "78"
-                  offsetFromSymbolStart = "222">
+                  startingLineNumber = "86"
+                  endingLineNumber = "86"
+                  offsetFromSymbolStart = "276">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -200,7 +200,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "6B37251E-B933-4FF6-8993-41FD07237A87"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Benson/Model/Chart.swift"
@@ -216,7 +216,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "5CDFD0CE-0B84-45BD-955B-ADD46F47D895"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Benson/Model/Chart.swift"
@@ -232,7 +232,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "9CA0C732-FAD6-45A0-8E6F-88942D93471D"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Benson/Model/Chart.swift"
@@ -244,7 +244,7 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "9CA0C732-FAD6-45A0-8E6F-88942D93471D - c2dd025c2b3bb13d"
+                  uuid = "9CA0C732-FAD6-45A0-8E6F-88942D93471D - c2dd025c2b3bb66b"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -254,12 +254,12 @@
                   urlString = "file:///Users/aaronbaw/Code/Benson/Benson/Model/Chart.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "141"
-                  endingLineNumber = "141"
-                  offsetFromSymbolStart = "6">
+                  startingLineNumber = "163"
+                  endingLineNumber = "163"
+                  offsetFromSymbolStart = "4">
                </Location>
                <Location
-                  uuid = "9CA0C732-FAD6-45A0-8E6F-88942D93471D - ef0991d7331ee33c"
+                  uuid = "9CA0C732-FAD6-45A0-8E6F-88942D93471D - ef0991d7331ee46a"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -269,12 +269,12 @@
                   urlString = "file:///Users/aaronbaw/Code/Benson/Benson/Model/Chart.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "141"
-                  endingLineNumber = "141"
-                  offsetFromSymbolStart = "6">
+                  startingLineNumber = "163"
+                  endingLineNumber = "163"
+                  offsetFromSymbolStart = "4">
                </Location>
                <Location
-                  uuid = "9CA0C732-FAD6-45A0-8E6F-88942D93471D - f8485be84b3193db"
+                  uuid = "9CA0C732-FAD6-45A0-8E6F-88942D93471D - f8485be84b3194f1"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -284,9 +284,9 @@
                   urlString = "file:///Users/aaronbaw/Code/Benson/Benson/Model/Chart.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "142"
-                  endingLineNumber = "142"
-                  offsetFromSymbolStart = "73">
+                  startingLineNumber = "164"
+                  endingLineNumber = "164"
+                  offsetFromSymbolStart = "100">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -295,7 +295,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "0EA26EE1-944E-4174-95DE-EC0134991782"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Benson/Model/Chart.swift"
@@ -311,7 +311,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "D5BF6B11-97B3-4C14-94EE-D25D4A913B50"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Benson/Model/Chart.swift"

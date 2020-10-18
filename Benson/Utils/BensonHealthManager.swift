@@ -30,13 +30,17 @@ class BensonHealthManager {
         self.healthStore?.requestAuthorization(toShare: nil, read: BensonHealthUtil.HKObjectsToRead, completion: { (result, error) in
             print("[BensonHealthManager] Recieved authorization to access health data: \(result)")
             print("[BensonHealthManager] Enriching Checkins with Health Data.")
-            self.enrichCheckinsWithHealthData()
+            
+            // If we are running the simulartor, do not submit health data.
+            #if !targetEnvironment(simulator)
+                self.enrichCheckinsWithHealthData()
+            #endif
         })
-        
         
     }
     
     public func enrichCheckinsWithHealthData(){
+        
         // Fetch unenriched checkins and submit pending health data.
         Fetcher.sharedInstance.fetchUnenrichedCheckinDates { (dates) in
             self.log("Fetched unenriched checkin dates: \(dates)")
@@ -66,6 +70,8 @@ class BensonHealthManager {
     public func fetchHealthData(forDay day: Date, completionHandler: @escaping (BensonHealthDataObject) -> Void) {
         
         var dataObject = BensonHealthDataObject(date: day)
+        
+        
         
         self.fetchSleepHours(forDay: day) { (sleepHours) in
 //            self.log("Asleep for \(sleepHours) on \(day)")
@@ -120,6 +126,21 @@ class BensonHealthManager {
 //            self.log("Resting heart rate of \(restingHeartRate) bpm on \(day)")
             dataObject.restingHeartRate = restingHeartRate
         }
+        
+        // Fetch exercise time. Is there an easier way to collect this information?
+        self.fetchQuantityAveragedAcrossSources(forDay: day, andQuantityTypeIdentifier: .appleExerciseTime, withUnit: .minute(), completionHandler: {
+            dataObject.exerciseMinutes = $0
+        })
+        
+        self.fetchQuantityAveragedAcrossSources(forDay: day, andQuantityTypeIdentifier: .appleStandTime, withUnit: .minute(), completionHandler: {
+            dataObject.standingMinutes = $0
+        })
+        
+        // Fetch the step count.
+        self.fetchQuantityAveragedAcrossSources(forDay: day, andQuantityTypeIdentifier: .stepCount, withUnit: .count(), completionHandler: {
+            dataObject.stepCount = $0
+        })
+        
         
         self.fetchLowHeartRateEvents(forDay: day) { (lowHeartRateEvents) in
 //            self.log("Obtained \(lowHeartRateEvents) low heart rate events.")

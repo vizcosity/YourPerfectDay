@@ -10,7 +10,7 @@ import Foundation
 import SwiftyJSON
 
 /// Represents an insight / anomaly for a given metric of interest.
-class YPDInsight: Identifiable, PrettyPrintable {
+class YPDInsight: Identifiable, PrettyPrintable, Decodable {
     
     /// The MOI type. This maps to the 'desired_metric' in the response JSON.
     var metricOfInterestType: YPDCheckinType
@@ -120,7 +120,7 @@ class YPDInsight: Identifiable, PrettyPrintable {
 }
 
 /// Represents a change in a given metric; used for displaying insights to the user.
-class YPDAnomalyMetric: PrettyPrintable, Identifiable {
+class YPDAnomalyMetric: PrettyPrintable, Identifiable, Decodable {
     
     var id = UUID()
     
@@ -200,8 +200,7 @@ class YPDAnomalyMetric: PrettyPrintable, Identifiable {
     }
 
     convenience init(json: JSON, timePeriod: String, precedingData: [(Date, Double)]) {
-        self.init(metricAttribute: YPDCheckinType(rawValue: json["metric"].stringValue)!, localChange: json["local_percentage_change"].doubleValue, localMean: json["local_mean"].doubleValue, globalChange: json["global_percentage_change"].doubleValue, globalMean: json["global_mean"].doubleValue, correlation: json["correlation"].doubleValue, importance: json["importance"].doubleValue, timePeriod: timePeriod, precedingData: precedingData)
-
+        self.init(metricAttribute: YPDCheckinType( json["metric"].stringValue), localChange: json["local_percentage_change"].doubleValue, localMean: json["local_mean"].doubleValue, globalChange: json["global_percentage_change"].doubleValue, globalMean: json["global_mean"].doubleValue, correlation: json["correlation"].doubleValue, importance: json["importance"].doubleValue, timePeriod: timePeriod, precedingData: precedingData)
     }
     
 }

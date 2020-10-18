@@ -22,7 +22,7 @@ struct YPDRecentCheckinsView: View {
             .padding(.all, 10)
             
             List {
-                ForEach(self.checkins, id: \.self) { (checkin) -> YPDRecentCheckinView in
+                ForEach(self.checkins) { (checkin) -> YPDRecentCheckinView in
                     YPDRecentCheckinView(displayedCheckin: checkin)
                 }
             }

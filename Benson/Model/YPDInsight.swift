@@ -13,6 +13,7 @@ import SwiftyJSON
 struct YPDInsight: Identifiable, PrettyPrintable {
     
     var id: String?
+
     
     /// The MOI type. This maps to the 'desired_metric' in the response JSON.
     var metricOfInterestType: YPDCheckinType
@@ -108,88 +109,76 @@ struct YPDInsight: Identifiable, PrettyPrintable {
 
 /// Decodable YPDInsight extension.
 extension YPDInsight: Decodable {
-
+    
     enum CodingKeys: String, CodingKey {
-        case success
-        case data
-
-        enum DataCodingKeys: String, CodingKey {
-            case desiredMetric = "desired_metric"
-            case anomalyIndex = "anomaly_index"
-            case anomalyValue = "anomaly_value"
-            case anomalyMetrics = "anomaly_metrics"
-            case anomalyStartOfDate = "anomaly_start_of_date"
-            case precedingData = "preceding_data"
-            case mostImportantMetricsDict = "most_important_metrics_dict"
-            case mostImportantMetricsArray = "most_important_metrics_array"
-            case mostImportantPrecedingData = "most_important_preceding_data"
-
-            enum AnomalyMetricCodingKeys: String, CodingKey {
-                 case correlation
-                 case localPercentageChange = "local_percentage_change"
-                 case localMean = "local_mean"
-                 case globalPercentageChange = "global_percentage_change"
-                 case globalMean = "global_mean"
-                 case importance
-             }
-
-            enum MostImportantMetricsCodingKeys: String, CodingKey {
-                 case correlation
-                 case localPercentageChange = "local_percentage_change"
-                 case localMean = "local_mean"
-                 case globalPercentageChange = "global_percentage_change"
-                 case globalMean = "global_mean"
-                 case importance, metric
-             }
- 
-            enum PrecedingDataKeys: String, CodingKey {
-                 case activeEnergyBurned, basalEnergyBurned, caloricIntake, dietaryCarbohydrates, dietaryFats, dietaryProtein, exerciseMinutes, hrv, lowHeartRateEvents, restingHeartRate, sleepHours, standingMinutes, stepCount, weight, generalFeeling, mood, energy, focus, vitality, startOfDate
-             }
-            
-            
-
-
+        case desiredMetric = "desired_metric"
+        case anomalyIndex = "anomaly_index"
+        case anomalyValue = "anomaly_value"
+        case anomalyMetrics = "anomaly_metrics"
+        case anomalyStartOfDate = "anomaly_start_of_date"
+        case precedingData = "preceding_data"
+        case mostImportantMetricsDict = "most_important_metrics_dict"
+        case mostImportantMetricsArray = "most_important_metrics_array"
+        case mostImportantPrecedingData = "most_important_preceding_data"
+        
+        enum AnomalyMetricCodingKeys: String, CodingKey {
+            case correlation
+            case localPercentageChange = "local_percentage_change"
+            case localMean = "local_mean"
+            case globalPercentageChange = "global_percentage_change"
+            case globalMean = "global_mean"
+            case importance
         }
-
-
-
+        
+        enum MostImportantMetricsCodingKeys: String, CodingKey {
+            case correlation
+            case localPercentageChange = "local_percentage_change"
+            case localMean = "local_mean"
+            case globalPercentageChange = "global_percentage_change"
+            case globalMean = "global_mean"
+            case importance, metric
+        }
+        
+        enum PrecedingDataKeys: String, CodingKey {
+            case activeEnergyBurned, basalEnergyBurned, caloricIntake, dietaryCarbohydrates, dietaryFats, dietaryProtein, exerciseMinutes, hrv, lowHeartRateEvents, restingHeartRate, sleepHours, standingMinutes, stepCount, weight, generalFeeling, mood, energy, focus, vitality, startOfDate
+        }
+        
+        
+        
+        
     }
-
-
-
+    
     init(from decoder: Decoder) throws {
-
-        let topLevelContainer = try decoder.container(keyedBy: CodingKeys.self)
-        let success = try topLevelContainer.decode(Bool.self, forKey: .success)
-        guard success else { return }
-        let dataContainer = try topLevelContainer.nestedContainer(keyedBy: CodingKeys.DataCodingKeys.self, forKey: .data)
-
+        
+        let dataContainer = try decoder.container(keyedBy: CodingKeys.self)
+        
         self.metricOfInterestType = YPDCheckinType(try dataContainer.decode(String.self, forKey: .desiredMetric))
         self.metricOfInterestValue = try dataContainer.decode(Double.self, forKey: .anomalyValue)
         
         // Why is it that we need to refer to 'self' when referencing an enum that we would like our container to be keyed by, or when referencing a type that we would like to be decoded?
-        let anomalyMetricsContainer = try dataContainer.nestedContainer(keyedBy: CodingKeys.DataCodingKeys.AnomalyMetricCodingKeys.self, forKey: .anomalyMetrics)
-        
-        self.date = try dataContainer.decode(Date.self, forKey: .anomalyStartOfDate)
-        
+        let anomalyMetricsContainer = try dataContainer.nestedContainer(keyedBy: CodingKeys.AnomalyMetricCodingKeys.self, forKey: .anomalyMetrics)
+        self.date = Date.from(isoString: try dataContainer
+                                .decode(String.self, forKey: .anomalyStartOfDate))
         self.metricOfInterestGlobalChange = try anomalyMetricsContainer.decode(Double.self, forKey: .globalPercentageChange)
         self.metricOfInterestGlobalMean = try anomalyMetricsContainer.decode(Double.self, forKey: .globalMean)
         self.metricOfInterestLocalChange = try anomalyMetricsContainer.decode(Double.self, forKey: .localPercentageChange)
         self.metricOfInterestLocalMean = try anomalyMetricsContainer.decode(Double.self, forKey: .localMean)
         
-        let precedingDataContainer = try dataContainer.nestedContainer(keyedBy: CodingKeys.DataCodingKeys.PrecedingDataKeys.self, forKey: .precedingData)
+        let precedingDataContainer = try dataContainer.nestedContainer(keyedBy: CodingKeys.PrecedingDataKeys.self, forKey: .precedingData)
         
-        let precedingDataDates = try precedingDataContainer.decode([Date].self, forKey: .startOfDate)
+        let precedingDataDates = (try precedingDataContainer.decode([String].self, forKey: .startOfDate)).map(Date.from(isoString:))
+        
+        self.timePeriod = "while"
         
         // Calculating the 'time period' string.
         if precedingDataDates.count >= 2 {
             self.timePeriod = moment(precedingDataDates.first!).from(precedingDataDates.last!, true)
         }
         
-//        self.mostImportantAnomalyMetrics = mostImportantAnomalyMetrics
-        let mostImportantMetricsContainer = try dataContainer.nestedContainer(keyedBy: CodingKeys.DataCodingKeys.MostImportantMetricsCodingKeys, forKey: .mostImportantMetricsArray)
+        self.mostImportantAnomalyMetrics = try dataContainer.decode([YPDAnomalyMetric].self, forKey: .mostImportantMetricsArray)
+        
     }
-
+    
 }
 
 /// Extensions for displaying date information.
@@ -283,9 +272,12 @@ extension YPDAnomalyMetric: Decodable {
             self.metricAttribute = .unknown
         }
         
+        self.timePeriod = "some time ago"
+        
     }
     
 }
+
 
 /// Computed properties for describing the anomaly metric.
 extension YPDAnomalyMetric {

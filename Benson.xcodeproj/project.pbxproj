@@ -64,7 +64,7 @@
 		21E2F376246878AF00EFB205 /* YPDRecentCheckinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E2F375246878AF00EFB205 /* YPDRecentCheckinView.swift */; };
 		21E2F37824687A3F00EFB205 /* YPDProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E2F37724687A3F00EFB205 /* YPDProgressBar.swift */; };
 		21EC2A5A2532827800D4D2C0 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EC2A592532827800D4D2C0 /* Networking.swift */; };
-		21F8C30E24BA260B00F7B3BB /* moment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21F8C30D24BA260B00F7B3BB /* moment.swift */; };
+		21EE99E5253CD472000B2BFB /* moment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EE99E4253CD472000B2BFB /* moment.swift */; };
 		21F8C31024BA262700F7B3BB /* moment-with-locales.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 21F8C30F24BA262700F7B3BB /* moment-with-locales.min.js */; };
 		21FA454F24FB0C23007B0BD6 /* YPDIndividualInsightSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FA454D24FB0C23007B0BD6 /* YPDIndividualInsightSummaryView.swift */; };
 		21FA455024FB0C23007B0BD6 /* YPDInsightSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FA454E24FB0C23007B0BD6 /* YPDInsightSummaryView.swift */; };
@@ -176,7 +176,8 @@
 		21E2F375246878AF00EFB205 /* YPDRecentCheckinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDRecentCheckinView.swift; sourceTree = "<group>"; };
 		21E2F37724687A3F00EFB205 /* YPDProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDProgressBar.swift; sourceTree = "<group>"; };
 		21EC2A592532827800D4D2C0 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
-		21F8C30D24BA260B00F7B3BB /* moment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = moment.swift; sourceTree = "<group>"; };
+		21EE99E0253CD285000B2BFB /* YPDDecoding.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = YPDDecoding.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		21EE99E4253CD472000B2BFB /* moment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = moment.swift; sourceTree = "<group>"; };
 		21F8C30F24BA262700F7B3BB /* moment-with-locales.min.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "moment-with-locales.min.js"; sourceTree = "<group>"; };
 		21FA454D24FB0C23007B0BD6 /* YPDIndividualInsightSummaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YPDIndividualInsightSummaryView.swift; sourceTree = "<group>"; };
 		21FA454E24FB0C23007B0BD6 /* YPDInsightSummaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YPDInsightSummaryView.swift; sourceTree = "<group>"; };
@@ -236,6 +237,7 @@
 				21B013F62381EE45008FF7BB /* Assets */,
 				21532F56247304F00054AC84 /* Model */,
 				21FC4EA8238D185800578DE5 /* Utils */,
+				21EE99DF253CD26C000B2BFB /* Playgrounds */,
 			);
 			path = Benson;
 			sourceTree = "<group>";
@@ -397,9 +399,18 @@
 			path = YPDWidget;
 			sourceTree = "<group>";
 		};
+		21EE99DF253CD26C000B2BFB /* Playgrounds */ = {
+			isa = PBXGroup;
+			children = (
+				21EE99E0253CD285000B2BFB /* YPDDecoding.playground */,
+			);
+			path = Playgrounds;
+			sourceTree = "<group>";
+		};
 		21FC4EA8238D185800578DE5 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				21EE99E4253CD472000B2BFB /* moment.swift */,
 				21C633B324DCA9E8002BDC83 /* BensonHealthUtil.swift */,
 				2184B01F238D11F900FE96EA /* Fetcher.swift */,
 				21471734239C4E2300E4226F /* Notifications.swift */,
@@ -407,7 +418,6 @@
 				21734670240AF9C700B22219 /* Sample.swift */,
 				2127B0102430E67F00B8D0B1 /* Extensions.swift */,
 				21BD462324819E1F0077DCD7 /* Constants.swift */,
-				21F8C30D24BA260B00F7B3BB /* moment.swift */,
 				21F8C30F24BA262700F7B3BB /* moment-with-locales.min.js */,
 				21EC2A592532827800D4D2C0 /* Networking.swift */,
 			);
@@ -539,6 +549,7 @@
 				21532F542472FE600054AC84 /* YPDSummaryView.swift in Sources */,
 				21645BB724DCB02F004080B9 /* YPDCheckinType.swift in Sources */,
 				21B0D6E7249E2A310080B58A /* YPDTabBarViewController.swift in Sources */,
+				21EE99E5253CD472000B2BFB /* moment.swift in Sources */,
 				21FEE7D724C4F2CF00C6207A /* YPDExpandedInsightView.swift in Sources */,
 				21FA455024FB0C23007B0BD6 /* YPDInsightSummaryView.swift in Sources */,
 				2181290124F30B0B0050B6C9 /* YPDAnimatableLoadingBar.swift in Sources */,
@@ -546,7 +557,6 @@
 				21A7B3AE250B5C8D00811F3C /* MultiLineView.swift in Sources */,
 				21C4EE0924EB32EC00F5278F /* YPDEntryView.swift in Sources */,
 				212EEE992318685D00C01AD8 /* BensonButton.swift in Sources */,
-				21F8C30E24BA260B00F7B3BB /* moment.swift in Sources */,
 				21FA454F24FB0C23007B0BD6 /* YPDIndividualInsightSummaryView.swift in Sources */,
 				216CAA70237A010E004D6B8E /* YPDCheckin.swift in Sources */,
 				21DF333C2482CCCE00D18EBC /* YPDTimeUnitPicker.swift in Sources */,

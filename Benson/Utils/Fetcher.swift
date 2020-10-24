@@ -358,7 +358,3 @@ extension Fetcher {
     }
 }
 
-// Custom protocol and extensions so that we can serialise either ints or strings within the Body sent as a POST request to our webserver.
-//protocol POSTRequestAble {}
-//extension String: POSTRequestable {}
-//extension Int: POSTRequestable {}

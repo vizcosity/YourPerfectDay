@@ -33,15 +33,8 @@ struct YPDSubmitCheckinView: View {
                             let stepLabels = responses.map { $0.label }
                             
                             let sliderIndex = self.model.checkinPrompts.firstIndex(where: { $0 == checkinPrompt })
-                            
-                            var result = self.$model.sliderValues[0]
-                            
-                            if let sliderIndex = sliderIndex {
-                                result = self.$model.sliderValues[sliderIndex]
-                            }
-                            
-                            
-                            return YPDCheckinPromptView(result: result, title: title, maxRecordableValue: maxRecordableValue, stepLabels: stepLabels)
+                                                        
+                            return YPDCheckinPromptView(result: self.$model.sliderValues[sliderIndex ?? 0], title: title, maxRecordableValue: maxRecordableValue, stepLabels: stepLabels)
                         }
                         
                         Rectangle()

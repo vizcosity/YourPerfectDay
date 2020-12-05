@@ -22,15 +22,19 @@ struct YPDSubmitCheckinView: View {
                             Text("How are you feeling?").font(Font(UIFont.systemFont(ofSize: 35, weight: .bold)))
                             Spacer()
                         }.padding(Constants.Padding + 5)
-                        ForEach(self.model.checkinPrompts) {
-                            YPDCheckinPromptView(checkinPrompt: $0, sliderValue: .constant(2))
+                        ForEach(0..<model.checkinPrompts.count) { (idx: Int) in
+                            YPDCheckinPromptView(
+                                checkinPrompt: model.checkinPrompts[idx],
+                                sliderValue: Binding<Float>.init(
+                                    get: { Float(model.checkinPrompts[idx].responseValue.value) },
+                                    set: { model.checkinPrompts[idx].responseValue.value = Double($0) }
+                                )
+                            )
                         }
-                        
                         Rectangle()
                             .fill(Color.clear)
                             .frame(height:50)
                     }
-                    
                     YPDButton(title: "Submit") {
                         // Ensure that we attach the result from each slider to the YPDCheckinPrompt.
                         for i in 0..<self.model.checkinPrompts.count {
@@ -53,5 +57,6 @@ struct YPDSubmitCheckinView: View {
 struct YPDSubmitCheckinView_Previews: PreviewProvider {
     static var previews: some View {
         YPDSubmitCheckinView()
+            .environmentObject(YPDModel())
     }
 }

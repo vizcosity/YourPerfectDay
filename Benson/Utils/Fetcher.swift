@@ -20,15 +20,15 @@ class Fetcher {
     static let sharedInstance = Fetcher()
     
     /// Fetches the title for the metric prompt given the Id. If no metric prompts are cached, the method fetches this as a pre-requisite. Defaults to the metric id passed if no metric prompt is found.
-    public func getTitle(forMetricId metricId: String, completionHandler: @escaping (String) -> Void) {
-        if metricPrompts.isEmpty {
-            self.fetchAndCacheMetricPrompts(completionHandler: {
-                _ in completionHandler(self.getTitleFromCachedMetricPrompts(forMetricId: metricId))
-            })
-        } else {
-            completionHandler(self.getTitleFromCachedMetricPrompts(forMetricId: metricId))
-        }
-    }
+//    public func getTitle(forMetricId metricId: String, completionHandler: @escaping (String) -> Void) {
+//        if metricPrompts.isEmpty {
+//            self.fetchAndCacheMetricPrompts(completionHandler: {
+//                _ in completionHandler(self.getTitleFromCachedMetricPrompts(forMetricId: metricId))
+//            })
+//        } else {
+//            completionHandler(self.getTitleFromCachedMetricPrompts(forMetricId: metricId))
+//        }
+//    }
     
     /// Fetches the title for the metric prompt given the Id. Defaults to the metric id passed if no metric prompt is found.
     private func getTitleFromCachedMetricPrompts(forMetricId metricId: String) -> String {
@@ -37,34 +37,34 @@ class Fetcher {
     
     // MARK: - Fetching YPD CheckinPrompts
     
-    private func fetchAndCacheMetricPrompts(completionHandler: @escaping ([YPDCheckinPrompt]) -> Void){
-        self.fetchMetricPrompts(completionHandler: {
-            self.metricPrompts = $0
-            completionHandler($0)
-        })
-    }
+//    private func fetchAndCacheMetricPrompts(completionHandler: @escaping ([YPDCheckinPrompt]) -> Void){
+//        self.fetchMetricPrompts(completionHandler: {
+//            self.metricPrompts = $0
+//            completionHandler($0)
+//        })
+//    }
             
-    public func fetchMetricPrompts(completionHandler: @escaping ([YPDCheckinPrompt]) -> Void){
-        
-        print("[Fetcher] Fetching metric prompts from \(Webserver.getMetrics)")
-        
-        AF.request(Webserver.getMetrics).responseJSON(queue: DispatchQueue.global(qos: .userInitiated), options: .allowFragments) { (response) in
-            
-            if let error = response.error {
-                self.log("Error: \(error)")
-            }
-            
-            if let metricPrompts = try? JSON(response.result.get()).arrayValue {
-                        
-                // Convert the JSON array into the Metric Prompt objects.
-                completionHandler(metricPrompts.map({ (metricPromptJSON) -> YPDCheckinPrompt in
-                    return YPDCheckinPrompt.fromJSON(dict: metricPromptJSON)
-                }))
-                
-            }
-              
-        }
-    }
+//    public func fetchMetricPrompts(completionHandler: @escaping ([YPDCheckinPrompt]) -> Void){
+//
+//        print("[Fetcher] Fetching metric prompts from \(Webserver.getMetrics)")
+//
+//        AF.request(Webserver.getMetrics).responseJSON(queue: DispatchQueue.global(qos: .userInitiated), options: .allowFragments) { (response) in
+//
+//            if let error = response.error {
+//                self.log("Error: \(error)")
+//            }
+//
+//            if let metricPrompts = try? JSON(response.result.get()).arrayValue {
+//
+//                // Convert the JSON array into the Metric Prompt objects.
+//                completionHandler(metricPrompts.map({ (metricPromptJSON) -> YPDCheckinPrompt in
+//                    return YPDCheckinPrompt.fromJSON(dict: metricPromptJSON)
+//                }))
+//
+//            }
+//
+//        }
+//    }
     
     /// Combine method for fetching metric prompts.
     public func fetchMetricPrompts() -> AnyPublisher<[YPDCheckinPrompt], YPDNetworkingError> {

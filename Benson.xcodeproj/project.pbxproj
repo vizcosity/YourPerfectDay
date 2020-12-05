@@ -55,6 +55,7 @@
 		21C58F372327BCBB007EE5F1 /* CheckinCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C58F362327BCBB007EE5F1 /* CheckinCollectionViewCell.swift */; };
 		21C633B424DCA9E8002BDC83 /* BensonHealthUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C633B324DCA9E8002BDC83 /* BensonHealthUtil.swift */; };
 		21CEB34124BA1B1000F19C46 /* YPDInsight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CEB34024BA1B1000F19C46 /* YPDInsight.swift */; };
+		21D0CEB4257BEAD700E8D2DA /* Slider+YPD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D0CEB3257BEAD700E8D2DA /* Slider+YPD.swift */; };
 		21DF333C2482CCCE00D18EBC /* YPDTimeUnitPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DF333B2482CCCE00D18EBC /* YPDTimeUnitPicker.swift */; };
 		21DF333E2482D31800D18EBC /* YPDSubmitCheckinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DF333D2482D31800D18EBC /* YPDSubmitCheckinView.swift */; };
 		21E2F376246878AF00EFB205 /* YPDRecentCheckinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E2F375246878AF00EFB205 /* YPDRecentCheckinView.swift */; };
@@ -160,6 +161,7 @@
 		21C6338B24DCA00F002BDC83 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		21C633B324DCA9E8002BDC83 /* BensonHealthUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BensonHealthUtil.swift; sourceTree = "<group>"; };
 		21CEB34024BA1B1000F19C46 /* YPDInsight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDInsight.swift; sourceTree = "<group>"; };
+		21D0CEB3257BEAD700E8D2DA /* Slider+YPD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Slider+YPD.swift"; path = "Extensions/Slider+YPD.swift"; sourceTree = "<group>"; };
 		21DF333B2482CCCE00D18EBC /* YPDTimeUnitPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDTimeUnitPicker.swift; sourceTree = "<group>"; };
 		21DF333D2482D31800D18EBC /* YPDSubmitCheckinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDSubmitCheckinView.swift; sourceTree = "<group>"; };
 		21E2F35E24684F5B00EFB205 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 				2136C98A249D422900ECE95E /* YPDTabBarView.swift */,
 				21C4EE0824EB32EC00F5278F /* YPDEntryView.swift */,
 				2181290024F30B0B0050B6C9 /* YPDAnimatableLoadingBar.swift */,
+				21D0CEB3257BEAD700E8D2DA /* Slider+YPD.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -511,6 +514,7 @@
 			files = (
 				21DF333E2482D31800D18EBC /* YPDSubmitCheckinView.swift in Sources */,
 				21CEB34124BA1B1000F19C46 /* YPDInsight.swift in Sources */,
+				21D0CEB4257BEAD700E8D2DA /* Slider+YPD.swift in Sources */,
 				21471735239C4E2300E4226F /* Notifications.swift in Sources */,
 				21EC2A5A2532827800D4D2C0 /* Networking.swift in Sources */,
 				218241BD2482E43200B85C3E /* YPDCheckinPromptView.swift in Sources */,

@@ -28,9 +28,7 @@ let _sampleAggregatedHealthAndCheckinData: JSON = {
         guard let json = try? JSON(data: jsonData) else { return defaultJSON["result"] }
 
         return json["result"]
-        
-        return defaultJSON["result"]
-    
+            
 }()
 #endif
 

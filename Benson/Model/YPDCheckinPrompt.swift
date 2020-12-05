@@ -12,14 +12,15 @@ import SwiftyJSON
 
 #if MAIN_APP
 /// YPDCheckinPrompts contain a question which the user will need to respond to with a subjective measurement of how they feel with regards to a certain metric, such as `focus`, `energy`, `mood`, etc.
-struct YPDCheckinPrompt: Identifiable, Codable {
+struct YPDCheckinPrompt: Identifiable, Decodable {
     
     var id = UUID()
     var type: String
     var readableTitle: String
     var responseOptions: [YPDCheckinResponseOption]
     
-    @State var responseValue: YPDCheckinResponseValue = YPDCheckinResponseValue(type: .unknown, value: 0)
+//    var sliderValue: Binding<Float> = .constant(0)
+    var responseValue: YPDCheckinResponseValue = YPDCheckinResponseValue(type: .unknown, value: 0)
     
     init(type: String, readableTitle: String, responseOptions: [YPDCheckinResponseOption]) {
         self.type = type
@@ -28,25 +29,9 @@ struct YPDCheckinPrompt: Identifiable, Codable {
         
         // Note that @State variables typically live *outside* of the view, which is why the compiler throws an error when trying to assign a value to the state variable from within the initializer.
         self.responseValue = YPDCheckinResponseValue(type: type, value: 0)
-    }
-    
-    /// Given a JSON response from the web api, returns a MetricPrompt object.
-    public static func fromJSON(dict: JSON) -> YPDCheckinPrompt {
-        
-        // Checkpoint: refactoring code to enable easy instantiation of MetricPrompt objects from dictionaries obtained through GET requests to the backend via AlamoFire.
-        // NOTE: The metric Id in this instance actually corresponds to the metric type (e.g. generalFeeling, mood, and so on).
-        let type: String = dict["metricId"].stringValue
-        let readableTitle: String = dict["title"].stringValue
-        
-        let responsesJSON = dict["responses"].arrayValue
-        
-        // print("Obtained responseJSON: \(responsesJSON)")
-        
-        let responseOptions: [YPDCheckinResponseOption] = responsesJSON.map { (responseJSON) -> YPDCheckinResponseOption in
-            return YPDCheckinResponseOption(type: type, label: responseJSON["title"].stringValue, value: responseJSON["value"].doubleValue)
-        }.filter { $0.type != .unknown }
-                
-        return YPDCheckinPrompt(type: type, readableTitle: readableTitle, responseOptions: responseOptions)
+
+        // Initialise the slider value property in order to allow for checkin prompt views to change their slider values.
+//        self.sliderValue = Binding<Float>(get: { Float(self.responseValue.value) }, set: { self.responseValue.value = Double($0) })
     }
     
     enum CodingKeys: String, CodingKey {
@@ -63,6 +48,7 @@ struct YPDCheckinPrompt: Identifiable, Codable {
         let type = try checkinPromptContainer.decode(String.self, forKey: .type)
         self.type = type
         self.responseValue = YPDCheckinResponseValue(type: type, value: 0)
+//        self.sliderValue = Binding<Float>(get: { Float(self.responseValue.value) }, set: { self.responseValue.value = Double($0) })
     }
 }
 

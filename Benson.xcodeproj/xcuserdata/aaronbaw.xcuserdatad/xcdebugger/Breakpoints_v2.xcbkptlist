@@ -397,8 +397,8 @@
             filePath = "Benson/Utils/Fetcher.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "75"
-            endingLineNumber = "75"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
             landmarkName = "fetchMetricPrompts()"
             landmarkType = "7">
          </BreakpointContent>
@@ -413,8 +413,8 @@
             filePath = "Benson/Utils/Fetcher.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
             landmarkName = "fetchMetricLogs(completionHandler:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -429,24 +429,8 @@
             filePath = "Benson/Utils/Fetcher.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
-            landmarkName = "fetchMetricLogs(completionHandler:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "E4BAA6A1-0E38-4B68-846E-8E33737DFE9A"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Benson/Utils/Fetcher.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
             landmarkName = "fetchMetricLogs(completionHandler:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -461,10 +445,10 @@
             filePath = "Benson/Utils/Fetcher.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "201"
-            endingLineNumber = "201"
-            landmarkName = "submitCheckin(checkinPrompts:completionHandler:)"
-            landmarkType = "7">
+            startingLineNumber = "168"
+            endingLineNumber = "168"
+            landmarkName = "Fetcher"
+            landmarkType = "3">
             <Locations>
                <Location
                   uuid = "F4BEE1F5-B412-400F-ACB9-E0D80F9FAA20 - 28998d98d828562d"
@@ -509,8 +493,8 @@
             filePath = "Benson/Utils/Fetcher.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "208"
-            endingLineNumber = "208"
+            startingLineNumber = "175"
+            endingLineNumber = "175"
             landmarkName = "submitCheckin(checkinPrompts:completionHandler:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -525,8 +509,8 @@
             filePath = "Benson/Utils/Fetcher.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "205"
-            endingLineNumber = "205"
+            startingLineNumber = "172"
+            endingLineNumber = "172"
             landmarkName = "submitCheckin(checkinPrompts:completionHandler:)"
             landmarkType = "7">
          </BreakpointContent>

@@ -19,17 +19,6 @@ class Fetcher {
     
     static let sharedInstance = Fetcher()
     
-    /// Fetches the title for the metric prompt given the Id. If no metric prompts are cached, the method fetches this as a pre-requisite. Defaults to the metric id passed if no metric prompt is found.
-//    public func getTitle(forMetricId metricId: String, completionHandler: @escaping (String) -> Void) {
-//        if metricPrompts.isEmpty {
-//            self.fetchAndCacheMetricPrompts(completionHandler: {
-//                _ in completionHandler(self.getTitleFromCachedMetricPrompts(forMetricId: metricId))
-//            })
-//        } else {
-//            completionHandler(self.getTitleFromCachedMetricPrompts(forMetricId: metricId))
-//        }
-//    }
-    
     /// Fetches the title for the metric prompt given the Id. Defaults to the metric id passed if no metric prompt is found.
     private func getTitleFromCachedMetricPrompts(forMetricId metricId: String) -> String {
         return self.metricPrompts.filter { $0.type == metricId }.first?.readableTitle ?? metricId
@@ -37,38 +26,9 @@ class Fetcher {
     
     // MARK: - Fetching YPD CheckinPrompts
     
-//    private func fetchAndCacheMetricPrompts(completionHandler: @escaping ([YPDCheckinPrompt]) -> Void){
-//        self.fetchMetricPrompts(completionHandler: {
-//            self.metricPrompts = $0
-//            completionHandler($0)
-//        })
-//    }
-            
-//    public func fetchMetricPrompts(completionHandler: @escaping ([YPDCheckinPrompt]) -> Void){
-//
-//        print("[Fetcher] Fetching metric prompts from \(Webserver.getMetrics)")
-//
-//        AF.request(Webserver.getMetrics).responseJSON(queue: DispatchQueue.global(qos: .userInitiated), options: .allowFragments) { (response) in
-//
-//            if let error = response.error {
-//                self.log("Error: \(error)")
-//            }
-//
-//            if let metricPrompts = try? JSON(response.result.get()).arrayValue {
-//
-//                // Convert the JSON array into the Metric Prompt objects.
-//                completionHandler(metricPrompts.map({ (metricPromptJSON) -> YPDCheckinPrompt in
-//                    return YPDCheckinPrompt.fromJSON(dict: metricPromptJSON)
-//                }))
-//
-//            }
-//
-//        }
-//    }
-    
     /// Combine method for fetching metric prompts.
     public func fetchMetricPrompts() -> AnyPublisher<[YPDCheckinPrompt], YPDNetworkingError> {
-        let url = URL(string: Webserver.getMetrics)!
+        let url = YPDEndpoint.getMetrics.url!
         return URLSession.shared.dataTaskPublisher(for: url)
             .tryMap { (data: Data, response: URLResponse) -> Data in
                 
@@ -86,13 +46,10 @@ class Fetcher {
     // Checkpoint: Have just written a function to grab the metric titles given a metric id (this is not included in the metric log). Have since implemented this in the backend for simplicity.
     public func fetchMetricLogs(completionHandler: @escaping ([YPDCheckin]) -> Void) {
         
-        AF.request(Webserver.getMetricLog).responseJSON(queue: DispatchQueue.global(qos: .userInitiated), options: .allowFragments) { (response) in
-//            self.log("Recieved metric logs: \(response)")
+        AF.request(YPDEndpoint.getMetricLog.urlString).responseJSON(queue: DispatchQueue.global(qos: .userInitiated), options: .allowFragments) { (response) in
             
             if let checkinJSON = try? response.result.get() as? [[String: Any]] {
-                // self.log("\(checkinJSON)")
 
-                // TODO: Rename the various field titles so that they make more sense and are more consistent across the application.
                 // Map each JSON object ot the MetricLog object and return this as part of the completionHandler.
                 let checkins = checkinJSON.map({ (metricLogJSON) -> YPDCheckin in
 
@@ -118,7 +75,7 @@ class Fetcher {
     
     /// Fetches dates for all unenricehd checkins.
     public func fetchUnenrichedCheckinDates(completionHandler: @escaping ([Date]) -> Void) {
-        AF.request(Webserver.fetchUnenrichedCheckinDates).responseJSON(queue: DispatchQueue.global(qos: .background), options: .allowFragments) { (response) in
+        AF.request(YPDEndpoint.fetchUnenrichedCheckinDates.url!).responseJSON(queue: DispatchQueue.global(qos: .background), options: .allowFragments) { (response) in
             switch response.result {
                 case .success(let value):
                     let json = JSON(value)
@@ -149,7 +106,22 @@ class Fetcher {
     
     /// Fetches aggregated healthData objects, as well as aggregated checkin objects, merging each object for the same date and returning an array of results.
     public func fetchAggregatedHealthAndCheckinData(byAggregationCriteria criteria: AggregationCriteria, completionHandler: @escaping(JSON) -> Void){
-        self.sendGetRequest(toEndpoint: Webserver.aggregatedHealthDataAndCheckins(byCriteria: "\(criteria)"), withQuery: nil, completionHandler: completionHandler)
+        self.sendGetRequest(toEndpoint: YPDEndpoint.aggregatedHealthDataAndCheckins(criteria: criteria).urlString, withQuery: nil, completionHandler: completionHandler)
+    }
+
+    public func fetchAggregateData(byAggregationCriteria criteria: AggregationCriteria) -> AnyPublisher<[YPDAggregate], YPDNetworkingError> {
+        URLSession
+            .shared
+            .dataTaskPublisher(for: YPDEndpoint.aggregatedHealthDataAndCheckins(criteria: criteria).url!)
+            .tryMap { response in
+                guard let httpResponse = response.response as? HTTPURLResponse else { throw YPDNetworkingError.castingError }
+                guard httpResponse.statusCode == 200 else { throw YPDNetworkingError.satusError(statusCode: httpResponse.statusCode) }
+                return response.data
+            }
+            .decode(type: YPDAggregateResponse.self, decoder: JSONDecoder())
+            .map { $0.result }
+            .mapError(YPDNetworkingError.mapError(_:))
+            .eraseToAnyPublisher()
     }
     
     // MARK: - Submitting Health Data
@@ -157,13 +129,12 @@ class Fetcher {
     /// Submits a health data object to the backend.
     /// The completionHandler receives the ID for the submitted healthdata object, if submitted successfully.
     public func submitHealthDataObject(healthDataObject: BensonHealthDataObject, completionHandler: @escaping (_ id: String?, _ error: String?) -> Void){
-        self.sendPostRequest(toEndpoint: Webserver.submitHealthData, withStringBody: healthDataObject.toJSONString() ?? "{}") { (json) in
+        self.sendPostRequest(toEndpoint: YPDEndpoint.submitHealthData, withStringBody: healthDataObject.toJSONString() ?? "{}") { (json) in
             if let success = Bool(json["success"].stringValue), success {
                 completionHandler(json["id"].stringValue, nil)
             } else {
                 completionHandler(nil, json["reason"].stringValue)
             }
-        
         }
     }
     
@@ -173,10 +144,6 @@ class Fetcher {
         let encoder = JSONEncoder()
         encoder.dateEncodingStrategy = .iso8601
         
-//        let stringifiedHealthDataObjects = try? encoder.encode(healthDataObjects.map { (healthDataObject) -> String in
-//            return healthDataObject.toJSONString() ?? "{}"
-//        })
-        
         let stringifiedHealthDataObjects = try? encoder.encode(healthDataObjects)
         
         guard let unwrappedStringifiedHealthDataObjects = stringifiedHealthDataObjects else { return completionHandler(nil, "Could not unwrap stringifiedHealthDataObjects optional. Debug encoder.") }
@@ -185,7 +152,7 @@ class Fetcher {
         
         self.log("Encoded array of health data objects: \(String(describing: body)). Attempting to submit now.")
 
-        self.sendPostRequest(toEndpoint: Webserver.submitHealthData, withStringBody: String(body)) { (json) in
+        self.sendPostRequest(toEndpoint: YPDEndpoint.submitHealthData, withStringBody: String(body)) { (json) in
              if let success = Bool(json["success"].stringValue), success {
                   completionHandler(json["id"].stringValue, nil)
               } else {
@@ -208,7 +175,7 @@ class Fetcher {
 
         self.log("Generated response value array: \(responseValueArray)")
 
-        AF.request(Webserver.submitCheckin, method: .post, parameters: [
+        AF.request(YPDEndpoint.submitCheckin.url!, method: .post, parameters: [
                 "array": responseValueArray
             ],
                    encoding: JSONEncoding.default).responseJSON { (response) in
@@ -236,7 +203,7 @@ class Fetcher {
         
         self.log("Submitting \(postBody)")
                 
-        self.sendPostRequest(toEndpoint: Webserver.submitCheckin, withStringBody: postBody) { (response) in
+        self.sendPostRequest(toEndpoint: YPDEndpoint.submitCheckin, withStringBody: postBody) { (response) in
             self.log("Submitted checkin with response: \(response.stringValue)")
         }
         
@@ -245,7 +212,7 @@ class Fetcher {
     // Checkpoint: Implementing swipe to delete checkin functionality.
     public func remove(metricLogId: String, completionHandler: @escaping () -> Void) {
         
-        var request = URLRequest(url: URL(string: Webserver.removeMetricLog)!)
+        var request = URLRequest(url: YPDEndpoint.removeMetricLog.url!)
         request.httpMethod = HTTPMethod.post.rawValue
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
@@ -290,15 +257,15 @@ class Fetcher {
         
     }
         
-    private func sendPostRequest(toEndpoint endpoint: String, withBody bodyDict: [String: String], completionHandler: @escaping (JSON) -> Void){
+    private func sendPostRequest(toEndpoint endpoint: YPDEndpoint, withBody bodyDict: [String: String], completionHandler: @escaping (JSON) -> Void){
         let encoder = JSONEncoder()
         let bodyJSONData = try? encoder.encode(bodyDict)
         let bodyJSONSerialised = NSString(data: bodyJSONData!, encoding: String.Encoding.utf8.rawValue)
         self.sendPostRequest(toEndpoint: endpoint, withStringBody: String(bodyJSONSerialised!), completionHandler: completionHandler)
     }
      
-    private func sendPostRequest(toEndpoint endpoint: String, withStringBody body: String, completionHandler: @escaping (JSON) -> Void){
-        var request = URLRequest(url: URL(string: endpoint)!)
+    private func sendPostRequest(toEndpoint endpoint: YPDEndpoint, withStringBody body: String, completionHandler: @escaping (JSON) -> Void){
+        var request = URLRequest(url: endpoint.url!)
         request.httpMethod = HTTPMethod.post.rawValue
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         let bodyJSONSerialised = NSString(string: body)
@@ -350,7 +317,7 @@ extension Fetcher {
             body["limit"] = "\(limit)"
         }
         
-        self.sendPostRequest(toEndpoint: Webserver.fetchInsights, withBody: body) { (json) in
+        self.sendPostRequest(toEndpoint: YPDEndpoint.fetchInsights, withBody: body) { (json) in
             // TODO: Parse JSON response as YPD Insights.
             // TODO: Alter YPD Insights to conform to better support an entire insight with multiple important metrics.
             completionHandler(json["data"].arrayValue.map(YPDInsight.init(json:)))

@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        print("[Webserver] | Using API: \(Webserver.endpoint)")
+        print("[Webserver] | Using API: \(YPDEndpoint.endpoint)")
         
         // Register notifications.
         self.notifier = BensonNotifier(alertTimes: nil, message: "It's time to checkin.")

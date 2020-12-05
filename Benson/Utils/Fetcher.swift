@@ -202,7 +202,7 @@ class Fetcher {
         let responseValueArray: [[String: Any]] = checkinPrompts.map {
             [
                 "metricId": $0.responseValue.type.rawValue,
-                "value": $0.responseValue.value
+                "value": $0.responseValue.value + 1
             ] as [String : Any]
         }
 

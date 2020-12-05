@@ -8,7 +8,6 @@
 
 import SwiftUI
 
-// CHECKPOINT: Bugs in displaying the checkin data values and being able to control sliders.
 struct YPDSubmitCheckinView: View {
     
     @EnvironmentObject var model: YPDModel
@@ -36,11 +35,6 @@ struct YPDSubmitCheckinView: View {
                             .frame(height:50)
                     }
                     YPDButton(title: "Submit") {
-                        // Ensure that we attach the result from each slider to the YPDCheckinPrompt.
-                        for i in 0..<self.model.checkinPrompts.count {
-                            // The 'results' array is bound to the Sliders which are zero-indexed. We need to add one to ensure that the values being submitted reflect those reported by the checkin prompt.
-                            self.model.checkinPrompts[i].responseValue.value = Double(self.model.sliderValues[i] + 1)
-                        }
                         Fetcher.sharedInstance.submitCheckin(checkinPrompts: self.model.checkinPrompts) { (result) in
                             print("Submitted checkin with response: \(result)")
                         }

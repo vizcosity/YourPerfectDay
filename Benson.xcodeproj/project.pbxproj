@@ -10,9 +10,6 @@
 		2101009B242EA0D70010ED8D /* YPDInsightProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2101009A242EA0D70010ED8D /* YPDInsightProgressBarView.swift */; };
 		2109EDD424D5D8A100BA4880 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 2109EDD324D5D8A100BA4880 /* SwiftyJSON */; };
 		2109EDD724D5D8D800BA4880 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 2109EDD624D5D8D800BA4880 /* Alamofire */; };
-		2109EDDC24D5D92300BA4880 /* CareKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2109EDDB24D5D92300BA4880 /* CareKit */; };
-		2109EDDE24D5D92300BA4880 /* CareKitStore in Frameworks */ = {isa = PBXBuildFile; productRef = 2109EDDD24D5D92300BA4880 /* CareKitStore */; };
-		2109EDE024D5D92300BA4880 /* CareKitUI in Frameworks */ = {isa = PBXBuildFile; productRef = 2109EDDF24D5D92300BA4880 /* CareKitUI */; };
 		2115927324FC22CE00F57EED /* YPDChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2115927224FC22CE00F57EED /* YPDChartView.swift */; };
 		2115927624FC232100F57EED /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 2115927524FC232100F57EED /* SwiftUICharts */; };
 		2127B00F2430E5B900B8D0B1 /* YPDSummaryIndividualMetricInsightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2127B00E2430E5B900B8D0B1 /* YPDSummaryIndividualMetricInsightView.swift */; };
@@ -30,7 +27,6 @@
 		21532F542472FE600054AC84 /* YPDSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21532F532472FE600054AC84 /* YPDSummaryView.swift */; };
 		21532F58247305040054AC84 /* StaticData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21532F57247305040054AC84 /* StaticData.swift */; };
 		21532F5A24730B1F0054AC84 /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21532F5924730B1F0054AC84 /* Chart.swift */; };
-		21532F5F24730F660054AC84 /* OCKCartesianChartViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21532F5E24730F660054AC84 /* OCKCartesianChartViewWrapper.swift */; };
 		21645BB724DCB02F004080B9 /* YPDCheckinType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21645BB624DCB02F004080B9 /* YPDCheckinType.swift */; };
 		21645BBA24DCB053004080B9 /* YPDCheckinResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21645BB924DCB053004080B9 /* YPDCheckinResponse.swift */; };
 		21645BBD24DCB08E004080B9 /* YPDCheckinPrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21645BBC24DCB08E004080B9 /* YPDCheckinPrompt.swift */; };
@@ -118,7 +114,6 @@
 		21532F532472FE600054AC84 /* YPDSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDSummaryView.swift; sourceTree = "<group>"; };
 		21532F57247305040054AC84 /* StaticData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticData.swift; sourceTree = "<group>"; };
 		21532F5924730B1F0054AC84 /* Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chart.swift; sourceTree = "<group>"; };
-		21532F5E24730F660054AC84 /* OCKCartesianChartViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCKCartesianChartViewWrapper.swift; sourceTree = "<group>"; };
 		21645BB624DCB02F004080B9 /* YPDCheckinType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YPDCheckinType.swift; sourceTree = "<group>"; };
 		21645BB924DCB053004080B9 /* YPDCheckinResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDCheckinResponse.swift; sourceTree = "<group>"; };
 		21645BBC24DCB08E004080B9 /* YPDCheckinPrompt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDCheckinPrompt.swift; sourceTree = "<group>"; };
@@ -190,13 +185,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2109EDDC24D5D92300BA4880 /* CareKit in Frameworks */,
 				2115927624FC232100F57EED /* SwiftUICharts in Frameworks */,
 				2109EDD724D5D8D800BA4880 /* Alamofire in Frameworks */,
 				2109EDD424D5D8A100BA4880 /* SwiftyJSON in Frameworks */,
 				21A8CA5224FB127A00B6621D /* HealthKit.framework in Frameworks */,
-				2109EDDE24D5D92300BA4880 /* CareKitStore in Frameworks */,
-				2109EDE024D5D92300BA4880 /* CareKitUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,14 +252,6 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		21532F5B24730F410054AC84 /* Wrappers */ = {
-			isa = PBXGroup;
-			children = (
-				21532F5E24730F660054AC84 /* OCKCartesianChartViewWrapper.swift */,
-			);
-			path = Wrappers;
-			sourceTree = "<group>";
-		};
 		21743E6023D0FE8C00F49CC3 /* BensonWatchApp */ = {
 			isa = PBXGroup;
 			children = (
@@ -318,7 +302,6 @@
 			children = (
 				21C4EE0424EB328800F5278F /* Insights */,
 				21C4EE0524EB32AD00F5278F /* Common */,
-				21532F5B24730F410054AC84 /* Wrappers */,
 				21C4EE0324EB327400F5278F /* Checkin */,
 				21532F532472FE600054AC84 /* YPDSummaryView.swift */,
 				21DF333B2482CCCE00D18EBC /* YPDTimeUnitPicker.swift */,
@@ -461,9 +444,6 @@
 			packageProductDependencies = (
 				2109EDD324D5D8A100BA4880 /* SwiftyJSON */,
 				2109EDD624D5D8D800BA4880 /* Alamofire */,
-				2109EDDB24D5D92300BA4880 /* CareKit */,
-				2109EDDD24D5D92300BA4880 /* CareKitStore */,
-				2109EDDF24D5D92300BA4880 /* CareKitUI */,
 				2115927524FC232100F57EED /* SwiftUICharts */,
 			);
 			productName = Benson;
@@ -497,7 +477,6 @@
 			packageReferences = (
 				2109EDD224D5D8A100BA4880 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				2109EDD524D5D8D800BA4880 /* XCRemoteSwiftPackageReference "Alamofire" */,
-				2109EDD824D5D92300BA4880 /* XCRemoteSwiftPackageReference "CareKit" */,
 				2115927424FC232100F57EED /* XCRemoteSwiftPackageReference "ChartView" */,
 			);
 			productRefGroup = 213436E123098A42006B1CA8 /* Products */;
@@ -560,7 +539,6 @@
 				21FA454F24FB0C23007B0BD6 /* YPDIndividualInsightSummaryView.swift in Sources */,
 				216CAA70237A010E004D6B8E /* YPDCheckin.swift in Sources */,
 				21DF333C2482CCCE00D18EBC /* YPDTimeUnitPicker.swift in Sources */,
-				21532F5F24730F660054AC84 /* OCKCartesianChartViewWrapper.swift in Sources */,
 				21C4EE0724EB32C400F5278F /* YPDCardView.swift in Sources */,
 				21532F58247305040054AC84 /* StaticData.swift in Sources */,
 				219C7D722482CAC50052AF72 /* YPDAttributePicker.swift in Sources */,
@@ -831,14 +809,6 @@
 				minimumVersion = 5.2.2;
 			};
 		};
-		2109EDD824D5D92300BA4880 /* XCRemoteSwiftPackageReference "CareKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/carekit-apple/CareKit.git";
-			requirement = {
-				branch = stable;
-				kind = branch;
-			};
-		};
 		2115927424FC232100F57EED /* XCRemoteSwiftPackageReference "ChartView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/AppPear/ChartView.git";
@@ -859,21 +829,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2109EDD524D5D8D800BA4880 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
-		};
-		2109EDDB24D5D92300BA4880 /* CareKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2109EDD824D5D92300BA4880 /* XCRemoteSwiftPackageReference "CareKit" */;
-			productName = CareKit;
-		};
-		2109EDDD24D5D92300BA4880 /* CareKitStore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2109EDD824D5D92300BA4880 /* XCRemoteSwiftPackageReference "CareKit" */;
-			productName = CareKitStore;
-		};
-		2109EDDF24D5D92300BA4880 /* CareKitUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2109EDD824D5D92300BA4880 /* XCRemoteSwiftPackageReference "CareKit" */;
-			productName = CareKitUI;
 		};
 		2115927524FC232100F57EED /* SwiftUICharts */ = {
 			isa = XCSwiftPackageProductDependency;

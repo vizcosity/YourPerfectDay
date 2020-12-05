@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 import SwiftyJSON
-import CareKit
 
 struct YPDChartError: Error {
     var description: String
@@ -18,23 +17,24 @@ struct YPDChartError: Error {
     }
 }
 
+typealias YPDChartPoint = (Date, Double)
+
 /// Class for handling the generation of data points needed to chart metric log data with an OCKChartView
 class YPDChartData: ObservableObject {
     
     // These two property wrappers add in a default implementation of `objectWillChange`, which will notify all subscribers dependant on the properties that they are about to change, and as such should re-render / update their views.
-    @Published var dataSeries: [OCKDataSeries] = []
     @Published var horizontalAxisChartMarkers: [String] = []
     @Published var error = ""
     
     var timeUnit: AggregationCriteria?
     var attributes: [YPDCheckinType]
     var jsonData: JSON?
-    var data: [[(Date, Double)]]?
+    var data: [[YPDChartPoint]]?
     
     /// Returns the minimum and maximum y values across all of the OCKDataSeries' which are contained within the YPDChartData object.
     var minMaxYValues: (CGFloat, CGFloat) {
         
-        let minMaxForEachSeries = self.dataSeries.map(self.getMinMaxYValues(forDataSeries:))
+        let minMaxForEachSeries = getMinMaxYValues(forSeriesOfChartPointArrays: data ?? [])
         
         let minY = minMaxForEachSeries.map {$0.0}.sorted { $0 < $1 }.first ?? 0
         let maxY = minMaxForEachSeries.map {$0.1}.sorted{ $0 < $1 }.first ?? 0
@@ -101,7 +101,7 @@ class YPDChartData: ObservableObject {
         self.attributes = attributes
         self.timeUnit = timeUnit
         
-        self.dataSeries = []
+//        self.dataSeries = []
         self.data = []
         
         var sampleDates: [Date] = []
@@ -111,7 +111,7 @@ class YPDChartData: ObservableObject {
             let (dates, chartPoints) = self.generateChartPointsAndAxisLabelDates(forAttribute: $0.rawValue, andSelectedTimeUnit: timeUnit, ofAggregatedDataObjects: data.arrayValue, normalise: attributes.count > 1)
             
             sampleDates.append(contentsOf: dates)
-            self.dataSeries.append(OCKDataSeries(dataPoints: chartPoints, title: $0.humanReadable, size: 3, color: Colour.chartColours.randomElement()!))
+//            self.dataSeries.append(OCKDataSeries(dataPoints: chartPoints, title: $0.humanReadable, size: 3, color: Colour.chartColours.randomElement()!))
             
             // Append the data and dates to the data array.
             let dataToAppend = zip(dates, chartPoints.map { Double($0.y) }).map { $0 }
@@ -129,36 +129,36 @@ class YPDChartData: ObservableObject {
     
     /// Convenience method which can be used to initialize the YPDChartData object using the array of (Double, Date) tuples.
     private func initialize(multipleSeries: [[(Date, Double)]], attributes: [YPDCheckinType]) throws {
-        
+
         guard multipleSeries.count == attributes.count else { throw YPDChartError("Length of data (\(multipleSeries)) does not match length of attributes (\(attributes)).") }
-        
+
 //        self.data = data
         self.attributes = attributes
-        
-        self.dataSeries = []
-                
+
+//        self.dataSeries = []
+
         var sampleDates: [Date] = []
-        
+
         self.data = multipleSeries
-        
+
         // For each attribute, generate the data series chart points, as well as axis labels.
         for i in 0..<multipleSeries.count {
             let series = multipleSeries[i]
-            let attribute = attributes[i]
-            
-            let (dates, chartPoints) = self.generateChartPointsAndAxisLabelDates(forData: series, normalise: attributes.count > 1)
-            
+//            let attribute = attributes[i]
+
+            let (dates, _) = self.generateChartPointsAndAxisLabelDates(forData: series, normalise: attributes.count > 1)
+
             sampleDates.append(contentsOf: dates)
-            
-            self.dataSeries.append(OCKDataSeries(dataPoints: chartPoints, title: attribute.humanReadable, size: 3, color: Colour.chartColours.randomElement()!))
+
+//            self.dataSeries.append(OCKDataSeries(dataPoints: chartPoints, title: attribute.humanReadable, size: 3, color: Colour.chartColours.randomElement()!))
         }
-        
-        
+
+
         // Generate the horizontal axis labels for the chart.
         self.horizontalAxisChartMarkers = self.generateHorizontalAxisLabels(forCollectionDates: sampleDates)
-        
+
     }
-    
+
     /// Updates the ChartData object given new attributes or selected time units.
     public func fetchNewData(forAttributes attributes: [YPDCheckinType]? = nil, selectedTimeUnit timeUnit: AggregationCriteria? = nil){
         print("Chart | Fetching chart data for attributes: \((attributes ?? []).map { $0.humanReadable }.joined(separator: ", "))  with aggregation criteria: \(timeUnit?.humanReadable ?? "Day")")
@@ -233,10 +233,6 @@ class YPDChartData: ObservableObject {
             
             // Parse the date value from the JSON string.
             
-//            guard let doubleValue = Double(item[attribute].stringValue),
-//                let date = stringToDateFormatter.date(from: item["startOfDate"].stringValue)
-//            else { return nil }
-                        
             // Ignore everything but the 'day', 'month' and 'year', as we would want to ensure that we do not produce multiple horizontal axis labels for dates of different times of the same day.
             let truncatedDateComponents = Calendar.current.dateComponents([.day, .month, .year], from: date)
             
@@ -253,19 +249,22 @@ class YPDChartData: ObservableObject {
         
         return (chartPoints.map { $0.0 }, chartPoints.map { CGPoint(x: $0.1.x, y: $0.1.y / CGFloat(normalise ? largestYValue : 1)) })
     }
-
-    /// Fetches the min and max y values for a given dimension passed on a dataseries.
-    private func getMinMaxYValues(forDataSeries dataSeries: OCKDataSeries) -> (CGFloat, CGFloat) {
+    
+    /// Fetches the min and max y values for a series of chart point arrays.
+    private func getMinMaxYValues(forSeriesOfChartPointArrays chartPointArrays: [[YPDChartPoint]]) -> [(Double, Double)] {
+        return chartPointArrays.map(getMinMaxYValues(forChartPoints:))
+    }
+    
+    /// Fetches the min and max y values for a given array of chart points.
+    private func getMinMaxYValues(forChartPoints chartPoints: [YPDChartPoint]) -> (Double, Double) {
         
-        let sorted = dataSeries.dataPoints.sorted { (firstPoint, secondPoint) -> Bool in
-            return firstPoint.y < secondPoint.y
-        }
+        let sorted = chartPoints.sorted { (firstPoint, secondPoint) in firstPoint.1 < secondPoint.1 }
         
         guard !sorted.isEmpty else {
             return (0, 0)
         }
         
-        return (sorted.first!.y, sorted.last!.y)
+        return (min: sorted.first!.1, max: sorted.last!.1)
         
     }
     

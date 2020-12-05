@@ -55,6 +55,15 @@ struct YPDCheckinPromptView: View {
     }
 }
 
+extension YPDCheckinPromptView {
+    init(checkinPrompt: YPDCheckinPrompt, sliderValue: Binding<Float>){
+        self.title = checkinPrompt.readableTitle
+        self.maxRecordableValue = Float(checkinPrompt.responseOptions.map { $0.value }.sorted().last!)
+        self.stepLabels = checkinPrompt.responseOptions.map { $0.label }
+        self._result = sliderValue
+    }
+}
+
 struct YPDCheckinPromptView_Previews: PreviewProvider {
     @State var result = 0
     @State var maxRecordableValue = 4

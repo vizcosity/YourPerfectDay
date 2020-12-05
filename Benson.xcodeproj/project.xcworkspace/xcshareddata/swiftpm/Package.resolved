@@ -11,15 +11,6 @@
         }
       },
       {
-        "package": "CareKit",
-        "repositoryURL": "https://github.com/carekit-apple/CareKit.git",
-        "state": {
-          "branch": "stable",
-          "revision": "51cef0b8e88b3c47c183fe36e8afc1f695bae44f",
-          "version": null
-        }
-      },
-      {
         "package": "SwiftUICharts",
         "repositoryURL": "https://github.com/AppPear/ChartView.git",
         "state": {

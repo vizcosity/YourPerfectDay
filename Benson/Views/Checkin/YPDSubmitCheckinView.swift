@@ -22,19 +22,8 @@ struct YPDSubmitCheckinView: View {
                             Text("How are you feeling?").font(Font(UIFont.systemFont(ofSize: 35, weight: .bold)))
                             Spacer()
                         }.padding(Constants.Padding + 5)
-                        ForEach(self.model.checkinPrompts) { checkinPrompt -> YPDCheckinPromptView in
-                            
-                            let title = checkinPrompt.readableTitle
-                            
-                            let responses = checkinPrompt.responseOptions
-                            
-                            let maxRecordableValue = Float(responses.map { $0.value }.sorted().last!)
-                            
-                            let stepLabels = responses.map { $0.label }
-                            
-                            let sliderIndex = self.model.checkinPrompts.firstIndex(where: { $0 == checkinPrompt })
-                                                        
-                            return YPDCheckinPromptView(result: self.$model.sliderValues[sliderIndex ?? 0], title: title, maxRecordableValue: maxRecordableValue, stepLabels: stepLabels)
+                        ForEach(self.model.checkinPrompts) {
+                            YPDCheckinPromptView(checkinPrompt: $0, sliderValue: .constant(2))
                         }
                         
                         Rectangle()

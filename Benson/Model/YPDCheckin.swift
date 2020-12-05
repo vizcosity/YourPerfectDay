@@ -52,22 +52,3 @@ struct YPDCheckin: CustomStringConvertible, Identifiable, Decodable {
         return copiedMetric
     }
 }
-
-/// Ensure that Metric Logs are hashable so that we can use them in ForEach loops in SwiftUI.
-//extension YPDCheckin: Hashable {
-//    
-//    public func equals(otherMetricLog: YPDCheckin) -> Bool {
-//        return self.id == otherMetricLog.id &&
-//            self.timestamp == otherMetricLog.timestamp &&
-//            self.timeSince == otherMetricLog.timeSince
-//    }
-//    
-//    static func == (lhs: YPDCheckin, rhs: YPDCheckin) -> Bool {
-//        return lhs.equals(otherMetricLog: rhs) &&
-//            lhs.attributeValues.elementsEqual(rhs.attributeValues, by: { (lhsMetric, rhsMetric) -> Bool in
-//                return lhsMetric == rhsMetric
-//            })
-//    }
-//    
-//    
-//}

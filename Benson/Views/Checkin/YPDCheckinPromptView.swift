@@ -11,6 +11,7 @@ import SwiftUI
 struct YPDCheckinPromptView: View {
     
     @Binding var result: Float
+    @Environment(\.colorScheme) var colorScheme
     
     var title: String
     
@@ -47,7 +48,7 @@ struct YPDCheckinPromptView: View {
             })
         }
         .padding(Constants.cardPadding)
-        .background(Color.white)
+        .background(colorScheme == .dark ? Color(.secondarySystemBackground) : Color(.systemBackground))
         .cornerRadius(Constants.defaultCornerRadius)
         .shadow(color: Constants.shadowColour, radius: Constants.shadowRadius, x: Constants.shadowX, y: Constants.shadowY)
             
@@ -72,7 +73,7 @@ struct YPDCheckinPromptView_Previews: PreviewProvider {
             YPDCheckinPromptView(result: .constant(2), title: "I'm Feeling", maxRecordableValue: Float(4), stepLabels: ["Horrible", "Meh", "Okay", "Not Bad", "Great"])
                 .previewLayout(.sizeThatFits)
             
-        }
+        }.preferredColorScheme(.dark)
         
     }
 }

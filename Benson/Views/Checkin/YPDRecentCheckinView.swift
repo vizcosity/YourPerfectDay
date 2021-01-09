@@ -155,12 +155,7 @@ struct YPDAdditionalCheckins: View {
 struct RecentCheckinView_Previews: PreviewProvider {
     static var checkins = [_sampleCheckin]
     static var previews: some View {
-        YPDRecentCheckinView(displayedCheckin: self.checkins.first!, allCheckins: .init(repeating: _sampleCheckin, count: 300)).onAppear {
-            Fetcher.sharedInstance.fetchMetricLogs(completionHandler: {
-                checkins in self.checkins = checkins
-                
-            })
-        }
+        YPDRecentCheckinView(displayedCheckin: self.checkins.first!, allCheckins: .init(repeating: _sampleCheckin, count: 300))
     }
 }
 #endif

@@ -9,7 +9,7 @@
 import Foundation
 
 /// Contains the value for a single attribute (e.g., `Mood`, `Energy`, etc) within a YPD Checkin.
-struct YPDCheckinResponseValue: Decodable {
+struct YPDCheckinResponseValue {
     
     var value: Double
     var average: Double?
@@ -46,14 +46,23 @@ extension YPDCheckinResponseValue: CustomStringConvertible {
     }
 }
 
-// Ensure that YPDCheckinResponseValues are Hashable by providing a custom hash() implementation, since @State values cannot be used automatically.
-//extension YPDCheckinResponseValue: Hashable {
-//    
-//    func hash(into hasher: inout Hasher) {
-//        hasher.combine(ObjectIdentifier(self))
-//    }
-//    
-//}
+extension YPDCheckinResponseValue: Decodable {
+    
+    enum CodingKeys: String, CodingKey {
+        case value
+        case average
+        case type = "metricId"
+        case maxValue
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.type = .init(try container.decode(String.self, forKey: .type))
+        self.value = Double(try container.decode(Int.self, forKey: .value))
+    }
+
+}
 
 // Ensure MetricAttribute is equatable.
 extension YPDCheckinResponseValue: Equatable {

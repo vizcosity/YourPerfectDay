@@ -7,9 +7,11 @@
 //
 
 import SwiftUI
+import Combine
 
 struct YPDRecentCheckinsSection: View {
     
+    @State var subscriptions = Set<AnyCancellable>()
     @State var checkins: [YPDCheckin]
     
     var body: some View {
@@ -22,12 +24,25 @@ struct YPDRecentCheckinsSection: View {
                 YPDRecentCheckinView(displayedCheckin: self.checkins.first!, allCheckins: self.checkins)
             }
         }.onAppear {
-            Fetcher.sharedInstance.fetchMetricLogs(completionHandler: { checkins in
-                withAnimation {
-                    self.checkins = checkins
-                }
-                
-            })
+//            Fetcher.sharedInstance.fetchMetricLogs(completionHandler: { checkins in
+//                withAnimation {
+//                    self.checkins = checkins
+//                }
+//
+//            })
+//            print("Fetching metric logs")
+            Fetcher
+                .sharedInstance
+                .fetchMetricLogs()
+                .sink(
+                    receiveCompletion: { error in print(error) },
+                      receiveValue: { (checkins: [YPDCheckin]) in
+                    withAnimation {
+                        print("Fetched Checkins")
+                        self.checkins = checkins
+                    }
+                })
+                .store(in: &subscriptions)
         }.animation(.easeInOut)
     }
 }

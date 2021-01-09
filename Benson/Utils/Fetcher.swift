@@ -41,72 +41,50 @@ class Fetcher {
             .mapError(YPDNetworkingError.mapError(_:))
             .eraseToAnyPublisher()
     }
-    
-    
-    // Checkpoint: Have just written a function to grab the metric titles given a metric id (this is not included in the metric log). Have since implemented this in the backend for simplicity.
-    public func fetchMetricLogs(completionHandler: @escaping ([YPDCheckin]) -> Void) {
-        
-        AF.request(YPDEndpoint.getMetricLog.urlString).responseJSON(queue: DispatchQueue.global(qos: .userInitiated), options: .allowFragments) { (response) in
-            
-            if let checkinJSON = try? response.result.get() as? [[String: Any]] {
 
-                // Map each JSON object ot the MetricLog object and return this as part of the completionHandler.
-                let checkins = checkinJSON.map({ (metricLogJSON) -> YPDCheckin in
-
-                    var attributeValues : [YPDCheckinResponseValue] = []
-
-                    if let attributesFromResponse = metricLogJSON["attributes"] as? [[String : Any]] {
-                        attributeValues = attributesFromResponse.map({ (attribute) -> YPDCheckinResponseValue in
-                            return YPDCheckinResponseValue(type: attribute["metricId"] as? String ?? "", value: attribute["value"] as? Double ?? 0)
-                        })
-                    }
-
-                    // Checkpoint: attaching a Date to each metric log to know when to grab HealthKit data for enrichment.
-                    return YPDCheckin(attributeValues: attributeValues, timeSince: metricLogJSON["timesince"] as? String ?? "Some time ago", timestamp: metricLogJSON["timestamp"] as? Int ?? 0, id: metricLogJSON["_id"] as? String)
-                })
-                
-                // Run the comletionHandler within the main thread as the argument passed to the completion handler will most likely be used to update the UI.
-                DispatchQueue.main.async {
-                    return completionHandler(checkins)
-                }
-            }
-        }
+    public func fetchMetricLogs() -> AnyPublisher<[YPDCheckin], YPDNetworkingError> {
+        guard let url = YPDEndpoint.getMetricLog.url else { return Fail(error: YPDNetworkingError.generatingURLError).eraseToAnyPublisher() }
+        return URLSession
+            .shared
+            .dataTaskPublisher(for: url)
+            .tryDecode(decoder: JSONDecoder())
+            .eraseToAnyPublisher()
     }
-    
-    /// Fetches dates for all unenricehd checkins.
-    public func fetchUnenrichedCheckinDates(completionHandler: @escaping ([Date]) -> Void) {
-        AF.request(YPDEndpoint.fetchUnenrichedCheckinDates.url!).responseJSON(queue: DispatchQueue.global(qos: .background), options: .allowFragments) { (response) in
-            switch response.result {
-                case .success(let value):
-                    let json = JSON(value)
-                    if let success = Bool(json["success"].stringValue), success {
-                        let dates = json["result"].arrayValue.map({ (unenrichedCheckinInfo) -> Date? in
-                            
-                            // Parse the dates from ISO format.
-                            let formatter = ISO8601DateFormatter()
-                            formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-                            let parsedDate = formatter.date(from: unenrichedCheckinInfo.stringValue)
-                            self.log("Attempting to parse \(unenrichedCheckinInfo.stringValue) as a date: \(String(describing: parsedDate))")
-                            return parsedDate
-                        })
-                        
-                        let unwrappedDates = dates.filter { $0 != nil }.map { $0! }
-                        
-                        return completionHandler(unwrappedDates)
-                    }
-                    
-                case .failure(let error):
-                    self.log("Error retrieving unenriched checkins: \(error)")
+
+    public func fetchUnenrichedCheckinDates() -> AnyPublisher<[Date], YPDNetworkingError> {
+        guard let url = YPDEndpoint.fetchUnenrichedCheckinDates.url else { return Fail(error: YPDNetworkingError.generatingURLError).eraseToAnyPublisher() }
+        return URLSession
+            .shared
+            .dataTaskPublisher(for: url)
+            .tryMap { (data: Data, response: URLResponse) in
+                if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200 {
+                    throw YPDNetworkingError.satusError(statusCode: httpResponse.statusCode)
+                }
+                print("Fetching unenriched checkin dates: \(String.init(data: data, encoding: .utf8) ?? "Unable to decode")")
+                return data
             }
-            
-        }
+            .decode(type: YPDUnenrichedCheckinDatesResponse.self, decoder: JSONDecoder.withYPDDateDecoding)
+            .print()
+            .map(\.dates)
+            .mapError(YPDNetworkingError.mapError(_:))
+            .eraseToAnyPublisher()
     }
     
     // MARK: Fetching checkin data
-    
     /// Fetches aggregated healthData objects, as well as aggregated checkin objects, merging each object for the same date and returning an array of results.
-    public func fetchAggregatedHealthAndCheckinData(byAggregationCriteria criteria: AggregationCriteria, completionHandler: @escaping(JSON) -> Void){
-        self.sendGetRequest(toEndpoint: YPDEndpoint.aggregatedHealthDataAndCheckins(criteria: criteria).urlString, withQuery: nil, completionHandler: completionHandler)
+    public func fetchAggregatedHealthAndCheckinData(byAggregationCriteria criteria: AggregationCriteria) -> AnyPublisher<YPDAggregatedHealthAndCheckinDataResponse, YPDNetworkingError> {
+        guard let url = YPDEndpoint.aggregatedHealthDataAndCheckins(criteria: criteria).url else { return Fail(error: YPDNetworkingError.generatingURLError).eraseToAnyPublisher() }
+        return URLSession
+            .shared
+            .dataTaskPublisher(for: url)
+            .tryMap { response in
+                guard let httpResponse = response.response as? HTTPURLResponse else { throw YPDNetworkingError.castingError }
+                guard httpResponse.statusCode == 200 else { throw YPDNetworkingError.satusError(statusCode: httpResponse.statusCode) }
+                return response.data
+            }
+            .decode(type: YPDAggregatedHealthAndCheckinDataResponse.self, decoder: JSONDecoder.withYPDDateDecoding)
+            .mapError(YPDNetworkingError.mapError(_:))
+            .eraseToAnyPublisher()
     }
 
     public func fetchAggregateData(byAggregationCriteria criteria: AggregationCriteria) -> AnyPublisher<[YPDAggregate], YPDNetworkingError> {
@@ -191,24 +169,6 @@ class Fetcher {
         }
     }
     
-    public func submitCheckinAsString(checkinPrompts: [YPDCheckinPrompt], completionHandler: @escaping (Bool) -> Void){
-        let responseValueArray: [[String: Any]] = checkinPrompts.map {
-            [
-                "metricId": $0.responseValue.type.rawValue,
-                "value": $0.responseValue.value
-                ] as [String : Any]
-        }
-        
-        let postBody = JSON(["array": responseValueArray]).stringValue
-        
-        self.log("Submitting \(postBody)")
-                
-        self.sendPostRequest(toEndpoint: YPDEndpoint.submitCheckin, withStringBody: postBody) { (response) in
-            self.log("Submitted checkin with response: \(response.stringValue)")
-        }
-        
-    }
-
     // Checkpoint: Implementing swipe to delete checkin functionality.
     public func remove(metricLogId: String, completionHandler: @escaping () -> Void) {
         
@@ -322,6 +282,34 @@ extension Fetcher {
             // TODO: Alter YPD Insights to conform to better support an entire insight with multiple important metrics.
             completionHandler(json["data"].arrayValue.map(YPDInsight.init(json:)))
         }
+    }
+
+    public func fetchInsights(forMetric metric: YPDCheckinType = .vitality, withAggregationCriteria aggregationCriteria: AggregationCriteria, limit: Int? = nil) -> AnyPublisher<[YPDInsight], YPDNetworkingError> {
+        
+        var body = [
+            "aggregationCriteria": aggregationCriteria.description,
+            "desiredMetric": metric.rawValue
+        ]
+        
+        if let limit = limit {
+            body["limit"] = "\(limit)"
+        }
+        
+        guard
+            let url = YPDEndpoint.fetchInsights.url,
+            var urlRequest = try? URLRequest(url: url, method: .post),
+            let bodyData = try? JSONEncoder().encode(body)
+        else { return Fail(error: YPDNetworkingError.generatingURLError).eraseToAnyPublisher() }
+        
+        urlRequest.httpBody = bodyData
+        
+        return URLSession
+            .shared
+            .dataTaskPublisher(for: urlRequest)
+            .tryDecode(type: YPDInsightResponse.self, decoder: JSONDecoder())
+            .map(\.data)
+            .eraseToAnyPublisher()
+            
     }
 }
 

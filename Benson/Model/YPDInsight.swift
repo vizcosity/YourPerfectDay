@@ -9,6 +9,11 @@
 import Foundation
 import SwiftyJSON
 
+struct YPDInsightResponse: Decodable {
+    let success: Bool
+    let data: [YPDInsight]
+}
+
 /// Represents an insight / anomaly for a given metric of interest.
 struct YPDInsight: Identifiable, PrettyPrintable {
     
@@ -142,9 +147,6 @@ extension YPDInsight: Decodable {
         enum PrecedingDataKeys: String, CodingKey {
             case activeEnergyBurned, basalEnergyBurned, caloricIntake, dietaryCarbohydrates, dietaryFats, dietaryProtein, exerciseMinutes, hrv, lowHeartRateEvents, restingHeartRate, sleepHours, standingMinutes, stepCount, weight, generalFeeling, mood, energy, focus, vitality, startOfDate
         }
-        
-        
-        
         
     }
     
@@ -326,4 +328,35 @@ extension YPDAnomalyMetric {
          return self.globalChange >= 0 ? "increased" : "decreased"
      }
     
+}
+
+extension YPDInsight {
+    static var mockedDietaryProtein: YPDInsight {
+        YPDInsight(
+            metricOfInterestType: .dietaryProtein,
+            metricOfInterestValue: 3,
+            metricOfInterestGlobalChange: 0.5,
+            metricOfInterestGlobalMean: 3.42,
+            metricOfInterestLocalChange: 2.12,
+            metricOfInterestLocalMean: 1.24,
+            date: Date(),
+            mostImportantAnomalyMetrics: [
+                .init(
+                    metricAttribute: .caloricIntake,
+                    localChange: 1.3,
+                    localMean: 1.1,
+                    globalChange: 0.3,
+                    globalMean: 1.3,
+                    correlation: 0.7,
+                    importance: 1,
+                    timePeriod: "a while ago",
+                    precedingData: [(Date(), 1.2)]
+                )
+            ]
+        )
+    }
+    
+    static var mockedGeneralFeeling: YPDInsight {
+        YPDInsight(metricOfInterestType: .generalFeeling, metricOfInterestValue: 2.342, metricOfInterestGlobalChange: 0.34, metricOfInterestGlobalMean: 3,metricOfInterestLocalChange: 1.82, metricOfInterestLocalMean: 2, date: Date(timeIntervalSinceNow: -199999),  mostImportantAnomalyMetrics: [YPDAnomalyMetric(metricAttribute: .caloricIntake, localChange: -0.23, localMean: 1400, globalChange: -0.11, globalMean: 2000, correlation: 0.45, importance: 0.8, timePeriod: "this week", precedingData: []), YPDAnomalyMetric(metricAttribute: .dietaryCarbohydrates, localChange: -0.83, localMean: 1400, globalChange: -0.11, globalMean: 2000, correlation: 0.45, importance: 0.8, timePeriod: "this week", precedingData: []), YPDAnomalyMetric(metricAttribute: .lowHeartRateEvents, localChange: 0.33, localMean: 1400, globalChange: -0.11, globalMean: 2000, correlation: 0.45, importance: 0.8, timePeriod: "this week", precedingData: []), YPDAnomalyMetric(metricAttribute: .sleepHours, localChange: -0.23, localMean: 1400, globalChange: -0.11, globalMean: 2000, correlation: 0.45, importance: 0.8, timePeriod: "this week", precedingData: [])])
+    }
 }

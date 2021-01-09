@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 
 /// A YPDCheckin object contains a collection of individual attribute values which the user has recorded for each given attribute type.
-struct YPDCheckin: CustomStringConvertible, Identifiable, Decodable {
+struct YPDCheckin: CustomStringConvertible, Identifiable {
     
     var description: String {
         get {
@@ -23,6 +23,8 @@ struct YPDCheckin: CustomStringConvertible, Identifiable, Decodable {
     var attributeValues: [YPDCheckinResponseValue] = []
     var timestamp: Date?
     var timeSince: String = "Some time ago"
+    var startOfDay: Date?
+    var endOfDay: Date?
     
     /// Summary data obtained from healthkit for the day when the log was recorded.
     #if MAIN_APP
@@ -50,5 +52,37 @@ struct YPDCheckin: CustomStringConvertible, Identifiable, Decodable {
         #endif
         
         return copiedMetric
+    }
+}
+
+extension YPDCheckin: Codable {
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "_id"
+        case attributeValues = "attributes"
+        case timestamp
+        case timeSince = "timesince"
+        case startOfDay
+        case endOfDay
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.id = try container.decode(String.self, forKey: .id)
+        self.timestamp = Date.init(timeIntervalSince1970: TimeInterval(try container.decode(Int.self, forKey: .timestamp)))
+        self.attributeValues = try container.decode([YPDCheckinResponseValue].self, forKey: .attributeValues)
+        self.timeSince = (try? container.decode(String.self, forKey: .timeSince)) ?? timeSince
+        self.startOfDay = try? container.decode(Date.self, forKey: .startOfDay)
+        self.endOfDay = try? container.decode(Date.self, forKey: .endOfDay)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(timestamp, forKey: .timestamp)
+        try container.encode(timeSince, forKey: .timeSince)
+        try container.encode(startOfDay, forKey: .startOfDay)
+        try container.encode(endOfDay, forKey: .endOfDay)
     }
 }

@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import SwiftUI
 
-struct Constants {
+enum Constants {
     static let cardPadding: CGFloat = 20
     static let Padding: CGFloat = 20
     static var horizontalButtonMargin: CGFloat = 35
@@ -26,7 +26,7 @@ struct Constants {
     static let shadowY: CGFloat = 3
 }
 
-struct Colour {
+enum Colour {
     static var primary: UIColor = #colorLiteral(red: 0.9471271634, green: 0.8354215026, blue: 1, alpha: 1)
     static var secondary: UIColor = #colorLiteral(red: 0.6681160927, green: 0.5804412365, blue: 0.7499276996, alpha: 1)
     static var darkText: UIColor = #colorLiteral(red: 0.5621231198, green: 0.4875727296, blue: 0.60321486, alpha: 1)

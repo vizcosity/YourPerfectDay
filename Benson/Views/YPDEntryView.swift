@@ -18,13 +18,13 @@ struct YPDEntryView: View {
     var body: some View {
         ZStack {
             Color("YPDSplashScreenBackground")
-            VStack {
+            VStack(spacing: 30) {
                 Spacer()
                 YPDBrandingView()
                 YPDAnimatableLoadingBar().padding([.leading, .trailing], progressBarPadding)
                 Text("Loading insights.")
                     .fontWeight(.medium)
-                    .foregroundColor(Color(UIColor.systemGray6))
+                    .foregroundColor(Color(.white))
                 Spacer()
                 Spacer()
                 
@@ -49,12 +49,6 @@ struct YPDEntryView: View {
     }
 }
 
-struct YPDEntryView_Previews: PreviewProvider {
-    static var previews: some View {
-        YPDEntryView()
-    }
-}
-
 struct YPDBrandingView: View {
     
     var body: some View {
@@ -76,5 +70,15 @@ struct YPDBrandingView: View {
         //                    .bold()
         .lineSpacing(-10)
         .foregroundColor(.white)
+    }
+}
+
+struct YPDEntryView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            YPDEntryView()
+            YPDEntryView()
+                .preferredColorScheme(.dark)
+        }
     }
 }

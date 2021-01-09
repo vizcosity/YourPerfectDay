@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct YPDCardView<AboveFoldContent: View, MainContent: View, BelowFoldContent: View>: View {
+
+    @Environment(\.colorScheme) var colorScheme
     
     init(@ViewBuilder aboveFold: @escaping () -> AboveFoldContent? = { nil }, @ViewBuilder mainContent: @escaping () -> MainContent, @ViewBuilder belowFold: @escaping () -> BelowFoldContent? = { nil }, displayShadow: Bool = true, hideBelowFoldSeparator: Bool = false){
         
@@ -39,12 +41,12 @@ struct YPDCardView<AboveFoldContent: View, MainContent: View, BelowFoldContent: 
                 HStack {
                     Spacer()
                     self.aboveFoldContent()
-                }.foregroundColor(Color.gray)
+                }.foregroundColor(Color(.secondaryLabel))
             }
             
             VStack {
                 self.mainContent()
-            }
+            }.foregroundColor(.primary)
             
             // Card below-fold content. (Click for more checkins indicator)
             if self.belowFoldContent() != nil && !self.hideBelowFoldSeparator {
@@ -55,7 +57,7 @@ struct YPDCardView<AboveFoldContent: View, MainContent: View, BelowFoldContent: 
             
         }
         .padding(.all, Constants.Padding)
-        .background(Color.white)
+        .background(colorScheme == .dark ?  Color(.secondarySystemBackground) : Color(.systemBackground))
         .cornerRadius(Constants.defaultCornerRadius)
         .shadow(color: self.displayShadow ? Constants.shadowColour : .clear, radius: Constants.shadowRadius, x: Constants.shadowX, y: Constants.shadowY)
 //            .shadow(color: Color.black.opacity(0.15), radius: Constants.shadowRadius, x: Constants.shadowX, y: Constants.shadowY - 5)
@@ -87,9 +89,10 @@ struct YPDBelowFoldCardView<Content: View>: View {
         VStack {
             
             // Horizontal divider.
-            YPDDivider()
+            Divider()
             
             content()
+                .foregroundColor(.secondary)
             
         }
     }
@@ -98,7 +101,7 @@ struct YPDBelowFoldCardView<Content: View>: View {
 
 struct YPDCardView_Previews: PreviewProvider {
     static var previews: some View {
-        VStack {
+        Group {
             YPDCardView(aboveFold: {
                 VStack {Text("This is my Card!")}
             }, mainContent: {
@@ -110,7 +113,7 @@ struct YPDCardView_Previews: PreviewProvider {
                 Text("Another one bites the dust.")
                     .font(.footnote)
                 }
-            })
+            }).environment(\.colorScheme, .dark)
             
             YPDCardView(aboveFold: {
                           VStack {Text("This is my Card!")}

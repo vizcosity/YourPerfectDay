@@ -9,13 +9,14 @@
 import Foundation
 import HealthKit
 import SwiftyJSON
-//import Granola
+import Combine
 
 // Checkpoint: About to send BensonHealthDataObjects off to the server; need to run a background job which groups checkins by day, and ensures we have a database entry with a benson health data object which is linked to each of the checkins.
 class BensonHealthManager {
     
     var healthStore: HKHealthStore?
     var dispatchGroup: DispatchGroup = DispatchGroup()
+    var subscriptions = Set<AnyCancellable>()
     
     static let sharedInstance = BensonHealthManager()
     
@@ -42,15 +43,27 @@ class BensonHealthManager {
     public func enrichCheckinsWithHealthData(){
         
         // Fetch unenriched checkins and submit pending health data.
-        Fetcher.sharedInstance.fetchUnenrichedCheckinDates { (dates) in
-            self.log("Fetched unenriched checkin dates: \(dates)")
-            BensonHealthManager.sharedInstance?.fetchHealthData(forDays: dates, completionHandler: { (healthDataObjects) in
-                self.log("Fetched \(healthDataObjects.count). Submitting these now.")
-                Fetcher.sharedInstance.submitHealthDataObjects(healthDataObjects: healthDataObjects) { (result, error) in
+        Fetcher
+            .sharedInstance
+            .fetchUnenrichedCheckinDates()
+            .print("Fetched unenriched checkin dates with Combine:")
+            .flatMap(fetchHealthData(forDays:))
+            .sink(
+                receiveCompletion: { error in self.log("Trouble fetching health data objects or checkin dates: \(error)")},
+                receiveValue: { healthDataObjects in
+                    Fetcher.sharedInstance.submitHealthDataObjects(healthDataObjects: healthDataObjects) { (result, error) in
                     self.log("Submitted all healthDataObjects. Result: \(String(describing: result)). Error: \(String(describing: error))")
-                }
-            })
+                }}
+            )
+            .store(in: &subscriptions)
+    }
+
+    /// Combine wrapper for the fetchHealthData API.
+    public func fetchHealthData(forDays days: [Date]) -> AnyPublisher<[BensonHealthDataObject], Never> {
+        return Future { promise in
+            self.fetchHealthData(forDays: days, completionHandler: { healthObjects in promise(.success(healthObjects)) })
         }
+        .eraseToAnyPublisher()
     }
 
     /// Iteratively fetches healthData for all days passed, returning an array of BensonHealthDataObjects.

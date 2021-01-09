@@ -25,7 +25,7 @@ struct YPDAnimatableLoadingBar: View {
         GeometryReader { geometry in
             ZStack {
                 RoundedRectangle(cornerRadius: cornerRadius)
-                    .fill(Color.white.opacity(barOpacity))
+                    .fill(Color(.systemGray))
                     .frame(height: size)
                     .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
                 
@@ -46,8 +46,13 @@ struct YPDAnimatableLoadingBar: View {
 
 struct YPDAnimatableLoadingBar_Previews: PreviewProvider {
     static var previews: some View {
+        Group {
         YPDAnimatableLoadingBar()
             .previewLayout(.sizeThatFits)
             .preferredColorScheme(.dark)
+        YPDAnimatableLoadingBar()
+            .previewLayout(.sizeThatFits)
+            .preferredColorScheme(.light)
+        }
     }
 }

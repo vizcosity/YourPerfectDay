@@ -59,6 +59,14 @@ struct YPDInsightSummarySection: View {
 
 struct YPDInsightSummarySection_Previews: PreviewProvider {
     static var previews: some View {
-        YPDInsightSummarySection(metric: .energy)
+        Group {
+            YPDInsightSummarySection(metric: .energy)
+            YPDInsightSummarySection(
+                insights: [.mockedDietaryProtein],
+                metric: .caloricIntake,
+                aggregationCriteria: .day
+            )
+            .preferredColorScheme(.dark)
+        }
     }
 }

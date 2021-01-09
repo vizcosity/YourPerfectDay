@@ -13,6 +13,7 @@ enum YPDNetworkingError: Error {
     case castingError
     case satusError(statusCode: Int)
     case otherError(error: Error)
+    case generatingURLError
     
     static func mapError(_ error: Error) -> Self {
         if let _ = error as? DecodingError {

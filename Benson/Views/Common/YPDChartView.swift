@@ -31,8 +31,14 @@ struct YPDChartView: View {
     var body: some View {
         GeometryReader { geometry in
             Group {
-                RoundedRectangle(cornerRadius: Constants.defaultCornerRadius).fill(Color.white)
-                    .shadow(color: Constants.shadowColour, radius: Constants.shadowRadius, x: Constants.shadowX , y: Constants.shadowY)
+                RoundedRectangle(cornerRadius: Constants.defaultCornerRadius)
+                    .fill(Color(.systemBackground))
+                    .shadow(
+                        color: Constants.shadowColour,
+                        radius: Constants.shadowRadius,
+                        x: Constants.shadowX,
+                        y: Constants.shadowY
+                    )
                     .frame(height: height)
                 
                 
@@ -40,9 +46,15 @@ struct YPDChartView: View {
                 VStack {
                     ForEach(plottableData, id: \.self, content: { data in
 //
-                        LineView(data: data, title: chartTitle, legend: chartLegend, style: Styles.barChartStyleNeonBlueLight, valueSpecifier: "%.2f")
+                        LineView(
+                            data: data,
+                            title: chartTitle,
+                            legend: chartLegend,
+                            style: Styles.barChartStyleNeonBlueLight,
+                            valueSpecifier: "%.2f")
                             .padding([.leading, .trailing, .bottom], Constants.cardPadding)
                             .frame(height: height)
+                            
                     })
                                         
 //                    MultiLineChartView(data: plottableData.map { ($0, GradientColor(start: .blue, end: .pink)) }, title: "Sample Multiple Lines")
@@ -58,7 +70,8 @@ struct YPDChartView: View {
                             
                         })
                     }
-                    .foregroundColor(.gray).padding(.top, -38)
+                    .foregroundColor(Color.secondary)
+                    .padding(.top, -38)
                     
 //                    Text(chartData.horizontalAxisChartMarkers.sample(withAroundNumberOfPoints: 5).joined())
 //                    Text(chartData.data?.debugDescription ?? "Loading")
@@ -83,7 +96,8 @@ struct YPDChartView_Previews: PreviewProvider {
     static var previews: some View {
 //        YPDChartView(chartData: YPDChartData(multipleSeries: [[(Date(timeIntervalSinceNow: -109000), 1), (Date(timeIntervalSinceNow: -300000), 1), (Date(), 1), (Date(), 4), (Date(), 3)]], attributes: [.generalFeeling]))
 //            .previewLayout(.sizeThatFits)
-        YPDChartView(chartData: YPDChartData(multipleSeries: [seriesOne, seriesTwo] ,attributes: [.generalFeeling, .generalFeeling], selectedTimeUnit: .day))
+        YPDChartView(chartData: YPDChartData(multipleSeries: [seriesOne] ,attributes: [.generalFeeling], selectedTimeUnit: .day))
             .previewLayout(.sizeThatFits)
+            .environment(\.colorScheme, .dark)
     }
 }

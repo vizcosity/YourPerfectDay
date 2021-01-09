@@ -158,10 +158,10 @@
             filePath = "Benson/Model/Chart.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
-            landmarkName = "fetchDataAndInitialize(attributes:selectedTimeUnit:)"
-            landmarkType = "7">
+            startingLineNumber = "86"
+            endingLineNumber = "86"
+            landmarkName = "YPDChartData"
+            landmarkType = "3">
             <Locations>
                <Location
                   uuid = "DB9D4FCB-26E4-46B7-9095-B3873314E776 - a19be2430026b336"
@@ -206,10 +206,10 @@
             filePath = "Benson/Model/Chart.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
-            landmarkName = "initialize(data:attributes:selectedTimeUnit:)"
-            landmarkType = "7">
+            startingLineNumber = "145"
+            endingLineNumber = "145"
+            landmarkName = "YPDChartData"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -222,10 +222,10 @@
             filePath = "Benson/Model/Chart.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
-            landmarkName = "fetchDataAndInitialize(attributes:selectedTimeUnit:)"
-            landmarkType = "7">
+            startingLineNumber = "93"
+            endingLineNumber = "93"
+            landmarkName = "YPDChartData"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -238,10 +238,10 @@
             filePath = "Benson/Model/Chart.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "163"
-            endingLineNumber = "163"
-            landmarkName = "fetchNewData(forAttributes:selectedTimeUnit:)"
-            landmarkType = "7">
+            startingLineNumber = "207"
+            endingLineNumber = "207"
+            landmarkName = "YPDChartData"
+            landmarkType = "3">
             <Locations>
                <Location
                   uuid = "9CA0C732-FAD6-45A0-8E6F-88942D93471D - c2dd025c2b3bb66b"
@@ -301,8 +301,8 @@
             filePath = "Benson/Model/Chart.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "165"
-            endingLineNumber = "165"
+            startingLineNumber = "209"
+            endingLineNumber = "209"
             landmarkName = "fetchNewData(forAttributes:selectedTimeUnit:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -317,10 +317,10 @@
             filePath = "Benson/Model/Chart.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
-            landmarkName = "fetchDataAndInitialize(attributes:selectedTimeUnit:)"
-            landmarkType = "7">
+            startingLineNumber = "88"
+            endingLineNumber = "88"
+            landmarkName = "YPDChartData"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -406,38 +406,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3302FD60-7E6B-449C-B609-E32116795F41"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Benson/Utils/Fetcher.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
-            landmarkName = "fetchMetricLogs(completionHandler:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "BE5BBA0A-3D0E-425D-A668-2F9758E35E52"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Benson/Utils/Fetcher.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
-            landmarkName = "fetchMetricLogs(completionHandler:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "F4BEE1F5-B412-400F-ACB9-E0D80F9FAA20"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -445,10 +413,10 @@
             filePath = "Benson/Utils/Fetcher.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "168"
-            endingLineNumber = "168"
-            landmarkName = "Fetcher"
-            landmarkType = "3">
+            startingLineNumber = "146"
+            endingLineNumber = "146"
+            landmarkName = "submitCheckin(checkinPrompts:completionHandler:)"
+            landmarkType = "7">
             <Locations>
                <Location
                   uuid = "F4BEE1F5-B412-400F-ACB9-E0D80F9FAA20 - 28998d98d828562d"
@@ -493,8 +461,8 @@
             filePath = "Benson/Utils/Fetcher.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "175"
-            endingLineNumber = "175"
+            startingLineNumber = "153"
+            endingLineNumber = "153"
             landmarkName = "submitCheckin(checkinPrompts:completionHandler:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -509,9 +477,185 @@
             filePath = "Benson/Utils/Fetcher.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "172"
-            endingLineNumber = "172"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
             landmarkName = "submitCheckin(checkinPrompts:completionHandler:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5143BF38-D686-48FD-9490-80D4FB318015"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Benson/Utils/Fetcher.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
+            landmarkName = "fetchUnenrichedCheckinDates()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "5143BF38-D686-48FD-9490-80D4FB318015 - 6a1181cfcac74a38"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "YourPerfectDay.Fetcher.fetchUnenrichedCheckinDates() -&gt; Combine.AnyPublisher&lt;Swift.Array&lt;Foundation.Date&gt;, YourPerfectDay.YPDNetworkingError&gt;"
+                  moduleName = "YourPerfectDay"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aaronbaw/Code/Benson/Benson/Utils/Fetcher.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "59"
+                  endingLineNumber = "59"
+                  offsetFromSymbolStart = "1032">
+               </Location>
+               <Location
+                  uuid = "5143BF38-D686-48FD-9490-80D4FB318015 - 9838d58a4dcdee53"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Foundation.Data, __C.NSURLResponse) throws -&gt; Foundation.Data in YourPerfectDay.Fetcher.fetchUnenrichedCheckinDates() -&gt; Combine.AnyPublisher&lt;Swift.Array&lt;Foundation.Date&gt;, YourPerfectDay.YPDNetworkingError&gt;"
+                  moduleName = "YourPerfectDay"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aaronbaw/Code/Benson/Benson/Utils/Fetcher.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "60"
+                  endingLineNumber = "60"
+                  offsetFromSymbolStart = "176">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "11CE8F8C-A070-4C2B-87F5-7E2C5541AFA7"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Benson/Utils/Fetcher.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
+            landmarkName = "fetchUnenrichedCheckinDates()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "11CE8F8C-A070-4C2B-87F5-7E2C5541AFA7 - 9838d58a4dcdee70"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Foundation.Data, __C.NSURLResponse) throws -&gt; Foundation.Data in YourPerfectDay.Fetcher.fetchUnenrichedCheckinDates() -&gt; Combine.AnyPublisher&lt;Swift.Array&lt;Foundation.Date&gt;, YourPerfectDay.YPDNetworkingError&gt;"
+                  moduleName = "YourPerfectDay"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aaronbaw/Code/Benson/Benson/Utils/Fetcher.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "61"
+                  endingLineNumber = "61"
+                  offsetFromSymbolStart = "368">
+               </Location>
+               <Location
+                  uuid = "11CE8F8C-A070-4C2B-87F5-7E2C5541AFA7 - 9838d58a4dcdee70"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Foundation.Data, __C.NSURLResponse) throws -&gt; Foundation.Data in YourPerfectDay.Fetcher.fetchUnenrichedCheckinDates() -&gt; Combine.AnyPublisher&lt;Swift.Array&lt;Foundation.Date&gt;, YourPerfectDay.YPDNetworkingError&gt;"
+                  moduleName = "YourPerfectDay"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aaronbaw/Code/Benson/Benson/Utils/Fetcher.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "61"
+                  endingLineNumber = "61"
+                  offsetFromSymbolStart = "488">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3A82D58F-D37A-4818-A3A8-22D3FA13429C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Benson/Utils/Fetcher.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
+            landmarkName = "fetchUnenrichedCheckinDates()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F6AA579C-72F2-494C-AD36-1115FE47B37D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Benson/Utils/Fetcher.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "fetchUnenrichedCheckinDates()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "06D4D89C-164C-4163-9B4C-C81919754504"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Benson/Utils/Fetcher.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
+            landmarkName = "fetchUnenrichedCheckinDates()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "36E88230-A632-444A-9E7F-B66F15622647"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Benson/Utils/Fetcher.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "fetchUnenrichedCheckinDates()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "97E6808B-82B3-462B-9737-C0E1280AEE85"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Benson/Utils/Fetcher.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
+            landmarkName = "fetchUnenrichedCheckinDates()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

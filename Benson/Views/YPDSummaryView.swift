@@ -64,9 +64,6 @@ struct YPDMetricSelectionAndChartView: View {
             
             YPDChartMetricSelectionHeader(chartData: chartData)
             
-            //                        OCKCartesianChartViewWrapper(chartData: self.chartData)
-            //                            .frame(maxHeight: 300)
-            //                            .padding([.leading, .trailing], Constants.Padding)
             YPDChartView(chartData: chartData, displayChartLegend: true, height: 410)
                 .padding([.leading, .trailing], chartViewHorizontalPadding)
         
@@ -138,6 +135,7 @@ struct YPDChartMetricSelectionHeader: View {
 struct YPDSummaryView_Previews: PreviewProvider {
     static var previews: some View {
         YPDSummaryView(checkins: _sampleMetricLogs, chartData: .init(attributes: [.generalFeeling], selectedTimeUnit: .week)).environmentObject(YPDModel())
+            .environment(\.colorScheme, .dark)
         //        YPDSummaryView(chartData: .init(attributes: ["generalFeeling"], selectedTimeUnit: .week))
         
     }

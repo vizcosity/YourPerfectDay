@@ -20,9 +20,9 @@ class MetricCellValueComponent: UIView {
     
     var type: String = "Metric" { didSet { self.updateMetricValueLabel() }}
     
-    var currentValue: Int = 0 { didSet { self.updateMetricValueLabel(); self.updateProgressBar() }}
-    var max: Int = 0 { didSet { self.updateMetricValueLabel(); self.updateProgressBar() }}
-    var averageValue: Int = 0 { didSet { self.updateMetricAverageValueLabel() }}
+    var currentValue: Double = 0 { didSet { self.updateMetricValueLabel(); self.updateProgressBar() }}
+    var max: Double = 0 { didSet { self.updateMetricValueLabel(); self.updateProgressBar() }}
+    var averageValue: Double = 0 { didSet { self.updateMetricAverageValueLabel() }}
     
     @IBOutlet weak var metricValueLabel: UILabel!
     @IBOutlet weak var metricAverageValueLabel: UILabel!

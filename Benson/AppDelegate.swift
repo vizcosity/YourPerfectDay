@@ -7,25 +7,7 @@
 //
 
 import UIKit
-import Alamofire
-
-struct Colour {
-    static var primary: UIColor = #colorLiteral(red: 0.9471271634, green: 0.8354215026, blue: 1, alpha: 1)
-    static var secondary: UIColor = #colorLiteral(red: 0.6681160927, green: 0.5804412365, blue: 0.7499276996, alpha: 1)
-    static var darkText: UIColor = #colorLiteral(red: 0.5621231198, green: 0.4875727296, blue: 0.60321486, alpha: 1)
-    static var gradientOne: UIColor = #colorLiteral(red: 0.2296182215, green: 0.0797938332, blue: 0.2422780991, alpha: 1)
-    static var gradientTwo: UIColor = #colorLiteral(red: 0.01777612977, green: 0.06035795063, blue: 0.151725024, alpha: 1)
-    static var selectedButtonText: UIColor = #colorLiteral(red: 0.1964504421, green: 0.171156913, blue: 0.233199805, alpha: 1)
-    
-    static var chartColours: [UIColor] = [
-        #colorLiteral(red: 0.9471271634, green: 0.8354215026, blue: 1, alpha: 1), #colorLiteral(red: 1, green: 0.7778892305, blue: 0.7389295165, alpha: 1), #colorLiteral(red: 1, green: 0.9256604924, blue: 0.6751254523, alpha: 1), #colorLiteral(red: 0.786677938, green: 1, blue: 0.6851736921, alpha: 1), #colorLiteral(red: 0.7483130105, green: 1, blue: 0.9712234293, alpha: 1), #colorLiteral(red: 0.6818630375, green: 0.8092012222, blue: 1, alpha: 1), #colorLiteral(red: 0.7895013734, green: 0.7520797394, blue: 1, alpha: 1)
-    ]
-}
-
-struct Constants {
-    static var horizontalButtonMargin: CGFloat = 35
-    static var buttonEdgeInsets: CGFloat = 5
-}
+import SwiftUI
 
 import UserNotifications
 
@@ -39,33 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        print("[Webserver] | Using API: \(Webserver.endpoint)")
+        print("[Webserver] | Using API: \(YPDEndpoint.endpoint)")
         
         // Register notifications.
         self.notifier = BensonNotifier(alertTimes: nil, message: "It's time to checkin.")
         
-        // Fetch unenriched checkins and submit pending health data.
-        Fetcher.sharedInstance.fetchUnenrichedCheckinDates { (dates) in
-            
-            self.log("Fetched unenriched checkin dates: \(dates)")
-            
-            BensonHealthManager.sharedInstance?.fetchHealthData(forDays: dates, completionHandler: { (healthDataObjects) in
-                self.log("Fetched \(healthDataObjects.count). Submitting these now.")
-
-                Fetcher.sharedInstance.submitHealthDataObjects(healthDataObjects: healthDataObjects) { (result, error) in
-                    self.log("Submitted all healthDataObjects. Result: \(String(describing: result)). Error: \(String(describing: error))")
-                }
-
-            })
-            
-        }
-        
-        self.log("Fetching aggregated health and checkin data.")
-        Fetcher.sharedInstance.fetchAggregatedHealthAndCheckinData(byAggregationCriteria: .day) { (response) in
-           
-//            self.log("Fetched aggregated health data: \(response)")
-            
-        }
         return true
     }
 

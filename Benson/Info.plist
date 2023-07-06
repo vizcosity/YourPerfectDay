@@ -2,10 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSHealthShareUsageDescription</key>
-	<string>Benson analyses sleep, workout and metabolic activity in order to find patterns and correlate this with how you feel.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -29,6 +29,8 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSHealthShareUsageDescription</key>
+	<string>Benson analyses sleep, workout and metabolic activity in order to find patterns and correlate this with how you feel.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -64,11 +66,9 @@
 	<string>$(API_ENDPOINT)</string>
 	<key>Webserver Endpoint (Heroku)</key>
 	<string>http://benson-backend.herokuapp.com/api/v1</string>
-	<key>CFBundleDisplayName</key>
-	<string></string>
-	<key>Webserver Endpoint (Local)</key>
-	<string>http://localhost:3000/api/v1</string>
 	<key>Webserver Endpoint (Local Tunnel)</key>
 	<string>https://16df80df.ngrok.io/api/v1</string>
+	<key>Webserver Endpoint (Local)</key>
+	<string>http://benson-backend.herokuapp.com/api/v1</string>
 </dict>
 </plist>

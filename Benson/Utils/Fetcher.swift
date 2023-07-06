@@ -7,247 +7,167 @@
 //
 
 import Foundation
-import Alamofire
-import SwiftyJSON
-//import Alamofire_S
-
-struct Webserver {
-    
-    // Change the API endpiont depending on whether we are running in the simulator or not.
-    #if targetEnvironment(simulator)
-        private static var infoAPIDictionaryKey = "Webserver Endpoint (Local)"
-    #else
-        private static var infoAPIDictionaryKey = "Webserver Endpoint (Heroku)"
-    #endif
-//    private static var infoAPIDictionaryKey = "Webserver Endpoint (Local Tunnel)"
-
-    static var endpoint = Bundle.main.object(forInfoDictionaryKey: infoAPIDictionaryKey) as! String
-    static var getMetrics: String = "\(Webserver.endpoint)/metrics"
-    static var getMetricLog: String = "\(Webserver.endpoint)/checkins"
-    static var getLastCheckin: String = "\(Webserver.endpoint)/lastCheckin"
-    static var submitCheckin: String = "\(Webserver.endpoint)/checkin"
-    static var removeMetricLog: String = "\(Webserver.endpoint)/delete"
-    static var submitHealthData: String = "\(Webserver.endpoint)/healthData"
-    static var fetchUnenrichedCheckinDates: String = "\(Webserver.endpoint)/unenrichedCheckinDates"
-    static var aggregatedCheckinsByCriteria: String = "\(Webserver.endpoint)/aggregatedCheckinsByCriteria"
-    static func aggregatedHealthDataAndCheckins(byCriteria criteria: String) -> String { return "\(Webserver.endpoint)/healthDataAndCheckinsAggregatedBy/\(criteria)" }
-    
-}
-
-/// Enum describing the different aggregation criterias that can be used to collected aggregated health and checkin data.
-enum AggregationCriteria: String, CustomStringConvertible, CaseIterable {
-    case day
-    case week
-    case month
-    case quarter
-    case year
-
-    var description: String {
-        return self.rawValue
-    }
-
-    var calendarComponent: Calendar.Component {
-        switch self {
-            case .day: return .day
-            case .week: return .weekOfMonth
-            case .month: return .month
-            case .quarter: return .quarter
-            case .year: return .year
-        }
-    }
-}
-
+import Combine
 
 class Fetcher {
     
     var healthManager: BensonHealthManager = BensonHealthManager()!
-    var metricPrompts : [MetricPrompt] = []
-    var metricLogs: [MetricLog] = []
+    var metricPrompts : [YPDCheckinPrompt] = []
+    var metricLogs: [YPDCheckin] = []
     
     static let sharedInstance = Fetcher()
     
-    /// Fetches the title for the metric prompt given the Id. If no metric prompts are cached, the method fetches this as a pre-requisite. Defaults to the metric id passed if no metric prompt is found.
-    public func getTitle(forMetricId metricId: String, completionHandler: @escaping (String) -> Void) {
-        if metricPrompts.isEmpty {
-            self.fetchAndCacheMetricPrompts(completionHandler: {
-                _ in completionHandler(self.getTitleFromCachedMetricPrompts(forMetricId: metricId))
-            })
-        } else {
-            completionHandler(self.getTitleFromCachedMetricPrompts(forMetricId: metricId))
-        }
-    }
-    
     /// Fetches the title for the metric prompt given the Id. Defaults to the metric id passed if no metric prompt is found.
     private func getTitleFromCachedMetricPrompts(forMetricId metricId: String) -> String {
-        return self.metricPrompts.filter { $0.metricId == metricId }.first?.metricTitle ?? metricId
+        return self.metricPrompts.filter { $0.type == metricId }.first?.readableTitle ?? metricId
     }
     
-    private func fetchAndCacheMetricPrompts(completionHandler: @escaping ([MetricPrompt]) -> Void){
-        self.fetchMetricPrompts(completionHandler: {
-            self.metricPrompts = $0
-            completionHandler($0)
-        })
-    }
-        
-    public func fetchMetricPrompts(completionHandler: @escaping ([MetricPrompt]) -> Void){
-        
-        print("[Fetcher] Fetching metric prompts from \(Webserver.getMetrics)")
-        
-        AF.request(Webserver.getMetrics).responseJSON(queue: DispatchQueue.global(qos: .userInitiated), options: .allowFragments) { (response) in
-            
-            if let error = response.error {
-                self.log("Error: \(error)")
-            }
-            
-//            self.log("Recieved resposne: \(response)")
-                      if let metricPrompts = try? response.result.get() as? [[String: Any]] {
-                        completionHandler(metricPrompts.map({ (metricPromptJSON) -> MetricPrompt in
-                            return MetricPrompt.fromJSON(dict: metricPromptJSON)
-                        }))
-                      }
-              }
-    }
+    // MARK: - Fetching YPD CheckinPrompts
     
-    
-    // Checkpoint: Have just written a function to grab the metric titles given a metric id (this is not included in the metric log). Have since implemented this in the backend for simplicity.
-    public func fetchMetricLogs(completionHandler: @escaping ([MetricLog]) -> Void) {
-        
-        AF.request(Webserver.getMetricLog).responseJSON(queue: DispatchQueue.global(qos: .userInitiated), options: .allowFragments) { (response) in
-//            self.log("Recieved metric logs: \(response)")
-            
-            if let metricLogsJSON = try? response.result.get() as? [[String: Any]] {
-                self.log("\(metricLogsJSON)")
-
-                // Map each JSON object ot the MetricLog object and return this as part of the completionHandler.
-                let metricLogs = metricLogsJSON.map({ (metricLogJSON) -> MetricLog in
-
-                    var metricAttributes : [MetricAttribute] = []
-
-                    if let attributesFromResponse = metricLogJSON["attributes"] as? [[String : Any]] {
-                        metricAttributes = attributesFromResponse.map({ (attribute) -> MetricAttribute in
-                            return MetricAttribute(name: attribute["title"] as? String ?? "Attribute", value: attribute["value"] as? Int ?? 0)
-                        })
-                    }
-
-                    // Checkpoint: attaching a Date to each metric log to know when to grab HealthKit data for enrichment.
-                    return MetricLog(metrics: metricAttributes, timeSince: metricLogJSON["timesince"] as? String ?? "Some time ago", timestamp: metricLogJSON["timestamp"] as? Int ?? 0, id: metricLogJSON["_id"] as? String)
-                })
+    /// Combine method for fetching metric prompts.
+    public func fetchMetricPrompts() -> AnyPublisher<[YPDCheckinPrompt], YPDNetworkingError> {
+        let url = YPDEndpoint.getMetrics.url!
+        return URLSession.shared.dataTaskPublisher(for: url)
+            .tryMap { (data: Data, response: URLResponse) -> Data in
                 
-                // Run the comletionHandler within the main thread as the argument passed to the completion handler will most likely be used to update the UI.
-                DispatchQueue.main.async {
-                    return completionHandler(metricLogs)
+                if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200 {
+                    throw YPDNetworkingError.satusError(statusCode: httpResponse.statusCode)
                 }
+                
+                return data
+            }.decode(type: [YPDCheckinPrompt].self, decoder: JSONDecoder())
+            .mapError(YPDNetworkingError.mapError(_:))
+            .eraseToAnyPublisher()
+    }
+
+    public func fetchMetricLogs() -> AnyPublisher<[YPDCheckin], YPDNetworkingError> {
+        guard let url = YPDEndpoint.getMetricLog.url else { return Fail(error: YPDNetworkingError.generatingURLError).eraseToAnyPublisher() }
+        return URLSession
+            .shared
+            .dataTaskPublisher(for: url)
+            .tryDecode(decoder: JSONDecoder())
+            .eraseToAnyPublisher()
+    }
+
+    public func fetchUnenrichedCheckinDates() -> AnyPublisher<[Date], YPDNetworkingError> {
+        guard let url = YPDEndpoint.fetchUnenrichedCheckinDates.url else { return Fail(error: YPDNetworkingError.generatingURLError).eraseToAnyPublisher() }
+        return URLSession
+            .shared
+            .dataTaskPublisher(for: url)
+            .tryMap { (data: Data, response: URLResponse) in
+                if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200 {
+                    throw YPDNetworkingError.satusError(statusCode: httpResponse.statusCode)
+                }
+                print("Fetching unenriched checkin dates: \(String.init(data: data, encoding: .utf8) ?? "Unable to decode")")
+                return data
             }
-        }
+            .decode(type: YPDUnenrichedCheckinDatesResponse.self, decoder: JSONDecoder.withYPDDateDecoding)
+            .print()
+            .map(\.dates)
+            .mapError(YPDNetworkingError.mapError(_:))
+            .eraseToAnyPublisher()
     }
     
-    /// Fetches dates for all unenricehd checkins.
-    public func fetchUnenrichedCheckinDates(completionHandler: @escaping ([Date]) -> Void) {
-        AF.request(Webserver.fetchUnenrichedCheckinDates).responseJSON(queue: DispatchQueue.global(qos: .background), options: .allowFragments) { (response) in
-            switch response.result {
-                case .success(let value):
-                    let json = JSON(value)
-                    if let success = Bool(json["success"].stringValue), success {
-                        let dates = json["result"].arrayValue.map({ (unenrichedCheckinInfo) -> Date? in
-                            
-                            // Parse the dates from ISO format.
-                            let formatter = ISO8601DateFormatter()
-                            formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-                            let parsedDate = formatter.date(from: unenrichedCheckinInfo.stringValue)
-                            self.log("Attempting to parse \(unenrichedCheckinInfo.stringValue) as a date: \(String(describing: parsedDate))")
-                            return parsedDate
-                        })
-                        
-                        let unwrappedDates = dates.filter { $0 != nil }.map { $0! }
-                        
-                        return completionHandler(unwrappedDates)
-                    }
-                    
-                case .failure(let error):
-                    self.log("Error retrieving unenriched checkins: \(error)")
-            }
-            
-        }
-    }
-    
-    // MARK: Reporting & Visualisation.
-    
+    // MARK: Fetching checkin data
     /// Fetches aggregated healthData objects, as well as aggregated checkin objects, merging each object for the same date and returning an array of results.
-    public func fetchAggregatedHealthAndCheckinData(byAggregationCriteria criteria: AggregationCriteria, completionHandler: @escaping(JSON) -> Void){
-        self.sendGetRequest(toEndpoint: Webserver.aggregatedHealthDataAndCheckins(byCriteria: "\(criteria)"), withQuery: nil, completionHandler: completionHandler)
+    public func fetchAggregatedHealthAndCheckinData(byAggregationCriteria criteria: AggregationCriteria) -> AnyPublisher<YPDAggregatedHealthAndCheckinDataResponse, YPDNetworkingError> {
+        guard let url = YPDEndpoint.aggregatedHealthDataAndCheckins(criteria: criteria).url else { return Fail(error: YPDNetworkingError.generatingURLError).eraseToAnyPublisher() }
+        return URLSession
+            .shared
+            .dataTaskPublisher(for: url)
+            .tryMap { response in
+                guard let httpResponse = response.response as? HTTPURLResponse else { throw YPDNetworkingError.castingError }
+                guard httpResponse.statusCode == 200 else { throw YPDNetworkingError.satusError(statusCode: httpResponse.statusCode) }
+                return response.data
+            }
+            .decode(type: YPDAggregatedHealthAndCheckinDataResponse.self, decoder: JSONDecoder.withYPDDateDecoding)
+            .mapError(YPDNetworkingError.mapError(_:))
+            .eraseToAnyPublisher()
     }
+
+    public func fetchAggregateData(byAggregationCriteria criteria: AggregationCriteria) -> AnyPublisher<[YPDAggregate], YPDNetworkingError> {
+        URLSession
+            .shared
+            .dataTaskPublisher(for: YPDEndpoint.aggregatedHealthDataAndCheckins(criteria: criteria).url!)
+            .tryMap { response in
+                guard let httpResponse = response.response as? HTTPURLResponse else { throw YPDNetworkingError.castingError }
+                guard httpResponse.statusCode == 200 else { throw YPDNetworkingError.satusError(statusCode: httpResponse.statusCode) }
+                return response.data
+            }
+            .decode(type: YPDAggregateResponse.self, decoder: JSONDecoder())
+            .map { $0.result }
+            .mapError(YPDNetworkingError.mapError(_:))
+            .eraseToAnyPublisher()
+    }
+    
+    // MARK: - Submitting Health Data
     
     /// Submits a health data object to the backend.
     /// The completionHandler receives the ID for the submitted healthdata object, if submitted successfully.
-    public func submitHealthDataObject(healthDataObject: BensonHealthDataObject, completionHandler: @escaping (_ id: String?, _ error: String?) -> Void){
-        self.sendPostRequest(toEndpoint: Webserver.submitHealthData, withStringBody: healthDataObject.toJSONString() ?? "{}") { (json) in
-            if let success = Bool(json["success"].stringValue), success {
-                completionHandler(json["id"].stringValue, nil)
-            } else {
-                completionHandler(nil, json["reason"].stringValue)
-            }
-        
-        }
-    }
-    
-    /// Submits multiple health data objects to the backend.
-    public func submitHealthDataObjects(healthDataObjects: [BensonHealthDataObject], completionHandler: @escaping (_ id: String?, _ error: String?) -> Void){
-                
-        let encoder = JSONEncoder()
-        encoder.dateEncodingStrategy = .iso8601
-        
-//        let stringifiedHealthDataObjects = try? encoder.encode(healthDataObjects.map { (healthDataObject) -> String in
-//            return healthDataObject.toJSONString() ?? "{}"
-//        })
-        
-        let stringifiedHealthDataObjects = try? encoder.encode(healthDataObjects)
-        
-        guard let unwrappedStringifiedHealthDataObjects = stringifiedHealthDataObjects else { return completionHandler(nil, "Could not unwrap stringifiedHealthDataObjects optional. Debug encoder.") }
-        
-        let body = NSString(data: unwrappedStringifiedHealthDataObjects, encoding: String.Encoding.utf8.rawValue)!
-        
-        self.log("Encoded array of health data objects: \(String(describing: body)). Attempting to submit now.")
+//    public func submitHealthDataObject(healthDataObject: BensonHealthDataObject, completionHandler: @escaping (_ id: String?, _ error: String?) -> Void){
+//        self.sendPostRequest(toEndpoint: YPDEndpoint.submitHealthData, withStringBody: healthDataObject.toJSONString() ?? "{}") { (json) in
+//            if let success = Bool(json["success"].stringValue), success {
+//                completionHandler(json["id"].stringValue, nil)
+//            } else {
+//                completionHandler(nil, json["reason"].stringValue)
+//            }
+//        }
+//
+////        self.post(to: YPDEndpoint.submitHealthData, with: healthDataObject)
+//    }
+//
+//    /// Submits multiple health data objects to the backend.
+//    public func submitHealthDataObjects(healthDataObjects: [BensonHealthDataObject], completionHandler: @escaping (_ id: String?, _ error: String?) -> Void){
+//
+//        let encoder = JSONEncoder()
+//        encoder.dateEncodingStrategy = .iso8601
+//
+//        let stringifiedHealthDataObjects = try? encoder.encode(healthDataObjects)
+//
+//        guard let unwrappedStringifiedHealthDataObjects = stringifiedHealthDataObjects else { return completionHandler(nil, "Could not unwrap stringifiedHealthDataObjects optional. Debug encoder.") }
+//
+//        let body = NSString(data: unwrappedStringifiedHealthDataObjects, encoding: String.Encoding.utf8.rawValue)!
+//
+//        self.log("Encoded array of health data objects: \(String(describing: body)). Attempting to submit now.")
+//
+//        self.sendPostRequest(toEndpoint: YPDEndpoint.submitHealthData, withStringBody: String(body)) { (json) in
+//             if let success = Bool(json["success"].stringValue), success {
+//                  completionHandler(json["id"].stringValue, nil)
+//              } else {
+//                  completionHandler(nil, json["reason"].stringValue)
+//              }
+//        }
+//    }
 
-        self.sendPostRequest(toEndpoint: Webserver.submitHealthData, withStringBody: String(body)) { (json) in
-             if let success = Bool(json["success"].stringValue), success {
-                  completionHandler(json["id"].stringValue, nil)
-              } else {
-                  completionHandler(nil, json["reason"].stringValue)
-              }
-        }
+    public func submit(healthDataObject: BensonHealthDataObject) -> AnyPublisher<YPDHealthDataSubmissionResponse, YPDNetworkingError> {
+        log("Submitting health data object: \(healthDataObject).")
+        return post(to: .submitHealthData, with: healthDataObject)
     }
     
-    // Checkpoint: Implementing swipe to delete checkin functionality.
-    public func remove(metricLogId: String, completionHandler: @escaping () -> Void) {
-        
-        var request = URLRequest(url: URL(string: Webserver.removeMetricLog)!)
-        request.httpMethod = HTTPMethod.post.rawValue
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        let bodyDict: [String: String] = ["metricId": metricLogId]
-        let encoder = JSONEncoder()
-        let bodyJSONData = try? encoder.encode(bodyDict)
-        let bodyJSONSerialised = NSString(data: bodyJSONData!, encoding: String.Encoding.utf8.rawValue)
+    public func submit(healthDataObjects: [BensonHealthDataObject]) -> AnyPublisher<YPDHealthDataSubmissionResponse, YPDNetworkingError> {
+        log("Submitting \(healthDataObjects.count) health data objects.")
+        return post(to: .submitHealthData, with: healthDataObjects)
+    }
 
-        request.httpBody = bodyJSONSerialised!.data(using: String.Encoding.utf8.rawValue)
-        
-        AF.request(request).responseJSON(queue: DispatchQueue.global(qos: .userInitiated), options: .allowFragments) { (response) in
-            self.log(response.debugDescription)
-            let result = response.value as? [String: Bool]
-            if result?["success"] ?? false {
-                self.log("Removed \(metricLogId)")
-            } else {
-                self.log("Failed to remove \(metricLogId)")
+    public func submit(checkins: [YPDCheckinPrompt]) -> AnyPublisher<YPDCheckinPromptSubmissionResponse, YPDNetworkingError> {
+        let submissionBody = [
+            "array": checkins.map {
+                [
+                    "metricId": $0.responseValue.type.rawValue,
+                    "value": $0.responseValue.value + 1
+                ]
             }
-            DispatchQueue.main.async {
-                completionHandler()
-            }
-        }
+        ]
+        return post(to: .submitCheckin, with: submissionBody)
     }
     
+    public func remove(checkin: YPDCheckin) -> AnyPublisher<YPDCheckinRemovalResponse, YPDNetworkingError> {
+        guard let metricId = checkin.id else { return Fail(error: YPDNetworkingError.castingError).eraseToAnyPublisher() }
+        return post(to: .removeMetricLog, with: ["metricId": metricId])
+    }
     /// Given a metric log, fetches the BensonHealthKitDataObject associated with the given date which the log took place. To start with, Benson will fetch all metric logs for the user, and identify any logs which have not been enriched, by using the date from the timestamp and searching for all health data within this range.
     //TODO: Implement a background job to search for unenriched metric logs and to enrich them.
-    public func enrichMetricLogWithHealthKitData(forMetricLog metricLog: MetricLog, completionHandler: @escaping (MetricLog) -> Void) {
+    public func enrichMetricLogWithHealthKitData(forMetricLog metricLog: YPDCheckin, completionHandler: @escaping (YPDCheckin) -> Void) {
         
         // Instantiate a date object for the metricLog.
         guard let date = metricLog.timestamp else {
@@ -255,55 +175,101 @@ class Fetcher {
         }
         
         self.healthManager.fetchHealthData(forDay: date){ healthDataObject in
-            metricLog.enrichedData = healthDataObject
-            return completionHandler(metricLog)
-        }
-        
-    }
-        
-    private func sendPostRequest(toEndpoint endpoint: String, withBody bodyDict: [String: String], completionHandler: @escaping (JSON) -> Void){
-        let encoder = JSONEncoder()
-        let bodyJSONData = try? encoder.encode(bodyDict)
-        let bodyJSONSerialised = NSString(data: bodyJSONData!, encoding: String.Encoding.utf8.rawValue)
-        self.sendPostRequest(toEndpoint: endpoint, withStringBody: String(bodyJSONSerialised!), completionHandler: completionHandler)
-    }
-     
-    private func sendPostRequest(toEndpoint endpoint: String, withStringBody body: String, completionHandler: @escaping (JSON) -> Void){
-        var request = URLRequest(url: URL(string: endpoint)!)
-        request.httpMethod = HTTPMethod.post.rawValue
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let bodyJSONSerialised = NSString(string: body)
-        request.httpBody = bodyJSONSerialised.data(using: String.Encoding.utf8.rawValue)
-        
-        AF.request(request).responseJSON(queue: DispatchQueue.global(qos: .userInitiated), options: .allowFragments) { (response) in
+            // metricLog.enrichedData = healthDataObject
             
-            switch response.result {
-                // It seems like each case statement places the value associated with the response into the parameter which can be assigned to a variable?
-                case .success(let value):
-                    return completionHandler(JSON(value))
-                case .failure(let error):
-                    self.log("Failed to submit post request to \(endpoint), received error \(error)")
-                }
+            var metricLogCopy = metricLog.copy()
+            metricLogCopy.enrichedData = healthDataObject
+            
+            return completionHandler(metricLogCopy)
         }
         
     }
-    
-    private func sendGetRequest(toEndpoint endpoint: String, withQuery query: String?, completionHandler: @escaping (JSON) -> Void){
-        AF.request(endpoint + (query != nil ? "?\(query!)" : "")).responseJSON(queue: DispatchQueue.global(qos: .background), options: .allowFragments) { (response) in
-            switch response.result {
-            case .success(let data):
-                // Ensure that we call the completionHandler on the main thread, as we will likely be updating the UI.
-                DispatchQueue.main.async {
-                    return completionHandler(JSON(data))
-                }
-            case .failure(let error):
-                return self.log("Error performing GET request for endpoint \(endpoint) with query: \(String(describing: query)). Error: \(error)")
-            }
-        }
+        
+//    private func sendPostRequest(toEndpoint endpoint: YPDEndpoint, withBody bodyDict: [String: String], completionHandler: @escaping (JSON) -> Void){
+//        let encoder = JSONEncoder()
+//        let bodyJSONData = try? encoder.encode(bodyDict)
+//        let bodyJSONSerialised = NSString(data: bodyJSONData!, encoding: String.Encoding.utf8.rawValue)
+//        self.sendPostRequest(toEndpoint: endpoint, withStringBody: String(bodyJSONSerialised!), completionHandler: completionHandler)
+//    }
+//
+//    private func sendPostRequest(toEndpoint endpoint: YPDEndpoint, withStringBody body: String, completionHandler: @escaping (JSON) -> Void){
+//        var request = URLRequest(url: endpoint.url!)
+//        request.httpMethod = HTTPMethod.post.rawValue
+//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+//        let bodyJSONSerialised = NSString(string: body)
+//        request.httpBody = bodyJSONSerialised.data(using: String.Encoding.utf8.rawValue)
+//
+//        AF.request(request).responseJSON(queue: DispatchQueue.global(qos: .userInitiated), options: .allowFragments) { (response) in
+//
+//            switch response.result {
+//                // It seems like each case statement places the value associated with the response into the parameter which can be assigned to a variable?
+//                case .success(let value):
+//                    return completionHandler(JSON(value))
+//                case .failure(let error):
+//                    self.log("Failed to submit post request to \(endpoint), received error \(error)")
+//                }
+//        }
+//
+//    }
+
+    private func post<T: Decodable, B>(to endpoint: YPDEndpoint, with body: B) -> AnyPublisher<T, YPDNetworkingError> {
+        guard
+            let url = endpoint.url,
+            let bodyData = try? JSONSerialization.data(withJSONObject: body, options: [.fragmentsAllowed, .prettyPrinted])
+        else { return Fail(error: YPDNetworkingError.generatingURLError).eraseToAnyPublisher() }
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "POST"
+        urlRequest.httpBody = bodyData
+        urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        urlRequest.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        return URLSession
+            .shared
+            .dataTaskPublisher(for: urlRequest)
+            .tryDecode(type: T.self, decoder: JSONDecoder.withYPDDateDecoding)
+            .eraseToAnyPublisher()
     }
     
+//    private func sendGetRequest(toEndpoint endpoint: String, withQuery query: String?, completionHandler: @escaping (JSON) -> Void){
+//        AF.request(endpoint + (query != nil ? "?\(query!)" : "")).responseJSON(queue: DispatchQueue.global(qos: .background), options: .allowFragments) { (response) in
+//            switch response.result {
+//            case .success(let data):
+//                // Ensure that we call the completionHandler on the main thread, as we will likely be updating the UI.
+//                DispatchQueue.main.async {
+//                    return completionHandler(JSON(data))
+//                }
+//            case .failure(let error):
+//                return self.log("Error performing GET request for endpoint \(endpoint) with query: \(String(describing: query)). Error: \(error)")
+//            }
+//        }
+//    }
+//
     private func log(_ message: String) {
         print("[Fetcher] | \(message)")
     }
     
 }
+
+/// Fetching insights and other analysis-related data.
+extension Fetcher {
+
+    public func fetchInsights(forMetric metric: YPDCheckinType = .vitality, withAggregationCriteria aggregationCriteria: AggregationCriteria, limit: Int? = nil) -> AnyPublisher<[YPDInsight], YPDNetworkingError> {
+        
+        var body = [
+            "aggregationCriteria": aggregationCriteria.description,
+            "desiredMetric": metric.rawValue
+        ]
+        
+        if let limit = limit {
+            body["limit"] = "\(limit)"
+        }
+        
+        let response: AnyPublisher<YPDInsightResponse, YPDNetworkingError> = post(to: .fetchInsights, with: body)
+        return response
+            .map(\.data)
+            .compactMap { $0 }
+            .eraseToAnyPublisher()
+    }
+}
+

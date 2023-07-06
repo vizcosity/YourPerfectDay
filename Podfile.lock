@@ -1,40 +1,32 @@
 PODS:
   - Alamofire (5.0.0-rc.3)
-  - Havrefras (0.4.3):
-    - ObjectiveSugar (~> 1.1)
-  - ObjectiveSugar (1.1.0)
-  - SwiftCharts (0.6.5)
+  - ResearchKit (2.1.0-beta)
   - SwiftyJSON (4.3.0)
 
 DEPENDENCIES:
   - Alamofire (~> 5.0.0-beta.5)
-  - Havrefras (from `https://github.com/carechain/Havrefras.git`)
-  - SwiftCharts
+  - ResearchKit (from `https://github.com/ResearchKit/ResearchKit`)
   - SwiftyJSON (~> 4.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
-    - ObjectiveSugar
-    - SwiftCharts
     - SwiftyJSON
 
 EXTERNAL SOURCES:
-  Havrefras:
-    :git: https://github.com/carechain/Havrefras.git
+  ResearchKit:
+    :git: https://github.com/ResearchKit/ResearchKit
 
 CHECKOUT OPTIONS:
-  Havrefras:
-    :commit: 50297d09931cc95cfa8aa20cc279f56ff189fc00
-    :git: https://github.com/carechain/Havrefras.git
+  ResearchKit:
+    :commit: ac7c63fc1bd89253ada7b04939d3851422b4a79f
+    :git: https://github.com/ResearchKit/ResearchKit
 
 SPEC CHECKSUMS:
   Alamofire: ca8c0de6906873be89d6deec5c8de279e00bf872
-  Havrefras: e06ad9c2b47b9a975e68dae56af075548bb647a0
-  ObjectiveSugar: a6a25f23d657c19df0a0b972466d5b5ca9f5295c
-  SwiftCharts: 2e755ea292f0b87d3e4b2c1eb5afc080a20cdc15
+  ResearchKit: ebfb81445165a1b7841c3f0bc1d1f212c69472e6
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: cea037bc56db68d05408c5ff9571968ad10af87b
+PODFILE CHECKSUM: e89c50ae7c3b605ae64ac415da16f524666f9782
 
 COCOAPODS: 1.5.3

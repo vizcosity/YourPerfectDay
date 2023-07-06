@@ -3,59 +3,76 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		212B86C7239D477600CE9C41 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 212B86C6239D477600CE9C41 /* HealthKit.framework */; };
+		2101009B242EA0D70010ED8D /* YPDInsightProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2101009A242EA0D70010ED8D /* YPDInsightProgressBarView.swift */; };
+		2115927324FC22CE00F57EED /* YPDChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2115927224FC22CE00F57EED /* YPDChartView.swift */; };
+		2115927624FC232100F57EED /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 2115927524FC232100F57EED /* SwiftUICharts */; };
+		2127B00F2430E5B900B8D0B1 /* YPDSummaryIndividualMetricInsightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2127B00E2430E5B900B8D0B1 /* YPDSummaryIndividualMetricInsightView.swift */; };
+		2127B0112430E67F00B8D0B1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2127B0102430E67F00B8D0B1 /* Extensions.swift */; };
 		212B86C9239D483500CE9C41 /* BensonHealthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212B86C8239D483500CE9C41 /* BensonHealthManager.swift */; };
 		212EEE992318685D00C01AD8 /* BensonButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212EEE982318685D00C01AD8 /* BensonButton.swift */; };
 		213436E423098A42006B1CA8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213436E323098A42006B1CA8 /* AppDelegate.swift */; };
-		213436E623098A42006B1CA8 /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213436E523098A42006B1CA8 /* RecordViewController.swift */; };
 		213436EB23098A42006B1CA8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 213436E923098A42006B1CA8 /* Main.storyboard */; };
 		213436ED23098A43006B1CA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 213436EC23098A43006B1CA8 /* Assets.xcassets */; };
 		213436F023098A43006B1CA8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 213436EE23098A43006B1CA8 /* LaunchScreen.storyboard */; };
-		213436F82309A764006B1CA8 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213436F72309A764006B1CA8 /* GradientView.swift */; };
-		213436FC2309AD9F006B1CA8 /* MetricPromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213436FB2309AD9F006B1CA8 /* MetricPromptView.swift */; };
+		2136C98B249D422900ECE95E /* YPDTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2136C98A249D422900ECE95E /* YPDTabBarView.swift */; };
 		21471735239C4E2300E4226F /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21471734239C4E2300E4226F /* Notifications.swift */; };
-		216CAA70237A010E004D6B8E /* MetricLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CAA6F237A010E004D6B8E /* MetricLog.swift */; };
-		21743E6323D0FE8C00F49CC3 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21743E6123D0FE8C00F49CC3 /* Interface.storyboard */; };
-		21743E6523D0FE9400F49CC3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21743E6423D0FE9400F49CC3 /* Assets.xcassets */; };
-		21743E6C23D0FE9400F49CC3 /* BensonWatchApp Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 21743E6B23D0FE9400F49CC3 /* BensonWatchApp Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		21743E7123D0FE9400F49CC3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21743E7023D0FE9400F49CC3 /* ContentView.swift */; };
-		21743E7323D0FE9400F49CC3 /* HostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21743E7223D0FE9400F49CC3 /* HostingController.swift */; };
-		21743E7523D0FE9400F49CC3 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21743E7423D0FE9400F49CC3 /* ExtensionDelegate.swift */; };
-		21743E7723D0FE9400F49CC3 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21743E7623D0FE9400F49CC3 /* NotificationController.swift */; };
-		21743E7923D0FE9400F49CC3 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21743E7823D0FE9400F49CC3 /* NotificationView.swift */; };
-		21743E7B23D0FE9600F49CC3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21743E7A23D0FE9600F49CC3 /* Assets.xcassets */; };
-		21743E7E23D0FE9600F49CC3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21743E7D23D0FE9600F49CC3 /* Preview Assets.xcassets */; };
-		21743E8323D0FE9600F49CC3 /* BensonWatchApp.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 21743E5F23D0FE8C00F49CC3 /* BensonWatchApp.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		21743E8C23D1014D00F49CC3 /* Fetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2184B01F238D11F900FE96EA /* Fetcher.swift */; };
+		2149410F249E305600EEF05A /* YPDModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2149410E249E305600EEF05A /* YPDModel.swift */; };
+		214CAC9824C71280007382CF /* YPDExpandedIndividualMetricInsightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214CAC9724C71280007382CF /* YPDExpandedIndividualMetricInsightView.swift */; };
+		21532F542472FE600054AC84 /* YPDSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21532F532472FE600054AC84 /* YPDSummaryView.swift */; };
+		21532F58247305040054AC84 /* StaticData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21532F57247305040054AC84 /* StaticData.swift */; };
+		21532F5A24730B1F0054AC84 /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21532F5924730B1F0054AC84 /* Chart.swift */; };
+		21645BB724DCB02F004080B9 /* YPDCheckinType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21645BB624DCB02F004080B9 /* YPDCheckinType.swift */; };
+		21645BBA24DCB053004080B9 /* YPDCheckinResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21645BB924DCB053004080B9 /* YPDCheckinResponse.swift */; };
+		21645BBD24DCB08E004080B9 /* YPDCheckinPrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21645BBC24DCB08E004080B9 /* YPDCheckinPrompt.swift */; };
+		216CAA70237A010E004D6B8E /* YPDCheckin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CAA6F237A010E004D6B8E /* YPDCheckin.swift */; };
+		216EF02B253B55230003B330 /* AggregationCriteria.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216EF02A253B55230003B330 /* AggregationCriteria.swift */; };
+		216EF02E253B555D0003B330 /* YPDEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216EF02D253B555D0003B330 /* YPDEndpoint.swift */; };
+		21734671240AF9C700B22219 /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21734670240AF9C700B22219 /* Sample.swift */; };
+		2181290124F30B0B0050B6C9 /* YPDAnimatableLoadingBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2181290024F30B0B0050B6C9 /* YPDAnimatableLoadingBar.swift */; };
+		218241B92482DC8500B85C3E /* YPDButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218241B82482DC8500B85C3E /* YPDButton.swift */; };
+		218241BD2482E43200B85C3E /* YPDCheckinPromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218241BC2482E43200B85C3E /* YPDCheckinPromptView.swift */; };
 		2184B020238D11F900FE96EA /* Fetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2184B01F238D11F900FE96EA /* Fetcher.swift */; };
 		21880FBB23806ED000A02055 /* MetricCellValueComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21880FBA23806ED000A02055 /* MetricCellValueComponent.swift */; };
 		21880FC1238093B100A02055 /* MetricCellValueComponent.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21880FC0238093B100A02055 /* MetricCellValueComponent.xib */; };
-		21938DBE2315552C0066B90B /* LogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21938DBD2315552C0066B90B /* LogViewController.swift */; };
-		21938DC023155E690066B90B /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21938DBF23155E690066B90B /* TabBarViewController.swift */; };
+		21981BC725AA1EB100FCF964 /* Publisher+YPD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21981BC625AA1EB100FCF964 /* Publisher+YPD.swift */; };
+		21981BCB25AA324E00FCF964 /* YPDUnenrichedCheckinDatesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21981BCA25AA324E00FCF964 /* YPDUnenrichedCheckinDatesResponse.swift */; };
+		219C7D722482CAC50052AF72 /* YPDAttributePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219C7D712482CAC50052AF72 /* YPDAttributePicker.swift */; };
+		219CFBFC25AA3A2D000BC091 /* YPDAggregatedHealthAndCheckinData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219CFBFB25AA3A2D000BC091 /* YPDAggregatedHealthAndCheckinData.swift */; };
+		219CFBFF25AA3B7A000BC091 /* Date+YPD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219CFBFE25AA3B7A000BC091 /* Date+YPD.swift */; };
+		219CFC0225AA3BF0000BC091 /* JSONCoding+YPD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219CFC0125AA3BF0000BC091 /* JSONCoding+YPD.swift */; };
+		21A7B3AE250B5C8D00811F3C /* MultiLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A7B3AD250B5C8D00811F3C /* MultiLineView.swift */; };
+		21A8CA5224FB127A00B6621D /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 212B86C6239D477600CE9C41 /* HealthKit.framework */; };
+		21AF6BB424785E2C001F4E30 /* sample_chart_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 21AF6BB324785E2C001F4E30 /* sample_chart_data.json */; };
+		21B0D6E7249E2A310080B58A /* YPDTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B0D6E6249E2A310080B58A /* YPDTabBarViewController.swift */; };
+		21B53B3724E8490E009AE103 /* YPDInsightSummarySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B53B3624E8490E009AE103 /* YPDInsightSummarySection.swift */; };
+		21B53B3924E84AFE009AE103 /* YPDRecentCheckinsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B53B3824E84AFE009AE103 /* YPDRecentCheckinsSection.swift */; };
+		21BD462424819E1F0077DCD7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BD462324819E1F0077DCD7 /* Constants.swift */; };
+		21BD46262481A3900077DCD7 /* YPDCheckinsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BD46252481A3900077DCD7 /* YPDCheckinsView.swift */; };
+		21BF588524B655D0009F6B1B /* YPDInsightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21BF588424B655D0009F6B1B /* YPDInsightsView.swift */; };
+		21C4EE0724EB32C400F5278F /* YPDCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C4EE0624EB32C400F5278F /* YPDCardView.swift */; };
+		21C4EE0924EB32EC00F5278F /* YPDEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C4EE0824EB32EC00F5278F /* YPDEntryView.swift */; };
 		21C58F372327BCBB007EE5F1 /* CheckinCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C58F362327BCBB007EE5F1 /* CheckinCollectionViewCell.swift */; };
-		584165F7B4E6807DDAD411D1 /* Pods_Benson.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2A92CD5493626DFC8B1C68C /* Pods_Benson.framework */; };
+		21C633B424DCA9E8002BDC83 /* BensonHealthUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21C633B324DCA9E8002BDC83 /* BensonHealthUtil.swift */; };
+		21CEB34124BA1B1000F19C46 /* YPDInsight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21CEB34024BA1B1000F19C46 /* YPDInsight.swift */; };
+		21D0CEB4257BEAD700E8D2DA /* Slider+YPD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D0CEB3257BEAD700E8D2DA /* Slider+YPD.swift */; };
+		21D0CEB7257BF17200E8D2DA /* YPDAggregateHealthAndCheckin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D0CEB6257BF17200E8D2DA /* YPDAggregateHealthAndCheckin.swift */; };
+		21DF333C2482CCCE00D18EBC /* YPDTimeUnitPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DF333B2482CCCE00D18EBC /* YPDTimeUnitPicker.swift */; };
+		21DF333E2482D31800D18EBC /* YPDSubmitCheckinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DF333D2482D31800D18EBC /* YPDSubmitCheckinView.swift */; };
+		21E2F376246878AF00EFB205 /* YPDRecentCheckinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E2F375246878AF00EFB205 /* YPDRecentCheckinView.swift */; };
+		21E2F37824687A3F00EFB205 /* YPDProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E2F37724687A3F00EFB205 /* YPDProgressBar.swift */; };
+		21E4EFCF25ACFC12007F86DA /* CardViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E4EFCE25ACFC12007F86DA /* CardViewModifier.swift */; };
+		21EC2A5A2532827800D4D2C0 /* YPDNetworkingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EC2A592532827800D4D2C0 /* YPDNetworkingError.swift */; };
+		21EE99E5253CD472000B2BFB /* moment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EE99E4253CD472000B2BFB /* moment.swift */; };
+		21F8C31024BA262700F7B3BB /* moment-with-locales.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 21F8C30F24BA262700F7B3BB /* moment-with-locales.min.js */; };
+		21FA454F24FB0C23007B0BD6 /* YPDIndividualInsightSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FA454D24FB0C23007B0BD6 /* YPDIndividualInsightSummaryView.swift */; };
+		21FA455024FB0C23007B0BD6 /* YPDInsightSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FA454E24FB0C23007B0BD6 /* YPDInsightSummaryView.swift */; };
+		21FEE7D324C4E18700C6207A /* YPDRecentCheckinsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FEE7D224C4E18600C6207A /* YPDRecentCheckinsView.swift */; };
+		21FEE7D724C4F2CF00C6207A /* YPDExpandedInsightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FEE7D624C4F2CF00C6207A /* YPDExpandedInsightView.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		21743E6D23D0FE9400F49CC3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 213436D823098A42006B1CA8 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 21743E6A23D0FE9400F49CC3;
-			remoteInfo = "BensonWatchApp Extension";
-		};
-		21743E8123D0FE9600F49CC3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 213436D823098A42006B1CA8 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 21743E5E23D0FE8C00F49CC3;
-			remoteInfo = BensonWatchApp;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		21743E8423D0FE9600F49CC3 /* Embed Watch Content */ = {
@@ -64,18 +81,16 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				21743E8323D0FE9600F49CC3 /* BensonWatchApp.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		21743E8723D0FE9600F49CC3 /* Embed App Extensions */ = {
+		217B615724B9E8FF00E88B04 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				21743E6C23D0FE9400F49CC3 /* BensonWatchApp Extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -83,26 +98,39 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2101009A242EA0D70010ED8D /* YPDInsightProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDInsightProgressBarView.swift; sourceTree = "<group>"; };
+		2115927224FC22CE00F57EED /* YPDChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDChartView.swift; sourceTree = "<group>"; };
+		2127B00E2430E5B900B8D0B1 /* YPDSummaryIndividualMetricInsightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDSummaryIndividualMetricInsightView.swift; sourceTree = "<group>"; };
+		2127B0102430E67F00B8D0B1 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		212B86C5239D477600CE9C41 /* Benson.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Benson.entitlements; sourceTree = "<group>"; };
 		212B86C6239D477600CE9C41 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		212B86C8239D483500CE9C41 /* BensonHealthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BensonHealthManager.swift; sourceTree = "<group>"; };
 		212EEE982318685D00C01AD8 /* BensonButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BensonButton.swift; sourceTree = "<group>"; };
-		213436E023098A42006B1CA8 /* Benson.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Benson.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2132F658247B0F8500712616 /* YPDSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDSummaryViewController.swift; sourceTree = "<group>"; };
+		213436E023098A42006B1CA8 /* YourPerfectDay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YourPerfectDay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		213436E323098A42006B1CA8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		213436E523098A42006B1CA8 /* RecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
 		213436EA23098A42006B1CA8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		213436EC23098A43006B1CA8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		213436EF23098A43006B1CA8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		213436F123098A43006B1CA8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		213436F72309A764006B1CA8 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
-		213436FB2309AD9F006B1CA8 /* MetricPromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricPromptView.swift; sourceTree = "<group>"; };
+		2136C98A249D422900ECE95E /* YPDTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDTabBarView.swift; sourceTree = "<group>"; };
 		21471734239C4E2300E4226F /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
-		216CAA6F237A010E004D6B8E /* MetricLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricLog.swift; sourceTree = "<group>"; };
-		21743E5F23D0FE8C00F49CC3 /* BensonWatchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BensonWatchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2149410E249E305600EEF05A /* YPDModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDModel.swift; sourceTree = "<group>"; };
+		214CAC9724C71280007382CF /* YPDExpandedIndividualMetricInsightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDExpandedIndividualMetricInsightView.swift; sourceTree = "<group>"; };
+		21532F532472FE600054AC84 /* YPDSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDSummaryView.swift; sourceTree = "<group>"; };
+		21532F57247305040054AC84 /* StaticData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticData.swift; sourceTree = "<group>"; };
+		21532F5924730B1F0054AC84 /* Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chart.swift; sourceTree = "<group>"; };
+		21645BB624DCB02F004080B9 /* YPDCheckinType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YPDCheckinType.swift; sourceTree = "<group>"; };
+		21645BB924DCB053004080B9 /* YPDCheckinResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDCheckinResponse.swift; sourceTree = "<group>"; };
+		21645BBC24DCB08E004080B9 /* YPDCheckinPrompt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDCheckinPrompt.swift; sourceTree = "<group>"; };
+		216CAA6F237A010E004D6B8E /* YPDCheckin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDCheckin.swift; sourceTree = "<group>"; };
+		216CE748248401A400B195C6 /* YPDSubmitCheckinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDSubmitCheckinViewController.swift; sourceTree = "<group>"; };
+		216EF02A253B55230003B330 /* AggregationCriteria.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AggregationCriteria.swift; sourceTree = "<group>"; };
+		216EF02D253B555D0003B330 /* YPDEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDEndpoint.swift; sourceTree = "<group>"; };
+		21734670240AF9C700B22219 /* Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sample.swift; sourceTree = "<group>"; };
 		21743E6223D0FE8C00F49CC3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		21743E6423D0FE9400F49CC3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		21743E6623D0FE9400F49CC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		21743E6B23D0FE9400F49CC3 /* BensonWatchApp Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "BensonWatchApp Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		21743E7023D0FE9400F49CC3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		21743E7223D0FE9400F49CC3 /* HostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostingController.swift; sourceTree = "<group>"; };
 		21743E7423D0FE9400F49CC3 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
@@ -112,17 +140,58 @@
 		21743E7D23D0FE9600F49CC3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		21743E7F23D0FE9600F49CC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		21743E8023D0FE9600F49CC3 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		217B614724B9E8FD00E88B04 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		217B614924B9E8FD00E88B04 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		2181290024F30B0B0050B6C9 /* YPDAnimatableLoadingBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDAnimatableLoadingBar.swift; sourceTree = "<group>"; };
+		218241B82482DC8500B85C3E /* YPDButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDButton.swift; sourceTree = "<group>"; };
+		218241BC2482E43200B85C3E /* YPDCheckinPromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDCheckinPromptView.swift; sourceTree = "<group>"; };
 		2184B01F238D11F900FE96EA /* Fetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fetcher.swift; sourceTree = "<group>"; };
 		21880FBA23806ED000A02055 /* MetricCellValueComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricCellValueComponent.swift; sourceTree = "<group>"; };
 		21880FC0238093B100A02055 /* MetricCellValueComponent.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MetricCellValueComponent.xib; sourceTree = "<group>"; };
-		21938DBD2315552C0066B90B /* LogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewController.swift; sourceTree = "<group>"; };
 		21938DBF23155E690066B90B /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		21981BC625AA1EB100FCF964 /* Publisher+YPD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+YPD.swift"; sourceTree = "<group>"; };
+		21981BCA25AA324E00FCF964 /* YPDUnenrichedCheckinDatesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDUnenrichedCheckinDatesResponse.swift; sourceTree = "<group>"; };
+		219C7D712482CAC50052AF72 /* YPDAttributePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDAttributePicker.swift; sourceTree = "<group>"; };
+		219CFBFB25AA3A2D000BC091 /* YPDAggregatedHealthAndCheckinData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDAggregatedHealthAndCheckinData.swift; sourceTree = "<group>"; };
+		219CFBFE25AA3B7A000BC091 /* Date+YPD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+YPD.swift"; sourceTree = "<group>"; };
+		219CFC0125AA3BF0000BC091 /* JSONCoding+YPD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONCoding+YPD.swift"; sourceTree = "<group>"; };
+		21A7B3AD250B5C8D00811F3C /* MultiLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiLineView.swift; sourceTree = "<group>"; };
+		21AF6BB324785E2C001F4E30 /* sample_chart_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample_chart_data.json; sourceTree = "<group>"; };
+		21B0D6E6249E2A310080B58A /* YPDTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDTabBarViewController.swift; sourceTree = "<group>"; };
+		21B53B3624E8490E009AE103 /* YPDInsightSummarySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDInsightSummarySection.swift; sourceTree = "<group>"; };
+		21B53B3824E84AFE009AE103 /* YPDRecentCheckinsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDRecentCheckinsSection.swift; sourceTree = "<group>"; };
+		21BD462324819E1F0077DCD7 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		21BD46252481A3900077DCD7 /* YPDCheckinsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDCheckinsView.swift; sourceTree = "<group>"; };
+		21BF588424B655D0009F6B1B /* YPDInsightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDInsightsView.swift; sourceTree = "<group>"; };
+		21C4EE0624EB32C400F5278F /* YPDCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YPDCardView.swift; sourceTree = "<group>"; };
+		21C4EE0824EB32EC00F5278F /* YPDEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDEntryView.swift; sourceTree = "<group>"; };
 		21C58F362327BCBB007EE5F1 /* CheckinCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinCollectionViewCell.swift; sourceTree = "<group>"; };
-		21C82CCD239BE14A00948A5F /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		592CF5E8A42FEBFB886C11D1 /* Pods-Benson.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Benson.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Benson/Pods-Benson.debug.xcconfig"; sourceTree = "<group>"; };
-		A22AB671DFEEBD14729F9ABD /* Pods-Benson.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Benson.release.xcconfig"; path = "Pods/Target Support Files/Pods-Benson/Pods-Benson.release.xcconfig"; sourceTree = "<group>"; };
-		ECF36728209A62362ADB95EC /* Pods-Benson.simulator.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Benson.simulator.xcconfig"; path = "Pods/Target Support Files/Pods-Benson/Pods-Benson.simulator.xcconfig"; sourceTree = "<group>"; };
-		F2A92CD5493626DFC8B1C68C /* Pods_Benson.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Benson.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		21C6338724DCA00D002BDC83 /* YPDWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDWidget.swift; sourceTree = "<group>"; };
+		21C6338924DCA00F002BDC83 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		21C6338B24DCA00F002BDC83 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		21C633B324DCA9E8002BDC83 /* BensonHealthUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BensonHealthUtil.swift; sourceTree = "<group>"; };
+		21CEB34024BA1B1000F19C46 /* YPDInsight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDInsight.swift; sourceTree = "<group>"; };
+		21D0CEB3257BEAD700E8D2DA /* Slider+YPD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Slider+YPD.swift"; path = "Extensions/Slider+YPD.swift"; sourceTree = "<group>"; };
+		21D0CEB6257BF17200E8D2DA /* YPDAggregateHealthAndCheckin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDAggregateHealthAndCheckin.swift; sourceTree = "<group>"; };
+		21DF333B2482CCCE00D18EBC /* YPDTimeUnitPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDTimeUnitPicker.swift; sourceTree = "<group>"; };
+		21DF333D2482D31800D18EBC /* YPDSubmitCheckinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDSubmitCheckinView.swift; sourceTree = "<group>"; };
+		21E2F35E24684F5B00EFB205 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		21E2F3632468508400EFB205 /* CareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CareKit.framework; path = Carthage/Build/iOS/CareKit.framework; sourceTree = "<group>"; };
+		21E2F3672468508900EFB205 /* CareKitStore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CareKitStore.framework; path = Carthage/Build/iOS/CareKitStore.framework; sourceTree = "<group>"; };
+		21E2F36A2468508D00EFB205 /* CareKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CareKitUI.framework; path = Carthage/Build/iOS/CareKitUI.framework; sourceTree = "<group>"; };
+		21E2F36D2468512200EFB205 /* ResearchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ResearchKit.framework; path = Carthage/Build/iOS/ResearchKit.framework; sourceTree = "<group>"; };
+		21E2F3712468518C00EFB205 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
+		21E2F375246878AF00EFB205 /* YPDRecentCheckinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDRecentCheckinView.swift; sourceTree = "<group>"; };
+		21E2F37724687A3F00EFB205 /* YPDProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDProgressBar.swift; sourceTree = "<group>"; };
+		21E4EFCE25ACFC12007F86DA /* CardViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModifier.swift; sourceTree = "<group>"; };
+		21EC2A592532827800D4D2C0 /* YPDNetworkingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDNetworkingError.swift; sourceTree = "<group>"; };
+		21EE99E0253CD285000B2BFB /* YPDDecoding.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = YPDDecoding.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		21EE99E4253CD472000B2BFB /* moment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = moment.swift; sourceTree = "<group>"; };
+		21F8C30F24BA262700F7B3BB /* moment-with-locales.min.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "moment-with-locales.min.js"; sourceTree = "<group>"; };
+		21FA454D24FB0C23007B0BD6 /* YPDIndividualInsightSummaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YPDIndividualInsightSummaryView.swift; sourceTree = "<group>"; };
+		21FA454E24FB0C23007B0BD6 /* YPDInsightSummaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YPDInsightSummaryView.swift; sourceTree = "<group>"; };
+		21FEE7D224C4E18600C6207A /* YPDRecentCheckinsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDRecentCheckinsView.swift; sourceTree = "<group>"; };
+		21FEE7D624C4F2CF00C6207A /* YPDExpandedInsightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDExpandedInsightView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,39 +199,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				584165F7B4E6807DDAD411D1 /* Pods_Benson.framework in Frameworks */,
-				212B86C7239D477600CE9C41 /* HealthKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		21743E6823D0FE9400F49CC3 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				2115927624FC232100F57EED /* SwiftUICharts in Frameworks */,
+				21A8CA5224FB127A00B6621D /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		19BF2C8C61A7A4147F48F60D /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				592CF5E8A42FEBFB886C11D1 /* Pods-Benson.debug.xcconfig */,
-				A22AB671DFEEBD14729F9ABD /* Pods-Benson.release.xcconfig */,
-				ECF36728209A62362ADB95EC /* Pods-Benson.simulator.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		213436D723098A42006B1CA8 = {
 			isa = PBXGroup;
 			children = (
 				213436E223098A42006B1CA8 /* Benson */,
 				21743E6023D0FE8C00F49CC3 /* BensonWatchApp */,
 				21743E6F23D0FE9400F49CC3 /* BensonWatchApp Extension */,
+				21C6338624DCA00D002BDC83 /* YPDWidget */,
 				213436E123098A42006B1CA8 /* Products */,
-				19BF2C8C61A7A4147F48F60D /* Pods */,
 				E1B3C5F3A2F32C62968879A2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -170,9 +222,7 @@
 		213436E123098A42006B1CA8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				213436E023098A42006B1CA8 /* Benson.app */,
-				21743E5F23D0FE8C00F49CC3 /* BensonWatchApp.app */,
-				21743E6B23D0FE9400F49CC3 /* BensonWatchApp Extension.appex */,
+				213436E023098A42006B1CA8 /* YourPerfectDay.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -189,9 +239,34 @@
 				217BEFC12395BC4B0076DF02 /* Views */,
 				217BEFC02395BC390076DF02 /* View Controllers */,
 				21B013F62381EE45008FF7BB /* Assets */,
+				21532F56247304F00054AC84 /* Model */,
+				21E4EFC725ACFBD3007F86DA /* ViewModifiers */,
 				21FC4EA8238D185800578DE5 /* Utils */,
+				21EE99DF253CD26C000B2BFB /* Playgrounds */,
 			);
 			path = Benson;
+			sourceTree = "<group>";
+		};
+		21532F56247304F00054AC84 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				21EC2A592532827800D4D2C0 /* YPDNetworkingError.swift */,
+				21645BB624DCB02F004080B9 /* YPDCheckinType.swift */,
+				216CAA6F237A010E004D6B8E /* YPDCheckin.swift */,
+				21645BBC24DCB08E004080B9 /* YPDCheckinPrompt.swift */,
+				21AF6BB324785E2C001F4E30 /* sample_chart_data.json */,
+				21532F57247305040054AC84 /* StaticData.swift */,
+				21532F5924730B1F0054AC84 /* Chart.swift */,
+				2149410E249E305600EEF05A /* YPDModel.swift */,
+				21CEB34024BA1B1000F19C46 /* YPDInsight.swift */,
+				21645BB924DCB053004080B9 /* YPDCheckinResponse.swift */,
+				216EF02A253B55230003B330 /* AggregationCriteria.swift */,
+				216EF02D253B555D0003B330 /* YPDEndpoint.swift */,
+				21D0CEB6257BF17200E8D2DA /* YPDAggregateHealthAndCheckin.swift */,
+				21981BCA25AA324E00FCF964 /* YPDUnenrichedCheckinDatesResponse.swift */,
+				219CFBFB25AA3A2D000BC091 /* YPDAggregatedHealthAndCheckinData.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		21743E6023D0FE8C00F49CC3 /* BensonWatchApp */ = {
@@ -231,9 +306,10 @@
 		217BEFC02395BC390076DF02 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				213436E523098A42006B1CA8 /* RecordViewController.swift */,
-				21938DBD2315552C0066B90B /* LogViewController.swift */,
 				21938DBF23155E690066B90B /* TabBarViewController.swift */,
+				2132F658247B0F8500712616 /* YPDSummaryViewController.swift */,
+				216CE748248401A400B195C6 /* YPDSubmitCheckinViewController.swift */,
+				21B0D6E6249E2A310080B58A /* YPDTabBarViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -241,8 +317,15 @@
 		217BEFC12395BC4B0076DF02 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				213436FB2309AD9F006B1CA8 /* MetricPromptView.swift */,
-				213436F72309A764006B1CA8 /* GradientView.swift */,
+				21C4EE0424EB328800F5278F /* Insights */,
+				21C4EE0524EB32AD00F5278F /* Common */,
+				21C4EE0324EB327400F5278F /* Checkin */,
+				21532F532472FE600054AC84 /* YPDSummaryView.swift */,
+				21DF333B2482CCCE00D18EBC /* YPDTimeUnitPicker.swift */,
+				2136C98A249D422900ECE95E /* YPDTabBarView.swift */,
+				21C4EE0824EB32EC00F5278F /* YPDEntryView.swift */,
+				2181290024F30B0B0050B6C9 /* YPDAnimatableLoadingBar.swift */,
+				21D0CEB3257BEAD700E8D2DA /* Slider+YPD.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -266,13 +349,88 @@
 			path = Assets;
 			sourceTree = "<group>";
 		};
+		21C4EE0324EB327400F5278F /* Checkin */ = {
+			isa = PBXGroup;
+			children = (
+				21BD46252481A3900077DCD7 /* YPDCheckinsView.swift */,
+				21B53B3824E84AFE009AE103 /* YPDRecentCheckinsSection.swift */,
+				21E2F375246878AF00EFB205 /* YPDRecentCheckinView.swift */,
+				21FEE7D224C4E18600C6207A /* YPDRecentCheckinsView.swift */,
+				21DF333D2482D31800D18EBC /* YPDSubmitCheckinView.swift */,
+				218241BC2482E43200B85C3E /* YPDCheckinPromptView.swift */,
+			);
+			path = Checkin;
+			sourceTree = "<group>";
+		};
+		21C4EE0424EB328800F5278F /* Insights */ = {
+			isa = PBXGroup;
+			children = (
+				214CAC9724C71280007382CF /* YPDExpandedIndividualMetricInsightView.swift */,
+				21FA454D24FB0C23007B0BD6 /* YPDIndividualInsightSummaryView.swift */,
+				21FA454E24FB0C23007B0BD6 /* YPDInsightSummaryView.swift */,
+				21B53B3624E8490E009AE103 /* YPDInsightSummarySection.swift */,
+				2127B00E2430E5B900B8D0B1 /* YPDSummaryIndividualMetricInsightView.swift */,
+				21FEE7D624C4F2CF00C6207A /* YPDExpandedInsightView.swift */,
+				21BF588424B655D0009F6B1B /* YPDInsightsView.swift */,
+				2101009A242EA0D70010ED8D /* YPDInsightProgressBarView.swift */,
+			);
+			path = Insights;
+			sourceTree = "<group>";
+		};
+		21C4EE0524EB32AD00F5278F /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				21C4EE0624EB32C400F5278F /* YPDCardView.swift */,
+				21E2F37724687A3F00EFB205 /* YPDProgressBar.swift */,
+				219C7D712482CAC50052AF72 /* YPDAttributePicker.swift */,
+				218241B82482DC8500B85C3E /* YPDButton.swift */,
+				2115927224FC22CE00F57EED /* YPDChartView.swift */,
+				21A7B3AD250B5C8D00811F3C /* MultiLineView.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		21C6338624DCA00D002BDC83 /* YPDWidget */ = {
+			isa = PBXGroup;
+			children = (
+				21C6338724DCA00D002BDC83 /* YPDWidget.swift */,
+				21C6338924DCA00F002BDC83 /* Assets.xcassets */,
+				21C6338B24DCA00F002BDC83 /* Info.plist */,
+			);
+			path = YPDWidget;
+			sourceTree = "<group>";
+		};
+		21E4EFC725ACFBD3007F86DA /* ViewModifiers */ = {
+			isa = PBXGroup;
+			children = (
+				21E4EFCE25ACFC12007F86DA /* CardViewModifier.swift */,
+			);
+			path = ViewModifiers;
+			sourceTree = "<group>";
+		};
+		21EE99DF253CD26C000B2BFB /* Playgrounds */ = {
+			isa = PBXGroup;
+			children = (
+				21EE99E0253CD285000B2BFB /* YPDDecoding.playground */,
+			);
+			path = Playgrounds;
+			sourceTree = "<group>";
+		};
 		21FC4EA8238D185800578DE5 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				216CAA6F237A010E004D6B8E /* MetricLog.swift */,
+				21EE99E4253CD472000B2BFB /* moment.swift */,
+				21C633B324DCA9E8002BDC83 /* BensonHealthUtil.swift */,
 				2184B01F238D11F900FE96EA /* Fetcher.swift */,
 				21471734239C4E2300E4226F /* Notifications.swift */,
 				212B86C8239D483500CE9C41 /* BensonHealthManager.swift */,
+				21734670240AF9C700B22219 /* Sample.swift */,
+				2127B0102430E67F00B8D0B1 /* Extensions.swift */,
+				21BD462324819E1F0077DCD7 /* Constants.swift */,
+				21F8C30F24BA262700F7B3BB /* moment-with-locales.min.js */,
+				21981BC625AA1EB100FCF964 /* Publisher+YPD.swift */,
+				219CFBFE25AA3B7A000BC091 /* Date+YPD.swift */,
+				219CFC0125AA3BF0000BC091 /* JSONCoding+YPD.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -280,9 +438,15 @@
 		E1B3C5F3A2F32C62968879A2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				21E2F3712468518C00EFB205 /* SwiftyJSON.framework */,
+				21E2F36D2468512200EFB205 /* ResearchKit.framework */,
+				21E2F36A2468508D00EFB205 /* CareKitUI.framework */,
+				21E2F3672468508900EFB205 /* CareKitStore.framework */,
+				21E2F3632468508400EFB205 /* CareKit.framework */,
+				21E2F35E24684F5B00EFB205 /* Alamofire.framework */,
 				212B86C6239D477600CE9C41 /* HealthKit.framework */,
-				21C82CCD239BE14A00948A5F /* Alamofire.framework */,
-				F2A92CD5493626DFC8B1C68C /* Pods_Benson.framework */,
+				217B614724B9E8FD00E88B04 /* WidgetKit.framework */,
+				217B614924B9E8FD00E88B04 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -290,60 +454,27 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		213436DF23098A42006B1CA8 /* Benson */ = {
+		213436DF23098A42006B1CA8 /* YourPerfectDay */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 213436F423098A43006B1CA8 /* Build configuration list for PBXNativeTarget "Benson" */;
+			buildConfigurationList = 213436F423098A43006B1CA8 /* Build configuration list for PBXNativeTarget "YourPerfectDay" */;
 			buildPhases = (
-				E8A224C8B2F5B1205EA135EE /* [CP] Check Pods Manifest.lock */,
 				213436DC23098A42006B1CA8 /* Sources */,
 				213436DD23098A42006B1CA8 /* Frameworks */,
 				213436DE23098A42006B1CA8 /* Resources */,
-				9650C711C3AA566677D917C9 /* [CP] Embed Pods Frameworks */,
 				21743E8423D0FE9600F49CC3 /* Embed Watch Content */,
+				217B615724B9E8FF00E88B04 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				21743E8223D0FE9600F49CC3 /* PBXTargetDependency */,
 			);
-			name = Benson;
+			name = YourPerfectDay;
+			packageProductDependencies = (
+				2115927524FC232100F57EED /* SwiftUICharts */,
+			);
 			productName = Benson;
-			productReference = 213436E023098A42006B1CA8 /* Benson.app */;
+			productReference = 213436E023098A42006B1CA8 /* YourPerfectDay.app */;
 			productType = "com.apple.product-type.application";
-		};
-		21743E5E23D0FE8C00F49CC3 /* BensonWatchApp */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 21743E8B23D0FE9600F49CC3 /* Build configuration list for PBXNativeTarget "BensonWatchApp" */;
-			buildPhases = (
-				21743E5D23D0FE8C00F49CC3 /* Resources */,
-				21743E8723D0FE9600F49CC3 /* Embed App Extensions */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				21743E6E23D0FE9400F49CC3 /* PBXTargetDependency */,
-			);
-			name = BensonWatchApp;
-			productName = BensonWatchApp;
-			productReference = 21743E5F23D0FE8C00F49CC3 /* BensonWatchApp.app */;
-			productType = "com.apple.product-type.application.watchapp2";
-		};
-		21743E6A23D0FE9400F49CC3 /* BensonWatchApp Extension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 21743E8A23D0FE9600F49CC3 /* Build configuration list for PBXNativeTarget "BensonWatchApp Extension" */;
-			buildPhases = (
-				21743E6723D0FE9400F49CC3 /* Sources */,
-				21743E6823D0FE9400F49CC3 /* Frameworks */,
-				21743E6923D0FE9400F49CC3 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "BensonWatchApp Extension";
-			productName = "BensonWatchApp Extension";
-			productReference = 21743E6B23D0FE9400F49CC3 /* BensonWatchApp Extension.appex */;
-			productType = "com.apple.product-type.watchkit2-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -351,23 +482,17 @@
 		213436D823098A42006B1CA8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1020;
+				LastSwiftUpdateCheck = 1200;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = Ventr;
 				TargetAttributes = {
 					213436DF23098A42006B1CA8 = {
 						CreatedOnToolsVersion = 10.2.1;
 					};
-					21743E5E23D0FE8C00F49CC3 = {
-						CreatedOnToolsVersion = 11.3;
-					};
-					21743E6A23D0FE9400F49CC3 = {
-						CreatedOnToolsVersion = 11.3;
-					};
 				};
 			};
 			buildConfigurationList = 213436DB23098A42006B1CA8 /* Build configuration list for PBXProject "Benson" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -375,13 +500,14 @@
 				Base,
 			);
 			mainGroup = 213436D723098A42006B1CA8;
+			packageReferences = (
+				2115927424FC232100F57EED /* XCRemoteSwiftPackageReference "ChartView" */,
+			);
 			productRefGroup = 213436E123098A42006B1CA8 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				213436DF23098A42006B1CA8 /* Benson */,
-				21743E5E23D0FE8C00F49CC3 /* BensonWatchApp */,
-				21743E6A23D0FE9400F49CC3 /* BensonWatchApp Extension */,
+				213436DF23098A42006B1CA8 /* YourPerfectDay */,
 			);
 		};
 /* End PBXProject section */
@@ -391,136 +517,83 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21F8C31024BA262700F7B3BB /* moment-with-locales.min.js in Resources */,
 				213436F023098A43006B1CA8 /* LaunchScreen.storyboard in Resources */,
 				21880FC1238093B100A02055 /* MetricCellValueComponent.xib in Resources */,
 				213436ED23098A43006B1CA8 /* Assets.xcassets in Resources */,
 				213436EB23098A42006B1CA8 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		21743E5D23D0FE8C00F49CC3 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				21743E6523D0FE9400F49CC3 /* Assets.xcassets in Resources */,
-				21743E6323D0FE8C00F49CC3 /* Interface.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		21743E6923D0FE9400F49CC3 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				21743E7E23D0FE9600F49CC3 /* Preview Assets.xcassets in Resources */,
-				21743E7B23D0FE9600F49CC3 /* Assets.xcassets in Resources */,
+				21AF6BB424785E2C001F4E30 /* sample_chart_data.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		9650C711C3AA566677D917C9 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Benson/Pods-Benson-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/Havrefras/Havrefras.framework",
-				"${BUILT_PRODUCTS_DIR}/ObjectiveSugar/ObjectiveSugar.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftCharts/SwiftCharts.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Havrefras.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectiveSugar.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftCharts.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Benson/Pods-Benson-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E8A224C8B2F5B1205EA135EE /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Benson-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		213436DC23098A42006B1CA8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21DF333E2482D31800D18EBC /* YPDSubmitCheckinView.swift in Sources */,
+				21CEB34124BA1B1000F19C46 /* YPDInsight.swift in Sources */,
+				21D0CEB4257BEAD700E8D2DA /* Slider+YPD.swift in Sources */,
 				21471735239C4E2300E4226F /* Notifications.swift in Sources */,
+				21EC2A5A2532827800D4D2C0 /* YPDNetworkingError.swift in Sources */,
+				218241BD2482E43200B85C3E /* YPDCheckinPromptView.swift in Sources */,
 				213436E423098A42006B1CA8 /* AppDelegate.swift in Sources */,
+				21BD46262481A3900077DCD7 /* YPDCheckinsView.swift in Sources */,
+				21981BCB25AA324E00FCF964 /* YPDUnenrichedCheckinDatesResponse.swift in Sources */,
 				2184B020238D11F900FE96EA /* Fetcher.swift in Sources */,
+				21FEE7D324C4E18700C6207A /* YPDRecentCheckinsView.swift in Sources */,
+				21E2F37824687A3F00EFB205 /* YPDProgressBar.swift in Sources */,
+				216EF02B253B55230003B330 /* AggregationCriteria.swift in Sources */,
+				214CAC9824C71280007382CF /* YPDExpandedIndividualMetricInsightView.swift in Sources */,
+				219CFBFC25AA3A2D000BC091 /* YPDAggregatedHealthAndCheckinData.swift in Sources */,
+				2101009B242EA0D70010ED8D /* YPDInsightProgressBarView.swift in Sources */,
+				21BD462424819E1F0077DCD7 /* Constants.swift in Sources */,
+				21BF588524B655D0009F6B1B /* YPDInsightsView.swift in Sources */,
+				21981BC725AA1EB100FCF964 /* Publisher+YPD.swift in Sources */,
+				2149410F249E305600EEF05A /* YPDModel.swift in Sources */,
+				21532F542472FE600054AC84 /* YPDSummaryView.swift in Sources */,
+				21645BB724DCB02F004080B9 /* YPDCheckinType.swift in Sources */,
+				21B0D6E7249E2A310080B58A /* YPDTabBarViewController.swift in Sources */,
+				21EE99E5253CD472000B2BFB /* moment.swift in Sources */,
+				21FEE7D724C4F2CF00C6207A /* YPDExpandedInsightView.swift in Sources */,
+				21FA455024FB0C23007B0BD6 /* YPDInsightSummaryView.swift in Sources */,
+				2181290124F30B0B0050B6C9 /* YPDAnimatableLoadingBar.swift in Sources */,
+				21D0CEB7257BF17200E8D2DA /* YPDAggregateHealthAndCheckin.swift in Sources */,
+				21B53B3924E84AFE009AE103 /* YPDRecentCheckinsSection.swift in Sources */,
+				21A7B3AE250B5C8D00811F3C /* MultiLineView.swift in Sources */,
+				21E4EFCF25ACFC12007F86DA /* CardViewModifier.swift in Sources */,
+				21C4EE0924EB32EC00F5278F /* YPDEntryView.swift in Sources */,
 				212EEE992318685D00C01AD8 /* BensonButton.swift in Sources */,
-				216CAA70237A010E004D6B8E /* MetricLog.swift in Sources */,
-				21938DBE2315552C0066B90B /* LogViewController.swift in Sources */,
-				213436E623098A42006B1CA8 /* RecordViewController.swift in Sources */,
-				213436FC2309AD9F006B1CA8 /* MetricPromptView.swift in Sources */,
-				21938DC023155E690066B90B /* TabBarViewController.swift in Sources */,
+				21FA454F24FB0C23007B0BD6 /* YPDIndividualInsightSummaryView.swift in Sources */,
+				216CAA70237A010E004D6B8E /* YPDCheckin.swift in Sources */,
+				21DF333C2482CCCE00D18EBC /* YPDTimeUnitPicker.swift in Sources */,
+				21C4EE0724EB32C400F5278F /* YPDCardView.swift in Sources */,
+				21532F58247305040054AC84 /* StaticData.swift in Sources */,
+				219C7D722482CAC50052AF72 /* YPDAttributePicker.swift in Sources */,
+				218241B92482DC8500B85C3E /* YPDButton.swift in Sources */,
 				212B86C9239D483500CE9C41 /* BensonHealthManager.swift in Sources */,
+				21734671240AF9C700B22219 /* Sample.swift in Sources */,
 				21C58F372327BCBB007EE5F1 /* CheckinCollectionViewCell.swift in Sources */,
-				213436F82309A764006B1CA8 /* GradientView.swift in Sources */,
+				2127B0112430E67F00B8D0B1 /* Extensions.swift in Sources */,
+				21645BBA24DCB053004080B9 /* YPDCheckinResponse.swift in Sources */,
+				219CFBFF25AA3B7A000BC091 /* Date+YPD.swift in Sources */,
+				2115927324FC22CE00F57EED /* YPDChartView.swift in Sources */,
+				216EF02E253B555D0003B330 /* YPDEndpoint.swift in Sources */,
+				21B53B3724E8490E009AE103 /* YPDInsightSummarySection.swift in Sources */,
+				21C633B424DCA9E8002BDC83 /* BensonHealthUtil.swift in Sources */,
+				21532F5A24730B1F0054AC84 /* Chart.swift in Sources */,
+				2136C98B249D422900ECE95E /* YPDTabBarView.swift in Sources */,
+				2127B00F2430E5B900B8D0B1 /* YPDSummaryIndividualMetricInsightView.swift in Sources */,
+				21645BBD24DCB08E004080B9 /* YPDCheckinPrompt.swift in Sources */,
+				219CFC0225AA3BF0000BC091 /* JSONCoding+YPD.swift in Sources */,
 				21880FBB23806ED000A02055 /* MetricCellValueComponent.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		21743E6723D0FE9400F49CC3 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				21743E8C23D1014D00F49CC3 /* Fetcher.swift in Sources */,
-				21743E7323D0FE9400F49CC3 /* HostingController.swift in Sources */,
-				21743E7123D0FE9400F49CC3 /* ContentView.swift in Sources */,
-				21743E7723D0FE9400F49CC3 /* NotificationController.swift in Sources */,
-				21743E7523D0FE9400F49CC3 /* ExtensionDelegate.swift in Sources */,
-				21743E7923D0FE9400F49CC3 /* NotificationView.swift in Sources */,
+				21E2F376246878AF00EFB205 /* YPDRecentCheckinView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		21743E6E23D0FE9400F49CC3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 21743E6A23D0FE9400F49CC3 /* BensonWatchApp Extension */;
-			targetProxy = 21743E6D23D0FE9400F49CC3 /* PBXContainerItemProxy */;
-		};
-		21743E8223D0FE9600F49CC3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 21743E5E23D0FE8C00F49CC3 /* BensonWatchApp */;
-			targetProxy = 21743E8123D0FE9600F49CC3 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		213436E923098A42006B1CA8 /* Main.storyboard */ = {
@@ -577,6 +650,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -586,6 +660,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DISABLE_DIAMOND_PROBLEM_DIAGNOSTIC = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -602,7 +677,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -639,6 +714,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -648,6 +724,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DISABLE_DIAMOND_PROBLEM_DIAGNOSTIC = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -658,7 +735,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -670,21 +747,29 @@
 		};
 		213436F523098A43006B1CA8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 592CF5E8A42FEBFB886C11D1 /* Pods-Benson.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Benson/Benson.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = A5YJ22GHFR;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Benson/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ventr.Benson;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				MAIN_APP = "-D MAIN_APP";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ventr.YourPerfectDay;
+				PRODUCT_NAME = YourPerfectDay;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTS_MACCATALYST = YES;
+				"SWIFT_ACTIVE_COMPILATION_CONDITIONS[arch=*]" = MAIN_APP;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -692,111 +777,31 @@
 		};
 		213436F623098A43006B1CA8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A22AB671DFEEBD14729F9ABD /* Pods-Benson.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Benson/Benson.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = A5YJ22GHFR;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Benson/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ventr.Benson;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				MAIN_APP = "-D MAIN_APP";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ventr.YourPerfectDay;
+				PRODUCT_NAME = YourPerfectDay;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTS_MACCATALYST = YES;
+				"SWIFT_ACTIVE_COMPILATION_CONDITIONS[arch=*]" = MAIN_APP;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		21743E8523D0FE9600F49CC3 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = A5YJ22GHFR;
-				IBSC_MODULE = BensonWatchApp_Extension;
-				INFOPLIST_FILE = BensonWatchApp/Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ventr.Benson.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 6.1;
-			};
-			name = Debug;
-		};
-		21743E8623D0FE9600F49CC3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = A5YJ22GHFR;
-				IBSC_MODULE = BensonWatchApp_Extension;
-				INFOPLIST_FILE = BensonWatchApp/Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ventr.Benson.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 6.1;
-			};
-			name = Release;
-		};
-		21743E8823D0FE9600F49CC3 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"BensonWatchApp Extension/Preview Content\"";
-				DEVELOPMENT_TEAM = A5YJ22GHFR;
-				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "BensonWatchApp Extension/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ventr.Benson.watchkitapp.watchkitextension;
-				PRODUCT_NAME = "${TARGET_NAME}";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 6.1;
-			};
-			name = Debug;
-		};
-		21743E8923D0FE9600F49CC3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"BensonWatchApp Extension/Preview Content\"";
-				DEVELOPMENT_TEAM = A5YJ22GHFR;
-				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "BensonWatchApp Extension/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ventr.Benson.watchkitapp.watchkitextension;
-				PRODUCT_NAME = "${TARGET_NAME}";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 6.1;
 			};
 			name = Release;
 		};
@@ -812,7 +817,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		213436F423098A43006B1CA8 /* Build configuration list for PBXNativeTarget "Benson" */ = {
+		213436F423098A43006B1CA8 /* Build configuration list for PBXNativeTarget "YourPerfectDay" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				213436F523098A43006B1CA8 /* Debug */,
@@ -821,25 +826,26 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		21743E8A23D0FE9600F49CC3 /* Build configuration list for PBXNativeTarget "BensonWatchApp Extension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				21743E8823D0FE9600F49CC3 /* Debug */,
-				21743E8923D0FE9600F49CC3 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		21743E8B23D0FE9600F49CC3 /* Build configuration list for PBXNativeTarget "BensonWatchApp" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				21743E8523D0FE9600F49CC3 /* Debug */,
-				21743E8623D0FE9600F49CC3 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2115927424FC232100F57EED /* XCRemoteSwiftPackageReference "ChartView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AppPear/ChartView.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2115927524FC232100F57EED /* SwiftUICharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2115927424FC232100F57EED /* XCRemoteSwiftPackageReference "ChartView" */;
+			productName = SwiftUICharts;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 213436D823098A42006B1CA8 /* Project object */;
 }

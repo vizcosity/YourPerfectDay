@@ -1,0 +1,4 @@
+github "Alamofire/Alamofire" "5.2.2"
+github "ResearchKit/ResearchKit" "ae9b9e57cb37931c880a7815d24b434fada7f283"
+github "SwiftyJSON/SwiftyJSON" "4.3.0"
+github "carekit-apple/CareKit" "7da00bbb9651983d75991500d2b46419b2b38cfa"

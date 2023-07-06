@@ -1,0 +1,4 @@
+github "Alamofire/Alamofire" ~> 5.2.1
+github "ResearchKit/ResearchKit" "stable"
+github "SwiftyJSON/SwiftyJSON" ~> 4.0
+github "https://github.com/carekit-apple/CareKit" "master"

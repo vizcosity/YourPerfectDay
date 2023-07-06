@@ -3,11 +3,14 @@
   <h1 align="center">YourPerfectDay</h1>
 </p>
 
+
+<!-- 
 <p align="center">
   <i>The energy, wellbeing, fitness, and health tracking app I've always wanted.</i>
-</p>
+</p> -->
 
-[YourPerfectDay Screens](/Design/YPD%20Screen%20Designs/YPD%20-%20Conceptual%20Design.jpg)
+![YPD Entry Screen](/Design/YPD%20App%20Entry%20Screen%20Mockup.jpg)
+
 
 ## Table of Contents
 
@@ -19,6 +22,7 @@
 - [Development](#development)
 
 ## Introduction
+![YourPerfectDay Screens](/Design/YPD%20Screen%20Designs/YPD%20-%20Conceptual%20Design.jpg)
 
 Struggling with chronic fatigue symptoms and seeking to understand my own biology, "YourPerfectDay" was born. This iOS app consolidates all the biometric and quantified health data, everything from sleep to caloric intake, energy expenditure, and mood.
 

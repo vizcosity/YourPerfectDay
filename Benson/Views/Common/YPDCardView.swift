@@ -60,7 +60,6 @@ struct YPDCardView<AboveFoldContent: View, MainContent: View, BelowFoldContent: 
         .background(colorScheme == .dark ?  Color(.secondarySystemBackground) : Color(.systemBackground))
         .cornerRadius(Constants.defaultCornerRadius)
         .shadow(color: self.displayShadow ? Constants.shadowColour : .clear, radius: Constants.shadowRadius, x: Constants.shadowX, y: Constants.shadowY)
-//            .shadow(color: Color.black.opacity(0.15), radius: Constants.shadowRadius, x: Constants.shadowX, y: Constants.shadowY - 5)
             .padding([.leading, .trailing], Constants.Padding)
         
     }

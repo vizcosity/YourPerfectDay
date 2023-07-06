@@ -9,8 +9,12 @@
 import Foundation
 import SwiftUI
 
+struct YPDCheckinRemovalResponse: Codable {
+    let success: Bool
+}
+
 /// A YPDCheckin object contains a collection of individual attribute values which the user has recorded for each given attribute type.
-struct YPDCheckin: CustomStringConvertible, Identifiable {
+struct YPDCheckin: CustomStringConvertible, Identifiable, Hashable {
     
     var description: String {
         get {

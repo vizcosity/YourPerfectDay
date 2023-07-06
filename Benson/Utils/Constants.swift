@@ -18,12 +18,17 @@ enum Constants {
     static let defaultProgressBarHeight: CGFloat = 10
     static let defaultProgressBarRadius: CGFloat = 6
     static let defaultCornerRadius: CGFloat = 10
+    static let defaultSpacing: CGFloat = 16
     
     static let shadowColour: Color = Color.black.opacity(0.15)
     
     static let shadowRadius: CGFloat = 5
     static let shadowX: CGFloat = 0
     static let shadowY: CGFloat = 3
+
+    enum AllCheckinsView {
+        static let maxDisplayedCheckins: Int = 20
+    }
 }
 
 enum Colour {

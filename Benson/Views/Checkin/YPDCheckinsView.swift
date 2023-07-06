@@ -7,44 +7,52 @@
 //
 
 import SwiftUI
+import Combine
 
 struct YPDCheckinsView: View {
     
-    var checkins: [YPDCheckin]
+    @Environment(\.colorScheme) var colorScheme
+    
+    @State var subscriptions = Set<AnyCancellable>()
+    @State var checkins: [YPDCheckin] = []
     
     /// The maximum number of checkins which should be displayed at once.
     var maxDisplayedCheckins: Int
     
-    init(checkins: [YPDCheckin], maxDisplayedCheckins: Int? = nil){
-        self.checkins = checkins
-        self.maxDisplayedCheckins = maxDisplayedCheckins ?? checkins.count
-    }
-    
     var body: some View {
-        //            ScrollView {
-        //                List(0..<min(self.maxDisplayedCheckins, self.checkins.count)) { (i) -> YPDRecentCheckinView in
-        //                    YPDRecentCheckinView(displayedCheckin: self.checkins[i])
-        //                }
-        //            }
-            List {
-                ForEach(0..<min(self.maxDisplayedCheckins, self.checkins.count)){ i in
+        
+        List {
+                ForEach(0..<checkins.prefix(maxDisplayedCheckins).count){ index in
                     
                     YPDRecentCheckinView(displayedCheckin:
-                        self.checkins[i], displayShadow: false).listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
+                                            self.checkins[index], displayShadow: false)
+                        .cardify(innerPadding: 0, outerPadding: 0)
+                    
                 }
-            }.listStyle(DefaultListStyle())
-                .navigationBarTitle("Checkin History")
-                .onAppear {
-//                    UITableView.appearance().separatorStyle = .none
-            }.onDisappear {
-//                UITableView.appearance().separatorStyle = .singleLine
-                
+                .onDelete(perform: { indexSet in
+                    let checkinsToRemove = checkins.enumerated().filter { indexSet.map { Int($0) }.contains($0.offset) }.map(\.element)
+                    self.checkins = checkins.filter { !checkinsToRemove.contains($0) }
+                    checkinsToRemove.forEach {
+                        Fetcher
+                            .sharedInstance
+                            .remove(checkin: $0)
+                            .sink(receiveCompletion: { _ in}, receiveValue: { _ in })
+                            .store(in: &subscriptions)
+                    }
+                })
             }
+        .listStyle(SidebarListStyle())
+            .navigationBarTitle("Checkin History")
+            
     }
 }
 
 struct YPDCheckinsView_Previews: PreviewProvider {
     static var previews: some View {
-        YPDCheckinsView(checkins: .init(repeating: _sampleCheckin, count: 200), maxDisplayedCheckins: 10)
+        Group {
+            YPDCheckinsView(checkins: .init(repeating: _sampleCheckin, count: 200), maxDisplayedCheckins: 10)
+            YPDCheckinsView(checkins: .init(repeating: _sampleCheckin, count: 200), maxDisplayedCheckins: 10)
+                .preferredColorScheme(.dark)
+        }
     }
 }

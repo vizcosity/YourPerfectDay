@@ -15,7 +15,6 @@ extension Publisher where Self == URLSession.DataTaskPublisher {
             if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200 {
                 throw YPDNetworkingError.satusError(statusCode: httpResponse.statusCode)
             }
-//            print(String(data: data, encoding: .utf8) ?? "Corrupted data")
             return try JSONDecoder().decode(T.self, from: data)
         }
         .print()

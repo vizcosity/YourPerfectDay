@@ -7,11 +7,17 @@
 //
 
 import Foundation
-import SwiftyJSON
 
 struct YPDInsightResponse: Decodable {
     let success: Bool
-    let data: [YPDInsight]
+    let data: [YPDInsight]?
+    let errorReason: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case success
+        case data
+        case errorReason = "reason"
+    }
 }
 
 /// Represents an insight / anomaly for a given metric of interest.
@@ -69,47 +75,47 @@ struct YPDInsight: Identifiable, PrettyPrintable {
         self.mostImportantAnomalyMetrics = mostImportantAnomalyMetrics
     }
     
-    init(json: JSON){
-    let metricOfInterestType = YPDCheckinType(rawValue: json["desired_metric"].stringValue) ?? .unknown
-    let metricOfInterestValue = json["anomaly_value"].doubleValue
-    
-    let metricOfInterestGlobalChange = json["anomaly_metrics"]["global_percentage_change"].doubleValue
-    let metricOfInterestGlobalMean = json["anomaly_metrics"]["global_mean"].doubleValue
-    
-    let metricOfInterestLocalChange = json["anomaly_metrics"]["local_percentage_change"].doubleValue
-    let metricOfInterestLocalMean = json["anomaly_metrics"]["local_mean"].doubleValue
-    
-    let date = Date.from(isoString: json["anomaly_start_of_date"].stringValue)
-                
-    // Fetch the dates associated with the preceding data.
-    let precedingDataDates: [Date] = json["preceding_data"]["startOfDate"].arrayValue.map { Date.from(isoString: $0.stringValue) }
-            
-    var timePeriod: String = "while"
-    
-    if precedingDataDates.count >= 2 {
-        timePeriod = moment(precedingDataDates.first!).from(precedingDataDates.last!, true)
-    }
-    
-    let mostImportantMetrics = json["most_important_metrics_array"].arrayValue.map {
-        
-        YPDAnomalyMetric(json: $0, timePeriod: timePeriod, precedingData: zip(precedingDataDates, json["most_important_preceding_data"][$0["metric"].stringValue].arrayValue.map{$0.doubleValue}).map { $0 }
-        )
-        
-    }
-    
-    self.init(
-        metricOfInterestType: metricOfInterestType,
-        metricOfInterestValue: metricOfInterestValue,
-        metricOfInterestGlobalChange: metricOfInterestGlobalChange,
-        metricOfInterestGlobalMean: metricOfInterestGlobalMean,
-        metricOfInterestLocalChange: metricOfInterestLocalChange,
-        metricOfInterestLocalMean: metricOfInterestLocalMean,
-        date: date,
-        timePeriod: timePeriod,
-        mostImportantAnomalyMetrics: mostImportantMetrics
-    )
-
-}
+//    init(json: JSON){
+//    let metricOfInterestType = YPDCheckinType(rawValue: json["desired_metric"].stringValue) ?? .unknown
+//    let metricOfInterestValue = json["anomaly_value"].doubleValue
+//    
+//    let metricOfInterestGlobalChange = json["anomaly_metrics"]["global_percentage_change"].doubleValue
+//    let metricOfInterestGlobalMean = json["anomaly_metrics"]["global_mean"].doubleValue
+//    
+//    let metricOfInterestLocalChange = json["anomaly_metrics"]["local_percentage_change"].doubleValue
+//    let metricOfInterestLocalMean = json["anomaly_metrics"]["local_mean"].doubleValue
+//    
+//    let date = Date.from(isoString: json["anomaly_start_of_date"].stringValue)
+//                
+//    // Fetch the dates associated with the preceding data.
+//    let precedingDataDates: [Date] = json["preceding_data"]["startOfDate"].arrayValue.map { Date.from(isoString: $0.stringValue) }
+//            
+//    var timePeriod: String = "while"
+//    
+//    if precedingDataDates.count >= 2 {
+//        timePeriod = moment(precedingDataDates.first!).from(precedingDataDates.last!, true)
+//    }
+//    
+//    let mostImportantMetrics = json["most_important_metrics_array"].arrayValue.map {
+//        
+//        YPDAnomalyMetric(json: $0, timePeriod: timePeriod, precedingData: zip(precedingDataDates, json["most_important_preceding_data"][$0["metric"].stringValue].arrayValue.map{$0.doubleValue}).map { $0 }
+//        )
+//        
+//    }
+//    
+//    self.init(
+//        metricOfInterestType: metricOfInterestType,
+//        metricOfInterestValue: metricOfInterestValue,
+//        metricOfInterestGlobalChange: metricOfInterestGlobalChange,
+//        metricOfInterestGlobalMean: metricOfInterestGlobalMean,
+//        metricOfInterestLocalChange: metricOfInterestLocalChange,
+//        metricOfInterestLocalMean: metricOfInterestLocalMean,
+//        date: date,
+//        timePeriod: timePeriod,
+//        mostImportantAnomalyMetrics: mostImportantMetrics
+//    )
+//
+//}
 }
 
 /// Decodable YPDInsight extension.
@@ -237,9 +243,9 @@ struct YPDAnomalyMetric: PrettyPrintable, Identifiable {
         self.precedingData = precedingData
     }
 
-    init(json: JSON, timePeriod: String, precedingData: [(Date, Double)]) {
-        self.init(metricAttribute: YPDCheckinType(json["metric"].stringValue), localChange: json["local_percentage_change"].doubleValue, localMean: json["local_mean"].doubleValue, globalChange: json["global_percentage_change"].doubleValue, globalMean: json["global_mean"].doubleValue, correlation: json["correlation"].doubleValue, importance: json["importance"].doubleValue, timePeriod: timePeriod, precedingData: precedingData)
-    }
+//    init(json: JSON, timePeriod: String, precedingData: [(Date, Double)]) {
+//        self.init(metricAttribute: YPDCheckinType(json["metric"].stringValue), localChange: json["local_percentage_change"].doubleValue, localMean: json["local_mean"].doubleValue, globalChange: json["global_percentage_change"].doubleValue, globalMean: json["global_mean"].doubleValue, correlation: json["correlation"].doubleValue, importance: json["importance"].doubleValue, timePeriod: timePeriod, precedingData: precedingData)
+//    }
     
 }
 

@@ -9,72 +9,18 @@
 import SwiftUI
 
 struct YPDRecentCheckinView: View {
-
+    
     var displayedCheckin: YPDCheckin
     var allCheckins: [YPDCheckin] = []
     var displayShadow: Bool = true
     
-    var body: some View {
-        YPDCardView(aboveFold: {
-            HStack {
-                Spacer()
-                // Show 'last checkin' vs. 'Checkin date' if we know this is the
-                // only checkin being displayed.
-                Text("\(!self.allCheckins.isEmpty ? "Last Checkin" : "") \(self.displayedCheckin.timeSince)")
-                    .font(.footnote)
-                    .fontWeight(.regular)
-                Image(systemName: "clock")
-                    .resizable()
-                    .frame(width: 12, height: 12)
-                
-            }.foregroundColor(Color.gray)
-        }, mainContent: {
-                        VStack {
-                
-                ForEach(0..<self.displayedCheckin.attributeValues.count){ i in
-                    HStack {
-                        Text("\(self.displayedCheckin.attributeValues[i].type.humanReadable)  \(Int(self.displayedCheckin.attributeValues[i].value))/\(Int(self.displayedCheckin.attributeValues[i].maxValue))")
-                            .fontWeight(.medium)
-                        
-                        Spacer()
-                    }
-                    
-                    YPDProgressBar(progressValue: CGFloat(self.displayedCheckin.attributeValues[i].value/self.displayedCheckin.attributeValues[i].maxValue), colour: Color.blue)
-                }
-                
-            }
-        }, belowFold: {
-            #if MAIN_APP
-            if !self.allCheckins.isEmpty   {
-                YPDAdditionalCheckins(checkins: self.allCheckins)
-            }
-            #endif
-        }, displayShadow: self.displayShadow, hideBelowFoldSeparator: self.allCheckins.isEmpty)
+    var timeSinceText: String {
+        "\(!self.allCheckins.isEmpty ? "Last Checkin" : "") \(self.displayedCheckin.timeSince)"
     }
     
-}
-
-struct YPDRecentCheckinViewLegacy: View {
-    
-    var displayedCheckin: YPDCheckin
-    var allCheckins: [YPDCheckin] = []
-    
-    var body: some View {
-        
-        VStack {
-            HStack {
-                Spacer()
-                // Show 'last checkin' vs. 'Checkin date' if we know this is the
-                // only checkin being displayed.
-                Text("\(!self.allCheckins.isEmpty ? "Last Checkin" : "") \(self.displayedCheckin.timeSince)")
-                    .font(.footnote)
-                    .fontWeight(.regular)
-                Image(systemName: "clock")
-                    .resizable()
-                    .frame(width: 12, height: 12)
-                
-            }.foregroundColor(Color.gray)
-            
+    var content: some View {
+        YPDCardView(aboveFold: {
+        }, mainContent: {
             VStack {
                 
                 ForEach(0..<self.displayedCheckin.attributeValues.count){ i in
@@ -89,40 +35,33 @@ struct YPDRecentCheckinViewLegacy: View {
                 }
                 
             }
-            
-            // Card below-fold content. (Click for more checkins indicator)
-            #if MAIN_APP
-            if !self.allCheckins.isEmpty   {
-                YPDAdditionalCheckins(checkins: self.allCheckins)
-            }
-            #endif
-        }
-        .padding(.all, Constants.Padding)
-        .background(Color.white)
-        .cornerRadius(Constants.defaultCornerRadius)
-        .shadow(color: Constants.shadowColour, radius: Constants.shadowRadius, x: Constants.shadowX, y: Constants.shadowY)
-//            .shadow(color: Color.black.opacity(0.15), radius: Constants.shadowRadius, x: Constants.shadowX, y: Constants.shadowY - 5)
-            .padding([.leading, .trailing], Constants.Padding)
-        .contextMenu(menuItems: {
-            Button(action: {
-                
-                #if MAIN_APP
-                Fetcher.sharedInstance.remove(metricLogId: self.displayedCheckin.id ?? "") {
-                    
+            .padding(.bottom, 5)
+        }, belowFold: {
+            HStack {
+                Label(timeSinceText, systemImage: "clock")
+                    .foregroundColor(Color.gray)
+                Spacer()
+                if !self.allCheckins.isEmpty   {
+                    Text("\(self.allCheckins.count) more checkins \(Image(systemName: "chevron.right"))")
                 }
-                #endif
                 
-            }, label: {
-                Image(systemName: "trash")
-                Text("Delete")
-            })
-        })
-        
-        
+            }.font(.caption)
+            .padding(.top, 5)
+        }, displayShadow: self.displayShadow)
     }
+    
+    var body: some View {
+        if self.allCheckins.isEmpty {
+            content
+        } else {
+        NavigationLink(
+            destination: YPDCheckinsView(checkins: self.allCheckins, maxDisplayedCheckins: Constants.AllCheckinsView.maxDisplayedCheckins),
+            label: { content })
+        }
+    }
+    
 }
 
-#if MAIN_APP
 struct YPDAdditionalCheckins: View {
     
     var checkins: [YPDCheckin]
@@ -132,30 +71,25 @@ struct YPDAdditionalCheckins: View {
         VStack {
             
             NavigationLink(destination: YPDCheckinsView(checkins: self.checkins, maxDisplayedCheckins: 20)) {
-                HStack {
-                    Spacer()
-                    HStack {
-                        Text("\(self.checkins.count) more checkins")
-                            .font(.caption)
-                        Image(systemName: "chevron.right")
-                            .scaleEffect(0.7)
-                    }.foregroundColor(Color.gray)
-                }
-                .padding([.leading, .trailing, .top], CGFloat(5))
-                .padding(.bottom, -5)
+                Text("\(self.checkins.count) more checkins \(Image(systemName: "chevron.right"))")
+                //                    .padding([.leading, .trailing, .top], CGFloat(5))
+                //                    .padding(.bottom, -5)
             }
             
         }
     }
     
 }
-#endif
 
 #if MAIN_APP
 struct RecentCheckinView_Previews: PreviewProvider {
     static var checkins = [_sampleCheckin]
     static var previews: some View {
-        YPDRecentCheckinView(displayedCheckin: self.checkins.first!, allCheckins: .init(repeating: _sampleCheckin, count: 300))
+        Group {
+            YPDRecentCheckinView(displayedCheckin: self.checkins.first!, allCheckins: .init(repeating: _sampleCheckin, count: 300))
+            YPDRecentCheckinView(displayedCheckin: self.checkins.first!)
+                
+        }.previewLayout(.sizeThatFits)
     }
 }
 #endif

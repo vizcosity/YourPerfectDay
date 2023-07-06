@@ -73,39 +73,31 @@ class YPDModel: ObservableObject {
         self.fetchInsights()
         
     }
-    
-    /// Fetches the YPDInsight given the selected metric attribute and aggregation criteria.
-//    private func fetchInsight() -> Void {
-//        // Mark the insight as empty so that the views which depend on the insight display progress bars to indicate that the insight is loading. When the insight variable is set, an event should be published which will cause the views to update.
-//        self.insightForSelectedAttribute = nil
-//        Fetcher.sharedInstance.fetchInsights(forMetric: self.selectedMetricAttribute, withAggregationCriteria: self.selectedAggregationCriteria, limit: 1, completionHandler: {
-//            self.insightForSelectedAttribute = $0.first!
-//
-//        })
-//    }
         
-//    /// Fetches an insight for every selected metric attribute.
+    /// Fetches an insight for every selected metric attribute.
     private func fetchInsights() -> Void {
 
         // Mark the insight as empty so that the views which depend on the insight display progress bars to indicate that the insight is loading. When the insight variable is set, an event should be published which will cause the views to update.
         self.insightsForSelectedAttributes = []
 
-        self.selectedMetricAttributes.forEach {
-            print("[YPD Model] | Fetching insight for metric attribute \($0.humanReadable)")
-            Fetcher.sharedInstance.fetchInsights(forMetric: $0, withAggregationCriteria: self.selectedAggregationCriteria, limit: 1, completionHandler: {
-                if let insight = $0.first {
-                    DispatchQueue.main.async {
-                        self.insightsForSelectedAttributes.append(insight)
-                    }
+        selectedMetricAttributes
+            .publisher
+            .flatMap { checkinType in Fetcher.sharedInstance.fetchInsights(forMetric: checkinType, withAggregationCriteria: self.selectedAggregationCriteria, limit: 1) }
+            .receive(on: DispatchQueue.main)
+            .sink(
+                receiveCompletion: { error in print("[YPDModel] \(#function) fetching insights with completion: \(error)") },
+                receiveValue: { insights in
+                    guard let insight = insights.first else { return }
+                    self.insightsForSelectedAttributes.append(insight)
                 }
-            })
-        }
+            )
+            .store(in: &subscriptions)
 
 
     }
 //    private func fetchInsights() {
 //        self.insightsForSelectedAttributes = []
-//        
+//
 //        selectedMetricAttributes
 //            .publisher
 //            .flatMap { checkinType in Fetcher.sharedInstance.fetchInsights(forMetric: checkinType, withAggregationCriteria: self.selectedAggregationCriteria, limit: 1) }
@@ -118,8 +110,8 @@ class YPDModel: ObservableObject {
 //                }
 //            )
 //            .store(in: &subscriptions)
-//            
-//            
+//
+//
 //    }
     
     func log(_ msg: String...){

@@ -24,13 +24,6 @@ struct YPDRecentCheckinsSection: View {
                 YPDRecentCheckinView(displayedCheckin: self.checkins.first!, allCheckins: self.checkins)
             }
         }.onAppear {
-//            Fetcher.sharedInstance.fetchMetricLogs(completionHandler: { checkins in
-//                withAnimation {
-//                    self.checkins = checkins
-//                }
-//
-//            })
-//            print("Fetching metric logs")
             Fetcher
                 .sharedInstance
                 .fetchMetricLogs()

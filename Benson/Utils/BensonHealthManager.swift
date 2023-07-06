@@ -8,7 +8,6 @@
 
 import Foundation
 import HealthKit
-import SwiftyJSON
 import Combine
 
 // Checkpoint: About to send BensonHealthDataObjects off to the server; need to run a background job which groups checkins by day, and ensures we have a database entry with a benson health data object which is linked to each of the checkins.
@@ -48,12 +47,10 @@ class BensonHealthManager {
             .fetchUnenrichedCheckinDates()
             .print("Fetched unenriched checkin dates with Combine:")
             .flatMap(fetchHealthData(forDays:))
+            .flatMap(Fetcher.sharedInstance.submit(healthDataObjects:))
             .sink(
-                receiveCompletion: { error in self.log("Trouble fetching health data objects or checkin dates: \(error)")},
-                receiveValue: { healthDataObjects in
-                    Fetcher.sharedInstance.submitHealthDataObjects(healthDataObjects: healthDataObjects) { (result, error) in
-                    self.log("Submitted all healthDataObjects. Result: \(String(describing: result)). Error: \(String(describing: error))")
-                }}
+                receiveCompletion: { self.log("Could not submit health data: \($0)") },
+                receiveValue: { self.log("Submitted health data with response: \($0)") }
             )
             .store(in: &subscriptions)
     }

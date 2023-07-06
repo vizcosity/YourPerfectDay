@@ -7,10 +7,12 @@
 //
 
 import SwiftUI
+import Combine
 
 struct YPDSubmitCheckinView: View {
     
     @EnvironmentObject var model: YPDModel
+    @State var subscriptions = Set<AnyCancellable>()
     
     var body: some View {
         BackgroundViewWrapper {
@@ -35,9 +37,14 @@ struct YPDSubmitCheckinView: View {
                             .frame(height:50)
                     }
                     YPDButton(title: "Submit") {
-                        Fetcher.sharedInstance.submitCheckin(checkinPrompts: self.model.checkinPrompts) { (result) in
-                            print("Submitted checkin with response: \(result)")
-                        }
+                        Fetcher
+                            .sharedInstance
+                            .submit(checkins: model.checkinPrompts)
+                            .sink(
+                                receiveCompletion: { error in print("[YPDSubmitCheckinView] Error submitting checkins: \(error)") },
+                                receiveValue: { response in print("[YPDSubmitCheckinView] Submitted checkins with response: \(response.success)")}
+                            )
+                            .store(in: &subscriptions)
                     }.background(Color.clear)
                     .padding(.bottom, Constants.Padding)
                     .position(x: geometry.size.width / 2, y: geometry.size.height - 25)

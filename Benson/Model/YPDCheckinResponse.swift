@@ -9,7 +9,7 @@
 import Foundation
 
 /// Contains the value for a single attribute (e.g., `Mood`, `Energy`, etc) within a YPD Checkin.
-struct YPDCheckinResponseValue {
+struct YPDCheckinResponseValue: Hashable {
     
     var value: Double
     var average: Double?

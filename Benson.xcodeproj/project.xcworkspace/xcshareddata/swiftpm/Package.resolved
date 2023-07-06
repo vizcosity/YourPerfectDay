@@ -2,29 +2,11 @@
   "object": {
     "pins": [
       {
-        "package": "Alamofire",
-        "repositoryURL": "https://github.com/Alamofire/Alamofire.git",
-        "state": {
-          "branch": null,
-          "revision": "becd9a729a37bdbef5bc39dc3c702b99f9e3d046",
-          "version": "5.2.2"
-        }
-      },
-      {
         "package": "SwiftUICharts",
         "repositoryURL": "https://github.com/AppPear/ChartView.git",
         "state": {
           "branch": "master",
           "revision": "4699847a9ac0c694666cea3acef133498952566e",
-          "version": null
-        }
-      },
-      {
-        "package": "SwiftyJSON",
-        "repositoryURL": "https://github.com/SwiftyJSON/SwiftyJSON.git",
-        "state": {
-          "branch": "master",
-          "revision": "cbf2d4955557abc1ed5debab21d20763e7ebc540",
           "version": null
         }
       }

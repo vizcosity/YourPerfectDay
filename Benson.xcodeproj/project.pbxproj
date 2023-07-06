@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		2101009B242EA0D70010ED8D /* YPDInsightProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2101009A242EA0D70010ED8D /* YPDInsightProgressBarView.swift */; };
-		2109EDD424D5D8A100BA4880 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 2109EDD324D5D8A100BA4880 /* SwiftyJSON */; };
-		2109EDD724D5D8D800BA4880 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 2109EDD624D5D8D800BA4880 /* Alamofire */; };
 		2115927324FC22CE00F57EED /* YPDChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2115927224FC22CE00F57EED /* YPDChartView.swift */; };
 		2115927624FC232100F57EED /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 2115927524FC232100F57EED /* SwiftUICharts */; };
 		2127B00F2430E5B900B8D0B1 /* YPDSummaryIndividualMetricInsightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2127B00E2430E5B900B8D0B1 /* YPDSummaryIndividualMetricInsightView.swift */; };
@@ -66,6 +64,7 @@
 		21DF333E2482D31800D18EBC /* YPDSubmitCheckinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DF333D2482D31800D18EBC /* YPDSubmitCheckinView.swift */; };
 		21E2F376246878AF00EFB205 /* YPDRecentCheckinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E2F375246878AF00EFB205 /* YPDRecentCheckinView.swift */; };
 		21E2F37824687A3F00EFB205 /* YPDProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E2F37724687A3F00EFB205 /* YPDProgressBar.swift */; };
+		21E4EFCF25ACFC12007F86DA /* CardViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E4EFCE25ACFC12007F86DA /* CardViewModifier.swift */; };
 		21EC2A5A2532827800D4D2C0 /* YPDNetworkingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EC2A592532827800D4D2C0 /* YPDNetworkingError.swift */; };
 		21EE99E5253CD472000B2BFB /* moment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21EE99E4253CD472000B2BFB /* moment.swift */; };
 		21F8C31024BA262700F7B3BB /* moment-with-locales.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 21F8C30F24BA262700F7B3BB /* moment-with-locales.min.js */; };
@@ -184,6 +183,7 @@
 		21E2F3712468518C00EFB205 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		21E2F375246878AF00EFB205 /* YPDRecentCheckinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDRecentCheckinView.swift; sourceTree = "<group>"; };
 		21E2F37724687A3F00EFB205 /* YPDProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDProgressBar.swift; sourceTree = "<group>"; };
+		21E4EFCE25ACFC12007F86DA /* CardViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModifier.swift; sourceTree = "<group>"; };
 		21EC2A592532827800D4D2C0 /* YPDNetworkingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPDNetworkingError.swift; sourceTree = "<group>"; };
 		21EE99E0253CD285000B2BFB /* YPDDecoding.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = YPDDecoding.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		21EE99E4253CD472000B2BFB /* moment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = moment.swift; sourceTree = "<group>"; };
@@ -200,8 +200,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2115927624FC232100F57EED /* SwiftUICharts in Frameworks */,
-				2109EDD724D5D8D800BA4880 /* Alamofire in Frameworks */,
-				2109EDD424D5D8A100BA4880 /* SwiftyJSON in Frameworks */,
 				21A8CA5224FB127A00B6621D /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -242,6 +240,7 @@
 				217BEFC02395BC390076DF02 /* View Controllers */,
 				21B013F62381EE45008FF7BB /* Assets */,
 				21532F56247304F00054AC84 /* Model */,
+				21E4EFC725ACFBD3007F86DA /* ViewModifiers */,
 				21FC4EA8238D185800578DE5 /* Utils */,
 				21EE99DF253CD26C000B2BFB /* Playgrounds */,
 			);
@@ -401,6 +400,14 @@
 			path = YPDWidget;
 			sourceTree = "<group>";
 		};
+		21E4EFC725ACFBD3007F86DA /* ViewModifiers */ = {
+			isa = PBXGroup;
+			children = (
+				21E4EFCE25ACFC12007F86DA /* CardViewModifier.swift */,
+			);
+			path = ViewModifiers;
+			sourceTree = "<group>";
+		};
 		21EE99DF253CD26C000B2BFB /* Playgrounds */ = {
 			isa = PBXGroup;
 			children = (
@@ -463,8 +470,6 @@
 			);
 			name = YourPerfectDay;
 			packageProductDependencies = (
-				2109EDD324D5D8A100BA4880 /* SwiftyJSON */,
-				2109EDD624D5D8D800BA4880 /* Alamofire */,
 				2115927524FC232100F57EED /* SwiftUICharts */,
 			);
 			productName = Benson;
@@ -496,8 +501,6 @@
 			);
 			mainGroup = 213436D723098A42006B1CA8;
 			packageReferences = (
-				2109EDD224D5D8A100BA4880 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
-				2109EDD524D5D8D800BA4880 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				2115927424FC232100F57EED /* XCRemoteSwiftPackageReference "ChartView" */,
 			);
 			productRefGroup = 213436E123098A42006B1CA8 /* Products */;
@@ -560,6 +563,7 @@
 				21D0CEB7257BF17200E8D2DA /* YPDAggregateHealthAndCheckin.swift in Sources */,
 				21B53B3924E84AFE009AE103 /* YPDRecentCheckinsSection.swift in Sources */,
 				21A7B3AE250B5C8D00811F3C /* MultiLineView.swift in Sources */,
+				21E4EFCF25ACFC12007F86DA /* CardViewModifier.swift in Sources */,
 				21C4EE0924EB32EC00F5278F /* YPDEntryView.swift in Sources */,
 				212EEE992318685D00C01AD8 /* BensonButton.swift in Sources */,
 				21FA454F24FB0C23007B0BD6 /* YPDIndividualInsightSummaryView.swift in Sources */,
@@ -825,22 +829,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		2109EDD224D5D8A100BA4880 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON.git";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-		2109EDD524D5D8D800BA4880 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.2.2;
-			};
-		};
 		2115927424FC232100F57EED /* XCRemoteSwiftPackageReference "ChartView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/AppPear/ChartView.git";
@@ -852,16 +840,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2109EDD324D5D8A100BA4880 /* SwiftyJSON */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2109EDD224D5D8A100BA4880 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
-			productName = SwiftyJSON;
-		};
-		2109EDD624D5D8D800BA4880 /* Alamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2109EDD524D5D8D800BA4880 /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
-		};
 		2115927524FC232100F57EED /* SwiftUICharts */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2115927424FC232100F57EED /* XCRemoteSwiftPackageReference "ChartView" */;

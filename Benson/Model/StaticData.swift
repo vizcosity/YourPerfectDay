@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import SwiftyJSON
 
 let _sampleCheckin = YPDCheckin(attributeValues: [YPDCheckinResponseValue(type: "mood", value: 3)], timeSince: "2 Hours Ago")
 let _sampleMetricLogs: [YPDCheckin] = {
@@ -18,19 +17,12 @@ let _sampleMetricLogs: [YPDCheckin] = {
     return output
 }()
 
-#if MAIN_APP
-let _sampleAggregatedHealthAndCheckinData: JSON = {
+let _sampleAggregatedHealthAndCheckinData: [YPDAggregatedHealthAndCheckinDataObject] = {
     
-    let defaultJSON = JSON(parseJSON: _sampleAggregatedHealthAndCheckinDataJsonString)["result"]
-            
-        guard let sampleDataPath = try? Bundle.main.path(forResource: "sample_chart_data", ofType: "json")?.asURL() else { return defaultJSON }
-        guard let jsonData = try? Data(contentsOf: sampleDataPath) else { return defaultJSON }
-        guard let json = try? JSON(data: jsonData) else { return defaultJSON["result"] }
-
-        return json["result"]
-            
+    guard let decoded = try? JSONDecoder().decode(YPDAggregatedHealthAndCheckinDataResponse.self, from: _sampleAggregatedHealthAndCheckinDataJsonString.data(using: .utf8)!) else { return [] }
+    
+    return decoded.result
 }()
-#endif
 
 
 let _sampleAggregatedHealthAndCheckinDataJsonString = """

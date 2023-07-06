@@ -10,6 +10,7 @@ import Foundation
 
 enum YPDNetworkingError: Error {
     case decodingError
+    case encodingError
     case castingError
     case satusError(statusCode: Int)
     case otherError(error: Error)

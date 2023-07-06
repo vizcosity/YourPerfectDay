@@ -7,8 +7,6 @@
 //
 
 import Foundation
-import Alamofire
-import SwiftyJSON
 import Combine
 
 class Fetcher {
@@ -106,97 +104,67 @@ class Fetcher {
     
     /// Submits a health data object to the backend.
     /// The completionHandler receives the ID for the submitted healthdata object, if submitted successfully.
-    public func submitHealthDataObject(healthDataObject: BensonHealthDataObject, completionHandler: @escaping (_ id: String?, _ error: String?) -> Void){
-        self.sendPostRequest(toEndpoint: YPDEndpoint.submitHealthData, withStringBody: healthDataObject.toJSONString() ?? "{}") { (json) in
-            if let success = Bool(json["success"].stringValue), success {
-                completionHandler(json["id"].stringValue, nil)
-            } else {
-                completionHandler(nil, json["reason"].stringValue)
+//    public func submitHealthDataObject(healthDataObject: BensonHealthDataObject, completionHandler: @escaping (_ id: String?, _ error: String?) -> Void){
+//        self.sendPostRequest(toEndpoint: YPDEndpoint.submitHealthData, withStringBody: healthDataObject.toJSONString() ?? "{}") { (json) in
+//            if let success = Bool(json["success"].stringValue), success {
+//                completionHandler(json["id"].stringValue, nil)
+//            } else {
+//                completionHandler(nil, json["reason"].stringValue)
+//            }
+//        }
+//
+////        self.post(to: YPDEndpoint.submitHealthData, with: healthDataObject)
+//    }
+//
+//    /// Submits multiple health data objects to the backend.
+//    public func submitHealthDataObjects(healthDataObjects: [BensonHealthDataObject], completionHandler: @escaping (_ id: String?, _ error: String?) -> Void){
+//
+//        let encoder = JSONEncoder()
+//        encoder.dateEncodingStrategy = .iso8601
+//
+//        let stringifiedHealthDataObjects = try? encoder.encode(healthDataObjects)
+//
+//        guard let unwrappedStringifiedHealthDataObjects = stringifiedHealthDataObjects else { return completionHandler(nil, "Could not unwrap stringifiedHealthDataObjects optional. Debug encoder.") }
+//
+//        let body = NSString(data: unwrappedStringifiedHealthDataObjects, encoding: String.Encoding.utf8.rawValue)!
+//
+//        self.log("Encoded array of health data objects: \(String(describing: body)). Attempting to submit now.")
+//
+//        self.sendPostRequest(toEndpoint: YPDEndpoint.submitHealthData, withStringBody: String(body)) { (json) in
+//             if let success = Bool(json["success"].stringValue), success {
+//                  completionHandler(json["id"].stringValue, nil)
+//              } else {
+//                  completionHandler(nil, json["reason"].stringValue)
+//              }
+//        }
+//    }
+
+    public func submit(healthDataObject: BensonHealthDataObject) -> AnyPublisher<YPDHealthDataSubmissionResponse, YPDNetworkingError> {
+        log("Submitting health data object: \(healthDataObject).")
+        return post(to: .submitHealthData, with: healthDataObject)
+    }
+    
+    public func submit(healthDataObjects: [BensonHealthDataObject]) -> AnyPublisher<YPDHealthDataSubmissionResponse, YPDNetworkingError> {
+        log("Submitting \(healthDataObjects.count) health data objects.")
+        return post(to: .submitHealthData, with: healthDataObjects)
+    }
+
+    public func submit(checkins: [YPDCheckinPrompt]) -> AnyPublisher<YPDCheckinPromptSubmissionResponse, YPDNetworkingError> {
+        let submissionBody = [
+            "array": checkins.map {
+                [
+                    "metricId": $0.responseValue.type.rawValue,
+                    "value": $0.responseValue.value + 1
+                ]
             }
-        }
+        ]
+        return post(to: .submitCheckin, with: submissionBody)
     }
     
-    /// Submits multiple health data objects to the backend.
-    public func submitHealthDataObjects(healthDataObjects: [BensonHealthDataObject], completionHandler: @escaping (_ id: String?, _ error: String?) -> Void){
-                
-        let encoder = JSONEncoder()
-        encoder.dateEncodingStrategy = .iso8601
-        
-        let stringifiedHealthDataObjects = try? encoder.encode(healthDataObjects)
-        
-        guard let unwrappedStringifiedHealthDataObjects = stringifiedHealthDataObjects else { return completionHandler(nil, "Could not unwrap stringifiedHealthDataObjects optional. Debug encoder.") }
-        
-        let body = NSString(data: unwrappedStringifiedHealthDataObjects, encoding: String.Encoding.utf8.rawValue)!
-        
-        self.log("Encoded array of health data objects: \(String(describing: body)). Attempting to submit now.")
-
-        self.sendPostRequest(toEndpoint: YPDEndpoint.submitHealthData, withStringBody: String(body)) { (json) in
-             if let success = Bool(json["success"].stringValue), success {
-                  completionHandler(json["id"].stringValue, nil)
-              } else {
-                  completionHandler(nil, json["reason"].stringValue)
-              }
-        }
+    public func remove(checkin: YPDCheckin) -> AnyPublisher<YPDCheckinRemovalResponse, YPDNetworkingError> {
+        guard let metricId = checkin.id else { return Fail(error: YPDNetworkingError.castingError).eraseToAnyPublisher() }
+        return post(to: .removeMetricLog, with: ["metricId": metricId])
     }
-    
-    
-    /// Submits an array of YPDCheckinPrompts which have had their ResponesValues selected by the user.
-    // TODO: Ensure that this makes use of Combine asynchronous data affordances, such as Future, Just, and so on.
-    public func submitCheckin(checkinPrompts: [YPDCheckinPrompt], completionHandler: @escaping (Bool) -> Void){
-
-        let responseValueArray: [[String: Any]] = checkinPrompts.map {
-            [
-                "metricId": $0.responseValue.type.rawValue,
-                "value": $0.responseValue.value + 1
-            ] as [String : Any]
-        }
-
-        self.log("Generated response value array: \(responseValueArray)")
-
-        AF.request(YPDEndpoint.submitCheckin.url!, method: .post, parameters: [
-                "array": responseValueArray
-            ],
-                   encoding: JSONEncoding.default).responseJSON { (response) in
-                    do {
-                        if let result = try response.result.get() as? [String:Any] {
-                                return completionHandler(result["success"] as? Int == 1)
-                        }
-                    } catch {
-                        self.log("Could not submit checkins: \(error.localizedDescription)")
-
-                        return completionHandler(false)
-                    }
-        }
-    }
-    
-    // Checkpoint: Implementing swipe to delete checkin functionality.
-    public func remove(metricLogId: String, completionHandler: @escaping () -> Void) {
-        
-        var request = URLRequest(url: YPDEndpoint.removeMetricLog.url!)
-        request.httpMethod = HTTPMethod.post.rawValue
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        let bodyDict: [String: String] = ["metricId": metricLogId]
-        let encoder = JSONEncoder()
-        let bodyJSONData = try? encoder.encode(bodyDict)
-        let bodyJSONSerialised = NSString(data: bodyJSONData!, encoding: String.Encoding.utf8.rawValue)
-
-        request.httpBody = bodyJSONSerialised!.data(using: String.Encoding.utf8.rawValue)
-        
-        AF.request(request).responseJSON(queue: DispatchQueue.global(qos: .userInitiated), options: .allowFragments) { (response) in
-            // self.log(response.debugDescription)
-            let result = response.value as? [String: Bool]
-            if result?["success"] ?? false {
-                self.log("Removed \(metricLogId)")
-            } else {
-                self.log("Failed to remove \(metricLogId)")
-            }
-            DispatchQueue.main.async {
-                completionHandler()
-            }
-        }
-    }
-    
     /// Given a metric log, fetches the BensonHealthKitDataObject associated with the given date which the log took place. To start with, Benson will fetch all metric logs for the user, and identify any logs which have not been enriched, by using the date from the timestamp and searching for all health data within this range.
     //TODO: Implement a background job to search for unenriched metric logs and to enrich them.
     public func enrichMetricLogWithHealthKitData(forMetricLog metricLog: YPDCheckin, completionHandler: @escaping (YPDCheckin) -> Void) {
@@ -217,47 +185,66 @@ class Fetcher {
         
     }
         
-    private func sendPostRequest(toEndpoint endpoint: YPDEndpoint, withBody bodyDict: [String: String], completionHandler: @escaping (JSON) -> Void){
-        let encoder = JSONEncoder()
-        let bodyJSONData = try? encoder.encode(bodyDict)
-        let bodyJSONSerialised = NSString(data: bodyJSONData!, encoding: String.Encoding.utf8.rawValue)
-        self.sendPostRequest(toEndpoint: endpoint, withStringBody: String(bodyJSONSerialised!), completionHandler: completionHandler)
-    }
-     
-    private func sendPostRequest(toEndpoint endpoint: YPDEndpoint, withStringBody body: String, completionHandler: @escaping (JSON) -> Void){
-        var request = URLRequest(url: endpoint.url!)
-        request.httpMethod = HTTPMethod.post.rawValue
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let bodyJSONSerialised = NSString(string: body)
-        request.httpBody = bodyJSONSerialised.data(using: String.Encoding.utf8.rawValue)
+//    private func sendPostRequest(toEndpoint endpoint: YPDEndpoint, withBody bodyDict: [String: String], completionHandler: @escaping (JSON) -> Void){
+//        let encoder = JSONEncoder()
+//        let bodyJSONData = try? encoder.encode(bodyDict)
+//        let bodyJSONSerialised = NSString(data: bodyJSONData!, encoding: String.Encoding.utf8.rawValue)
+//        self.sendPostRequest(toEndpoint: endpoint, withStringBody: String(bodyJSONSerialised!), completionHandler: completionHandler)
+//    }
+//
+//    private func sendPostRequest(toEndpoint endpoint: YPDEndpoint, withStringBody body: String, completionHandler: @escaping (JSON) -> Void){
+//        var request = URLRequest(url: endpoint.url!)
+//        request.httpMethod = HTTPMethod.post.rawValue
+//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+//        let bodyJSONSerialised = NSString(string: body)
+//        request.httpBody = bodyJSONSerialised.data(using: String.Encoding.utf8.rawValue)
+//
+//        AF.request(request).responseJSON(queue: DispatchQueue.global(qos: .userInitiated), options: .allowFragments) { (response) in
+//
+//            switch response.result {
+//                // It seems like each case statement places the value associated with the response into the parameter which can be assigned to a variable?
+//                case .success(let value):
+//                    return completionHandler(JSON(value))
+//                case .failure(let error):
+//                    self.log("Failed to submit post request to \(endpoint), received error \(error)")
+//                }
+//        }
+//
+//    }
+
+    private func post<T: Decodable, B>(to endpoint: YPDEndpoint, with body: B) -> AnyPublisher<T, YPDNetworkingError> {
+        guard
+            let url = endpoint.url,
+            let bodyData = try? JSONSerialization.data(withJSONObject: body, options: [.fragmentsAllowed, .prettyPrinted])
+        else { return Fail(error: YPDNetworkingError.generatingURLError).eraseToAnyPublisher() }
         
-        AF.request(request).responseJSON(queue: DispatchQueue.global(qos: .userInitiated), options: .allowFragments) { (response) in
-            
-            switch response.result {
-                // It seems like each case statement places the value associated with the response into the parameter which can be assigned to a variable?
-                case .success(let value):
-                    return completionHandler(JSON(value))
-                case .failure(let error):
-                    self.log("Failed to submit post request to \(endpoint), received error \(error)")
-                }
-        }
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "POST"
+        urlRequest.httpBody = bodyData
+        urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        urlRequest.addValue("application/json", forHTTPHeaderField: "Accept")
         
+        return URLSession
+            .shared
+            .dataTaskPublisher(for: urlRequest)
+            .tryDecode(type: T.self, decoder: JSONDecoder.withYPDDateDecoding)
+            .eraseToAnyPublisher()
     }
     
-    private func sendGetRequest(toEndpoint endpoint: String, withQuery query: String?, completionHandler: @escaping (JSON) -> Void){
-        AF.request(endpoint + (query != nil ? "?\(query!)" : "")).responseJSON(queue: DispatchQueue.global(qos: .background), options: .allowFragments) { (response) in
-            switch response.result {
-            case .success(let data):
-                // Ensure that we call the completionHandler on the main thread, as we will likely be updating the UI.
-                DispatchQueue.main.async {
-                    return completionHandler(JSON(data))
-                }
-            case .failure(let error):
-                return self.log("Error performing GET request for endpoint \(endpoint) with query: \(String(describing: query)). Error: \(error)")
-            }
-        }
-    }
-    
+//    private func sendGetRequest(toEndpoint endpoint: String, withQuery query: String?, completionHandler: @escaping (JSON) -> Void){
+//        AF.request(endpoint + (query != nil ? "?\(query!)" : "")).responseJSON(queue: DispatchQueue.global(qos: .background), options: .allowFragments) { (response) in
+//            switch response.result {
+//            case .success(let data):
+//                // Ensure that we call the completionHandler on the main thread, as we will likely be updating the UI.
+//                DispatchQueue.main.async {
+//                    return completionHandler(JSON(data))
+//                }
+//            case .failure(let error):
+//                return self.log("Error performing GET request for endpoint \(endpoint) with query: \(String(describing: query)). Error: \(error)")
+//            }
+//        }
+//    }
+//
     private func log(_ message: String) {
         print("[Fetcher] | \(message)")
     }
@@ -266,23 +253,6 @@ class Fetcher {
 
 /// Fetching insights and other analysis-related data.
 extension Fetcher {
-    public func fetchInsights(forMetric metric: YPDCheckinType = .vitality, withAggregationCriteria aggregationCriteria: AggregationCriteria, limit: Int? = nil, completionHandler: @escaping ([YPDInsight]) -> Void) {
-        
-        var body = [
-            "aggregationCriteria": aggregationCriteria.description,
-            "desiredMetric": metric.rawValue
-        ]
-        
-        if let limit = limit {
-            body["limit"] = "\(limit)"
-        }
-        
-        self.sendPostRequest(toEndpoint: YPDEndpoint.fetchInsights, withBody: body) { (json) in
-            // TODO: Parse JSON response as YPD Insights.
-            // TODO: Alter YPD Insights to conform to better support an entire insight with multiple important metrics.
-            completionHandler(json["data"].arrayValue.map(YPDInsight.init(json:)))
-        }
-    }
 
     public func fetchInsights(forMetric metric: YPDCheckinType = .vitality, withAggregationCriteria aggregationCriteria: AggregationCriteria, limit: Int? = nil) -> AnyPublisher<[YPDInsight], YPDNetworkingError> {
         
@@ -295,21 +265,11 @@ extension Fetcher {
             body["limit"] = "\(limit)"
         }
         
-        guard
-            let url = YPDEndpoint.fetchInsights.url,
-            var urlRequest = try? URLRequest(url: url, method: .post),
-            let bodyData = try? JSONEncoder().encode(body)
-        else { return Fail(error: YPDNetworkingError.generatingURLError).eraseToAnyPublisher() }
-        
-        urlRequest.httpBody = bodyData
-        
-        return URLSession
-            .shared
-            .dataTaskPublisher(for: urlRequest)
-            .tryDecode(type: YPDInsightResponse.self, decoder: JSONDecoder())
+        let response: AnyPublisher<YPDInsightResponse, YPDNetworkingError> = post(to: .fetchInsights, with: body)
+        return response
             .map(\.data)
+            .compactMap { $0 }
             .eraseToAnyPublisher()
-            
     }
 }
 

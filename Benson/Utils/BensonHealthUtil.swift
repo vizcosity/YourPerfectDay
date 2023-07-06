@@ -61,6 +61,18 @@ class BensonDietaryDataObject: Codable {
     var calories: Double?
 }
 
+struct YPDHealthDataSubmissionResponse: Codable {
+    let success: Bool
+    let id: String?
+    let errorReason: String?
+
+    enum CodingKeys: String, CodingKey {
+        case success
+        case id
+        case errorReason = "reason"
+    }
+}
+
 /// Container for holding health data obtained from HealthKit.
 struct BensonHealthDataObject: Codable, Hashable {
     

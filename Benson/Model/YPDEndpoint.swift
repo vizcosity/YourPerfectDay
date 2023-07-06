@@ -11,11 +11,11 @@ import Foundation
 enum YPDEndpoint {
     
     // Change the API endpiont depending on whether we are running in the simulator or not.
-    #if targetEnvironment(simulator)
-        private static var infoAPIDictionaryKey = "Webserver Endpoint (Local)"
-    #else
+//    #if targetEnvironment(simulator)
+//        private static var infoAPIDictionaryKey = "Webserver Endpoint (Local)"
+//    #else
         private static var infoAPIDictionaryKey = "Webserver Endpoint (Heroku)"
-    #endif
+//    #endif
 //    private static var infoAPIDictionaryKey = "Webserver Endpoint (Local Tunnel)"
 
     static let endpoint = Bundle.main.object(forInfoDictionaryKey: infoAPIDictionaryKey) as! String
